@@ -1,0 +1,10 @@
+
+.navigationbar {
+    background-color: rgb(33,150,243);
+    border: 0px;
+    border-radius: 0 !important;
+}
+
+#navbar a{
+    color: white;
+}
