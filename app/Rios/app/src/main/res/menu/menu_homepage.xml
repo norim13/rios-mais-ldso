@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".Homepage">
+    <!--<item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" />-->
+
+    <item android:id="@id/navigate_back"
+        android:title="@string/back"
+        android:orderInCategory="200"
+        android:icon="@drawable/ic_action_user"
+        app:showAsAction="always"
+        />
+    <item android:id="@id/navigate_guardarios"
+        android:title="@string/guardarios"
+        android:orderInCategory="200"
+        android:icon="@drawable/ic_action_twitter"
+        app:showAsAction="always"
+        />
+
+</menu>

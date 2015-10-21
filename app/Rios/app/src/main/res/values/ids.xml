@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="navigate_back" type="id">backkk</item>
+    <item name="navigate_guardarios" type="id">guardarios_icon</item>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Rios</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="homepage_title">Inicio</string>
+    <string name="back">Back</string>
+    <string name="guardarios">guarda rios</string>
+    <string name="title_activity_sub">SubActivity</string>
+</resources>
