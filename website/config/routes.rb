@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'searchrios/display'
+
+  get 'profile/display'
+
   get 'home/homepage'
 
   # The priority is based upon order of creation: first created -> highest priority.
