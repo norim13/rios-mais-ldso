@@ -1,43 +1,11 @@
 <%= render 'common/header' %>
 
+</header>
 <body>
   <div class="container">
     <%= yield %>
   </div>
   
-  <nav id="navbar" class="navbar navbar-default navigationbar">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#"> Rios+ </a>
-      </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-
-
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right">
-
-          <li><a href="#"> Rotas rios+</a></li>
-          <li><a href="#"> Novo formulario </a></li>
-          <li><a href="#"> Avaliações </a></li>
-          <li><a href="#"> Rios </a></li>
-          <li><a href="#"> Mapa </a></li>
-          <li><a href="#"> <%= content_tag(:span, '', class: 'glyphicon glyphicon-user') %> </a></li>
-          <li><a href="#"> <%= content_tag(:span, '', class: 'glyphicon glyphicon-camera') %> </a></li>
-
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
-
+  <%= render 'common/navbar' %>
+  
   <%= render 'common/footer' %>
