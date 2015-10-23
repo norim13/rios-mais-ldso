@@ -37,6 +37,10 @@ public class Homepage extends AppCompatActivity {
         return true;
     }
 
+    public void mapas_init(View view){
+        startActivity(new Intent(this,MapsActivity.class));
+
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -54,6 +58,7 @@ public class Homepage extends AppCompatActivity {
         if(id==R.id.navigate_guardarios){
             startActivity(new Intent(this,SubActivity.class));
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

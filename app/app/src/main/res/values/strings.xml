@@ -6,4 +6,5 @@
     <string name="back">Back</string>
     <string name="guardarios">guarda rios</string>
     <string name="title_activity_sub">SubActivity</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

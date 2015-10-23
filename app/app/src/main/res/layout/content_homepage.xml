@@ -70,6 +70,8 @@
         android:background="@color/colorPrimary"
         android:textColor="@color/white"
         android:layout_toRightOf="@+id/title"
-        android:layout_toEndOf="@+id/title" />
+        android:layout_toEndOf="@+id/title"
+        android:onClick="mapas_init"
+        />
 
 </RelativeLayout>
