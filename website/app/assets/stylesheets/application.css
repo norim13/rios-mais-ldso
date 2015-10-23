@@ -1,0 +1,9 @@
+
+.separate{
+    margin-bottom: 70px;
+}
+
+.remove-side-paddings {
+    padding-left: 0px;
+    padding-right: 0px;
+}
