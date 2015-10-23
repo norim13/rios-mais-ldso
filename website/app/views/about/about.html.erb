@@ -3,15 +3,23 @@
 </head>
 <body>
 
-<%= render 'common/navbar' %>
+	<%= render 'common/navbar' %>
+	<div class="container">
+		<div class="row">
+			<div class="thumbnail">
+				<%= image_tag("logo.png", :alt => "Engenho e rio") %>
+				<div class="caption">
+					<center>
+						<h3> ENGENHO E RIO, UNIPESSOAL LDA </h3>
+						<p><span> Rua Leonardo Coimbra, nº 27. 4200-365 - Porto, Portugal </span></p>
+						<p><span> Telf: 00351 919 074 510 </span></p>
+						<p><span> Contribuinte/NIF: 509 660 371 </span></p>
 
-<h2>Engenho e Rio</h2>
-
-
-Tlm: 999999 <br>
-Morada: xxxxxxx <br>
-email: jjasd@gmail.com <br>
-
-... <br>
-
-<%= render 'common/footer' %>
+						<p><a href="mailto:engenhoerio@gmail.com?Subject=Engenho%20e%20rio" target="_top"> engenhoerio@gmail.com </a></p>
+						<p><a href="mailto:pteiga@gmail.com?Subject=Engenho%20e%20rio" target="_top"> pteiga@gmail.com </a></p>
+					</center>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%= render 'common/footer' %>
