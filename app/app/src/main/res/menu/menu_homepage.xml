@@ -4,7 +4,8 @@
     <!--<item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />-->
 
-    <item android:id="@id/navigate_back"
+
+    <item android:id="@id/navigate_account"
         android:title="@string/back"
         android:orderInCategory="200"
         android:icon="@drawable/ic_action_user"
@@ -12,9 +13,8 @@
         />
     <item android:id="@id/navigate_guardarios"
         android:title="@string/guardarios"
-        android:orderInCategory="200"
+        android:orderInCategory="20"
         android:icon="@drawable/ic_action_twitter"
         app:showAsAction="always"
         />
-
 </menu>

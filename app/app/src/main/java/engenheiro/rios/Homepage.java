@@ -38,7 +38,7 @@ public class Homepage extends AppCompatActivity {
     }
 
     public void mapas_init(View view){
-        startActivity(new Intent(this,MapsActivity.class));
+        startActivity(new Intent(this,Mapa_rios.class));
 
     }
     @Override
@@ -55,8 +55,14 @@ public class Homepage extends AppCompatActivity {
         }
 */
 
+
         if(id==R.id.navigate_guardarios){
-            startActivity(new Intent(this,SubActivity.class));
+            startActivity(new Intent(this,GuardaRios.class));
+        }
+
+        if(id==R.id.navigate_account){
+            startActivity(new Intent(this,Login.class));
+
         }
 
         return super.onOptionsItemSelected(item);
