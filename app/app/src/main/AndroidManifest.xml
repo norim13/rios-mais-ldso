@@ -72,6 +72,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="engenheiro.rios.Homepage" />
         </activity>
+        <activity
+            android:name=".Register"
+            android:label="@string/title_activity_register"
+            android:parentActivityName=".Login" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="engenheiro.rios.Login" />
+        </activity>
     </application>
 
 </manifest>
