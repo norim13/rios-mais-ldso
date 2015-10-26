@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :users
   get 'searchrios/display'
 
   get 'profile/display'
