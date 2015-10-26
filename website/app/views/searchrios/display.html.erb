@@ -4,5 +4,44 @@
 
 </head>
 
-<h1>Searchrios#display</h1>
-<p>Find me in app/views/searchrios/display.html.erb</p>
+<body>
+
+<%= render 'common/navbar' %>
+
+
+<div class="container">
+
+  <div class="separate">
+    <div class="col-sm-6 col-md-12  remove-side-paddings">
+        <form id="searchform" class="navbar-form navbar-left  remove-side-paddings" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+      </div>
+  </div>
+
+<div class="row">
+  <div class="col-sm-6 col-md-2">
+    <div class="thumbnail">
+      <img width="200" src="http://40.media.tumblr.com/2b277b3d78bd5e288b2862ad07ee3795/tumblr_ns09wliJKb1qzxciko1_500.jpg" alt="...">
+      <div class="caption">
+        <h3> Tejo </h3>
+        <p><a href="#" class="btn btn-primary" role="button"> Ver detalhes </a> </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-2">
+    <div class="thumbnail">
+      <img width="200" src="http://cacho.pt/wp-content/uploads/2015/04/cruzeiros-rio-douro-200x200.jpg" alt="...">
+      <div class="caption">
+        <h3> Douro </h3>
+        <p><a href="#" class="btn btn-primary" role="button"> Ver detalhes </a> </p>
+      </div>
+    </div>
+    </div>
+
+</div>
+</div>
