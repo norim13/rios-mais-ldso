@@ -3,31 +3,27 @@ package engenheiro.rios;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +34,12 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class Register extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+
+    private User user;
+    private EditText editTextNome;
+    private String editTextEmail;
+    private EditText editTextPassword;
+
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -68,6 +70,29 @@ public class Register extends AppCompatActivity implements LoaderCallbacks<Curso
         setContentView(R.layout.activity_register);
         setupActionBar();
         // Set up the login form.
+
+        this.user=new User();
+        String t= ""+this.user.getList().size();
+
+        Log.w("teste", t );
+        //this.editTextEmail =  findViewById(R.id.email_register).toString();
+    /*
+        Intent intent=getIntent();
+        if(intent!= null){
+            Bundle bundle=intent.getExtras();
+            if(bundle != null){
+                this.user.setId(bundle.getInt("id"));
+                this.editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+                this.editTextNome = (EditText) findViewById(R.id.editTextNome);
+                this.editTextPassword=(EditText) findViewById(R.id.editTextPassword);
+
+
+            }
+        }
+        */
+
+/*
+
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
@@ -82,6 +107,7 @@ public class Register extends AppCompatActivity implements LoaderCallbacks<Curso
                 return false;
             }
         });
+        */
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -101,6 +127,10 @@ public class Register extends AppCompatActivity implements LoaderCallbacks<Curso
         }
 
         getLoaderManager().initLoader(0, null, this);
+    }
+
+    public void Register(View view){
+
     }
 
     private boolean mayRequestContacts() {

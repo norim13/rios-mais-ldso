@@ -29,6 +29,8 @@
     <string name="help_us">Ajude-nos!</string>
     <string name="more_info">Mais Informações</string>
     <string name="title_activity_register">Registar</string>
+    <string name="title_activity_re">Sign in</string>
+    <string name="nome">Nome</string>
 
 
 </resources>
