@@ -1,13 +1,17 @@
 Rails.application.routes.draw do
 
   resources :users
-  get 'searchrios/display'
 
-  get 'profile/display'
 
-  get 'home/homepage'
+  get 'search' => 'searchrios#display'
 
-  get 'about/about'
+  get 'profile' => 'profile#display'
+
+  get 'home' => 'home#homepage'
+
+  get 'contactos' => 'about#about'
+
+  get 'register' => 'register#register'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

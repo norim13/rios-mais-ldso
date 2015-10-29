@@ -1,11 +1,19 @@
 <%= render 'common/header' %>
 
-</header>
+</head>
+
 <body>
-  <div class="container">
-    <%= yield %>
-  </div>
-  
-  <%= render 'common/navbar' %>
-  
-  <%= render 'common/footer' %>
+
+<div class="container">
+  <%= yield %>
+</div>
+
+<%= render 'common/navbar' %>
+
+
+<div class="container">
+<%= link_to 'Register', register_path %>
+</div>
+
+
+<%= render 'common/footer' %>
