@@ -179,9 +179,225 @@
 	<%= f.label :sedimentacao_8, "Rochas expostas no leito" %>	
 </div>
 
-<div class="form-group">
-	
+<div id="form_irr-hidrogeomorfologia">
+	<h3> Hidrogeomorfologia </h3>
+	<div class="form-group">
+		<h4> Qualidade da água: </h4>
+
+		<%= f.label :pH, "pH" %>:
+		<%= f.number_field :pH, :class => 'text_field', :step => 'any', :min => '0.00', :max => '14.0' %> </br>
+
+		<%= f.label :condutividade, "Condutividade" %>:
+		<%= f.number_field :condutividade, :class => 'text_field', :step => 'any' %> </br>
+
+		<%= f.label :temperatura, "Temperatura" %>:
+		<%= f.number_field :temperatura, :class => 'text_field', :step => 'any' %> </br>
+
+		<%= f.label :nivelDeOxigenio, "Nível De Oxigenio" %>:
+		<%= f.number_field :nivelDeOxigenio, :class => 'text_field', :step => 'any' %> </br>
+
+		<%= f.label :percentagemDeOxigenio, "Percentagem De Oxigenio" %>:
+		<%= f.number_field :percentagemDeOxigenio, :class => 'text_field', :step => 'any', :min => '0', :max => '100' %> </br>
+
+		<%= f.label :nitratos, "Nitratos" %>:
+		<%= f.number_field :nitratos, :class => 'text_field', :step => 'any' %> </br>
+
+		<%= f.label :nitritos, "Nitritos" %>:
+		<%= f.number_field :nitritos, :class => 'text_field', :step => 'any' %> </br>
+
+		<%= f.label :transparencia, "Transparência" %>:
+		<%= f.number_field :transparencia, :class => 'text_field', :step => 'any' %> </br>
+	</div>
 </div>
+
+<div class="form-group">
+	<h4> Indicios na água: </h4>
+
+	<%= f.check_box :oleo %>
+	<%= f.label :oleo, "Oleo" %>
+
+	<%= f.check_box :espuma %>
+	<%= f.label :espuma, "Espuma" %>
+
+	<%= f.check_box :esgotos %>
+	<%= f.label :esgotos, "Esgotos" %>
+
+	<%= f.check_box :impurezas %>
+	<%= f.label :impurezas, "Impurezas" %>
+
+	<%= f.check_box :sacosDePlastico %>
+	<%= f.label :sacosDePlastico, "Sacos de plástico" %>
+
+	<%= f.check_box :latas %>
+	<%= f.label :latas, "Latas" %>
+
+	<%= f.label :indiciosNaAgua_outros, "Outros" %>
+	<%= f.text_area :indiciosNaAgua_outros %>
+</div>
+
+<div class="form-group">
+	<%= f.label :corDaAgua, "Cor da água" %>:</br>
+
+	<%= f.radio_button :corDaAgua, "1" %>
+	<%= f.label :corDaAgua_1, "Transparente" %>
+
+	<%= f.radio_button :corDaAgua, "2" %>
+	<%= f.label :corDaAgua_2, "Leitosa" %>
+
+	<%= f.radio_button :corDaAgua, "3" %>
+	<%= f.label :corDaAgua_3, "Castanha" %>
+
+	<%= f.radio_button :corDaAgua, "4" %>
+	<%= f.label :corDaAgua_4, "Verde-escura" %>
+
+	<%= f.radio_button :corDaAgua, "5" %>
+	<%= f.label :corDaAgua_5, "Laranja" %>
+
+	<%= f.radio_button :corDaAgua, "6" %>
+	<%= f.label :corDaAgua_6, "Cinzenta" %>
+
+	<%= f.radio_button :corDaAgua, "7" %>
+	<%= f.label :corDaAgua_7, "Preta" %>
+
+	<%= f.radio_button :corDaAgua, "8" %>
+	<%= f.label :corDaAgua_8, "Outra cor" %>
+
+	<!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
+</div>
+
+<div class="form-group">
+	<%= f.label :odorDaAgua, "Odor (cheiro) da água" %>:</br>
+
+	<%= f.radio_button :odorDaAgua, "1" %>
+	<%= f.label :odorDaAgua_1, "Não tem odor" %>
+
+	<%= f.radio_button :odorDaAgua, "2" %>
+	<%= f.label :odorDaAgua_2, "Cheiro a fresco" %>
+
+	<%= f.radio_button :odorDaAgua, "3" %>
+	<%= f.label :odorDaAgua_3, "Cheiro a Lama (Vasa)" %>
+
+	<%= f.radio_button :odorDaAgua, "4" %>
+	<%= f.label :odorDaAgua_4, "Cheiro a esgoto" %>
+
+	<%= f.radio_button :odorDaAgua, "5" %>
+	<%= f.label :odorDaAgua_5, "Cheiro químico (cloro)" %>
+
+	<%= f.radio_button :odorDaAgua, "6" %>
+	<%= f.label :odorDaAgua_6, "Cheiro podre (ovos podres)" %>
+
+	<%= f.radio_button :odorDaAgua, "7" %>
+	<%= f.label :odorDaAgua_7, "Outro odor" %>
+
+	<!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
+</div>
+
+<div class="form-group">
+	<h4>Tabela de Macroinvertebrados </h4>
+	<%= f.check_box :planarias %>
+	<%= f.label :planarias, "Planárias" %>
+	<%= f.label :planarias, image_tag('macroinvertebrados/planaria.png') %>
+
+	<%= f.check_box :hirudineos %>
+	<%= f.label :hirudineos, "Hirudíneos (Sanguessugas)" %>
+	<%= f.label :hirudineos, image_tag('macroinvertebrados/hirudineo.png') %>
+
+	<h4>Dípteros</h4>
+	<%= f.check_box :oligoquetas %>
+	<%= f.label :oligoquetas, "Oligoquetas (minhocas)" %>
+	<%= f.label :oligoquetas, image_tag('macroinvertebrados/oligoquetas.png') %>
+
+	<%= f.check_box :simulideos %>
+	<%= f.label :simulideos, "Simulideos" %>
+	<%= f.label :simulideos, image_tag('macroinvertebrados/simulideo.png') %>
+
+	<%= f.check_box :quironomideos %>
+	<%= f.label :quironomideos, "Quironomideos, Sirfídeos, Culidídeos, Tipulídeos (Larva de mosquitos)" %>
+	<%= f.label :quironomideos, image_tag('macroinvertebrados/quironomideo.png') %>
+	<%= f.label :quironomideos, image_tag('macroinvertebrados/sirfideo.png') %>
+	<%= f.label :quironomideos, image_tag('macroinvertebrados/culicideo.png') %> <!-- TODO no excel tem Culidídeos mas no word tem culicideos, qual e? -->
+	<%= f.label :quironomideos, image_tag('macroinvertebrados/tipulideo.png') %>
+	<!-- FIM DIPTEROS -->
+
+	<h4>Gastrópodes (Mullusca)</h4>
+	<%= f.check_box :ancilideo %>
+	<%= f.label :ancilideo, "Ancilídeo" %>
+	<%= f.label :ancilideo, image_tag('macroinvertebrados/ancilideo.png') %>
+
+	<%= f.check_box :limnideo %>
+	<%= f.label :limnideo, "Limnídeo (Physa)" %>
+	<!-- TODO no excel tem limnideo mas no word tem Limnelídeo, qual e? -->
+	<%= f.label :limnideo, image_tag('macroinvertebrados/limnelideo.png') %>
+	<!-- FIM GASTROPODES -->
+
+	<%= f.check_box :bivalves %>
+	<%= f.label :bivalves, "Bivalves" %>
+	<%= f.label :bivalves, image_tag('macroinvertebrados/bivalves.png') %>
+
+	<h4>Coleóptero (escaravelho)</h4>
+	<%= f.check_box :patasNadadoras %>
+	<%= f.label :patasNadadoras, "Patas Nadadoras (Dystiscidae)" %>
+	<%= f.label :patasNadadoras, image_tag('macroinvertebrados/ditiscus.png') %>
+
+	<%= f.check_box :pataLocomotoras %>
+	<%= f.label :pataLocomotoras, "Pata Locomotoras (Hydraena)" %>
+	<%= f.label :pataLocomotoras, "NO FOTO!!!" %>
+	<!-- FIM ESCARAVELHO -->
+
+	<h4>Trichóptero (mosca d’água)</h4>
+	<%= f.check_box :trichopteroS %>
+	<%= f.label :trichopteroS, "Trichóptero (mosca d’água) S/Casulo" %>
+	<%= f.label :trichopteroS, image_tag('macroinvertebrados/hidropsiquideo.png') %>
+
+	<%= f.check_box :trichopteroC %>
+	<%= f.label :trichopteroC, "Trichóptero (mosca d’água) C/Casulo" %>
+	<%= f.label :trichopteroC, image_tag('macroinvertebrados/trichoptero.png') %>
+	<!-- FIM TRICHOPTERO -->
+
+	<%= f.check_box :odonata %>
+	<%= f.label :odonata, "Odonata (Larva de Libelinhas)" %>
+	<%= f.label :odonata, image_tag('macroinvertebrados/larvadelibelula.png') %>
+	<!-- TODO nao sei se larva de libelula e o mesmo que larva de libelinhas -->
+
+	<%= f.check_box :heteropteros %>
+	<%= f.label :heteropteros, "Heterópteros" %>
+	<%= f.label :heteropteros, "TEM VARIAS FOTOS! qual escolher?" %>
+
+	<%= f.check_box :plecopteros %>
+	<%= f.label :plecopteros, "Plecópteros (mosca-de-pedra)" %>
+	<%= f.label :plecopteros, image_tag('macroinvertebrados/plecopteros.png') %>
+
+	<h4> Efemerópteros (efémera) </h4>
+	<%= f.check_box :baetideo %>
+	<%= f.label :baetideo, "Baetídeo" %>
+	<%= f.label :baetideo, image_tag('macroinvertebrados/baetideo.png') %>
+
+	<%= f.check_box :cabecaPlanar %>
+	<%= f.label :cabecaPlanar, "Cabeça Planar (Ecdyonurus)" %>
+	<%= f.label :cabecaPlanar, "SEM FOTO!!" %>
+	<!-- FIM EFEMERA -->
+
+	<%= f.check_box :crustaceos %>
+	<%= f.label :crustaceos, "Crustáceos" %>
+	<%= f.label :crustaceos, "VARIAS FOTOS!!" %>
+
+	<%= f.check_box :acaros %>
+	<%= f.label :acaros, "Ácaros" %>
+	<%= f.label :acaros, image_tag('macroinvertebrados/acaros.png') %>
+
+	<%= f.check_box :pulgaDeAgua %>
+	<%= f.label :pulgaDeAgua, "Pulga-de-água (Daphnia)" %>
+	<%= f.label :pulgaDeAgua, image_tag('macroinvertebrados/pulgadeagua.png') %>
+
+	<%= f.check_box :insetos %>
+	<%= f.label :insetos, "Insetos – adultos (adultos na forma aérea)" %>
+	<%= f.label :insetos, "SEM FOTO!!" %>
+
+	<%= f.check_box :megalopteres %>
+	<%= f.label :megalopteres, "Mégalopteres" %>
+	<%= f.label :megalopteres, "SEM FOTO!!" %>
+</div>
+<!-- TODO por separador qd tem campos h4 -->
 
 <p>
 	<%= f.submit "Submeter formulario", class: "btn btn-primary" %>
@@ -189,4 +405,4 @@
 
 <% end %>
 
-<!-- adicionar por ajax (class="form-control" a todos os inputs para ter os elementos bootstrap -->
+<!-- TODO adicionar por ajax (class="form-control" a todos os inputs para ter os elementos bootstrap -->
