@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   resources :users
 
+  resources :form_irrs
 
   get 'search' => 'searchrios#display'
 

@@ -1,0 +1,192 @@
+<%= form_for @form_irr, :html => {:role => "form"}  do |f| %>
+
+<div class="form-group">
+	<%= f.label :tipoDeVale, "Tipo de Vale" %>: </br>
+
+	<%= f.radio_button :tipoDeVale, "1" %>
+	<%= f.label :tipoDeVale_1, image_tag('logo.png') %>
+	<%= f.radio_button :tipoDeVale, "2" %>
+	<%= f.label :tipoDeVale_2, image_tag('logo.png') %>
+	<%= f.radio_button :tipoDeVale, "3" %>
+	<%= f.label :tipoDeVale_3, image_tag('logo.png') %>
+	<%= f.radio_button :tipoDeVale, "4" %>
+	<%= f.label :tipoDeVale_4, image_tag('logo.png') %>
+	<%= f.radio_button :tipoDeVale, "5" %>
+	<%= f.label :tipoDeVale_5, image_tag('logo.png') %>
+	<%= f.radio_button :tipoDeVale, "6" %>
+	<%= f.label :tipoDeVale_6, image_tag('logo.png') %>
+	<%= f.radio_button :tipoDeVale, "7" %>
+	<%= f.label :tipoDeVale_7, image_tag('logo.png') %>
+</div>
+
+<div class="form-group">
+	<%= f.label :perfilDeMargens, "Perfil de margens" %>: </br>
+
+	<%= f.radio_button :perfilDeMargens, "1" %>
+	<%= f.label :perfilDeMargens_1, 'Vertical escavado' %>
+	<%= f.label :perfilDeMargens_1, image_tag('logo.png') %>
+
+	<%= f.radio_button :perfilDeMargens, "2" %>
+	<%= f.label :perfilDeMargens_2, "Vertical cortado" %>
+	<%= f.label :perfilDeMargens_2, image_tag('logo.png') %>
+
+	<%= f.radio_button :perfilDeMargens, "3" %>
+	<%= f.label :perfilDeMargens_3, "Declive >45%" %>
+	<%= f.label :perfilDeMargens_3, image_tag('logo.png') %>
+
+	<%= f.radio_button :perfilDeMargens, "4" %>
+	<%= f.label :perfilDeMargens_4, "Declive <45%" %>
+	<%= f.label :perfilDeMargens_4, image_tag('logo.png') %>
+
+	<%= f.radio_button :perfilDeMargens, "5" %>
+	<%= f.label :perfilDeMargens_5, "Suave composto <45%" %>
+	<%= f.label :perfilDeMargens_5, image_tag('logo.png') %>
+
+	<%= f.radio_button :perfilDeMargens, "6" %>
+	<%= f.label :perfilDeMargens_6, "Artificial" %>
+</div>
+
+<div class="form-group">
+	<%= f.label :larguraDaSuperficieDaAgua, "Largura da superfície da água (L) (m)" %>: 
+	<%= f.number_field :larguraDaSuperficieDaAgua, :class => 'text_field', :step => 'any', :min => '0.00' %> </br>
+
+	<%= f.label :profundidadeMedia, "Profundidade média (P) (m)" %>: 
+	<%= f.number_field :profundidadeMedia, :class => 'text_field', :step => 'any', :min => '0.00' %> </br>
+
+	<%= f.label :seccao, "Secção (S=PxL) (m^2)" %>:
+	<%= f.number_field :seccao, :class => 'text_field', :step => 'any', :readonly => true %> </br>
+
+	<%= f.label :velocidadeMedia, "Velocidade média (V) (m/s)" %>:
+	<%= f.number_field :velocidadeMedia, :class => 'text_field', :step => 'any', :min => '0.00' %> </br>
+
+	<%= f.label :caudal, "Caudal (C=VxS) (m^3/s)" %>:
+	<%= f.number_field :caudal, :class => 'text_field', :step => 'any', :min => '0.00', :readonly => true %> </br>
+</div>
+
+<div class="form-group">
+	<%= f.label :substratoDasMargens, "Substrato das margens (selecionar os que tem mais de 35%)" %>: </br>
+
+	<%= f.check_box :substratoDasMargens_soloArgiloso %>
+	<%= f.label :substratoDasMargens_soloArgiloso, "Solo Argiloso" %>
+
+	<%= f.check_box :substratoDasMargens_arenoso %>
+	<%= f.label :substratoDasMargens_arenoso, "Solo Argiloso" %>
+
+	<%= f.check_box :substratoDasMargens_pedregoso %>
+	<%= f.label :substratoDasMargens_pedregoso, "Solo Argiloso" %>
+
+	<%= f.check_box :substratoDasMargens_rochoso %>
+	<%= f.label :substratoDasMargens_rochoso, "Solo Argiloso" %>
+
+	<%= f.check_box :substratoDasMargens_artificialPedra %>
+	<%= f.label :substratoDasMargens_artificialPedra, "Solo Argiloso" %>
+
+	<%= f.check_box :substratoDasMargens_artificialBetao %>
+	<%= f.label :substratoDasMargens_artificialBetao, "Solo Argiloso" %>
+</div>
+
+<div class="form-group">
+	<%= f.label :substratoDasMargens, "Substrato do leito (selecionar os que tem mais de 35%)" %>: </br>
+
+	<%= f.check_box :substratoDoLeito_blocoseRocha %>
+	<%= f.label :substratoDoLeito_blocoseRocha, "Blocos e rocha (>40cm)" %>
+
+	<%= f.check_box :substratoDoLeito_calhaus %>
+	<%= f.label :substratoDoLeito_calhaus, "Calhaus (20-40cm)" %>
+
+	<%= f.check_box :substratoDoLeito_cascalho %>
+	<%= f.label :substratoDoLeito_cascalho, "Cascalho (2-20cm)" %>
+
+	<%= f.check_box :substratoDoLeito_areia %>
+	<%= f.label :substratoDoLeito_areia, "Areia (0.5-2cm)" %>
+
+	<%= f.check_box :substratoDoLeito_limo %>
+	<%= f.label :substratoDoLeito_limo, "Limo (<0.5mm)" %>
+
+	<%= f.check_box :substratoDoLeito_solo %>
+	<%= f.label :substratoDoLeito_solo, "Solo" %>
+
+	<%= f.check_box :substratoDoLeito_artificial %>
+	<%= f.label :substratoDoLeito_artificial, "Artificial" %>
+
+	<%= f.check_box :substratoDoLeito_naoEVisivel %>
+	<%= f.label :substratoDoLeito_naoEVisivel, "Não é visível" %>
+</div>
+
+<div class="form-group">
+	<%= f.label :estadoGeraldaLinhadeAgua, "Estado geral da linha de água" %>:</br>
+
+	<%= f.radio_button :estadoGeraldaLinhadeAgua, "1" %>
+	<%= f.label :estadoGeraldaLinhadeAgua_1, "Canal sem alterações, estado natural" %>
+
+	<%= f.radio_button :estadoGeraldaLinhadeAgua, "2" %>
+	<%= f.label :estadoGeraldaLinhadeAgua_2, "Canal ligeiramente perturbado" %>
+
+	<%= f.radio_button :estadoGeraldaLinhadeAgua, "3" %>
+	<%= f.label :estadoGeraldaLinhadeAgua_3, "Início de uma importante alteração do canal" %>
+
+	<%= f.radio_button :estadoGeraldaLinhadeAgua, "4" %>
+	<%= f.label :estadoGeraldaLinhadeAgua_4, "Grande alteração do canal" %>
+
+	<%= f.radio_button :estadoGeraldaLinhadeAgua, "5" %>
+	<%= f.label :estadoGeraldaLinhadeAgua_5, "Canal completamente alterado (canalizado, regularizado)" %>
+</div>
+
+<div class="form-group">
+	<%= f.label :erosao, "Erosão" %>:</br>
+
+	<%= f.radio_button :erosao, "1" %>
+	<%= f.label :erosao_1, "Sem erosão" %>
+
+	<%= f.radio_button :erosao, "2" %>
+	<%= f.label :erosao_2, "Formação de >3 regos" %>
+
+	<%= f.radio_button :erosao, "3" %>
+	<%= f.label :erosao_3, "Formação de 1-3 regos" %>
+
+	<%= f.radio_button :erosao, "4" %>
+	<%= f.label :erosao_4, "Queda de muros e árvores" %>
+
+	<%= f.radio_button :erosao, "5" %>
+	<%= f.label :erosao_5, "Rombos com mais de 1 metro com queda de muros ou árvores" %>
+</div>
+
+<div class="form-group">
+	<%= f.label :sedimentacao, "Sedimentação" %>:</br>
+
+	<%= f.radio_button :sedimentacao, "1" %>
+	<%= f.label :sedimentacao_1, "Ausente" %>
+
+	<%= f.radio_button :sedimentacao, "2" %>
+	<%= f.label :sedimentacao_2, "Demposição na margem em curva" %>
+
+	<%= f.radio_button :sedimentacao, "3" %>
+	<%= f.label :sedimentacao_3, "Mouchões (deposição de areia no leito)" %>
+
+	<%= f.radio_button :sedimentacao, "4" %>
+	<%= f.label :sedimentacao_4, "Ilhas sem vegetação" %>
+
+	<%= f.radio_button :sedimentacao, "5" %>
+	<%= f.label :sedimentacao_5, "Ilhas com vegetação" %>
+
+	<%= f.radio_button :sedimentacao, "6" %>
+	<%= f.label :sedimentacao_6, "Deposição nas margens (s/vegetação)" %>
+
+	<%= f.radio_button :sedimentacao, "7" %>
+	<%= f.label :sedimentacao_7, "Deposição nas margens (c/vegetação)" %>
+
+	<%= f.radio_button :sedimentacao, "8" %>
+	<%= f.label :sedimentacao_8, "Rochas expostas no leito" %>	
+</div>
+
+<div class="form-group">
+	
+</div>
+
+<p>
+	<%= f.submit "Submeter formulario", class: "btn btn-primary" %>
+</p>
+
+<% end %>
+
+<!-- adicionar por ajax (class="form-control" a todos os inputs para ter os elementos bootstrap -->
