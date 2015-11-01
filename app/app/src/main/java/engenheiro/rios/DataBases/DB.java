@@ -1,4 +1,4 @@
-package engenheiro.rios;
+package engenheiro.rios.DataBases;
 
 import android.util.Log;
 
@@ -60,6 +60,7 @@ public class DB extends _Default implements Runnable{
         try{
             thread.join();
         }catch (Exception e){
+            Log.w("teste",e.getMessage());
             this._message=e.getMessage();
             this._status=false;
         }
@@ -82,6 +83,7 @@ public class DB extends _Default implements Runnable{
         try {
             resultSet=new ExecuteDB(this.conn,query).execute().get();
         } catch (Exception e) {
+            Log.w("teste",e.getMessage());
             this._message=e.getMessage();
             this._status=false;
         }
@@ -93,7 +95,9 @@ public class DB extends _Default implements Runnable{
         ResultSet resultSet=null;
         try {
             resultSet=new ExecuteDB(this.conn,query).execute().get();
+            Log.w("teste","executou");
         } catch (Exception e) {
+            Log.w("teste",e.getMessage());
             this._message=e.getMessage();
             this._status=false;
         }

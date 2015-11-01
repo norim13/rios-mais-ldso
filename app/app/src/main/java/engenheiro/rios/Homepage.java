@@ -6,9 +6,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class Homepage extends AppCompatActivity {
 
@@ -38,7 +38,13 @@ public class Homepage extends AppCompatActivity {
     }
 
     public void mapas_init(View view){
-        startActivity(new Intent(this,Mapa_rios.class));
+        startActivity(new Intent(this, Mapa_rios.class));
+
+    }
+
+    public void fomr_irr(View view){
+        //startActivity(new Intent(this, IRR_Form2.class));
+        startActivity(new Intent(this, Register.class));
 
     }
     @Override
@@ -64,6 +70,7 @@ public class Homepage extends AppCompatActivity {
             startActivity(new Intent(this,Login.class));
 
         }
+
 
         return super.onOptionsItemSelected(item);
     }

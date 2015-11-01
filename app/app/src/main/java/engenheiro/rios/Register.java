@@ -16,17 +16,16 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import engenheiro.rios.DataBases.User;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -72,9 +71,9 @@ public class Register extends AppCompatActivity implements LoaderCallbacks<Curso
         // Set up the login form.
 
         this.user=new User();
-        String t= ""+this.user.getList().size();
+        //String t= ""+this.user.getList().size();
 
-        Log.w("teste", t );
+       // Log.w("teste", t );
         //this.editTextEmail =  findViewById(R.id.email_register).toString();
     /*
         Intent intent=getIntent();
@@ -108,14 +107,6 @@ public class Register extends AppCompatActivity implements LoaderCallbacks<Curso
             }
         });
         */
-
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -184,6 +175,7 @@ public class Register extends AppCompatActivity implements LoaderCallbacks<Curso
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
+    /**
     private void attemptLogin() {
         if (mAuthTask != null) {
             return;
@@ -230,7 +222,7 @@ public class Register extends AppCompatActivity implements LoaderCallbacks<Curso
             mAuthTask.execute((Void) null);
         }
     }
-
+**/
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return email.contains("@");
@@ -330,8 +322,7 @@ public class Register extends AppCompatActivity implements LoaderCallbacks<Curso
 
         mEmailView.setAdapter(adapter);
     }
-
-    /**
+   /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
@@ -387,5 +378,12 @@ public class Register extends AppCompatActivity implements LoaderCallbacks<Curso
             showProgress(false);
         }
     }
+
+    public void register(View view){
+        //toast
+        Toast.makeText(Register.this, "Registando", Toast.LENGTH_LONG).show();
+    }
+
+
 }
 

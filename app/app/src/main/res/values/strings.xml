@@ -31,6 +31,8 @@
     <string name="title_activity_register">Registar</string>
     <string name="title_activity_re">Sign in</string>
     <string name="nome">Nome</string>
+    <string name="title_activity_irr__form">IRR_Form</string>
+    <string name="title_activity_irr__form2">IRR_Form2</string>
 
 
 </resources>

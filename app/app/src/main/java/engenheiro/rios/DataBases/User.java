@@ -1,4 +1,4 @@
-package engenheiro.rios;
+package engenheiro.rios.DataBases;
 
 import android.util.Log;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by filipe on 26/10/2015.
  */
-public class User extends _Default{
+public class User extends _Default {
 
     private int id;
     private String name;
@@ -29,6 +29,7 @@ public class User extends _Default{
         ArrayList<User> lista= new ArrayList<>();
         try{
             ResultSet resultSet = db.select("SELECT * FROM utilizadors");
+           // Toast.makeText(r,resultSet.getArray(1).getArray().toString(),Toast.LENGTH_LONG).show();
             if(resultSet != null){
                 while (resultSet.next()){
                     User obj = new User();
@@ -45,6 +46,7 @@ public class User extends _Default{
                 Log.w("teste","nao ha nada");
 
         }catch (Exception e){
+            Log.w("teste","erro"+e.getMessage());
             this._message=e.getMessage();
             this._status=false;
         }
@@ -54,8 +56,9 @@ public class User extends _Default{
     public void save(){
         String command="";
         if (this.getId()==-1){
-            command=String.format("INSERT INTO utulizadors (nome,email,id) VALUES ('%s','%s','%s');",
-                    this.getName(),this.getEmail(),this.getPassword());
+            command=String.format("INSERT INTO utilizadors (nome,email,password,acesso) VALUES ('%s','%s','%s','%d');",
+                   this.getName(),this.getEmail(),this.getPassword(),1);
+            Log.w("teste","insert:"+command);
         }
         else {
             command=String.format("UPDTAE utulizadors SET nome = '%s', email= '%s', telefone ='%s' WHERE id = %d;",
@@ -63,6 +66,7 @@ public class User extends _Default{
         }
         DB db=new DB();
         db.execute(command);
+        Log.w("teste", db._message);
         this._message=db._message;
         this._status=db._status;
     }
