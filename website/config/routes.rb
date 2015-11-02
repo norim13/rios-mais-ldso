@@ -1,21 +1,15 @@
 Rails.application.routes.draw do
 
-<<<<<<< HEAD
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
-  delete 'logout'  => 'sessions#destroy'
-=======
-  resources :users
-
-  resources :form_irrs
->>>>>>> d56c217eb026548bc37bd03962ab3a90e70957de
   get 'search' => 'searchrios#display'
   get 'profile' => 'profile#display'
   get 'home' => 'home#homepage'
   get 'contactos' => 'about#about'
+
+  delete 'logout'  => 'sessions#destroy'
   resources :users
-
-
+  resources :form_irrs
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
