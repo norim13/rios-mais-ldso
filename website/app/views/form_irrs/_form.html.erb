@@ -24,29 +24,30 @@
 
 	<%= f.radio_button :perfilDeMargens, "1" %>
 	<%= f.label :perfilDeMargens_1, 'Vertical escavado' %>
-	<%= f.label :perfilDeMargens_1, image_tag('logo.png') %>
+	<%= f.label :perfilDeMargens_1, image_tag('perfildemargens/verticalescavado.png') %>
 
 	<%= f.radio_button :perfilDeMargens, "2" %>
 	<%= f.label :perfilDeMargens_2, "Vertical cortado" %>
-	<%= f.label :perfilDeMargens_2, image_tag('logo.png') %>
+	<%= f.label :perfilDeMargens_2, image_tag('perfildemargens/verticalcortado.png') %>
 
 	<%= f.radio_button :perfilDeMargens, "3" %>
 	<%= f.label :perfilDeMargens_3, "Declive >45%" %>
-	<%= f.label :perfilDeMargens_3, image_tag('logo.png') %>
+	<%= f.label :perfilDeMargens_3, image_tag('perfildemargens/declivemaior45.png') %>
 
 	<%= f.radio_button :perfilDeMargens, "4" %>
 	<%= f.label :perfilDeMargens_4, "Declive <45%" %>
-	<%= f.label :perfilDeMargens_4, image_tag('logo.png') %>
+	<%= f.label :perfilDeMargens_4, image_tag('perfildemargens/declivemenor45.png') %>
 
 	<%= f.radio_button :perfilDeMargens, "5" %>
 	<%= f.label :perfilDeMargens_5, "Suave composto <45%" %>
-	<%= f.label :perfilDeMargens_5, image_tag('logo.png') %>
+	<%= f.label :perfilDeMargens_5, image_tag('perfildemargens/suavecomposto.png') %>
 
 	<%= f.radio_button :perfilDeMargens, "6" %>
 	<%= f.label :perfilDeMargens_6, "Artificial" %>
 </div>
 
 <div class="form-group">
+	<h4> Volume de água </h4> 
 	<%= f.label :larguraDaSuperficieDaAgua, "Largura da superfície da água (L) (m)" %>: 
 	<%= f.number_field :larguraDaSuperficieDaAgua, :class => 'text_field', :step => 'any', :min => '0.00' %> </br>
 
@@ -190,10 +191,10 @@
 		<%= f.label :condutividade, "Condutividade" %>:
 		<%= f.number_field :condutividade, :class => 'text_field', :step => 'any' %> </br>
 
-		<%= f.label :temperatura, "Temperatura" %>:
+		<%= f.label :temperatura, "Temperatura (ºC)" %>:
 		<%= f.number_field :temperatura, :class => 'text_field', :step => 'any' %> </br>
 
-		<%= f.label :nivelDeOxigenio, "Nível De Oxigenio" %>:
+		<%= f.label :nivelDeOxigenio, "Nível De Oxigenio (mg/L)" %>:
 		<%= f.number_field :nivelDeOxigenio, :class => 'text_field', :step => 'any' %> </br>
 
 		<%= f.label :percentagemDeOxigenio, "Percentagem De Oxigenio" %>:
@@ -205,8 +206,8 @@
 		<%= f.label :nitritos, "Nitritos" %>:
 		<%= f.number_field :nitritos, :class => 'text_field', :step => 'any' %> </br>
 
-		<%= f.label :transparencia, "Transparência" %>:
-		<%= f.number_field :transparencia, :class => 'text_field', :step => 'any' %> </br>
+		<%= f.label :transparencia, "Transparência (I-IV)" %>:
+		<%= f.number_field :transparencia, :class => 'text_field', :min => '1', :max => '4', :step => '1' %> </br>
 	</div>
 </div>
 
@@ -293,7 +294,7 @@
 </div>
 
 <div class="form-group">
-	<h4>Tabela de Macroinvertebrados </h4>
+	<h3>Tabela de Macroinvertebrados </h3>
 	<%= f.check_box :planarias %>
 	<%= f.label :planarias, "Planárias" %>
 	<%= f.label :planarias, image_tag('macroinvertebrados/planaria.png') %>

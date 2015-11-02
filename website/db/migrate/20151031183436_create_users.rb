@@ -1,10 +1,10 @@
-class CreateUtilizadors < ActiveRecord::Migration
+class CreateUsers < ActiveRecord::Migration
   def change
-    create_table :utilizadors do |t|
+    create_table :users do |t|
       t.string :nome
       t.string :email
       t.string :password
-      t.integer :acesso
+      t.integer :access
 
       t.timestamps null: false
     end
