@@ -10,15 +10,15 @@
 		
 		<div class="form-group image-options container">
 			<div class="row">
-			<%= f.label :tipoDeVale, "Tipo de Vale" %>: </br>
-			<% imagens_tipo_vale = ['logo.png', 'logo.png', 'logo.png', 'logo.png', 'logo.png', 'logo.png', 'logo.png'];
-			for i in 1..7 
+				<%= f.label :tipoDeVale, "Tipo de Vale" %>: </br>
+				<% imagens_tipo_vale = ['logo.png', 'logo.png', 'logo.png', 'logo.png', 'logo.png', 'logo.png', 'logo.png']; %>
+				<% for i in 1..7 
 				label = "tipoDeVale_#{i}"; %>
-			   <div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
+				<div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
 					<%= f.radio_button :tipoDeVale, "#{i}" %>
 					<%= f.label label, image_tag(imagens_tipo_vale[i-1], :class => "img-responsive") %>
 				</div>
-			<% end %>
+				<% end %>
 
 			</div>
 		</div>
@@ -27,16 +27,15 @@
 		<div class="form-group image-options container">
 			<div class="row">
 				<%= f.label :perfilDeMargens, "Perfil de margens" %>: </br>
-				<% imagens_perfil_margens = ['verticalescavado.png','verticalcortado.png',
-					'declivemaior45.png', 'declivemenor45.png', 'suavecomposto.png'];
-					labels = ["Vertical escavado", "Vertical cortado", "Declive >45%", "Declive <45%", "Suave composto <45%", "Artificial"];
-				for i in 1..5 
-					label = "perfilDeMargens_#{i}"; %>
-				   <div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
-						<%= f.radio_button :perfilDeMargens, "#{i}" %>
-						<%= f.label label, labels[i-1] %>
-						<%= f.label label, image_tag("perfildemargens/#{imagens_perfil_margens[i-1]}", :class => "img-responsive") %>
-					</div>
+				<% imagens_perfil_margens = ['verticalescavado.png','verticalcortado.png','declivemaior45.png', 'declivemenor45.png', 'suavecomposto.png'];
+				labels = ["Vertical escavado", "Vertical cortado", "Declive >45%", "Declive <45%", "Suave composto <45%", "Artificial"]; %>
+				<% for i in 1..5 
+				label = "perfilDeMargens_#{i}"; %>
+				<div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
+					<%= f.radio_button :perfilDeMargens, "#{i}" %>
+					<%= f.label label, labels[i-1] %>
+					<%= f.label label, image_tag("perfildemargens/#{imagens_perfil_margens[i-1]}", :class => "img-responsive") %>
+				</div>
 				<% end %>
 
 				<div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
@@ -68,117 +67,68 @@
 		<div class="form-group">
 			<%= f.label :substratoDasMargens, "Substrato das margens (selecionar os que tem mais de 35%)" %>: </br>
 
-			<%= f.check_box :substratoDasMargens_soloArgiloso %>
-			<%= f.label :substratoDasMargens_soloArgiloso, "Solo Argiloso" %>
+			<% var_substratodasmargens = ["soloArgiloso","arenoso", "pedregoso","rochoso","artificialPedra","artificialBetao"];
+			labels = ["Solo argiloso", "Arenoso", "Pedregoso", "Rochoso", "Artificial pedra", "Artificial Betão (5)"]; %>
+			<% for i in 0..5 
+			label = "substratoDasMargens_#{var_substratodasmargens[i]}"; %>
 
-			<%= f.check_box :substratoDasMargens_arenoso %>
-			<%= f.label :substratoDasMargens_arenoso, "Solo Argiloso" %>
+			<%= f.check_box label %>
+			<%= f.label label, labels[i] %>
 
-			<%= f.check_box :substratoDasMargens_pedregoso %>
-			<%= f.label :substratoDasMargens_pedregoso, "Solo Argiloso" %>
-
-			<%= f.check_box :substratoDasMargens_rochoso %>
-			<%= f.label :substratoDasMargens_rochoso, "Solo Argiloso" %>
-
-			<%= f.check_box :substratoDasMargens_artificialPedra %>
-			<%= f.label :substratoDasMargens_artificialPedra, "Solo Argiloso" %>
-
-			<%= f.check_box :substratoDasMargens_artificialBetao %>
-			<%= f.label :substratoDasMargens_artificialBetao, "Solo Argiloso" %>
+			<% end %>						
 		</div>
 
 		<div class="form-group">
-			<%= f.label :substratoDasMargens, "Substrato do leito (selecionar os que tem mais de 35%)" %>: </br>
+			<%= f.label :substratoDoLeito, "Substrato do leito (selecionar os que tem mais de 35%)" %>: </br>
 
-			<%= f.check_box :substratoDoLeito_blocoseRocha %>
-			<%= f.label :substratoDoLeito_blocoseRocha, "Blocos e rocha (>40cm)" %>
+			<% var_substratodoleito = ["blocoseRocha","calhaus", "cascalho","areia","limo","solo","artificial","naoEVisivel"];
+			labels = ["Blocos e rocha (>40cm)", "Calhaus (20-40cm)", "Cascalho (2-20cm)", "Areia (0.5-2cm)", "Limo (<0.5mm)", "Solo", "Artificial", "Não é visível"]; %>
+			<% for i in 0..7
+			label = "substratoDoLeito_#{var_substratodoleito[i]}"; %>
 
-			<%= f.check_box :substratoDoLeito_calhaus %>
-			<%= f.label :substratoDoLeito_calhaus, "Calhaus (20-40cm)" %>
+			<%= f.check_box label %>
+			<%= f.label label, labels[i] %>
 
-			<%= f.check_box :substratoDoLeito_cascalho %>
-			<%= f.label :substratoDoLeito_cascalho, "Cascalho (2-20cm)" %>
-
-			<%= f.check_box :substratoDoLeito_areia %>
-			<%= f.label :substratoDoLeito_areia, "Areia (0.5-2cm)" %>
-
-			<%= f.check_box :substratoDoLeito_limo %>
-			<%= f.label :substratoDoLeito_limo, "Limo (<0.5mm)" %>
-
-			<%= f.check_box :substratoDoLeito_solo %>
-			<%= f.label :substratoDoLeito_solo, "Solo" %>
-
-			<%= f.check_box :substratoDoLeito_artificial %>
-			<%= f.label :substratoDoLeito_artificial, "Artificial" %>
-
-			<%= f.check_box :substratoDoLeito_naoEVisivel %>
-			<%= f.label :substratoDoLeito_naoEVisivel, "Não é visível" %>
+			<% end %>
 		</div>
 
 		<div class="form-group">
 			<%= f.label :estadoGeraldaLinhadeAgua, "Estado geral da linha de água" %>:</br>
 
-			<%= f.radio_button :estadoGeraldaLinhadeAgua, "1" %>
-			<%= f.label :estadoGeraldaLinhadeAgua_1, "Canal sem alterações, estado natural" %>
+			<% labels = ["Canal sem alterações, estado natural", "Canal ligeiramente perturbado", "Início de uma importante alteração do canal", "Grande alteração do canal", "Canal completamente alterado (canalizado, regularizado)"]; %>
+			<% for i in 1..5
+			label = "estadoGeraldaLinhadeAgua_#{i}"; %>
 
-			<%= f.radio_button :estadoGeraldaLinhadeAgua, "2" %>
-			<%= f.label :estadoGeraldaLinhadeAgua_2, "Canal ligeiramente perturbado" %>
+			<%= f.radio_button :estadoGeraldaLinhadeAgua, i %>
+			<%= f.label label, labels[i-1] %>
 
-			<%= f.radio_button :estadoGeraldaLinhadeAgua, "3" %>
-			<%= f.label :estadoGeraldaLinhadeAgua_3, "Início de uma importante alteração do canal" %>
-
-			<%= f.radio_button :estadoGeraldaLinhadeAgua, "4" %>
-			<%= f.label :estadoGeraldaLinhadeAgua_4, "Grande alteração do canal" %>
-
-			<%= f.radio_button :estadoGeraldaLinhadeAgua, "5" %>
-			<%= f.label :estadoGeraldaLinhadeAgua_5, "Canal completamente alterado (canalizado, regularizado)" %>
+			<% end %>
 		</div>
 
 		<div class="form-group">
 			<%= f.label :erosao, "Erosão" %>:</br>
 
-			<%= f.radio_button :erosao, "1" %>
-			<%= f.label :erosao_1, "Sem erosão" %>
+			<% labels = ["Sem erosão","Formação de >3 regos","Formação de 1-3 regos","Queda de muros e árvores","Rombos com mais de 1 metro com queda de muros ou árvores"]; %>
+			<% for i in 1..5
+			label = "erosao_#{i}"; %>
 
-			<%= f.radio_button :erosao, "2" %>
-			<%= f.label :erosao_2, "Formação de >3 regos" %>
+			<%= f.radio_button :erosao, i %>
+			<%= f.label label, labels[i-1] %>
 
-			<%= f.radio_button :erosao, "3" %>
-			<%= f.label :erosao_3, "Formação de 1-3 regos" %>
-
-			<%= f.radio_button :erosao, "4" %>
-			<%= f.label :erosao_4, "Queda de muros e árvores" %>
-
-			<%= f.radio_button :erosao, "5" %>
-			<%= f.label :erosao_5, "Rombos com mais de 1 metro com queda de muros ou árvores" %>
+			<% end %>
 		</div>
 
 		<div class="form-group">
 			<%= f.label :sedimentacao, "Sedimentação" %>:</br>
 
-			<%= f.radio_button :sedimentacao, "1" %>
-			<%= f.label :sedimentacao_1, "Ausente" %>
+			<% labels = ["Ausente","Demposição na margem em curva","Mouchões (deposição de areia no leito)","Ilhas sem vegetação","Ilhas com vegetação","Deposição nas margens (s/vegetação)","Deposição nas margens (c/vegetação)","Rochas expostas no leito"]; %>
+			<% for i in 1..8
+			label = "sedimentacao_#{i}"; %>
 
-			<%= f.radio_button :sedimentacao, "2" %>
-			<%= f.label :sedimentacao_2, "Demposição na margem em curva" %>
+			<%= f.radio_button :sedimentacao, i %>
+			<%= f.label label, labels[i-1] %>
 
-			<%= f.radio_button :sedimentacao, "3" %>
-			<%= f.label :sedimentacao_3, "Mouchões (deposição de areia no leito)" %>
-
-			<%= f.radio_button :sedimentacao, "4" %>
-			<%= f.label :sedimentacao_4, "Ilhas sem vegetação" %>
-
-			<%= f.radio_button :sedimentacao, "5" %>
-			<%= f.label :sedimentacao_5, "Ilhas com vegetação" %>
-
-			<%= f.radio_button :sedimentacao, "6" %>
-			<%= f.label :sedimentacao_6, "Deposição nas margens (s/vegetação)" %>
-
-			<%= f.radio_button :sedimentacao, "7" %>
-			<%= f.label :sedimentacao_7, "Deposição nas margens (c/vegetação)" %>
-
-			<%= f.radio_button :sedimentacao, "8" %>
-			<%= f.label :sedimentacao_8, "Rochas expostas no leito" %>	
+			<% end %>
 		</div>
 	</div>
 
@@ -214,23 +164,14 @@
 		<div class="form-group">
 			<h3> Indicios na água: </h3>
 
-			<%= f.check_box :oleo %>
-			<%= f.label :oleo, "Oleo" %>
+			<% labels = ["Oleo", "Espuma","Esgostos","Impurezas","Sacos de plástico", "Latas"];
+			label = ["oleo","espuma","esgotos","impurezas","sacosDePlastico","latas"] %>
+			<% for i in 0..5 %>
 
-			<%= f.check_box :espuma %>
-			<%= f.label :espuma, "Espuma" %>
+			<%= f.check_box label[i] %>
+			<%= f.label label[i], labels[i] %>
 
-			<%= f.check_box :esgotos %>
-			<%= f.label :esgotos, "Esgotos" %>
-
-			<%= f.check_box :impurezas %>
-			<%= f.label :impurezas, "Impurezas" %>
-
-			<%= f.check_box :sacosDePlastico %>
-			<%= f.label :sacosDePlastico, "Sacos de plástico" %>
-
-			<%= f.check_box :latas %>
-			<%= f.label :latas, "Latas" %>
+			<% end %>
 
 			<%= f.label :indiciosNaAgua_outros, "Outros" %>
 			<%= f.text_area :indiciosNaAgua_outros %>
@@ -239,29 +180,14 @@
 		<div class="form-group">
 			<%= f.label :corDaAgua, "Cor da água" %>:</br>
 
-			<%= f.radio_button :corDaAgua, "1" %>
-			<%= f.label :corDaAgua_1, "Transparente" %>
+			<% labels = ["Transparente", "Leitosa","Castanha","Verde-escura","Laranja","Cinzenta","Preta","Outra cor"]; %>
+			<% for i in 1..8
+			label = "corDaAgua_#{i}"; %>
 
-			<%= f.radio_button :corDaAgua, "2" %>
-			<%= f.label :corDaAgua_2, "Leitosa" %>
+			<%= f.radio_button :corDaAgua, i %>
+			<%= f.label label, labels[i-1] %>
 
-			<%= f.radio_button :corDaAgua, "3" %>
-			<%= f.label :corDaAgua_3, "Castanha" %>
-
-			<%= f.radio_button :corDaAgua, "4" %>
-			<%= f.label :corDaAgua_4, "Verde-escura" %>
-
-			<%= f.radio_button :corDaAgua, "5" %>
-			<%= f.label :corDaAgua_5, "Laranja" %>
-
-			<%= f.radio_button :corDaAgua, "6" %>
-			<%= f.label :corDaAgua_6, "Cinzenta" %>
-
-			<%= f.radio_button :corDaAgua, "7" %>
-			<%= f.label :corDaAgua_7, "Preta" %>
-
-			<%= f.radio_button :corDaAgua, "8" %>
-			<%= f.label :corDaAgua_8, "Outra cor" %>
+			<% end %>
 
 			<!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
 		</div>
@@ -269,26 +195,14 @@
 		<div class="form-group">
 			<%= f.label :odorDaAgua, "Odor (cheiro) da água" %>:</br>
 
-			<%= f.radio_button :odorDaAgua, "1" %>
-			<%= f.label :odorDaAgua_1, "Não tem odor" %>
+			<% labels = ["Não tem odor", "Cheiro a fresco","Cheiro a Lama (Vasa)","Cheiro a esgoto","Cheiro químico (cloro)","Cheiro podre (ovos podres)","Outro odor"]; %>
+			<% for i in 1..7
+			label = "odorDaAgua_#{i}"; %>
 
-			<%= f.radio_button :odorDaAgua, "2" %>
-			<%= f.label :odorDaAgua_2, "Cheiro a fresco" %>
+			<%= f.radio_button :odorDaAgua, i %>
+			<%= f.label label, labels[i-1] %>
 
-			<%= f.radio_button :odorDaAgua, "3" %>
-			<%= f.label :odorDaAgua_3, "Cheiro a Lama (Vasa)" %>
-
-			<%= f.radio_button :odorDaAgua, "4" %>
-			<%= f.label :odorDaAgua_4, "Cheiro a esgoto" %>
-
-			<%= f.radio_button :odorDaAgua, "5" %>
-			<%= f.label :odorDaAgua_5, "Cheiro químico (cloro)" %>
-
-			<%= f.radio_button :odorDaAgua, "6" %>
-			<%= f.label :odorDaAgua_6, "Cheiro podre (ovos podres)" %>
-
-			<%= f.radio_button :odorDaAgua, "7" %>
-			<%= f.label :odorDaAgua_7, "Outro odor" %>
+			<% end %>
 
 			<!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
 		</div>
@@ -403,177 +317,63 @@
 
 	<div id="form_irr-alteracoesantropicas">
 		<h2> Alterações antrópicas </h2>
+
 		<div class="form-group">
-			<%= f.label :intervencoes, "Intervenções presentes" %>
+			<%= f.label :intervencoes, "Intervenções presentes" %>: </br>
 
-			<%= f.check_box :intervencoes_edificios %>
-			<%= f.label :intervencoes_edificios, "Edifícios" %>
+			<% var_labels = ["edificios","pontes","limpezasDasMargens","estabilizacaoDeMargens","modelacaoDeMargensNatural","modelacaoDeMargensArtificial","barragem","diques","rioCanalizado","rioEntubado","esporoes","paredoes","tecnicasDeEngenhariaNatural","outras"];
+			labels = ["Edifícios","Pontes","Limpeza das margens","Estabilização de margens","Modelação de margens natural","Modelação de margens artificial","Barragem","Diques","Rio canalizado","Rio entubado","Esporões","Paredões","Técnicas de engenharia natural","Outras"]; %>
+			<% for i in 0..13
+			label = "intervencoes_#{var_labels[i]}"; %>
 
-			<%= f.check_box :intervencoes_pontes %>
-			<%= f.label :intervencoes_pontes, "Pontes" %>
+			<%= f.check_box label %>
+			<%= f.label label, labels[i] %>
 
-			<%= f.check_box :intervencoes_limpezasDasMargens %>
-			<%= f.label :intervencoes_limpezasDasMargens, "Limpeza das margens" %>
+			<% end %>
 
-			<%= f.check_box :intervencoes_estabilizacaoDeMargens %>
-			<%= f.label :intervencoes_estabilizacaoDeMargens, "Estabilização de margens" %>
-
-			<%= f.check_box :intervencoes_modelacaoDeMargensNatural %>
-			<%= f.label :intervencoes_modelacaoDeMargensNatural, "Modelação de margens natural" %>
-
-			<%= f.check_box :intervencoes_modelacaoDeMargensArtificial %>
-			<%= f.label :intervencoes_modelacaoDeMargensArtificial, "Modelação de margens artificial" %>
-
-			<%= f.check_box :intervencoes_barragem %>
-			<%= f.label :intervencoes_barragem, "Barragem" %>
-
-			<%= f.check_box :intervencoes_diques %>
-			<%= f.label :intervencoes_diques, "Diques" %>
-
-			<%= f.check_box :intervencoes_rioCanalizado %>
-			<%= f.label :intervencoes_rioCanalizado, "Rio canalizado" %>
-
-			<%= f.check_box :intervencoes_rioEntubado %>
-			<%= f.label :intervencoes_rioEntubado, "Rio entubado" %>
-
-			<%= f.check_box :intervencoes_esporoes %>
-			<%= f.label :intervencoes_esporoes, "Esporões" %>
-
-			<%= f.check_box :intervencoes_paredoes %>
-			<%= f.label :intervencoes_paredoes, "Paredões" %>
-
-			<%= f.check_box :intervencoes_tecnicasDeEngenhariaNatural %>
-			<%= f.label :intervencoes_tecnicasDeEngenhariaNatural, "Técnicas de engenharia natural" %>
-
-			<%= f.check_box :intervencoes_outras %>
-			<%= f.label :intervencoes_outras, "Outras" %>
 			<!-- TODO como inserir outras? -->
 		</div>
 
 		<div class="form-group">
-			<%= f.label :ocupacao, "Ocupação das margens [<10 m]" %>
 
-			<%= f.check_box :ocupacao_florestaNatural %>
-			<%= f.label :ocupacao_florestaNatural, "Zona natural com/sem intervenção (Floresta Natural)" %>
+			<%= f.label :ocupacao, "Ocupação das margens [<10 m]" %>: </br>
 
-			<%= f.check_box :ocupacao_florestaPlantadas %>
-			<%= f.label :ocupacao_florestaPlantadas, "Floresta/arvores plantadas" %>
+			<% var_labels = ["florestaNatural","florestaPlantadas","matoAlto","matoRasteiro","pastagem","agricultura","espacoAbandonado","jardins","zonaEdificada","zonaIndustrial","ruas","entulho"];
 
-			<%= f.check_box :ocupacao_matoAlto %>
-			<%= f.label :ocupacao_matoAlto, "Mato alto (1-5 m)" %>
+			labels = ["Zona natural com/sem intervenção (Floresta Natural)","Floresta/arvores plantadas","Mato alto (1-5 m)","Mato rasteiro <1m","Pastagem (pecuária)","Agricultura","Espaço abandonado (+ 3 anos)","Jardins ou espaços de lazer","Zona edificada (casas/edifícios)","Zona industrial","Vias de comunicação (ruas)","Entulho e zona degradada"]; %>
 
-			<%= f.check_box :ocupacao_matoRasteiro %>
-			<%= f.label :ocupacao_matoRasteiro, "Mato rasteiro <1m" %>
+			<% for i in 0..11
+			label = "ocupacao_#{var_labels[i]}"; %>
 
-			<%= f.check_box :intervencoes_modelacaoDeMargensNatural %>
-			<%= f.label :intervencoes_modelacaoDeMargensNatural, "Modelação de margens natural" %>
+			<%= f.check_box label %>
+			<%= f.label label, labels[i] %>
 
-			<%= f.check_box :ocupacao_pastagem %>
-			<%= f.label :ocupacao_pastagem, "Pastagem (pecuária)" %>
+			<% end %>
 
-			<%= f.check_box :ocupacao_agricultura %>
-			<%= f.label :ocupacao_agricultura, "Agricultura" %>
-
-			<%= f.check_box :ocupacao_espacoAbandonado %>
-			<%= f.label :ocupacao_espacoAbandonado, "Espaço abandonado (+ 3 anos)" %>
-
-			<%= f.check_box :ocupacao_jardins %>
-			<%= f.label :ocupacao_jardins, "Jardins ou espaços de lazer" %>
-
-			<%= f.check_box :ocupacao_zonaEdificada %>
-			<%= f.label :ocupacao_zonaEdificada, "Zona edificada (casas/edifícios)" %>
-
-			<%= f.check_box :ocupacao_zonaIndustrial %>
-			<%= f.label :ocupacao_zonaIndustrial, "Zona industrial" %>
-
-			<%= f.check_box :ocupacao_ruas %>
-			<%= f.label :ocupacao_ruas, "Vias de comunicação (ruas)" %>
-
-			<%= f.check_box :ocupacao_entulho %>
-			<%= f.label :ocupacao_entulho, "Entulho e zona degradada" %>
+			<!-- TODO como inserir outras? -->
 		</div>
+
 
 		<div class="form-group">
 			<h3>Património edificado Leito/margem [estado de conservação: 1 - Bom a 5- Mau]</h3>
 
-			<%= f.label :patrimonio_moinho, "Moinho/azenhas" %>
-			<%= f.select :patrimonio_moinho, options_for_select(1..5) %>
+			<% labels = ["Moinho/azenhas","Açude (> 2m)","Micro-açude (1m)","Micro-açude (1-2m)","Barragem (> 10m)","Levadas","Pesqueiras","Escadas de peixe","Poldras","Pontes/pontões sem pilar no canal","Pontes/pontões com pilar no canal","Passagem a vau","Barcos","Caís","Igreja, capela, santuário (< 100m)","Solares ou casas agrícolas (< 100m)","Núcleo habitacional (< 100m)","Edifícios particulares (< 100m)","Edifícios públicos (estatais) (< 100m)","ETA/ETAR/elevatórias","Descarregadores de águas pluviais","Coletores saneamento","Defletores artificiais","Mota lateral"]; %>
+			<% var_patrimonio = ["moinho","acude","microAcude1","microAcude2","barragem","levadas","pesqueiras","escadasDePeixe","poldras","pontesSemPilar","pontesComPilar","passagemAVau","barcos","cais","igreja","solares","nucleoHabitacional","edificiosParticulares","edificiosPublicos","ETA","descarregadoresDeAguasPluviais","coletoresSaneamento","defletoresArtificiais","motaLateral"]; %>
 
-			<%= f.label :patrimonio_acude, "Açude (> 2m)" %>
-			<%= f.select :patrimonio_acude, options_for_select(1..5) %>
+			<% for i in 1..24
+			label = "patrimonio_#{var_patrimonio[i-1]}"; %>
 
-			<%= f.label :patrimonio_microAcude1, "Micro-açude (1m)" %>
-			<%= f.select :patrimonio_microAcude1, options_for_select(1..5) %>
+			<%= f.label label, labels[i-1] %>
+			<%= f.select label, options_for_select(1..5) %>
 
-			<%= f.label :patrimonio_microAcude2, "Micro-açude (1-2m)" %>
-			<%= f.select :patrimonio_microAcude2, options_for_select(1..5) %>
+			<% end %>
 
-			<%= f.label :patrimonio_barragem, "Barragem (> 10m)" %>
-			<%= f.select :patrimonio_barragem, options_for_select(1..5) %>
-
-			<%= f.label :patrimonio_levadas, "Levadas" %>
-			<%= f.select :patrimonio_levadas, options_for_select(1..5) %>
-
-			<%= f.label :patrimonio_pesqueiras, "Pesqueiras" %>
-			<%= f.select :patrimonio_pesqueiras, options_for_select(1..5) %>
-
-			<%= f.label :patrimonio_escadasDePeixe, "Escadas de peixe" %>
-			<%= f.select :patrimonio_escadasDePeixe, options_for_select(1..5) %>
-
-			<%= f.label :patrimonio_poldras, "Poldras" %>
-			<%= f.select :patrimonio_poldras, options_for_select(1..5) %>
-
-			<%= f.label :patrimonio_pontesSemPilar, "Pontes/pontões sem pilar no canal" %>
-			<%= f.select :patrimonio_pontesSemPilar, options_for_select(1..5) %>
-
-			<%= f.label :patrimonio_pontesComPilar, "Pontes/pontões com pilar no canal" %>
-			<%= f.select :patrimonio_pontesComPilar, options_for_select(1..5) %>
-
-			<%= f.label :patrimonio_passagemAVau, "Passagem a vau" %>
-			<%= f.select :patrimonio_passagemAVau, options_for_select(1..5) %>
-
-			<h5> Embarcações </h5>
-			<%= f.label :patrimonio_barcos, "Barcos" %>
-			<%= f.select :patrimonio_barcos, options_for_select(1..5) %>
-
-			<%= f.label :patrimonio_cais, "Caís" %>
-			<%= f.select :patrimonio_cais, options_for_select(1..5) %>
+			<!--<h5> Embarcações </h5> dentro disto [barcos e cais] -->
 			<!-- FIM EMBARCAÇOES -->
-
-			<%= f.label :patrimonio_igreja, "Igreja, capela, santuário (< 100m)" %>
-			<%= f.select :patrimonio_igreja, options_for_select(1..5) %>
-
-			<%= f.label :patrimonio_solares, "Solares ou casas agrícolas (< 100m)" %>
-			<%= f.select :patrimonio_solares, options_for_select(1..5) %>
-
-			<%= f.label :patrimonio_nucleoHabitacional, "Núcleo habitacional (< 100m)" %>
-			<%= f.select :patrimonio_nucleoHabitacional, options_for_select(1..5) %>
-
-
-			<%= f.label :patrimonio_edificiosParticulares, "Edifícios particulares (< 100m)" %>
-			<%= f.select :patrimonio_edificiosParticulares, options_for_select(1..5) %>
-
-			<%= f.label :patrimonio_edificiosPublicos, "Edifícios públicos (estatais) (< 100m)" %>
-			<%= f.select :patrimonio_edificiosPublicos, options_for_select(1..5) %>
-
-			<%= f.label :patrimonio_ETA, "ETA/ETAR/elevatórias" %>
-			<%= f.select :patrimonio_ETA, options_for_select(1..5) %>
-
-			<%= f.label :patrimonio_descarregadoresDeAguasPluviais, "Descarregadores de águas pluviais" %>
-			<%= f.select :patrimonio_descarregadoresDeAguasPluviais, options_for_select(1..5) %>
-
-			<%= f.label :patrimonio_coletoresSaneamento, "Coletores saneamento" %>
-			<%= f.select :patrimonio_coletoresSaneamento, options_for_select(1..5) %>
-
-			<%= f.label :patrimonio_defletoresArtificiais, "Defletores artificiais" %>
-			<%= f.select :patrimonio_defletoresArtificiais, options_for_select(1..5) %>
-
-			<%= f.label :patrimonio_motaLateral, "Mota lateral" %>
-			<%= f.select :patrimonio_motaLateral, options_for_select(1..5) %>
 		</div>
 
 		<div class="form-group">
-		<!--TODO n tenho a certeza se isto deveria ser um select ou uma checkbox -->
+			<!--TODO n tenho a certeza se isto deveria ser um select ou uma checkbox -->
 			<h3>Poluição</h3>
 
 			<%= f.label :poluicao_descargasDomesticas, "Descargas domésticas" %>
@@ -614,9 +414,149 @@
 
 			<%= f.label :poluicao_queimadas, "Queimadas" %>
 			<%= f.select :poluicao_queimadas, options_for_select(1..5) %>
+		</div>
+
+		<!-- FALTA MT COISA!! -->
+	</div>
+
+	<div id="form_irr-corredorecologico">
+		<h2> Corredor ecológico </h2>
+
+		<div class="form-group">
+			<%= f.label :conservacaoBosqueRibeirinho, "Estado de conservação do bosque ribeirinho (10m x 10m)" %>:</br>
+
+			<% labels = ["Total (>75%) com bosque - continuidade arbórea com total sobreposição de copas","(50-75%) Com bosque ripícola Semi-continua arbórea","(25-50%) Sem bosque ripícola (Semi-continua arbórea)","Campos agrícolas (10-25%) Descontinua - na arbórea","(5 a 10%) Interrompida – com manchas de árvores","(<5%) Esparsa - Só árvores isoladas ou Urbanizações ou infra-estruturas"]; %>
+
+			<% for i in 1..6
+			label = "conservacaoBosqueRibeirinho_#{i}"; %>
+
+			<%= f.radio_button :conservacaoBosqueRibeirinho, i %>
+			<%= f.label label, labels[i-1] %>
+
+			<% end %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :vegetacaoInvasora, "Espécies vegetação invasora" %>: </br>
+
+			<% var_vegetacaoInvasora = ["silvas","ervaDaFortuna", "plumas","lentilhaDaAgua","pinheirinha","jacintoDeAgua","vegetacaoInvasora_outro"];
+			labels = ["Silvas","Erva-da-fortuna","Plumas","Lentilha da água","Pinheirinha","Jacinto de água","Outro"]; %>
+			<% for i in 0..6
+			label = var_vegetacaoInvasora[i]; %>
+
+			<%= f.check_box label %>
+			<%= f.label label, labels[i] %>
+
+			<% end %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :obstrucaoDoLeitoMargens, "Obstrução do leito e margens (vegetação)" %>:</br>
+
+			<% labels = ["Com pouca ou sem vegetação no leito <5%","Com alguns ramos e pequenos troncos no leito (5 a 25%)","Com ramos e troncos no leito e margem (25 a 50%)","Com obstrução de 50 a 75% com ramos e troncos","Com obstrução quase total>75% do leito e margens"]; %>
+
+			<% for i in 1..5
+			label = "obstrucaoDoLeitoMargens_#{i}"; %>
+
+			<%= f.radio_button :obstrucaoDoLeitoMargens, i %>
+			<%= f.label label, labels[i-1] %>
+
+			<% end %>
+		</div>
+
 	</div>
 
 
+	<div id="form_irr-participacaopublica">
+		<h2> Participação pública </h2>
+		<div class="form-group">
+			<%= f.label :disponibilizacaoDeInformacao, "Disponibilização de informação" %>:</br>
+
+			<% labels = ["Local de informação por junta de freguesia mais próxima ou acesso público á internet, Disponibilidade de informação (técnicos e não técnicos) e acesso a informação de projetos de Participação Pública", "Local de informação por município ou acesso público á internet, Disponibilidade de informação (técnicos e não técnicos) e acesso à informação de projetos de Participação Pública", "Acesso á internet com indicações da localização da informação e disponibilidade de informação (técnicos e não técnicos)","Disponibilidade de informação de qualidade deficiente para os objetivos de reabilitação","Ausência de locais de informação acessível"]; %>
+
+			<% for i in 1..5
+			label = "disponibilizacaoDeInformacao_#{i}"; %>
+
+			<%= f.radio_button :disponibilizacaoDeInformacao, i %>
+			<%= f.label label, labels[i-1] %>
+
+			<% end %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :envolvimentoPublico, "Envolvimento público" %>:</br>
+
+			<% labels = ["Envolvimento de Decisores-Chave (propietários, município, ARH), em pelo menos duas sessões por ano de participação pública, grupos tipo \"Projeto Rios\",  Realização de sondagens e Inquéritos a população","Envolvimento de Decisores-Chave (município, ARH), em pelo menos 1 sessão de participação pública e/ou associações locais por ano","Poucas atividades de participação pública","Atividades pontuais e com deficiente envolvimento publico local ou de fraca qualidade","Ausência de envolvimento"]; %>
+
+			<% for i in 1..5
+			label = "envolvimentoPublico_#{i}"; %>
+
+			<%= f.radio_button :envolvimentoPublico, i %>
+			<%= f.label label, labels[i-1] %>
+
+			<% end %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :acao, "Ação" %>:</br>
+
+			<% labels = ["São realizadas pelo menos uma das atividades de ações de fiscalização, Monitorização, acompanhamento de participação e envolvimento da população,  e há o seu feedback","São realizadas pelo menos uma das atividades de ações de fiscalização e há o seu feedback","Integração das decisões de participação nas soluções e inexistência de feedback das decisões finais","Sem integração nem feedback das decisões finais","Ausência total de atividades"]; %>
+
+			<% for i in 1..5
+			label = "acao_#{i}"; %>
+
+			<%= f.radio_button :acao, i %>
+			<%= f.label label, labels[i-1] %>
+
+			<% end %>
+		</div>
+	</div>
+
+	<div id="form_irr-organizacaoeplaneamento">
+		<h2> Organização e planeamento </h2>
+		<div class="form-group">
+			<%= f.label :legislacao, "Legislação" %>:</br>
+
+			<% labels = ["Cumpre todos os requisitos legais nacionais, diretivas europeias e convenções internacionais assinadas por Portugal","Cumpre todos os requisitos legais nacionais","Não cumpre requisitos legais ao nível de pessoas singulares","Não cumpre requisitos legais ao nível de pessoas singulares e de pessoas coletivas","Não se observa nenhuma aplicação legal"]; %>
+
+			<% for i in 1..5
+			label = "legislacao_#{i}"; %>
+
+			<%= f.radio_button :legislacao, i %>
+			<%= f.label label, labels[i-1] %>
+
+			<% end %>
+		</div>
+
+
+		<div class="form-group">
+			<%= f.label :estrategia, "Estratégia, planos de ordenamento e gestão" %>:</br>
+
+			<% labels = ["Existem evidências de implementação de uma estratégia de reabilitação integrada com as figuras de ordenamento locais e regionais","Existe uma estratégia de reabilitação integrada ou planos de ordenamento e de gestão de bacia hidrográfica implementados","Existem planos de ordenamento e de gestão de bacia hidrográfica desintegrados das figuras de ordenamento local e regional e com diminuta implementação","Existem planos de ordenamento e de gestão de bacia hidrográfica sem implementação","Não existe nenhum documento estratégica, planeamento de ordenamento e de gestão a nível de recursos hídricos"]; %>
+
+			<% for i in 1..5
+			label = "estrategia_#{i}"; %>
+
+			<%= f.radio_button :estrategia, i %>
+			<%= f.label label, labels[i-1] %>
+
+			<% end %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :gestaoDasIntervencoes, "Gestão das intervenções de melhoria" %> (Existe pelo menos uma atividade de cada um dos grupos): </br>
+
+			<% labels = ["Definição de objetivos claros de intervenção de melhoria, ações de monitorização com valores de referência, ações de fiscalização, plano de intervenção em caso de acidente ou catástrofe, plano de ações de intervenção de melhoria e ações de manutenção com envolvimento dos proprietários","Definição de objetivos claros de intervenção de melhoria, plano de ações de intervenção de melhoria, ações de monitorização com valores de referência e ações de manutenção com envolvimento dos proprietários","Definição de objetivos claros de intervenção de melhoria e plano de ações de intervenção de melhoria","Definição de objetivos claros de intervenção de melhoria, mas sem qualquer intervenção","Não existe nenhuma evidência de gestão das intervenções de melhoria"]; %>
+
+			<% for i in 1..5
+			label = "gestaoDasIntervencoes_#{i}"; %>
+
+			<%= f.radio_button :gestaoDasIntervencoes, i %>
+			<%= f.label label, labels[i-1] %>
+
+			<% end %>
+		</div>
+	</div>
 
 	<p>
 		<%= f.submit "Submeter formulario", class: "btn btn-primary" %>
