@@ -1,189 +1,191 @@
 <%= form_for @form_irr, :html => {:role => "form"}  do |f| %>
 
-<div class="form-group">
-	<%= f.label :tipoDeVale, "Tipo de Vale" %>: </br>
-
-	<%= f.radio_button :tipoDeVale, "1" %>
-	<%= f.label :tipoDeVale_1, image_tag('logo.png') %>
-	<%= f.radio_button :tipoDeVale, "2" %>
-	<%= f.label :tipoDeVale_2, image_tag('logo.png') %>
-	<%= f.radio_button :tipoDeVale, "3" %>
-	<%= f.label :tipoDeVale_3, image_tag('logo.png') %>
-	<%= f.radio_button :tipoDeVale, "4" %>
-	<%= f.label :tipoDeVale_4, image_tag('logo.png') %>
-	<%= f.radio_button :tipoDeVale, "5" %>
-	<%= f.label :tipoDeVale_5, image_tag('logo.png') %>
-	<%= f.radio_button :tipoDeVale, "6" %>
-	<%= f.label :tipoDeVale_6, image_tag('logo.png') %>
-	<%= f.radio_button :tipoDeVale, "7" %>
-	<%= f.label :tipoDeVale_7, image_tag('logo.png') %>
-</div>
-
-<div class="form-group">
-	<%= f.label :perfilDeMargens, "Perfil de margens" %>: </br>
-
-	<%= f.radio_button :perfilDeMargens, "1" %>
-	<%= f.label :perfilDeMargens_1, 'Vertical escavado' %>
-	<%= f.label :perfilDeMargens_1, image_tag('perfildemargens/verticalescavado.png') %>
-
-	<%= f.radio_button :perfilDeMargens, "2" %>
-	<%= f.label :perfilDeMargens_2, "Vertical cortado" %>
-	<%= f.label :perfilDeMargens_2, image_tag('perfildemargens/verticalcortado.png') %>
-
-	<%= f.radio_button :perfilDeMargens, "3" %>
-	<%= f.label :perfilDeMargens_3, "Declive >45%" %>
-	<%= f.label :perfilDeMargens_3, image_tag('perfildemargens/declivemaior45.png') %>
-
-	<%= f.radio_button :perfilDeMargens, "4" %>
-	<%= f.label :perfilDeMargens_4, "Declive <45%" %>
-	<%= f.label :perfilDeMargens_4, image_tag('perfildemargens/declivemenor45.png') %>
-
-	<%= f.radio_button :perfilDeMargens, "5" %>
-	<%= f.label :perfilDeMargens_5, "Suave composto <45%" %>
-	<%= f.label :perfilDeMargens_5, image_tag('perfildemargens/suavecomposto.png') %>
-
-	<%= f.radio_button :perfilDeMargens, "6" %>
-	<%= f.label :perfilDeMargens_6, "Artificial" %>
-</div>
-
-<div class="form-group">
-	<h4> Volume de água </h4> 
-	<%= f.label :larguraDaSuperficieDaAgua, "Largura da superfície da água (L) (m)" %>: 
-	<%= f.number_field :larguraDaSuperficieDaAgua, :class => 'text_field', :step => 'any', :min => '0.00' %> </br>
-
-	<%= f.label :profundidadeMedia, "Profundidade média (P) (m)" %>: 
-	<%= f.number_field :profundidadeMedia, :class => 'text_field', :step => 'any', :min => '0.00' %> </br>
-
-	<%= f.label :seccao, "Secção (S=PxL) (m^2)" %>:
-	<%= f.number_field :seccao, :class => 'text_field', :step => 'any', :readonly => true %> </br>
-
-	<%= f.label :velocidadeMedia, "Velocidade média (V) (m/s)" %>:
-	<%= f.number_field :velocidadeMedia, :class => 'text_field', :step => 'any', :min => '0.00' %> </br>
-
-	<%= f.label :caudal, "Caudal (C=VxS) (m^3/s)" %>:
-	<%= f.number_field :caudal, :class => 'text_field', :step => 'any', :min => '0.00', :readonly => true %> </br>
-</div>
-
-<div class="form-group">
-	<%= f.label :substratoDasMargens, "Substrato das margens (selecionar os que tem mais de 35%)" %>: </br>
-
-	<%= f.check_box :substratoDasMargens_soloArgiloso %>
-	<%= f.label :substratoDasMargens_soloArgiloso, "Solo Argiloso" %>
-
-	<%= f.check_box :substratoDasMargens_arenoso %>
-	<%= f.label :substratoDasMargens_arenoso, "Solo Argiloso" %>
-
-	<%= f.check_box :substratoDasMargens_pedregoso %>
-	<%= f.label :substratoDasMargens_pedregoso, "Solo Argiloso" %>
-
-	<%= f.check_box :substratoDasMargens_rochoso %>
-	<%= f.label :substratoDasMargens_rochoso, "Solo Argiloso" %>
-
-	<%= f.check_box :substratoDasMargens_artificialPedra %>
-	<%= f.label :substratoDasMargens_artificialPedra, "Solo Argiloso" %>
-
-	<%= f.check_box :substratoDasMargens_artificialBetao %>
-	<%= f.label :substratoDasMargens_artificialBetao, "Solo Argiloso" %>
-</div>
-
-<div class="form-group">
-	<%= f.label :substratoDasMargens, "Substrato do leito (selecionar os que tem mais de 35%)" %>: </br>
-
-	<%= f.check_box :substratoDoLeito_blocoseRocha %>
-	<%= f.label :substratoDoLeito_blocoseRocha, "Blocos e rocha (>40cm)" %>
-
-	<%= f.check_box :substratoDoLeito_calhaus %>
-	<%= f.label :substratoDoLeito_calhaus, "Calhaus (20-40cm)" %>
-
-	<%= f.check_box :substratoDoLeito_cascalho %>
-	<%= f.label :substratoDoLeito_cascalho, "Cascalho (2-20cm)" %>
-
-	<%= f.check_box :substratoDoLeito_areia %>
-	<%= f.label :substratoDoLeito_areia, "Areia (0.5-2cm)" %>
-
-	<%= f.check_box :substratoDoLeito_limo %>
-	<%= f.label :substratoDoLeito_limo, "Limo (<0.5mm)" %>
-
-	<%= f.check_box :substratoDoLeito_solo %>
-	<%= f.label :substratoDoLeito_solo, "Solo" %>
-
-	<%= f.check_box :substratoDoLeito_artificial %>
-	<%= f.label :substratoDoLeito_artificial, "Artificial" %>
-
-	<%= f.check_box :substratoDoLeito_naoEVisivel %>
-	<%= f.label :substratoDoLeito_naoEVisivel, "Não é visível" %>
-</div>
-
-<div class="form-group">
-	<%= f.label :estadoGeraldaLinhadeAgua, "Estado geral da linha de água" %>:</br>
-
-	<%= f.radio_button :estadoGeraldaLinhadeAgua, "1" %>
-	<%= f.label :estadoGeraldaLinhadeAgua_1, "Canal sem alterações, estado natural" %>
-
-	<%= f.radio_button :estadoGeraldaLinhadeAgua, "2" %>
-	<%= f.label :estadoGeraldaLinhadeAgua_2, "Canal ligeiramente perturbado" %>
-
-	<%= f.radio_button :estadoGeraldaLinhadeAgua, "3" %>
-	<%= f.label :estadoGeraldaLinhadeAgua_3, "Início de uma importante alteração do canal" %>
-
-	<%= f.radio_button :estadoGeraldaLinhadeAgua, "4" %>
-	<%= f.label :estadoGeraldaLinhadeAgua_4, "Grande alteração do canal" %>
-
-	<%= f.radio_button :estadoGeraldaLinhadeAgua, "5" %>
-	<%= f.label :estadoGeraldaLinhadeAgua_5, "Canal completamente alterado (canalizado, regularizado)" %>
-</div>
-
-<div class="form-group">
-	<%= f.label :erosao, "Erosão" %>:</br>
-
-	<%= f.radio_button :erosao, "1" %>
-	<%= f.label :erosao_1, "Sem erosão" %>
-
-	<%= f.radio_button :erosao, "2" %>
-	<%= f.label :erosao_2, "Formação de >3 regos" %>
-
-	<%= f.radio_button :erosao, "3" %>
-	<%= f.label :erosao_3, "Formação de 1-3 regos" %>
-
-	<%= f.radio_button :erosao, "4" %>
-	<%= f.label :erosao_4, "Queda de muros e árvores" %>
-
-	<%= f.radio_button :erosao, "5" %>
-	<%= f.label :erosao_5, "Rombos com mais de 1 metro com queda de muros ou árvores" %>
-</div>
-
-<div class="form-group">
-	<%= f.label :sedimentacao, "Sedimentação" %>:</br>
-
-	<%= f.radio_button :sedimentacao, "1" %>
-	<%= f.label :sedimentacao_1, "Ausente" %>
-
-	<%= f.radio_button :sedimentacao, "2" %>
-	<%= f.label :sedimentacao_2, "Demposição na margem em curva" %>
-
-	<%= f.radio_button :sedimentacao, "3" %>
-	<%= f.label :sedimentacao_3, "Mouchões (deposição de areia no leito)" %>
-
-	<%= f.radio_button :sedimentacao, "4" %>
-	<%= f.label :sedimentacao_4, "Ilhas sem vegetação" %>
-
-	<%= f.radio_button :sedimentacao, "5" %>
-	<%= f.label :sedimentacao_5, "Ilhas com vegetação" %>
-
-	<%= f.radio_button :sedimentacao, "6" %>
-	<%= f.label :sedimentacao_6, "Deposição nas margens (s/vegetação)" %>
-
-	<%= f.radio_button :sedimentacao, "7" %>
-	<%= f.label :sedimentacao_7, "Deposição nas margens (c/vegetação)" %>
-
-	<%= f.radio_button :sedimentacao, "8" %>
-	<%= f.label :sedimentacao_8, "Rochas expostas no leito" %>	
-</div>
-
 <div id="form_irr-hidrogeomorfologia">
-	<h3> Hidrogeomorfologia </h3>
+	<h2> Hidrogeomorfologia </h2>
 	<div class="form-group">
-		<h4> Qualidade da água: </h4>
+		<%= f.label :tipoDeVale, "Tipo de Vale" %>: </br>
+
+		<%= f.radio_button :tipoDeVale, "1" %>
+		<%= f.label :tipoDeVale_1, image_tag('logo.png') %>
+		<%= f.radio_button :tipoDeVale, "2" %>
+		<%= f.label :tipoDeVale_2, image_tag('logo.png') %>
+		<%= f.radio_button :tipoDeVale, "3" %>
+		<%= f.label :tipoDeVale_3, image_tag('logo.png') %>
+		<%= f.radio_button :tipoDeVale, "4" %>
+		<%= f.label :tipoDeVale_4, image_tag('logo.png') %>
+		<%= f.radio_button :tipoDeVale, "5" %>
+		<%= f.label :tipoDeVale_5, image_tag('logo.png') %>
+		<%= f.radio_button :tipoDeVale, "6" %>
+		<%= f.label :tipoDeVale_6, image_tag('logo.png') %>
+		<%= f.radio_button :tipoDeVale, "7" %>
+		<%= f.label :tipoDeVale_7, image_tag('logo.png') %>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :perfilDeMargens, "Perfil de margens" %>: </br>
+
+		<%= f.radio_button :perfilDeMargens, "1" %>
+		<%= f.label :perfilDeMargens_1, 'Vertical escavado' %>
+		<%= f.label :perfilDeMargens_1, image_tag('perfildemargens/verticalescavado.png') %>
+
+		<%= f.radio_button :perfilDeMargens, "2" %>
+		<%= f.label :perfilDeMargens_2, "Vertical cortado" %>
+		<%= f.label :perfilDeMargens_2, image_tag('perfildemargens/verticalcortado.png') %>
+
+		<%= f.radio_button :perfilDeMargens, "3" %>
+		<%= f.label :perfilDeMargens_3, "Declive >45%" %>
+		<%= f.label :perfilDeMargens_3, image_tag('perfildemargens/declivemaior45.png') %>
+
+		<%= f.radio_button :perfilDeMargens, "4" %>
+		<%= f.label :perfilDeMargens_4, "Declive <45%" %>
+		<%= f.label :perfilDeMargens_4, image_tag('perfildemargens/declivemenor45.png') %>
+
+		<%= f.radio_button :perfilDeMargens, "5" %>
+		<%= f.label :perfilDeMargens_5, "Suave composto <45%" %>
+		<%= f.label :perfilDeMargens_5, image_tag('perfildemargens/suavecomposto.png') %>
+
+		<%= f.radio_button :perfilDeMargens, "6" %>
+		<%= f.label :perfilDeMargens_6, "Artificial" %>
+	</div>
+
+	<div class="form-group">
+		<h3> Volume de água </h3> 
+		<%= f.label :larguraDaSuperficieDaAgua, "Largura da superfície da água (L) (m)" %>: 
+		<%= f.number_field :larguraDaSuperficieDaAgua, :class => 'text_field', :step => 'any', :min => '0.00' %> </br>
+
+		<%= f.label :profundidadeMedia, "Profundidade média (P) (m)" %>: 
+		<%= f.number_field :profundidadeMedia, :class => 'text_field', :step => 'any', :min => '0.00' %> </br>
+
+		<%= f.label :seccao, "Secção (S=PxL) (m^2)" %>:
+		<%= f.number_field :seccao, :class => 'text_field', :step => 'any', :readonly => true %> </br>
+
+		<%= f.label :velocidadeMedia, "Velocidade média (V) (m/s)" %>:
+		<%= f.number_field :velocidadeMedia, :class => 'text_field', :step => 'any', :min => '0.00' %> </br>
+
+		<%= f.label :caudal, "Caudal (C=VxS) (m^3/s)" %>:
+		<%= f.number_field :caudal, :class => 'text_field', :step => 'any', :min => '0.00', :readonly => true %> </br>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :substratoDasMargens, "Substrato das margens (selecionar os que tem mais de 35%)" %>: </br>
+
+		<%= f.check_box :substratoDasMargens_soloArgiloso %>
+		<%= f.label :substratoDasMargens_soloArgiloso, "Solo Argiloso" %>
+
+		<%= f.check_box :substratoDasMargens_arenoso %>
+		<%= f.label :substratoDasMargens_arenoso, "Solo Argiloso" %>
+
+		<%= f.check_box :substratoDasMargens_pedregoso %>
+		<%= f.label :substratoDasMargens_pedregoso, "Solo Argiloso" %>
+
+		<%= f.check_box :substratoDasMargens_rochoso %>
+		<%= f.label :substratoDasMargens_rochoso, "Solo Argiloso" %>
+
+		<%= f.check_box :substratoDasMargens_artificialPedra %>
+		<%= f.label :substratoDasMargens_artificialPedra, "Solo Argiloso" %>
+
+		<%= f.check_box :substratoDasMargens_artificialBetao %>
+		<%= f.label :substratoDasMargens_artificialBetao, "Solo Argiloso" %>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :substratoDasMargens, "Substrato do leito (selecionar os que tem mais de 35%)" %>: </br>
+
+		<%= f.check_box :substratoDoLeito_blocoseRocha %>
+		<%= f.label :substratoDoLeito_blocoseRocha, "Blocos e rocha (>40cm)" %>
+
+		<%= f.check_box :substratoDoLeito_calhaus %>
+		<%= f.label :substratoDoLeito_calhaus, "Calhaus (20-40cm)" %>
+
+		<%= f.check_box :substratoDoLeito_cascalho %>
+		<%= f.label :substratoDoLeito_cascalho, "Cascalho (2-20cm)" %>
+
+		<%= f.check_box :substratoDoLeito_areia %>
+		<%= f.label :substratoDoLeito_areia, "Areia (0.5-2cm)" %>
+
+		<%= f.check_box :substratoDoLeito_limo %>
+		<%= f.label :substratoDoLeito_limo, "Limo (<0.5mm)" %>
+
+		<%= f.check_box :substratoDoLeito_solo %>
+		<%= f.label :substratoDoLeito_solo, "Solo" %>
+
+		<%= f.check_box :substratoDoLeito_artificial %>
+		<%= f.label :substratoDoLeito_artificial, "Artificial" %>
+
+		<%= f.check_box :substratoDoLeito_naoEVisivel %>
+		<%= f.label :substratoDoLeito_naoEVisivel, "Não é visível" %>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :estadoGeraldaLinhadeAgua, "Estado geral da linha de água" %>:</br>
+
+		<%= f.radio_button :estadoGeraldaLinhadeAgua, "1" %>
+		<%= f.label :estadoGeraldaLinhadeAgua_1, "Canal sem alterações, estado natural" %>
+
+		<%= f.radio_button :estadoGeraldaLinhadeAgua, "2" %>
+		<%= f.label :estadoGeraldaLinhadeAgua_2, "Canal ligeiramente perturbado" %>
+
+		<%= f.radio_button :estadoGeraldaLinhadeAgua, "3" %>
+		<%= f.label :estadoGeraldaLinhadeAgua_3, "Início de uma importante alteração do canal" %>
+
+		<%= f.radio_button :estadoGeraldaLinhadeAgua, "4" %>
+		<%= f.label :estadoGeraldaLinhadeAgua_4, "Grande alteração do canal" %>
+
+		<%= f.radio_button :estadoGeraldaLinhadeAgua, "5" %>
+		<%= f.label :estadoGeraldaLinhadeAgua_5, "Canal completamente alterado (canalizado, regularizado)" %>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :erosao, "Erosão" %>:</br>
+
+		<%= f.radio_button :erosao, "1" %>
+		<%= f.label :erosao_1, "Sem erosão" %>
+
+		<%= f.radio_button :erosao, "2" %>
+		<%= f.label :erosao_2, "Formação de >3 regos" %>
+
+		<%= f.radio_button :erosao, "3" %>
+		<%= f.label :erosao_3, "Formação de 1-3 regos" %>
+
+		<%= f.radio_button :erosao, "4" %>
+		<%= f.label :erosao_4, "Queda de muros e árvores" %>
+
+		<%= f.radio_button :erosao, "5" %>
+		<%= f.label :erosao_5, "Rombos com mais de 1 metro com queda de muros ou árvores" %>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :sedimentacao, "Sedimentação" %>:</br>
+
+		<%= f.radio_button :sedimentacao, "1" %>
+		<%= f.label :sedimentacao_1, "Ausente" %>
+
+		<%= f.radio_button :sedimentacao, "2" %>
+		<%= f.label :sedimentacao_2, "Demposição na margem em curva" %>
+
+		<%= f.radio_button :sedimentacao, "3" %>
+		<%= f.label :sedimentacao_3, "Mouchões (deposição de areia no leito)" %>
+
+		<%= f.radio_button :sedimentacao, "4" %>
+		<%= f.label :sedimentacao_4, "Ilhas sem vegetação" %>
+
+		<%= f.radio_button :sedimentacao, "5" %>
+		<%= f.label :sedimentacao_5, "Ilhas com vegetação" %>
+
+		<%= f.radio_button :sedimentacao, "6" %>
+		<%= f.label :sedimentacao_6, "Deposição nas margens (s/vegetação)" %>
+
+		<%= f.radio_button :sedimentacao, "7" %>
+		<%= f.label :sedimentacao_7, "Deposição nas margens (c/vegetação)" %>
+
+		<%= f.radio_button :sedimentacao, "8" %>
+		<%= f.label :sedimentacao_8, "Rochas expostas no leito" %>	
+	</div>
+</div>
+
+<div id="form_irr-qualidadedaagua">
+	<h2> Qualidade da água: </h2>
+	<div class="form-group">
 
 		<%= f.label :pH, "pH" %>:
 		<%= f.number_field :pH, :class => 'text_field', :step => 'any', :min => '0.00', :max => '14.0' %> </br>
@@ -209,196 +211,413 @@
 		<%= f.label :transparencia, "Transparência (I-IV)" %>:
 		<%= f.number_field :transparencia, :class => 'text_field', :min => '1', :max => '4', :step => '1' %> </br>
 	</div>
+
+	<div class="form-group">
+		<h3> Indicios na água: </h3>
+
+		<%= f.check_box :oleo %>
+		<%= f.label :oleo, "Oleo" %>
+
+		<%= f.check_box :espuma %>
+		<%= f.label :espuma, "Espuma" %>
+
+		<%= f.check_box :esgotos %>
+		<%= f.label :esgotos, "Esgotos" %>
+
+		<%= f.check_box :impurezas %>
+		<%= f.label :impurezas, "Impurezas" %>
+
+		<%= f.check_box :sacosDePlastico %>
+		<%= f.label :sacosDePlastico, "Sacos de plástico" %>
+
+		<%= f.check_box :latas %>
+		<%= f.label :latas, "Latas" %>
+
+		<%= f.label :indiciosNaAgua_outros, "Outros" %>
+		<%= f.text_area :indiciosNaAgua_outros %>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :corDaAgua, "Cor da água" %>:</br>
+
+		<%= f.radio_button :corDaAgua, "1" %>
+		<%= f.label :corDaAgua_1, "Transparente" %>
+
+		<%= f.radio_button :corDaAgua, "2" %>
+		<%= f.label :corDaAgua_2, "Leitosa" %>
+
+		<%= f.radio_button :corDaAgua, "3" %>
+		<%= f.label :corDaAgua_3, "Castanha" %>
+
+		<%= f.radio_button :corDaAgua, "4" %>
+		<%= f.label :corDaAgua_4, "Verde-escura" %>
+
+		<%= f.radio_button :corDaAgua, "5" %>
+		<%= f.label :corDaAgua_5, "Laranja" %>
+
+		<%= f.radio_button :corDaAgua, "6" %>
+		<%= f.label :corDaAgua_6, "Cinzenta" %>
+
+		<%= f.radio_button :corDaAgua, "7" %>
+		<%= f.label :corDaAgua_7, "Preta" %>
+
+		<%= f.radio_button :corDaAgua, "8" %>
+		<%= f.label :corDaAgua_8, "Outra cor" %>
+
+		<!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
+	</div>
+
+	<div class="form-group">
+		<%= f.label :odorDaAgua, "Odor (cheiro) da água" %>:</br>
+
+		<%= f.radio_button :odorDaAgua, "1" %>
+		<%= f.label :odorDaAgua_1, "Não tem odor" %>
+
+		<%= f.radio_button :odorDaAgua, "2" %>
+		<%= f.label :odorDaAgua_2, "Cheiro a fresco" %>
+
+		<%= f.radio_button :odorDaAgua, "3" %>
+		<%= f.label :odorDaAgua_3, "Cheiro a Lama (Vasa)" %>
+
+		<%= f.radio_button :odorDaAgua, "4" %>
+		<%= f.label :odorDaAgua_4, "Cheiro a esgoto" %>
+
+		<%= f.radio_button :odorDaAgua, "5" %>
+		<%= f.label :odorDaAgua_5, "Cheiro químico (cloro)" %>
+
+		<%= f.radio_button :odorDaAgua, "6" %>
+		<%= f.label :odorDaAgua_6, "Cheiro podre (ovos podres)" %>
+
+		<%= f.radio_button :odorDaAgua, "7" %>
+		<%= f.label :odorDaAgua_7, "Outro odor" %>
+
+		<!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
+	</div>
+
+	<div class="form-group">
+		<h3>Tabela de Macroinvertebrados </h3>
+		<%= f.check_box :planarias %>
+		<%= f.label :planarias, "Planárias" %>
+		<%= f.label :planarias, image_tag('macroinvertebrados/planaria.png') %>
+
+		<%= f.check_box :hirudineos %>
+		<%= f.label :hirudineos, "Hirudíneos (Sanguessugas)" %>
+		<%= f.label :hirudineos, image_tag('macroinvertebrados/hirudineo.png') %>
+
+		<h4>Dípteros</h4>
+		<%= f.check_box :oligoquetas %>
+		<%= f.label :oligoquetas, "Oligoquetas (minhocas)" %>
+		<%= f.label :oligoquetas, image_tag('macroinvertebrados/oligoquetas.png') %>
+
+		<%= f.check_box :simulideos %>
+		<%= f.label :simulideos, "Simulideos" %>
+		<%= f.label :simulideos, image_tag('macroinvertebrados/simulideo.png') %>
+
+		<%= f.check_box :quironomideos %>
+		<%= f.label :quironomideos, "Quironomideos, Sirfídeos, Culidídeos, Tipulídeos (Larva de mosquitos)" %>
+		<%= f.label :quironomideos, image_tag('macroinvertebrados/quironomideo.png') %>
+		<%= f.label :quironomideos, image_tag('macroinvertebrados/sirfideo.png') %>
+		<%= f.label :quironomideos, image_tag('macroinvertebrados/culicideo.png') %> <!-- TODO no excel tem Culidídeos mas no word tem culicideos, qual e? -->
+		<%= f.label :quironomideos, image_tag('macroinvertebrados/tipulideo.png') %>
+		<!-- FIM DIPTEROS -->
+
+		<h4>Gastrópodes (Mullusca)</h4>
+		<%= f.check_box :ancilideo %>
+		<%= f.label :ancilideo, "Ancilídeo" %>
+		<%= f.label :ancilideo, image_tag('macroinvertebrados/ancilideo.png') %>
+
+		<%= f.check_box :limnideo %>
+		<%= f.label :limnideo, "Limnídeo (Physa)" %>
+		<!-- TODO no excel tem limnideo mas no word tem Limnelídeo, qual e? -->
+		<%= f.label :limnideo, image_tag('macroinvertebrados/limnelideo.png') %>
+		<!-- FIM GASTROPODES -->
+
+		<%= f.check_box :bivalves %>
+		<%= f.label :bivalves, "Bivalves" %>
+		<%= f.label :bivalves, image_tag('macroinvertebrados/bivalves.png') %>
+
+		<h4>Coleóptero (escaravelho)</h4>
+		<%= f.check_box :patasNadadoras %>
+		<%= f.label :patasNadadoras, "Patas Nadadoras (Dystiscidae)" %>
+		<%= f.label :patasNadadoras, image_tag('macroinvertebrados/ditiscus.png') %>
+
+		<%= f.check_box :pataLocomotoras %>
+		<%= f.label :pataLocomotoras, "Pata Locomotoras (Hydraena)" %>
+		<%= f.label :pataLocomotoras, "NO FOTO!!!" %>
+		<!-- FIM ESCARAVELHO -->
+
+		<h4>Trichóptero (mosca d’água)</h4>
+		<%= f.check_box :trichopteroS %>
+		<%= f.label :trichopteroS, "Trichóptero (mosca d’água) S/Casulo" %>
+		<%= f.label :trichopteroS, image_tag('macroinvertebrados/hidropsiquideo.png') %>
+
+		<%= f.check_box :trichopteroC %>
+		<%= f.label :trichopteroC, "Trichóptero (mosca d’água) C/Casulo" %>
+		<%= f.label :trichopteroC, image_tag('macroinvertebrados/trichoptero.png') %>
+		<!-- FIM TRICHOPTERO -->
+
+		<%= f.check_box :odonata %>
+		<%= f.label :odonata, "Odonata (Larva de Libelinhas)" %>
+		<%= f.label :odonata, image_tag('macroinvertebrados/larvadelibelula.png') %>
+		<!-- TODO nao sei se larva de libelula e o mesmo que larva de libelinhas -->
+
+		<%= f.check_box :heteropteros %>
+		<%= f.label :heteropteros, "Heterópteros" %>
+		<%= f.label :heteropteros, "TEM VARIAS FOTOS! qual escolher?" %>
+
+		<%= f.check_box :plecopteros %>
+		<%= f.label :plecopteros, "Plecópteros (mosca-de-pedra)" %>
+		<%= f.label :plecopteros, image_tag('macroinvertebrados/plecopteros.png') %>
+
+		<h4> Efemerópteros (efémera) </h4>
+		<%= f.check_box :baetideo %>
+		<%= f.label :baetideo, "Baetídeo" %>
+		<%= f.label :baetideo, image_tag('macroinvertebrados/baetideo.png') %>
+
+		<%= f.check_box :cabecaPlanar %>
+		<%= f.label :cabecaPlanar, "Cabeça Planar (Ecdyonurus)" %>
+		<%= f.label :cabecaPlanar, "SEM FOTO!!" %>
+		<!-- FIM EFEMERA -->
+
+		<%= f.check_box :crustaceos %>
+		<%= f.label :crustaceos, "Crustáceos" %>
+		<%= f.label :crustaceos, "VARIAS FOTOS!!" %>
+
+		<%= f.check_box :acaros %>
+		<%= f.label :acaros, "Ácaros" %>
+		<%= f.label :acaros, image_tag('macroinvertebrados/acaros.png') %>
+
+		<%= f.check_box :pulgaDeAgua %>
+		<%= f.label :pulgaDeAgua, "Pulga-de-água (Daphnia)" %>
+		<%= f.label :pulgaDeAgua, image_tag('macroinvertebrados/pulgadeagua.png') %>
+
+		<%= f.check_box :insetos %>
+		<%= f.label :insetos, "Insetos – adultos (adultos na forma aérea)" %>
+		<%= f.label :insetos, "SEM FOTO!!" %>
+
+		<%= f.check_box :megalopteres %>
+		<%= f.label :megalopteres, "Mégalopteres" %>
+		<%= f.label :megalopteres, "SEM FOTO!!" %>
+	</div>
+	<!-- TODO por separador qd tem campos h4 -->
 </div>
 
-<div class="form-group">
-	<h4> Indicios na água: </h4>
+<div id="form_irr-alteracoesantropicas">
+	<h2> Alterações antrópicas </h2>
+	<div class="form-group">
+		<%= f.label :intervencoes, "Intervenções presentes" %>
 
-	<%= f.check_box :oleo %>
-	<%= f.label :oleo, "Oleo" %>
+		<%= f.check_box :intervencoes_edificios %>
+		<%= f.label :intervencoes_edificios, "Edifícios" %>
 
-	<%= f.check_box :espuma %>
-	<%= f.label :espuma, "Espuma" %>
+		<%= f.check_box :intervencoes_pontes %>
+		<%= f.label :intervencoes_pontes, "Pontes" %>
 
-	<%= f.check_box :esgotos %>
-	<%= f.label :esgotos, "Esgotos" %>
+		<%= f.check_box :intervencoes_limpezasDasMargens %>
+		<%= f.label :intervencoes_limpezasDasMargens, "Limpeza das margens" %>
 
-	<%= f.check_box :impurezas %>
-	<%= f.label :impurezas, "Impurezas" %>
+		<%= f.check_box :intervencoes_estabilizacaoDeMargens %>
+		<%= f.label :intervencoes_estabilizacaoDeMargens, "Estabilização de margens" %>
 
-	<%= f.check_box :sacosDePlastico %>
-	<%= f.label :sacosDePlastico, "Sacos de plástico" %>
+		<%= f.check_box :intervencoes_modelacaoDeMargensNatural %>
+		<%= f.label :intervencoes_modelacaoDeMargensNatural, "Modelação de margens natural" %>
 
-	<%= f.check_box :latas %>
-	<%= f.label :latas, "Latas" %>
+		<%= f.check_box :intervencoes_modelacaoDeMargensArtificial %>
+		<%= f.label :intervencoes_modelacaoDeMargensArtificial, "Modelação de margens artificial" %>
 
-	<%= f.label :indiciosNaAgua_outros, "Outros" %>
-	<%= f.text_area :indiciosNaAgua_outros %>
+		<%= f.check_box :intervencoes_barragem %>
+		<%= f.label :intervencoes_barragem, "Barragem" %>
+
+		<%= f.check_box :intervencoes_diques %>
+		<%= f.label :intervencoes_diques, "Diques" %>
+
+		<%= f.check_box :intervencoes_rioCanalizado %>
+		<%= f.label :intervencoes_rioCanalizado, "Rio canalizado" %>
+
+		<%= f.check_box :intervencoes_rioEntubado %>
+		<%= f.label :intervencoes_rioEntubado, "Rio entubado" %>
+
+		<%= f.check_box :intervencoes_esporoes %>
+		<%= f.label :intervencoes_esporoes, "Esporões" %>
+
+		<%= f.check_box :intervencoes_paredoes %>
+		<%= f.label :intervencoes_paredoes, "Paredões" %>
+
+		<%= f.check_box :intervencoes_tecnicasDeEngenhariaNatural %>
+		<%= f.label :intervencoes_tecnicasDeEngenhariaNatural, "Técnicas de engenharia natural" %>
+
+		<%= f.check_box :intervencoes_outras %>
+		<%= f.label :intervencoes_outras, "Outras" %>
+		<!-- TODO como inserir outras? -->
+	</div>
+
+	<div class="form-group">
+		<%= f.label :ocupacao, "Ocupação das margens [<10 m]" %>
+
+		<%= f.check_box :ocupacao_florestaNatural %>
+		<%= f.label :ocupacao_florestaNatural, "Zona natural com/sem intervenção (Floresta Natural)" %>
+
+		<%= f.check_box :ocupacao_florestaPlantadas %>
+		<%= f.label :ocupacao_florestaPlantadas, "Floresta/arvores plantadas" %>
+
+		<%= f.check_box :ocupacao_matoAlto %>
+		<%= f.label :ocupacao_matoAlto, "Mato alto (1-5 m)" %>
+
+		<%= f.check_box :ocupacao_matoRasteiro %>
+		<%= f.label :ocupacao_matoRasteiro, "Mato rasteiro <1m" %>
+
+		<%= f.check_box :intervencoes_modelacaoDeMargensNatural %>
+		<%= f.label :intervencoes_modelacaoDeMargensNatural, "Modelação de margens natural" %>
+
+		<%= f.check_box :ocupacao_pastagem %>
+		<%= f.label :ocupacao_pastagem, "Pastagem (pecuária)" %>
+
+		<%= f.check_box :ocupacao_agricultura %>
+		<%= f.label :ocupacao_agricultura, "Agricultura" %>
+
+		<%= f.check_box :ocupacao_espacoAbandonado %>
+		<%= f.label :ocupacao_espacoAbandonado, "Espaço abandonado (+ 3 anos)" %>
+
+		<%= f.check_box :ocupacao_jardins %>
+		<%= f.label :ocupacao_jardins, "Jardins ou espaços de lazer" %>
+
+		<%= f.check_box :ocupacao_zonaEdificada %>
+		<%= f.label :ocupacao_zonaEdificada, "Zona edificada (casas/edifícios)" %>
+
+		<%= f.check_box :ocupacao_zonaIndustrial %>
+		<%= f.label :ocupacao_zonaIndustrial, "Zona industrial" %>
+
+		<%= f.check_box :ocupacao_ruas %>
+		<%= f.label :ocupacao_ruas, "Vias de comunicação (ruas)" %>
+
+		<%= f.check_box :ocupacao_entulho %>
+		<%= f.label :ocupacao_entulho, "Entulho e zona degradada" %>
+	</div>
+
+	<div class="form-group">
+		<h3>Património edificado Leito/margem [estado de conservação: 1 - Bom a 5- Mau]</h3>
+
+		<%= f.label :patrimonio_moinho, "Moinho/azenhas" %>
+		<%= f.select :patrimonio_moinho, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_acude, "Açude (> 2m)" %>
+		<%= f.select :patrimonio_acude, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_microAcude1, "Micro-açude (1m)" %>
+		<%= f.select :patrimonio_microAcude1, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_microAcude2, "Micro-açude (1-2m)" %>
+		<%= f.select :patrimonio_microAcude2, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_barragem, "Barragem (> 10m)" %>
+		<%= f.select :patrimonio_barragem, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_levadas, "Levadas" %>
+		<%= f.select :patrimonio_levadas, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_pesqueiras, "Pesqueiras" %>
+		<%= f.select :patrimonio_pesqueiras, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_escadasDePeixe, "Escadas de peixe" %>
+		<%= f.select :patrimonio_escadasDePeixe, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_poldras, "Poldras" %>
+		<%= f.select :patrimonio_poldras, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_pontesSemPilar, "Pontes/pontões sem pilar no canal" %>
+		<%= f.select :patrimonio_pontesSemPilar, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_pontesComPilar, "Pontes/pontões com pilar no canal" %>
+		<%= f.select :patrimonio_pontesComPilar, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_passagemAVau, "Passagem a vau" %>
+		<%= f.select :patrimonio_passagemAVau, options_for_select(1..5) %>
+
+		<h5> Embarcações </h5>
+		<%= f.label :patrimonio_barcos, "Barcos" %>
+		<%= f.select :patrimonio_barcos, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_cais, "Caís" %>
+		<%= f.select :patrimonio_cais, options_for_select(1..5) %>
+		<!-- FIM EMBARCAÇOES -->
+
+		<%= f.label :patrimonio_igreja, "Igreja, capela, santuário (< 100m)" %>
+		<%= f.select :patrimonio_igreja, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_solares, "Solares ou casas agrícolas (< 100m)" %>
+		<%= f.select :patrimonio_solares, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_nucleoHabitacional, "Núcleo habitacional (< 100m)" %>
+		<%= f.select :patrimonio_nucleoHabitacional, options_for_select(1..5) %>
+
+
+		<%= f.label :patrimonio_edificiosParticulares, "Edifícios particulares (< 100m)" %>
+		<%= f.select :patrimonio_edificiosParticulares, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_edificiosPublicos, "Edifícios públicos (estatais) (< 100m)" %>
+		<%= f.select :patrimonio_edificiosPublicos, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_ETA, "ETA/ETAR/elevatórias" %>
+		<%= f.select :patrimonio_ETA, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_descarregadoresDeAguasPluviais, "Descarregadores de águas pluviais" %>
+		<%= f.select :patrimonio_descarregadoresDeAguasPluviais, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_coletoresSaneamento, "Coletores saneamento" %>
+		<%= f.select :patrimonio_coletoresSaneamento, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_defletoresArtificiais, "Defletores artificiais" %>
+		<%= f.select :patrimonio_defletoresArtificiais, options_for_select(1..5) %>
+
+		<%= f.label :patrimonio_motaLateral, "Mota lateral" %>
+		<%= f.select :patrimonio_motaLateral, options_for_select(1..5) %>
+	</div>
+
+	<div class="form-group">
+	<!--TODO n tenho a certeza se isto deveria ser um select ou uma checkbox -->
+		<h3>Poluição</h3>
+
+		<%= f.label :poluicao_descargasDomesticas, "Descargas domésticas" %>
+		<%= f.select :poluicao_descargasDomesticas, options_for_select(1..5) %>
+
+		<%= f.label :poluicao_descargasETAR, "Descargas ETAR" %>
+		<%= f.select :poluicao_descargasETAR, options_for_select(1..5) %>
+
+		<%= f.label :poluicao_descargasIndustriais, "Descargas industriais" %>
+		<%= f.select :poluicao_descargasIndustriais, options_for_select(1..5) %>
+
+		<%= f.label :poluicao_descargasQuimicas, "Descargas químicas" %>
+		<%= f.select :poluicao_descargasQuimicas, options_for_select(1..5) %>
+
+		<%= f.label :poluicao_descargasAguasPluviais, "Descargas águas pluviais" %>
+		<%= f.select :poluicao_descargasAguasPluviais, options_for_select(1..5) %>
+
+		<%= f.label :poluicao_presencaCriacaoAnimais, "Presença de criação animais" %>
+		<%= f.select :poluicao_presencaCriacaoAnimais, options_for_select(1..5) %>
+
+		<%= f.label :poluicao_lixeiras, "Lixeiras" %>
+		<%= f.select :poluicao_lixeiras, options_for_select(1..5) %>
+
+		<%= f.label :poluicao_lixoDomestico, "Lixo doméstico" %>
+		<%= f.select :poluicao_lixoDomestico, options_for_select(1..5) %>
+
+		<%= f.label :poluicao_entulho, "Entulho (restos de obras)" %>
+		<%= f.select :poluicao_entulho, options_for_select(1..5) %>
+
+		<%= f.label :poluicao_monstrosDomesticos, "Monstros domésticos" %>
+		<%= f.select :poluicao_monstrosDomesticos, options_for_select(1..5) %>
+
+		<%= f.label :poluicao_sacosDePlastico, "Sacos de plástico" %>
+		<%= f.select :poluicao_sacosDePlastico, options_for_select(1..5) %>
+
+		<%= f.label :poluicao_latasMaterialFerroso, "Latas e material ferroso" %>
+		<%= f.select :poluicao_latasMaterialFerroso, options_for_select(1..5) %>
+
+		<%= f.label :poluicao_queimadas, "Queimadas" %>
+		<%= f.select :poluicao_queimadas, options_for_select(1..5) %>
 </div>
 
-<div class="form-group">
-	<%= f.label :corDaAgua, "Cor da água" %>:</br>
 
-	<%= f.radio_button :corDaAgua, "1" %>
-	<%= f.label :corDaAgua_1, "Transparente" %>
-
-	<%= f.radio_button :corDaAgua, "2" %>
-	<%= f.label :corDaAgua_2, "Leitosa" %>
-
-	<%= f.radio_button :corDaAgua, "3" %>
-	<%= f.label :corDaAgua_3, "Castanha" %>
-
-	<%= f.radio_button :corDaAgua, "4" %>
-	<%= f.label :corDaAgua_4, "Verde-escura" %>
-
-	<%= f.radio_button :corDaAgua, "5" %>
-	<%= f.label :corDaAgua_5, "Laranja" %>
-
-	<%= f.radio_button :corDaAgua, "6" %>
-	<%= f.label :corDaAgua_6, "Cinzenta" %>
-
-	<%= f.radio_button :corDaAgua, "7" %>
-	<%= f.label :corDaAgua_7, "Preta" %>
-
-	<%= f.radio_button :corDaAgua, "8" %>
-	<%= f.label :corDaAgua_8, "Outra cor" %>
-
-	<!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
-</div>
-
-<div class="form-group">
-	<%= f.label :odorDaAgua, "Odor (cheiro) da água" %>:</br>
-
-	<%= f.radio_button :odorDaAgua, "1" %>
-	<%= f.label :odorDaAgua_1, "Não tem odor" %>
-
-	<%= f.radio_button :odorDaAgua, "2" %>
-	<%= f.label :odorDaAgua_2, "Cheiro a fresco" %>
-
-	<%= f.radio_button :odorDaAgua, "3" %>
-	<%= f.label :odorDaAgua_3, "Cheiro a Lama (Vasa)" %>
-
-	<%= f.radio_button :odorDaAgua, "4" %>
-	<%= f.label :odorDaAgua_4, "Cheiro a esgoto" %>
-
-	<%= f.radio_button :odorDaAgua, "5" %>
-	<%= f.label :odorDaAgua_5, "Cheiro químico (cloro)" %>
-
-	<%= f.radio_button :odorDaAgua, "6" %>
-	<%= f.label :odorDaAgua_6, "Cheiro podre (ovos podres)" %>
-
-	<%= f.radio_button :odorDaAgua, "7" %>
-	<%= f.label :odorDaAgua_7, "Outro odor" %>
-
-	<!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
-</div>
-
-<div class="form-group">
-	<h3>Tabela de Macroinvertebrados </h3>
-	<%= f.check_box :planarias %>
-	<%= f.label :planarias, "Planárias" %>
-	<%= f.label :planarias, image_tag('macroinvertebrados/planaria.png') %>
-
-	<%= f.check_box :hirudineos %>
-	<%= f.label :hirudineos, "Hirudíneos (Sanguessugas)" %>
-	<%= f.label :hirudineos, image_tag('macroinvertebrados/hirudineo.png') %>
-
-	<h4>Dípteros</h4>
-	<%= f.check_box :oligoquetas %>
-	<%= f.label :oligoquetas, "Oligoquetas (minhocas)" %>
-	<%= f.label :oligoquetas, image_tag('macroinvertebrados/oligoquetas.png') %>
-
-	<%= f.check_box :simulideos %>
-	<%= f.label :simulideos, "Simulideos" %>
-	<%= f.label :simulideos, image_tag('macroinvertebrados/simulideo.png') %>
-
-	<%= f.check_box :quironomideos %>
-	<%= f.label :quironomideos, "Quironomideos, Sirfídeos, Culidídeos, Tipulídeos (Larva de mosquitos)" %>
-	<%= f.label :quironomideos, image_tag('macroinvertebrados/quironomideo.png') %>
-	<%= f.label :quironomideos, image_tag('macroinvertebrados/sirfideo.png') %>
-	<%= f.label :quironomideos, image_tag('macroinvertebrados/culicideo.png') %> <!-- TODO no excel tem Culidídeos mas no word tem culicideos, qual e? -->
-	<%= f.label :quironomideos, image_tag('macroinvertebrados/tipulideo.png') %>
-	<!-- FIM DIPTEROS -->
-
-	<h4>Gastrópodes (Mullusca)</h4>
-	<%= f.check_box :ancilideo %>
-	<%= f.label :ancilideo, "Ancilídeo" %>
-	<%= f.label :ancilideo, image_tag('macroinvertebrados/ancilideo.png') %>
-
-	<%= f.check_box :limnideo %>
-	<%= f.label :limnideo, "Limnídeo (Physa)" %>
-	<!-- TODO no excel tem limnideo mas no word tem Limnelídeo, qual e? -->
-	<%= f.label :limnideo, image_tag('macroinvertebrados/limnelideo.png') %>
-	<!-- FIM GASTROPODES -->
-
-	<%= f.check_box :bivalves %>
-	<%= f.label :bivalves, "Bivalves" %>
-	<%= f.label :bivalves, image_tag('macroinvertebrados/bivalves.png') %>
-
-	<h4>Coleóptero (escaravelho)</h4>
-	<%= f.check_box :patasNadadoras %>
-	<%= f.label :patasNadadoras, "Patas Nadadoras (Dystiscidae)" %>
-	<%= f.label :patasNadadoras, image_tag('macroinvertebrados/ditiscus.png') %>
-
-	<%= f.check_box :pataLocomotoras %>
-	<%= f.label :pataLocomotoras, "Pata Locomotoras (Hydraena)" %>
-	<%= f.label :pataLocomotoras, "NO FOTO!!!" %>
-	<!-- FIM ESCARAVELHO -->
-
-	<h4>Trichóptero (mosca d’água)</h4>
-	<%= f.check_box :trichopteroS %>
-	<%= f.label :trichopteroS, "Trichóptero (mosca d’água) S/Casulo" %>
-	<%= f.label :trichopteroS, image_tag('macroinvertebrados/hidropsiquideo.png') %>
-
-	<%= f.check_box :trichopteroC %>
-	<%= f.label :trichopteroC, "Trichóptero (mosca d’água) C/Casulo" %>
-	<%= f.label :trichopteroC, image_tag('macroinvertebrados/trichoptero.png') %>
-	<!-- FIM TRICHOPTERO -->
-
-	<%= f.check_box :odonata %>
-	<%= f.label :odonata, "Odonata (Larva de Libelinhas)" %>
-	<%= f.label :odonata, image_tag('macroinvertebrados/larvadelibelula.png') %>
-	<!-- TODO nao sei se larva de libelula e o mesmo que larva de libelinhas -->
-
-	<%= f.check_box :heteropteros %>
-	<%= f.label :heteropteros, "Heterópteros" %>
-	<%= f.label :heteropteros, "TEM VARIAS FOTOS! qual escolher?" %>
-
-	<%= f.check_box :plecopteros %>
-	<%= f.label :plecopteros, "Plecópteros (mosca-de-pedra)" %>
-	<%= f.label :plecopteros, image_tag('macroinvertebrados/plecopteros.png') %>
-
-	<h4> Efemerópteros (efémera) </h4>
-	<%= f.check_box :baetideo %>
-	<%= f.label :baetideo, "Baetídeo" %>
-	<%= f.label :baetideo, image_tag('macroinvertebrados/baetideo.png') %>
-
-	<%= f.check_box :cabecaPlanar %>
-	<%= f.label :cabecaPlanar, "Cabeça Planar (Ecdyonurus)" %>
-	<%= f.label :cabecaPlanar, "SEM FOTO!!" %>
-	<!-- FIM EFEMERA -->
-
-	<%= f.check_box :crustaceos %>
-	<%= f.label :crustaceos, "Crustáceos" %>
-	<%= f.label :crustaceos, "VARIAS FOTOS!!" %>
-
-	<%= f.check_box :acaros %>
-	<%= f.label :acaros, "Ácaros" %>
-	<%= f.label :acaros, image_tag('macroinvertebrados/acaros.png') %>
-
-	<%= f.check_box :pulgaDeAgua %>
-	<%= f.label :pulgaDeAgua, "Pulga-de-água (Daphnia)" %>
-	<%= f.label :pulgaDeAgua, image_tag('macroinvertebrados/pulgadeagua.png') %>
-
-	<%= f.check_box :insetos %>
-	<%= f.label :insetos, "Insetos – adultos (adultos na forma aérea)" %>
-	<%= f.label :insetos, "SEM FOTO!!" %>
-
-	<%= f.check_box :megalopteres %>
-	<%= f.label :megalopteres, "Mégalopteres" %>
-	<%= f.label :megalopteres, "SEM FOTO!!" %>
-</div>
-<!-- TODO por separador qd tem campos h4 -->
 
 <p>
 	<%= f.submit "Submeter formulario", class: "btn btn-primary" %>
