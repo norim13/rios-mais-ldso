@@ -376,51 +376,121 @@
 			<!--TODO n tenho a certeza se isto deveria ser um select ou uma checkbox -->
 			<h3>Poluição</h3>
 
-			<%= f.label :poluicao_descargasDomesticas, "Descargas domésticas" %>
-			<%= f.select :poluicao_descargasDomesticas, options_for_select(1..5) %>
+			<% labels = ["Descargas domésticas","Descargas ETAR","Descargas industriais","Descargas químicas","Descargas águas pluviais","Presença de criação animais","Lixeiras","Lixo doméstico","Entulho (restos de obras)","Monstros domésticos","Sacos de plástico","Latas e material ferroso","Queimadas"]; %>
+			<% var_poluicao = ["descargasDomesticas","descargasETAR","descargasIndustriais","descargasQuimicas","descargasAguasPluviais","presencaCriacaoAnimais","lixeiras","lixoDomestico","entulho","monstrosDomesticos","sacosDePlastico","latasMaterialFerroso","queimadas"]; %>
 
-			<%= f.label :poluicao_descargasETAR, "Descargas ETAR" %>
-			<%= f.select :poluicao_descargasETAR, options_for_select(1..5) %>
+			<% for i in 1..13
+			label = "poluicao_#{var_poluicao[i-1]}"; %>
 
-			<%= f.label :poluicao_descargasIndustriais, "Descargas industriais" %>
-			<%= f.select :poluicao_descargasIndustriais, options_for_select(1..5) %>
+			<%= f.label label, labels[i-1] %>
+			<%= f.select label, options_for_select(1..5) %>
 
-			<%= f.label :poluicao_descargasQuimicas, "Descargas químicas" %>
-			<%= f.select :poluicao_descargasQuimicas, options_for_select(1..5) %>
-
-			<%= f.label :poluicao_descargasAguasPluviais, "Descargas águas pluviais" %>
-			<%= f.select :poluicao_descargasAguasPluviais, options_for_select(1..5) %>
-
-			<%= f.label :poluicao_presencaCriacaoAnimais, "Presença de criação animais" %>
-			<%= f.select :poluicao_presencaCriacaoAnimais, options_for_select(1..5) %>
-
-			<%= f.label :poluicao_lixeiras, "Lixeiras" %>
-			<%= f.select :poluicao_lixeiras, options_for_select(1..5) %>
-
-			<%= f.label :poluicao_lixoDomestico, "Lixo doméstico" %>
-			<%= f.select :poluicao_lixoDomestico, options_for_select(1..5) %>
-
-			<%= f.label :poluicao_entulho, "Entulho (restos de obras)" %>
-			<%= f.select :poluicao_entulho, options_for_select(1..5) %>
-
-			<%= f.label :poluicao_monstrosDomesticos, "Monstros domésticos" %>
-			<%= f.select :poluicao_monstrosDomesticos, options_for_select(1..5) %>
-
-			<%= f.label :poluicao_sacosDePlastico, "Sacos de plástico" %>
-			<%= f.select :poluicao_sacosDePlastico, options_for_select(1..5) %>
-
-			<%= f.label :poluicao_latasMaterialFerroso, "Latas e material ferroso" %>
-			<%= f.select :poluicao_latasMaterialFerroso, options_for_select(1..5) %>
-
-			<%= f.label :poluicao_queimadas, "Queimadas" %>
-			<%= f.select :poluicao_queimadas, options_for_select(1..5) %>
+			<% end %>
 		</div>
-
-		<!-- FALTA MT COISA!! -->
 	</div>
 
 	<div id="form_irr-corredorecologico">
 		<h2> Corredor ecológico </h2>
+
+		<h3> Fauna </h3>
+
+		<div class="form-group">
+			<%= f.label :anfibiosAutoctones, "Anfíbios autoctones" %>: </br>
+
+			<% var_labels = ["salamandraLusitanica","salamandraPintasAmarelas","tritaoVentreLaranja","raIberica","raVerde","sapoComum"];
+			labels = ["Salamandra-lusitânica (Chioglossa lusitanica)","Salamandra-de-pintas-amarelas (Salamandra salamandra)","Tritão-ventre-laranja (Lissotriton boscai)","Rã-ibérica (Rana ibérica)","Rã-verde (Rana perezi)","Sapo-comum (Bufo bufo)"]; %>
+			<% for i in 0..5
+			label = var_labels[i]; %>
+
+			<%= f.check_box label %>
+			<%= f.label label, labels[i] %>
+
+			<% end %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :repteisAutoctones, "Répteis autoctones" %>: </br>
+
+			<% var_labels = ["lagartoDeAgua","cobraAguaDeColar","cagado","repteis_outro"];
+			labels = ["Lagarto-de-água (Lacerta schreiberi)","Cobra-de-água-de-colar (Natrix natrix)","Cágado (Mauremys leprosa)","Outro"]; %>
+			<% for i in 0..3
+			label = var_labels[i]; %>
+
+			<%= f.check_box label %>
+			<%= f.label label, labels[i] %>
+
+			<% end %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :avesautoctones, "Aves autoctones" %>: </br>
+
+			<% var_labels = ["guardaRios","garcaReal","melroDeAgua","galinhaDeAgua","patoReal","tentilhaoComum","chapimReal","aves_outro"];
+			labels = ["Guarda-rios (Alcedo atthis)","Garça-real (Ardea cinerea)","Melro-de-água (Cinclus cinclus)","Galinha-de-água (Gallinula chloropus)","Pato-real (Anas platyrhynchos)","Tentilhão-comum (Fringilla coelebs)","Chapim-real (Parus major)","Outro"]; %>
+			<% for i in 0..7
+			label = var_labels[i]; %>
+
+			<%= f.check_box label %>
+			<%= f.label label, labels[i] %>
+
+			<% end %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :mamiferosautoctones, "Mamíferos autoctones" %>: </br>
+
+			<% var_labels = ["lontras","morcegosDeAgua","toupeiraDaAgua","ratoDeAgua","ouricoCacheiro","armilho","mamiferos_outro"];
+			labels = ["Lontras (Lutra lutra)","Morcegos-de-água (Myotis daubentonii)","Toupeira da água (Galemys pyrenaicus)","Rato-de-água (Arvicola sapidus)","Ouriço cacheiro (Erinaceus europaeus)","Armilho (Mustela Erminea)","Outro"]; %>
+			<% for i in 0..6
+			label = var_labels[i]; %>
+
+			<%= f.check_box label %>
+			<%= f.label label, labels[i] %>
+
+			<% end %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :peixesautoctones, "Peixes autoctones" %>: </br>
+
+			<% var_labels = ["enguia","lampreia","salmao","truta","bogaPortuguesa","bogaDoNorte","peixes_outro"];
+			labels = ["Enguia (Anguilla anguilla)","Lampreia (Lampetra fluiatilis)","Salmão (Salmo salar)","Truta (Salmo trutta fario)","Boga-portuguesa (Iberochondrostoma lusitanicum)","Boga-do-norte (Chondrostoma duriense)","Outro"]; %>
+			<% for i in 0..6
+			label = var_labels[i]; %>
+
+			<%= f.check_box label %>
+			<%= f.label label, labels[i] %>
+
+			<% end %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :faunaexotica, "Fauna exótica" %>: </br>
+
+			<% var_labels = ["percaSol","tartarugaDaFlorida","caranguejoPeludoChines","gambusia","mustelaVison","lagostimVermelho","trutaArcoIris","achiga","fauna_outro"];
+			labels = ["Perca-sol (Lepomis gibbosus)","Tartaruga da Florida (Trachemys scripta)","Caranguejo-peludo-chinês (Eriocheir sinensis)","Gambúsia (Gambusia holbrooki)","Mustela vison","Lagostim vermelho (Procambarus clarkii)","Truta-arco-íris (Oncorhynchus mykiss)","Achigã (Micropterus salmoides)","Outro"]; %>
+			<% for i in 0..8
+			label = var_labels[i]; %>
+
+			<%= f.check_box label %>
+			<%= f.label label, labels[i] %>
+
+			<% end %>
+		</div>
+
+		<div class="form-group">
+			<%= f.label :flora, "Flora" %>: </br>
+
+			<% var_labels = ["salgueiral","amial","freixal","choupal","ulmeiral","sanguinos","ladual","tramazeiras","carvalhal","sobreiral","azinhal","flora_outro"];
+			labels = ["Salgueiral (salgueiros)","Amial (amieiral)","Freixial (freixos)","Choupal (choupos)","Ulmeiral (ulmerios)","Sanguinhos (Sanguinhal)","Ladual (lódãos-bastardos)","Tramazeiras","Carvalhal (Carvalhos)","Sobreiral","Azinhal","Outro"]; %>
+			<% for i in 0..11
+			label = var_labels[i]; %>
+
+			<%= f.check_box label %>
+			<%= f.label label, labels[i] %>
+
+			<% end %>
+		</div>
 
 		<div class="form-group">
 			<%= f.label :conservacaoBosqueRibeirinho, "Estado de conservação do bosque ribeirinho (10m x 10m)" %>:</br>
@@ -463,7 +533,6 @@
 
 			<% end %>
 		</div>
-
 	</div>
 
 
