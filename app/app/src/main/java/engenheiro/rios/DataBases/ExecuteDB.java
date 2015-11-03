@@ -1,6 +1,7 @@
 package engenheiro.rios.DataBases;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,7 +24,10 @@ public class ExecuteDB extends AsyncTask<String,Void,ResultSet> {
         ResultSet resultSet=null;
         try{
             resultSet=connection.prepareStatement(query).executeQuery(); //retorna o comando
+
+            Log.w("teste", "entrou");
         }catch (Exception e){
+            e.printStackTrace();
 
         }finally {
             try {

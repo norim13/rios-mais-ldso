@@ -1,5 +1,6 @@
 package engenheiro.rios.DataBases;
 
+import android.content.ContentValues;
 import android.util.Log;
 
 import java.sql.Connection;
@@ -94,15 +95,23 @@ public class DB extends _Default implements Runnable{
         this.conection();
         ResultSet resultSet=null;
         try {
+
+
             resultSet=new ExecuteDB(this.conn,query).execute().get();
-            Log.w("teste","executou");
+           // Log.w("teste","result string:"+resultSet.toString());
         } catch (Exception e) {
-            Log.w("teste",e.getMessage());
+            e.printStackTrace();
+            Log.w("teste","erro no execute"+e.getMessage());
             this._message=e.getMessage();
             this._status=false;
         }
+
+
         return resultSet;
     }
 
 
+    public void insert(String tableName, Object o, ContentValues values) {
+
+    }
 }
