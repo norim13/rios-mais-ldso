@@ -11,12 +11,12 @@
 		<div class="form-group image-options container">
 			<div class="row">
 				<%= f.label :tipoDeVale, "Tipo de Vale" %>: </br>
-				<% imagens_tipo_vale = ['logo.png', 'logo.png', 'logo.png', 'logo.png', 'logo.png', 'logo.png', 'logo.png']; %>
+				<% imagens_tipo_vale = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png']; %>
 				<% for i in 1..7 
 				label = "tipoDeVale_#{i}"; %>
 				<div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
 					<%= f.radio_button :tipoDeVale, "#{i}" %>
-					<%= f.label label, image_tag(imagens_tipo_vale[i-1], :class => "img-responsive") %>
+					<%= f.label label, image_tag("tipodevale/#{imagens_tipo_vale[i-1]}", :class => "img-responsive") %>
 				</div>
 				<% end %>
 
