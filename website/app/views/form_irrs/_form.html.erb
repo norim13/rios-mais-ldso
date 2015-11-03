@@ -48,20 +48,45 @@
 
 		<div class="form-group">
 			<h3> Volume de água </h3> 
-			<%= f.label :larguraDaSuperficieDaAgua, "Largura da superfície da água (L) (m)" %>: 
-			<%= f.number_field :larguraDaSuperficieDaAgua, :class => 'text_field', :step => 'any', :min => '0.00' %> </br>
+			<div class="container">
+				<div class="row">
 
-			<%= f.label :profundidadeMedia, "Profundidade média (P) (m)" %>: 
-			<%= f.number_field :profundidadeMedia, :class => 'text_field', :step => 'any', :min => '0.00' %> </br>
+					<div class="col-lg-6 col-md-6 col-sm-8 col-xs-10">
+						<div class="container-fluid">
+							<div class="right-allign-fields">
+								<%= f.label :larguraDaSuperficieDaAgua, "Largura da superfície da água (L) (m)" %>: 
+								<%= f.number_field :larguraDaSuperficieDaAgua, :class => 'text_field form-control', :step => 'any', :min => '0.00' %>
+							</div>
 
-			<%= f.label :seccao, "Secção (S=PxL) (m^2)" %>:
-			<%= f.number_field :seccao, :class => 'text_field', :step => 'any', :readonly => true %> </br>
+							<div class="right-allign-fields">
+								<%= f.label :profundidadeMedia, "Profundidade média (P) (m)" %>: 
+								<%= f.number_field :profundidadeMedia, :class => 'text_field form-control', :step => 'any', :min => '0.00' %>
+							</div>
 
-			<%= f.label :velocidadeMedia, "Velocidade média (V) (m/s)" %>:
-			<%= f.number_field :velocidadeMedia, :class => 'text_field', :step => 'any', :min => '0.00' %> </br>
+							<div class="right-allign-fields">
+								<%= f.label :velocidadeMedia, "Velocidade média (V) (m/s)" %>:
+								<%= f.number_field :velocidadeMedia, :class => 'text_field form-control', :step => 'any', :min => '0.00' %>
+							</div>
+						</div>
 
-			<%= f.label :caudal, "Caudal (C=VxS) (m^3/s)" %>:
-			<%= f.number_field :caudal, :class => 'text_field', :step => 'any', :min => '0.00', :readonly => true %> </br>
+					</div>
+
+					<div class="col-lg-4 col-md-6 col-sm-8 col-xs-10">
+						<div class="container-fluid">
+							<div class="right-allign-fields">
+								<%= f.label :seccao, "Secção (S=PxL) (m^2)" %>:
+								<%= f.number_field :seccao, :class => 'text_field form-control', :step => 'any', :readonly => true %>
+							</div>
+							
+							<div class="right-allign-fields">
+								<%= f.label :caudal, "Caudal (C=VxS) (m^3/s)" %>:
+								<%= f.number_field :caudal, :class => 'text_field form-control', :step => 'any', :min => '0.00', :readonly => true %>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
 		</div>
 
 		<div class="form-group">

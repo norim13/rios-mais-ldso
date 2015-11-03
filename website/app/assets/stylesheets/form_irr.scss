@@ -12,3 +12,17 @@
 #new_form_irr{
 
 }
+
+.right-allign-fields{
+	float:right;
+	clear: both;
+	.form-control{
+		width: auto;
+	}
+
+}
+
+.form-control{
+	width: auto;
+	display: inline;
+}
