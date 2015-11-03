@@ -1,3 +1,34 @@
 // Place all the styles related to the formIRR controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.image-options{
+	//background-color: green;
+	.form-option{
+		height: 180px;
+	}
+}
+
+#new_form_irr{
+
+}
+
+.right-allign-fields{
+	float:right;
+	clear: both;
+	.form-control{
+		width: auto;
+	}
+
+}
+
+.form-control{
+	width: auto;
+	display: inline;
+}
+
+//override do bootstrap
+.checkbox{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

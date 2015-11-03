@@ -1,0 +1,6 @@
+
+FORM IRR:
+	- Sobre a poluiçao: é checkbox ou um select?
+	- erosao e sedimentacao: e checkbox ou radio?
+	- Nos animais/fauna e no macroinvertebrados, faltam imagens
+	- ainda n percebi como se calcula o IRR

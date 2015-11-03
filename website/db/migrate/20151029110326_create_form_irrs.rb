@@ -213,7 +213,6 @@ class CreateFormIrrs < ActiveRecord::Migration
 	  t.boolean :lagostimVermelho
 	  t.boolean :trutaArcoIris
 	  t.boolean :achiga
-	  t.boolean :percaSol
 	  t.boolean :fauna_outro
 
 	  # flora
@@ -259,10 +258,3 @@ class CreateFormIrrs < ActiveRecord::Migration
     end
   end
 end
-
-
-
-
-#perguntar:
-	#erosao
-	#sedimentacao
