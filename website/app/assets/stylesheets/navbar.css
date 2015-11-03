@@ -8,3 +8,23 @@
 #navbar a {
     color: white;
 }
+
+.drop-down{
+    vertical-align: middle;
+}
+
+.drop-down-rios{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    color: white;
+    text-color: black;
+    margin:0 auto;
+}
+
+#drop-down-user a{
+    color: black;
+}
