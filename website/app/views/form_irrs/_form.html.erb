@@ -89,101 +89,202 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<%= f.label :substratoDasMargens, "Substrato das margens (selecionar os que tem mais de 35%)" %>: </br>
+      <div class="container-fluid">
 
-			<% var_substratodasmargens = ["soloArgiloso","arenoso", "pedregoso","rochoso","artificialPedra","artificialBetao"];
-			labels = ["Solo argiloso", "Arenoso", "Pedregoso", "Rochoso", "Artificial pedra", "Artificial Betão (5)"]; %>
-			<% for i in 0..5 
-			label = "substratoDasMargens_#{var_substratodasmargens[i]}"; %>
+        <div class="form-group">
+          <%= f.label :substratoDasMargens, "Substrato das margens (selecionar os que tem mais de 35%)" %>: </br>
 
-			<%= f.check_box label %>
-			<%= f.label label, labels[i] %>
+          <% var_substratodasmargens = ["soloArgiloso","arenoso", "pedregoso","rochoso","artificialPedra","artificialBetao"];
+          labels = ["Solo argiloso", "Arenoso", "Pedregoso", "Rochoso", "Artificial pedra", "Artificial Betão (5)"]; %>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 0..5 %>
+                      <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = "substratoDasMargens_#{var_substratodasmargens[i]}"; %>
+                          <div class="checkbox">
+                            <%= f.check_box label %>
+                            <%= f.label label, labels[i] %>
+                          </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-			<% end %>						
-		</div>
 
-		<div class="form-group">
-			<%= f.label :substratoDoLeito, "Substrato do leito (selecionar os que tem mais de 35%)" %>: </br>
 
-			<% var_substratodoleito = ["blocoseRocha","calhaus", "cascalho","areia","limo","solo","artificial","naoEVisivel"];
-			labels = ["Blocos e rocha (>40cm)", "Calhaus (20-40cm)", "Cascalho (2-20cm)", "Areia (0.5-2cm)", "Limo (<0.5mm)", "Solo", "Artificial", "Não é visível"]; %>
-			<% for i in 0..7
-			label = "substratoDoLeito_#{var_substratodoleito[i]}"; %>
+        <div class="form-group">
 
-			<%= f.check_box label %>
-			<%= f.label label, labels[i] %>
+          <%= f.label :substratoDoLeito, "Substrato do leito (selecionar os que tem mais de 35%)" %>: </br>
 
-			<% end %>
-		</div>
+          <% var_substratodoleito = ["blocoseRocha","calhaus", "cascalho","areia","limo","solo","artificial","naoEVisivel"];
+          labels = ["Blocos e rocha (>40cm)", "Calhaus (20-40cm)", "Cascalho (2-20cm)", "Areia (0.5-2cm)", "Limo (<0.5mm)", "Solo", "Artificial", "Não é visível"]; %>
 
-		<div class="form-group">
-			<%= f.label :estadoGeraldaLinhadeAgua, "Estado geral da linha de água" %>:</br>
 
-			<% labels = ["Canal sem alterações, estado natural", "Canal ligeiramente perturbado", "Início de uma importante alteração do canal", "Grande alteração do canal", "Canal completamente alterado (canalizado, regularizado)"]; %>
-			<% for i in 1..5
-			label = "estadoGeraldaLinhadeAgua_#{i}"; %>
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <div class="container-fluid">
+                <div class="row">
+                  <% for i in 0..7 %>
+                      <div class="col-md-4 col-sm-6 col-xs-12">
+                        <%label = "substratoDoLeito_#{var_substratodoleito[i]}"; %>
+                        <div class="checkbox">
+                          <%= f.check_box label %>
+                          <%= f.label label, labels[i] %>
+                        </div>
+                      </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-			<%= f.radio_button :estadoGeraldaLinhadeAgua, i %>
-			<%= f.label label, labels[i-1] %>
+        <div class="form-group">
+          <%= f.label :estadoGeraldaLinhadeAgua, "Estado geral da linha de água" %>:</br>
 
-			<% end %>
-		</div>
+          <% labels = ["Canal sem alterações, estado natural", "Canal ligeiramente perturbado", "Início de uma importante alteração do canal", "Grande alteração do canal", "Canal completamente alterado (canalizado, regularizado)"]; %>
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <div class="container-fluid">
+                <div class="row">
+                  <% for i in 1..5 %>
+                      <div class="col-md-4 col-sm-6 col-xs-12">
+                        <%label = "estadoGeraldaLinhadeAgua_#{i}"; %>
+                        <div class="radio">
+                          <%= f.radio_button :estadoGeraldaLinhadeAgua, i %>
+                          <%= f.label label, labels[i-1] %>
+                        </div>
+                      </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-		<div class="form-group">
-			<%= f.label :erosao, "Erosão" %>:</br>
+        <div class="form-group">
+          <%= f.label :erosao, "Erosão" %>:</br>
 
-			<% labels = ["Sem erosão","Formação de >3 regos","Formação de 1-3 regos","Queda de muros e árvores","Rombos com mais de 1 metro com queda de muros ou árvores"]; %>
-			<% for i in 1..5
-			label = "erosao_#{i}"; %>
+          <% labels = ["Sem erosão","Formação de >3 regos","Formação de 1-3 regos","Queda de muros e árvores","Rombos com mais de 1 metro com queda de muros ou árvores"]; %>
 
-			<%= f.radio_button :erosao, i %>
-			<%= f.label label, labels[i-1] %>
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <div class="container-fluid">
+                <div class="row">
+                  <% for i in 1..5 %>
+                      <div class="col-md-4 col-sm-6 col-xs-12">
+                        <%label = "erosao_#{i}"; %>
+                        <div class="radio">
+                          <%= f.radio_button :erosao, i %>
+                          <%= f.label label, labels[i-1] %>
+                        </div>
+                      </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-			<% end %>
-		</div>
+        <div class="form-group">
+          <%= f.label :sedimentacao, "Sedimentação" %>:</br>
 
-		<div class="form-group">
-			<%= f.label :sedimentacao, "Sedimentação" %>:</br>
+          <% labels = ["Ausente","Demposição na margem em curva","Mouchões (deposição de areia no leito)","Ilhas sem vegetação","Ilhas com vegetação","Deposição nas margens (s/vegetação)","Deposição nas margens (c/vegetação)","Rochas expostas no leito"]; %>
 
-			<% labels = ["Ausente","Demposição na margem em curva","Mouchões (deposição de areia no leito)","Ilhas sem vegetação","Ilhas com vegetação","Deposição nas margens (s/vegetação)","Deposição nas margens (c/vegetação)","Rochas expostas no leito"]; %>
-			<% for i in 1..8
-			label = "sedimentacao_#{i}"; %>
-
-			<%= f.radio_button :sedimentacao, i %>
-			<%= f.label label, labels[i-1] %>
-
-			<% end %>
-		</div>
-	</div>
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <div class="container-fluid">
+                <div class="row">
+                  <% for i in 1..8 %>
+                      <div class="col-md-4 col-sm-6 col-xs-12">
+                        <%label = "sedimentacao_#{i}"; %>
+                        <div class="radio">
+                          <%= f.radio_button :sedimentacao, i %>
+                          <%= f.label label, labels[i-1] %>
+                        </div>
+                      </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+	    </div>
+  </div>
 
 	<div id="form_irr-qualidadedaagua">
 		<h2> Qualidade da água: </h2>
 		<div class="form-group">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-6 col-md-8 col-sm-8 col-xs-10">
 
-			<%= f.label :pH, "pH" %>:
-			<%= f.number_field :pH, :class => 'text_field', :step => 'any', :min => '0.00', :max => '14.0' %> </br>
+            <div>
+                  <div class="right-allign-fields">
+                    <%= f.label :pH, "pH" %>:
+                    <%= f.number_field :pH, :class => 'text_field form-control', :step => 'any', :min => '0.00', :max => '14.0' %>
+                  </div>
+                </div>
 
-			<%= f.label :condutividade, "Condutividade" %>:
-			<%= f.number_field :condutividade, :class => 'text_field', :step => 'any' %> </br>
+            <div>
+                  <div class="right-allign-fields">
+                    <%= f.label :condutividade, "Condutividade" %>:
+                    <%= f.number_field :condutividade, :class => 'text_field form-control', :step => 'any' %>
+                  </div>
+                </div>
 
-			<%= f.label :temperatura, "Temperatura (ºC)" %>:
-			<%= f.number_field :temperatura, :class => 'text_field', :step => 'any' %> </br>
+            <div>
+                  <div class="right-allign-fields">
+                    <%= f.label :temperatura, "Temperatura (ºC)" %>:
+                    <%= f.number_field :temperatura, :class => 'text_field form-control', :step => 'any' %>
+                  </div>
+                </div>
 
-			<%= f.label :nivelDeOxigenio, "Nível De Oxigenio (mg/L)" %>:
-			<%= f.number_field :nivelDeOxigenio, :class => 'text_field', :step => 'any' %> </br>
+            <div>
+                  <div class="right-allign-fields">
+                    <%= f.label :nivelDeOxigenio, "Nível De Oxigenio (mg/L)" %>:
+                    <%= f.number_field :nivelDeOxigenio, :class => 'text_field form-control', :step => 'any' %>
+                  </div>
+                </div>
 
-			<%= f.label :percentagemDeOxigenio, "Percentagem De Oxigenio" %>:
-			<%= f.number_field :percentagemDeOxigenio, :class => 'text_field', :step => 'any', :min => '0', :max => '100' %> </br>
+            <div>
+                  <div class="right-allign-fields">
+                    <%= f.label :percentagemDeOxigenio, "Percentagem De Oxigenio" %>:
+                    <%= f.number_field :percentagemDeOxigenio, :class => 'text_field form-control', :step => 'any', :min => '0', :max => '100' %>
+                  </div>
+                </div>
 
-			<%= f.label :nitratos, "Nitratos" %>:
-			<%= f.number_field :nitratos, :class => 'text_field', :step => 'any' %> </br>
+            <div>
+                  <div class="right-allign-fields">
+                    <%= f.label :nitratos, "Nitratos" %>:
+                    <%= f.number_field :nitratos, :class => 'text_field form-control', :step => 'any' %>
+                  </div>
+                </div>
 
-			<%= f.label :nitritos, "Nitritos" %>:
-			<%= f.number_field :nitritos, :class => 'text_field', :step => 'any' %> </br>
+            <div>
+                  <div class="right-allign-fields">
+                    <%= f.label :nitritos, "Nitritos" %>:
+                    <%= f.number_field :nitritos, :class => 'text_field form-control', :step => 'any' %>
+                  </div>
+                </div>
 
-			<%= f.label :transparencia, "Transparência (I-IV)" %>:
-			<%= f.number_field :transparencia, :class => 'text_field', :min => '1', :max => '4', :step => '1' %> </br>
+            <div>
+                  <div class="right-allign-fields">
+                    <%= f.label :transparencia, "Transparência (I-IV)" %>:
+                    <%= f.number_field :transparencia, :class => 'text_field form-control', :min => '1', :max => '4', :step => '1' %>
+                  </div>
+                </div>
+          </div>
+        </div>
+      </div>
+
 		</div>
 
 		<div class="form-group">
@@ -191,28 +292,53 @@
 
 			<% labels = ["Oleo", "Espuma","Esgostos","Impurezas","Sacos de plástico", "Latas"];
 			label = ["oleo","espuma","esgotos","impurezas","sacosDePlastico","latas"] %>
-			<% for i in 0..5 %>
 
-			<%= f.check_box label[i] %>
-			<%= f.label label[i], labels[i] %>
-
-			<% end %>
-
-			<%= f.label :indiciosNaAgua_outros, "Outros" %>
-			<%= f.text_area :indiciosNaAgua_outros %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 0..5 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="checkbox">
+                      <%= f.check_box label[i] %>
+                      <%= f.label label[i], labels[i] %>
+                    </div>
+                  </div>
+              <% end %>
+              <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="checkbox">
+                <%= f.label :indiciosNaAgua_outros, "Outros" %></br>
+                <%= f.text_area :indiciosNaAgua_outros %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 		</div>
 
 		<div class="form-group">
 			<%= f.label :corDaAgua, "Cor da água" %>:</br>
 
 			<% labels = ["Transparente", "Leitosa","Castanha","Verde-escura","Laranja","Cinzenta","Preta","Outra cor"]; %>
-			<% for i in 1..8
-			label = "corDaAgua_#{i}"; %>
 
-			<%= f.radio_button :corDaAgua, i %>
-			<%= f.label label, labels[i-1] %>
-
-			<% end %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 1..8 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <%label = "corDaAgua_#{i}"; %>
+                    <div class="radio">
+                      <%= f.radio_button :corDaAgua, i %>
+                      <%= f.label label, labels[i-1] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 
 			<!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
 		</div>
@@ -221,13 +347,24 @@
 			<%= f.label :odorDaAgua, "Odor (cheiro) da água" %>:</br>
 
 			<% labels = ["Não tem odor", "Cheiro a fresco","Cheiro a Lama (Vasa)","Cheiro a esgoto","Cheiro químico (cloro)","Cheiro podre (ovos podres)","Outro odor"]; %>
-			<% for i in 1..7
-			label = "odorDaAgua_#{i}"; %>
 
-			<%= f.radio_button :odorDaAgua, i %>
-			<%= f.label label, labels[i-1] %>
-
-			<% end %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 1..7 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <%label = "odorDaAgua_#{i}"; %>
+                    <div class="radio">
+                      <%= f.radio_button :odorDaAgua, i %>
+                      <%= f.label label, labels[i-1] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 
 			<!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
 		</div>
@@ -348,13 +485,24 @@
 
 			<% var_labels = ["edificios","pontes","limpezasDasMargens","estabilizacaoDeMargens","modelacaoDeMargensNatural","modelacaoDeMargensArtificial","barragem","diques","rioCanalizado","rioEntubado","esporoes","paredoes","tecnicasDeEngenhariaNatural","outras"];
 			labels = ["Edifícios","Pontes","Limpeza das margens","Estabilização de margens","Modelação de margens natural","Modelação de margens artificial","Barragem","Diques","Rio canalizado","Rio entubado","Esporões","Paredões","Técnicas de engenharia natural","Outras"]; %>
-			<% for i in 0..13
-			label = "intervencoes_#{var_labels[i]}"; %>
 
-			<%= f.check_box label %>
-			<%= f.label label, labels[i] %>
-
-			<% end %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 0..13 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <%label = "intervencoes_#{var_labels[i]}"; %>
+                    <div class="checkbox">
+                      <%= f.check_box label %>
+                      <%= f.label label, labels[i] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 
 			<!-- TODO como inserir outras? -->
 		</div>
@@ -367,13 +515,23 @@
 
 			labels = ["Zona natural com/sem intervenção (Floresta Natural)","Floresta/arvores plantadas","Mato alto (1-5 m)","Mato rasteiro <1m","Pastagem (pecuária)","Agricultura","Espaço abandonado (+ 3 anos)","Jardins ou espaços de lazer","Zona edificada (casas/edifícios)","Zona industrial","Vias de comunicação (ruas)","Entulho e zona degradada"]; %>
 
-			<% for i in 0..11
-			label = "ocupacao_#{var_labels[i]}"; %>
-
-			<%= f.check_box label %>
-			<%= f.label label, labels[i] %>
-
-			<% end %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 0..11 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <%label = "ocupacao_#{var_labels[i]}"; %>
+                    <div class="checkbox">
+                      <%= f.check_box label %>
+                      <%= f.label label, labels[i] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 
 			<!-- TODO como inserir outras? -->
 		</div>
@@ -385,13 +543,23 @@
 			<% labels = ["Moinho/azenhas","Açude (> 2m)","Micro-açude (1m)","Micro-açude (1-2m)","Barragem (> 10m)","Levadas","Pesqueiras","Escadas de peixe","Poldras","Pontes/pontões sem pilar no canal","Pontes/pontões com pilar no canal","Passagem a vau","Barcos","Caís","Igreja, capela, santuário (< 100m)","Solares ou casas agrícolas (< 100m)","Núcleo habitacional (< 100m)","Edifícios particulares (< 100m)","Edifícios públicos (estatais) (< 100m)","ETA/ETAR/elevatórias","Descarregadores de águas pluviais","Coletores saneamento","Defletores artificiais","Mota lateral"]; %>
 			<% var_patrimonio = ["moinho","acude","microAcude1","microAcude2","barragem","levadas","pesqueiras","escadasDePeixe","poldras","pontesSemPilar","pontesComPilar","passagemAVau","barcos","cais","igreja","solares","nucleoHabitacional","edificiosParticulares","edificiosPublicos","ETA","descarregadoresDeAguasPluviais","coletoresSaneamento","defletoresArtificiais","motaLateral"]; %>
 
-			<% for i in 1..24
-			label = "patrimonio_#{var_patrimonio[i-1]}"; %>
-
-			<%= f.label label, labels[i-1] %>
-			<%= f.select label, options_for_select(1..5) %>
-
-			<% end %>
+			<div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 1..24 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <%label = "patrimonio_#{var_patrimonio[i-1]}"; %>
+                    <div class="">
+                      <%= f.select label, options_for_select(1..5) %>
+                      <%= f.label label, labels[i-1] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 
 			<!--<h5> Embarcações </h5> dentro disto [barcos e cais] -->
 			<!-- FIM EMBARCAÇOES -->
@@ -404,13 +572,23 @@
 			<% labels = ["Descargas domésticas","Descargas ETAR","Descargas industriais","Descargas químicas","Descargas águas pluviais","Presença de criação animais","Lixeiras","Lixo doméstico","Entulho (restos de obras)","Monstros domésticos","Sacos de plástico","Latas e material ferroso","Queimadas"]; %>
 			<% var_poluicao = ["descargasDomesticas","descargasETAR","descargasIndustriais","descargasQuimicas","descargasAguasPluviais","presencaCriacaoAnimais","lixeiras","lixoDomestico","entulho","monstrosDomesticos","sacosDePlastico","latasMaterialFerroso","queimadas"]; %>
 
-			<% for i in 1..13
-			label = "poluicao_#{var_poluicao[i-1]}"; %>
-
-			<%= f.label label, labels[i-1] %>
-			<%= f.select label, options_for_select(1..5) %>
-
-			<% end %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 1..13 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <%label = "poluicao_#{var_poluicao[i-1]}"; %>
+                    <div class="">
+                      <%= f.select label, options_for_select(1..5) %>
+                      <%= f.label label, labels[i-1] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 		</div>
 	</div>
 
@@ -424,13 +602,24 @@
 
 			<% var_labels = ["salamandraLusitanica","salamandraPintasAmarelas","tritaoVentreLaranja","raIberica","raVerde","sapoComum"];
 			labels = ["Salamandra-lusitânica (Chioglossa lusitanica)","Salamandra-de-pintas-amarelas (Salamandra salamandra)","Tritão-ventre-laranja (Lissotriton boscai)","Rã-ibérica (Rana ibérica)","Rã-verde (Rana perezi)","Sapo-comum (Bufo bufo)"]; %>
-			<% for i in 0..5
-			label = var_labels[i]; %>
 
-			<%= f.check_box label %>
-			<%= f.label label, labels[i] %>
-
-			<% end %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 0..5 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <%label = var_labels[i]; %>
+                    <div class="checkbox">
+                      <%= f.check_box label %>
+                      <%= f.label label, labels[i] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 		</div>
 
 		<div class="form-group">
@@ -438,13 +627,25 @@
 
 			<% var_labels = ["lagartoDeAgua","cobraAguaDeColar","cagado","repteis_outro"];
 			labels = ["Lagarto-de-água (Lacerta schreiberi)","Cobra-de-água-de-colar (Natrix natrix)","Cágado (Mauremys leprosa)","Outro"]; %>
-			<% for i in 0..3
-			label = var_labels[i]; %>
 
-			<%= f.check_box label %>
-			<%= f.label label, labels[i] %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 0..3 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <%label = var_labels[i]; %>
+                    <div class="checkbox">
+                      <%= f.check_box label %>
+                      <%= f.label label, labels[i] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<% end %>
 		</div>
 
 		<div class="form-group">
@@ -452,13 +653,25 @@
 
 			<% var_labels = ["guardaRios","garcaReal","melroDeAgua","galinhaDeAgua","patoReal","tentilhaoComum","chapimReal","aves_outro"];
 			labels = ["Guarda-rios (Alcedo atthis)","Garça-real (Ardea cinerea)","Melro-de-água (Cinclus cinclus)","Galinha-de-água (Gallinula chloropus)","Pato-real (Anas platyrhynchos)","Tentilhão-comum (Fringilla coelebs)","Chapim-real (Parus major)","Outro"]; %>
-			<% for i in 0..7
-			label = var_labels[i]; %>
 
-			<%= f.check_box label %>
-			<%= f.label label, labels[i] %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 0..7 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <%label = var_labels[i]; %>
+                    <div class="checkbox">
+                      <%= f.check_box label %>
+                      <%= f.label label, labels[i] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<% end %>
 		</div>
 
 		<div class="form-group">
@@ -466,13 +679,23 @@
 
 			<% var_labels = ["lontras","morcegosDeAgua","toupeiraDaAgua","ratoDeAgua","ouricoCacheiro","armilho","mamiferos_outro"];
 			labels = ["Lontras (Lutra lutra)","Morcegos-de-água (Myotis daubentonii)","Toupeira da água (Galemys pyrenaicus)","Rato-de-água (Arvicola sapidus)","Ouriço cacheiro (Erinaceus europaeus)","Armilho (Mustela Erminea)","Outro"]; %>
-			<% for i in 0..6
-			label = var_labels[i]; %>
-
-			<%= f.check_box label %>
-			<%= f.label label, labels[i] %>
-
-			<% end %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 0..6 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <%label = var_labels[i]; %>
+                    <div class="checkbox">
+                      <%= f.check_box label %>
+                      <%= f.label label, labels[i] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 		</div>
 
 		<div class="form-group">
@@ -480,13 +703,23 @@
 
 			<% var_labels = ["enguia","lampreia","salmao","truta","bogaPortuguesa","bogaDoNorte","peixes_outro"];
 			labels = ["Enguia (Anguilla anguilla)","Lampreia (Lampetra fluiatilis)","Salmão (Salmo salar)","Truta (Salmo trutta fario)","Boga-portuguesa (Iberochondrostoma lusitanicum)","Boga-do-norte (Chondrostoma duriense)","Outro"]; %>
-			<% for i in 0..6
-			label = var_labels[i]; %>
-
-			<%= f.check_box label %>
-			<%= f.label label, labels[i] %>
-
-			<% end %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 0..6 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <%label = var_labels[i]; %>
+                    <div class="checkbox">
+                      <%= f.check_box label %>
+                      <%= f.label label, labels[i] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 		</div>
 
 		<div class="form-group">
@@ -494,13 +727,23 @@
 
 			<% var_labels = ["percaSol","tartarugaDaFlorida","caranguejoPeludoChines","gambusia","mustelaVison","lagostimVermelho","trutaArcoIris","achiga","fauna_outro"];
 			labels = ["Perca-sol (Lepomis gibbosus)","Tartaruga da Florida (Trachemys scripta)","Caranguejo-peludo-chinês (Eriocheir sinensis)","Gambúsia (Gambusia holbrooki)","Mustela vison","Lagostim vermelho (Procambarus clarkii)","Truta-arco-íris (Oncorhynchus mykiss)","Achigã (Micropterus salmoides)","Outro"]; %>
-			<% for i in 0..8
-			label = var_labels[i]; %>
-
-			<%= f.check_box label %>
-			<%= f.label label, labels[i] %>
-
-			<% end %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 0..8 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <%label = var_labels[i]; %>
+                    <div class="checkbox">
+                      <%= f.check_box label %>
+                      <%= f.label label, labels[i] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 		</div>
 
 		<div class="form-group">
@@ -508,13 +751,23 @@
 
 			<% var_labels = ["salgueiral","amial","freixal","choupal","ulmeiral","sanguinos","ladual","tramazeiras","carvalhal","sobreiral","azinhal","flora_outro"];
 			labels = ["Salgueiral (salgueiros)","Amial (amieiral)","Freixial (freixos)","Choupal (choupos)","Ulmeiral (ulmerios)","Sanguinhos (Sanguinhal)","Ladual (lódãos-bastardos)","Tramazeiras","Carvalhal (Carvalhos)","Sobreiral","Azinhal","Outro"]; %>
-			<% for i in 0..11
-			label = var_labels[i]; %>
-
-			<%= f.check_box label %>
-			<%= f.label label, labels[i] %>
-
-			<% end %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 0..11 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <%label = var_labels[i]; %>
+                    <div class="checkbox">
+                      <%= f.check_box label %>
+                      <%= f.label label, labels[i] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 		</div>
 
 		<div class="form-group">
@@ -522,13 +775,26 @@
 
 			<% labels = ["Total (>75%) com bosque - continuidade arbórea com total sobreposição de copas","(50-75%) Com bosque ripícola Semi-continua arbórea","(25-50%) Sem bosque ripícola (Semi-continua arbórea)","Campos agrícolas (10-25%) Descontinua - na arbórea","(5 a 10%) Interrompida – com manchas de árvores","(<5%) Esparsa - Só árvores isoladas ou Urbanizações ou infra-estruturas"]; %>
 
-			<% for i in 1..6
-			label = "conservacaoBosqueRibeirinho_#{i}"; %>
 
-			<%= f.radio_button :conservacaoBosqueRibeirinho, i %>
-			<%= f.label label, labels[i-1] %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 1..6 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <%label = "conservacaoBosqueRibeirinho_#{i}"; %>
+                    <div class="radio">
+                      <%= f.radio_button :conservacaoBosqueRibeirinho, i %>
+                      <%= f.label label, labels[i-1] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<% end %>
+
 		</div>
 
 		<div class="form-group">
@@ -536,13 +802,26 @@
 
 			<% var_vegetacaoInvasora = ["silvas","ervaDaFortuna", "plumas","lentilhaDaAgua","pinheirinha","jacintoDeAgua","vegetacaoInvasora_outro"];
 			labels = ["Silvas","Erva-da-fortuna","Plumas","Lentilha da água","Pinheirinha","Jacinto de água","Outro"]; %>
-			<% for i in 0..6
-			label = var_vegetacaoInvasora[i]; %>
 
-			<%= f.check_box label %>
-			<%= f.label label, labels[i] %>
 
-			<% end %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 0..6 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <%label = var_vegetacaoInvasora[i]; %>
+                    <div class="checkbox">
+                      <%= f.check_box label %>
+                      <%= f.label label, labels[i] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
 		</div>
 
 		<div class="form-group">
@@ -550,13 +829,24 @@
 
 			<% labels = ["Com pouca ou sem vegetação no leito <5%","Com alguns ramos e pequenos troncos no leito (5 a 25%)","Com ramos e troncos no leito e margem (25 a 50%)","Com obstrução de 50 a 75% com ramos e troncos","Com obstrução quase total>75% do leito e margens"]; %>
 
-			<% for i in 1..5
-			label = "obstrucaoDoLeitoMargens_#{i}"; %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 1..5 %>
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <%label = "obstrucaoDoLeitoMargens_#{i}"; %>
+                    <div class="radio">
+                      <%= f.radio_button :obstrucaoDoLeitoMargens, i %>
+                      <%= f.label label, labels[i-1] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<%= f.radio_button :obstrucaoDoLeitoMargens, i %>
-			<%= f.label label, labels[i-1] %>
-
-			<% end %>
 		</div>
 	</div>
 
@@ -568,13 +858,24 @@
 
 			<% labels = ["Local de informação por junta de freguesia mais próxima ou acesso público á internet, Disponibilidade de informação (técnicos e não técnicos) e acesso a informação de projetos de Participação Pública", "Local de informação por município ou acesso público á internet, Disponibilidade de informação (técnicos e não técnicos) e acesso à informação de projetos de Participação Pública", "Acesso á internet com indicações da localização da informação e disponibilidade de informação (técnicos e não técnicos)","Disponibilidade de informação de qualidade deficiente para os objetivos de reabilitação","Ausência de locais de informação acessível"]; %>
 
-			<% for i in 1..5
-			label = "disponibilizacaoDeInformacao_#{i}"; %>
+			<div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 1..5 %>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <%label = "disponibilizacaoDeInformacao_#{i}"; %>
+                    <div class="radio">
+                      <%= f.radio_button :disponibilizacaoDeInformacao, i %>
+                      <%= f.label label, labels[i-1] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<%= f.radio_button :disponibilizacaoDeInformacao, i %>
-			<%= f.label label, labels[i-1] %>
-
-			<% end %>
 		</div>
 
 		<div class="form-group">
@@ -582,13 +883,24 @@
 
 			<% labels = ["Envolvimento de Decisores-Chave (propietários, município, ARH), em pelo menos duas sessões por ano de participação pública, grupos tipo \"Projeto Rios\",  Realização de sondagens e Inquéritos a população","Envolvimento de Decisores-Chave (município, ARH), em pelo menos 1 sessão de participação pública e/ou associações locais por ano","Poucas atividades de participação pública","Atividades pontuais e com deficiente envolvimento publico local ou de fraca qualidade","Ausência de envolvimento"]; %>
 
-			<% for i in 1..5
-			label = "envolvimentoPublico_#{i}"; %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 1..5 %>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <%label = "envolvimentoPublico_#{i}"; %>
+                    <div class="radio">
+                      <%= f.radio_button :envolvimentoPublico, i %>
+                      <%= f.label label, labels[i-1] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<%= f.radio_button :envolvimentoPublico, i %>
-			<%= f.label label, labels[i-1] %>
-
-			<% end %>
 		</div>
 
 		<div class="form-group">
@@ -596,13 +908,24 @@
 
 			<% labels = ["São realizadas pelo menos uma das atividades de ações de fiscalização, Monitorização, acompanhamento de participação e envolvimento da população,  e há o seu feedback","São realizadas pelo menos uma das atividades de ações de fiscalização e há o seu feedback","Integração das decisões de participação nas soluções e inexistência de feedback das decisões finais","Sem integração nem feedback das decisões finais","Ausência total de atividades"]; %>
 
-			<% for i in 1..5
-			label = "acao_#{i}"; %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 1..5 %>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <%label = "acao_#{i}"; %>
+                    <div class="radio">
+                      <%= f.radio_button :acao, i %>
+                      <%= f.label label, labels[i-1] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<%= f.radio_button :acao, i %>
-			<%= f.label label, labels[i-1] %>
-
-			<% end %>
 		</div>
 	</div>
 
@@ -613,13 +936,23 @@
 
 			<% labels = ["Cumpre todos os requisitos legais nacionais, diretivas europeias e convenções internacionais assinadas por Portugal","Cumpre todos os requisitos legais nacionais","Não cumpre requisitos legais ao nível de pessoas singulares","Não cumpre requisitos legais ao nível de pessoas singulares e de pessoas coletivas","Não se observa nenhuma aplicação legal"]; %>
 
-			<% for i in 1..5
-			label = "legislacao_#{i}"; %>
-
-			<%= f.radio_button :legislacao, i %>
-			<%= f.label label, labels[i-1] %>
-
-			<% end %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 1..5 %>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <%label = "legislacao_#{i}"; %>
+                    <div class="radio">
+                      <%= f.radio_button :legislacao, i %>
+                      <%= f.label label, labels[i-1] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 		</div>
 
 
@@ -628,13 +961,24 @@
 
 			<% labels = ["Existem evidências de implementação de uma estratégia de reabilitação integrada com as figuras de ordenamento locais e regionais","Existe uma estratégia de reabilitação integrada ou planos de ordenamento e de gestão de bacia hidrográfica implementados","Existem planos de ordenamento e de gestão de bacia hidrográfica desintegrados das figuras de ordenamento local e regional e com diminuta implementação","Existem planos de ordenamento e de gestão de bacia hidrográfica sem implementação","Não existe nenhum documento estratégica, planeamento de ordenamento e de gestão a nível de recursos hídricos"]; %>
 
-			<% for i in 1..5
-			label = "estrategia_#{i}"; %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 1..5 %>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <%label = "estrategia_#{i}"; %>
+                    <div class="radio">
+                      <%= f.radio_button :estrategia, i %>
+                      <%= f.label label, labels[i-1] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<%= f.radio_button :estrategia, i %>
-			<%= f.label label, labels[i-1] %>
-
-			<% end %>
 		</div>
 
 		<div class="form-group">
@@ -642,13 +986,24 @@
 
 			<% labels = ["Definição de objetivos claros de intervenção de melhoria, ações de monitorização com valores de referência, ações de fiscalização, plano de intervenção em caso de acidente ou catástrofe, plano de ações de intervenção de melhoria e ações de manutenção com envolvimento dos proprietários","Definição de objetivos claros de intervenção de melhoria, plano de ações de intervenção de melhoria, ações de monitorização com valores de referência e ações de manutenção com envolvimento dos proprietários","Definição de objetivos claros de intervenção de melhoria e plano de ações de intervenção de melhoria","Definição de objetivos claros de intervenção de melhoria, mas sem qualquer intervenção","Não existe nenhuma evidência de gestão das intervenções de melhoria"]; %>
 
-			<% for i in 1..5
-			label = "gestaoDasIntervencoes_#{i}"; %>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="container-fluid">
+            <div class="row">
+              <% for i in 1..5 %>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <%label = "gestaoDasIntervencoes_#{i}"; %>
+                    <div class="radio">
+                      <%= f.radio_button :gestaoDasIntervencoes, i %>
+                      <%= f.label label, labels[i-1] %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<%= f.radio_button :gestaoDasIntervencoes, i %>
-			<%= f.label label, labels[i-1] %>
-
-			<% end %>
 		</div>
 	</div>
 
@@ -656,8 +1011,8 @@
 		<%= f.submit "Submeter formulario", class: "btn btn-primary" %>
 	</p>
 
-</div>
+
 
 <% end %>
-
+</div>
 <!-- TODO adicionar por ajax (class="form-control" a todos os inputs para ter os elementos bootstrap -->
