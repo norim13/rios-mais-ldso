@@ -13,29 +13,31 @@
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:layout_marginBottom="8dp" android:visibility="gone" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView10"
-                android:src="@mipmap/ic_launcher"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
-        </RelativeLayout>
-    </FrameLayout>
-
     <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="fill_parent">
+
+
 
         <LinearLayout android:id="@+id/email_login_form" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:orientation="vertical">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView10"
+                        android:src="@mipmap/ic_launcher"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
+            </FrameLayout>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -105,48 +107,49 @@
                 </RelativeLayout>
             </TableRow>
 
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="165dp">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="103dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Não tem conta?"
+                            android:id="@+id/textView3"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Registar"
+                            android:id="@+id/id_register"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/colorPrimary"
+                            android:background="@null"
+                            android:onClick="register_init"/>
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+            </TableRow>
+
         </LinearLayout>
     </ScrollView>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="103dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Não tem conta?"
-                    android:id="@+id/textView3"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Registar"
-                    android:id="@+id/id_register"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@color/colorPrimary"
-                    android:background="@null"
-                    android:onClick="register_init"/>
-
-            </RelativeLayout>
-        </RelativeLayout>
-
-    </TableRow>
 
 </LinearLayout>
