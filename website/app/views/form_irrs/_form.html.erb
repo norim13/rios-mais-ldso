@@ -1,9 +1,22 @@
 <%= stylesheet_link_tag "form_irr" %>
 
 
-
 <div class="container">
 	<%= form_for @form_irr, :html => {:role => "form"}  do |f| %>
+
+	<% if @form_irr.errors.any? %>
+	<div id="error_explanation">
+		<h2>
+			<%= pluralize(@form_irr.errors.count, "error") %> prohibited
+			this form_irr from being saved:
+		</h2>
+		<ul>
+			<% @form_irr.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+	<% end %>
 
 	<div id="form_irr-hidrogeomorfologia">
 		<h2> Hidrogeomorfologia </h2>

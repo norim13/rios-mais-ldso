@@ -258,10 +258,3 @@ class CreateFormIrrs < ActiveRecord::Migration
     end
   end
 end
-
-
-
-
-#perguntar:
-	#erosao
-	#sedimentacao
