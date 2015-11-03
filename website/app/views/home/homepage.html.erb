@@ -4,15 +4,14 @@
 
 <body>
 
-<%= render 'common/navbar' %>
+	<%= render 'common/navbar' %>
 
+	<div class="container">
+		<div class="row">
+			<div class="thumbnail">
+				<%= image_tag("logo.png", :alt => "Engenho e rio logo") %>
+			</div>
+		</div>
+	</div>
 
-<div class="container">
-
-  <%= link_to 'Registe-se', new_user_path %>
-
-</div>
-
-
-
-<%= render 'common/footer' %>
+	<%= render 'common/footer' %>
