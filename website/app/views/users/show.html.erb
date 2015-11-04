@@ -1,4 +1,15 @@
-<p>
-  <strong>User </strong>
-  <%= @user.nome %>
-</p>
+<%= render 'common/header' %>
+<%= stylesheet_link_tag "users" %>
+
+</head>
+
+<body>
+
+	<%= render 'common/navbar' %>
+
+	<p>
+		<strong> User </strong>
+		<%= @user.nome %>
+	</p>
+
+	<%= render 'common/footer' %>

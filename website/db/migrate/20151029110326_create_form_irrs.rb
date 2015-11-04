@@ -1,8 +1,8 @@
 class CreateFormIrrs < ActiveRecord::Migration
-  def change
-    create_table :form_irrs do |t|
-      t.integer :tipoDeVale
-      t.integer :perfilDeMargens
+	def change
+	create_table :form_irrs do |t|
+	  t.integer :tipoDeVale
+	  t.integer :perfilDeMargens
       #Volume de agua
       t.float :larguraDaSuperficieDaAgua
       t.float :profundidadeMedia
@@ -88,20 +88,20 @@ class CreateFormIrrs < ActiveRecord::Migration
 
       # Qualidade da agua
       # intervencoes presentes
-	  t.boolean :intervencoes_edificios 
-	  t.boolean :intervencoes_pontes
-	  t.boolean :intervencoes_limpezasDasMargens
-	  t.boolean :intervencoes_estabilizacaoDeMargens
-	  t.boolean :intervencoes_modelacaoDeMargensNatural
-	  t.boolean :intervencoes_modelacaoDeMargensArtificial
-	  t.boolean :intervencoes_barragem
-	  t.boolean :intervencoes_diques
-	  t.boolean :intervencoes_rioCanalizado
-	  t.boolean :intervencoes_rioEntubado
-	  t.boolean :intervencoes_esporoes 
-	  t.boolean :intervencoes_paredoes
-	  t.boolean :intervencoes_tecnicasDeEngenhariaNatural
-	  t.boolean :intervencoes_outras
+      t.boolean :intervencoes_edificios 
+      t.boolean :intervencoes_pontes
+      t.boolean :intervencoes_limpezasDasMargens
+      t.boolean :intervencoes_estabilizacaoDeMargens
+      t.boolean :intervencoes_modelacaoDeMargensNatural
+      t.boolean :intervencoes_modelacaoDeMargensArtificial
+      t.boolean :intervencoes_barragem
+      t.boolean :intervencoes_diques
+      t.boolean :intervencoes_rioCanalizado
+      t.boolean :intervencoes_rioEntubado
+      t.boolean :intervencoes_esporoes 
+      t.boolean :intervencoes_paredoes
+      t.boolean :intervencoes_tecnicasDeEngenhariaNatural
+      t.boolean :intervencoes_outras
 
 	  # ocupacao das margens <10m
 	  t.boolean :ocupacao_florestaNatural
@@ -254,7 +254,7 @@ class CreateFormIrrs < ActiveRecord::Migration
 	  t.integer :estrategia
 	  t.integer :gestaoDasIntervencoes
 
-      t.timestamps null: false
-    end
-  end
+	  t.timestamps null: false
+	end
+end
 end

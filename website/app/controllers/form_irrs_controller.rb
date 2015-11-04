@@ -1,6 +1,7 @@
 class FormIrrsController < ApplicationController
   #fazer validacoes em todos!
   #validates :tipoDeVale, presence: true, length: { minimum: 5 }
+  before_filter :authenticate_user!
 
   def index
     @form_irrs = FormIrr.all
@@ -20,6 +21,7 @@ class FormIrrsController < ApplicationController
 
   def create
     @form_irr = FormIrr.new(form_irr_params)
+    @form_irr.user_id = current_user.id
 
     if @form_irr.save
       redirect_to @form_irr

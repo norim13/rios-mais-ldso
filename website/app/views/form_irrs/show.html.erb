@@ -1,21 +1,34 @@
-<p>
-  <strong>ID:</strong>
-  <%= @form_irr.id %>
-</p>
- 
-<p>
-  <strong>Tipo de Vale:</strong>
-  <%= @form_irr.tipoDeVale %>
-</p>
+<%= render 'common/header' %>
+</head>
+<body>
 
-<p>
-  <strong>Created at:</strong>
-  <%= @form_irr.created_at %>
-</p>
+	<%= render 'common/navbar' %>
 
-<p>
-  <strong>Updated at:</strong>
-  <%= @form_irr.updated_at %>
-</p>
+	<p>
+		<strong>ID:</strong>
+		<%= @form_irr.id %>
+	</p>
+	
+	<p>
+		<strong>Tipo de Vale:</strong>
+		<%= @form_irr.tipoDeVale %>
+	</p>
 
-<%= link_to 'Back', form_irrs_path %>
+	<p>
+		<strong>Id do user:</strong>
+		<%= @form_irr.user_id %>
+	</p>
+
+	<p>
+		<strong>Created at:</strong>
+		<%= @form_irr.created_at %>
+	</p>
+
+	<p>
+		<strong>Updated at:</strong>
+		<%= @form_irr.updated_at %>
+	</p>
+
+	<%= link_to 'Back', form_irrs_path %>
+
+	<%= render 'common/footer' %>

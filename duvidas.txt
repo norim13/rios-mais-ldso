@@ -4,3 +4,5 @@ FORM IRR:
 	- erosao e sedimentacao: e checkbox ou radio?
 	- Nos animais/fauna e no macroinvertebrados, faltam imagens
 	- ainda n percebi como se calcula o IRR
+	- e possivel apagar um formulario IRR?
+	- quem pode VER um IRR preenchido?

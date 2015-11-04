@@ -1,16 +1,21 @@
-<h1>Listing Forms </h1>
- 
-<table border="1">
-  <tr>
-    <th>Id</th>
-    <th>Tipo de vale</th>
-    <th>Created at</th>
-    <th>Created at</th>
-    <th>Show</th>
-    <th>Edit</th>
-  </tr>
- 
-  <% @form_irrs.each do |form_irr| %>
+<%= render 'common/header' %>
+</head>
+<body>
+  <%= render 'common/navbar' %>
+
+  <h1>Listing Forms </h1>
+
+  <table border="1">
+    <tr>
+      <th>Id</th>
+      <th>Tipo de vale</th>
+      <th>Created at</th>
+      <th>Created at</th>
+      <th>Show</th>
+      <th>Edit</th>
+    </tr>
+
+    <% @form_irrs.each do |form_irr| %>
     <tr>
       <td><%= form_irr.id %></td>
       <td><%= form_irr.tipoDeVale %></td>
@@ -19,5 +24,7 @@
       <td><%= link_to 'Show', form_irr_path(form_irr) %></td>
       <td><%= link_to 'Edit', edit_form_irr_path(form_irr) %></td>
     </tr>
-  <% end %>
-</table>
+    <% end %>
+  </table>
+
+  <%= render 'common/footer' %>
