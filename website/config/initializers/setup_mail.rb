@@ -2,7 +2,7 @@ ActionMailer::Base.delivery_method = :smtp
 
 ActionMailer::Base.smtp_settings = {
     :address => 'cpanel05.dnscpanel.com',
-    :port => '465',
+    :port => '587',
     :authentication => :login,
     :user_name => 'no-reply@rios.pt',
     :password => 'rios+2015',
