@@ -194,7 +194,7 @@
               <div class="row">
                 <% for i in 1..5 %>
                 <div class="col-md-4 col-sm-6 col-xs-12">
-                <% label = "erosao_#{var_erosao[i-1]}"; %>
+                  <% label = "erosao_#{var_erosao[i-1]}"; %>
                   <div class="checkbox">
                     <%= f.check_box label %>
                     <%= f.label label, labels[i-1] %>
@@ -384,102 +384,102 @@
 <!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
 </div>
 
-<div class="form-group">
+<div class="form-group image-options container">
  <h3>Tabela de Macroinvertebrados </h3>
  <%= f.check_box :planarias %>
  <%= f.label :planarias, "Planárias" %>
- <%= f.label :planarias, image_tag('macroinvertebrados/planaria.png') %>
+ <%= f.label :planarias, image_tag('macroinvertebrados/planaria.png', :class => "img-responsive") %>
 
  <%= f.check_box :hirudineos %>
  <%= f.label :hirudineos, "Hirudíneos (Sanguessugas)" %>
- <%= f.label :hirudineos, image_tag('macroinvertebrados/hirudineo.png') %>
+ <%= f.label :hirudineos, image_tag('macroinvertebrados/hirudineo.png', :class => "img-responsive") %>
 
  <h4>Dípteros</h4>
  <%= f.check_box :oligoquetas %>
  <%= f.label :oligoquetas, "Oligoquetas (minhocas)" %>
- <%= f.label :oligoquetas, image_tag('macroinvertebrados/oligoquetas.png') %>
+ <%= f.label :oligoquetas, image_tag('macroinvertebrados/oligoquetas.png', :class => "img-responsive") %>
 
  <%= f.check_box :simulideos %>
  <%= f.label :simulideos, "Simulideos" %>
- <%= f.label :simulideos, image_tag('macroinvertebrados/simulideo.png') %>
+ <%= f.label :simulideos, image_tag('macroinvertebrados/simulideo.png', :class => "img-responsive") %>
 
  <%= f.check_box :quironomideos %>
  <%= f.label :quironomideos, "Quironomideos, Sirfídeos, Culidídeos, Tipulídeos (Larva de mosquitos)" %>
- <%= f.label :quironomideos, image_tag('macroinvertebrados/quironomideo.png') %>
- <%= f.label :quironomideos, image_tag('macroinvertebrados/sirfideo.png') %>
- <%= f.label :quironomideos, image_tag('macroinvertebrados/culicideo.png') %> <!-- TODO no excel tem Culidídeos mas no word tem culicideos, qual e? -->
- <%= f.label :quironomideos, image_tag('macroinvertebrados/tipulideo.png') %>
+ <%= f.label :quironomideos, image_tag('macroinvertebrados/quironomideo.png', :class => "img-responsive") %>
+ <%= f.label :quironomideos, image_tag('macroinvertebrados/sirfideo.png', :class => "img-responsive") %>
+ <%= f.label :quironomideos, image_tag('macroinvertebrados/culicideo.png', :class => "img-responsive") %> <!-- TODO no excel tem Culidídeos mas no word tem culicideos, qual e? -->
+ <%= f.label :quironomideos, image_tag('macroinvertebrados/tipulideo.png', :class => "img-responsive") %> </br>
  <!-- FIM DIPTEROS -->
 
  <h4>Gastrópodes (Mullusca)</h4>
  <%= f.check_box :ancilideo %>
  <%= f.label :ancilideo, "Ancilídeo" %>
- <%= f.label :ancilideo, image_tag('macroinvertebrados/ancilideo.png') %>
+ <%= f.label :ancilideo, image_tag('macroinvertebrados/ancilideo.png', :class => "img-responsive") %>
 
  <%= f.check_box :limnideo %>
  <%= f.label :limnideo, "Limnídeo (Physa)" %>
  <!-- TODO no excel tem limnideo mas no word tem Limnelídeo, qual e? -->
- <%= f.label :limnideo, image_tag('macroinvertebrados/limnelideo.png') %>
+ <%= f.label :limnideo, image_tag('macroinvertebrados/limnelideo.png', :class => "img-responsive") %></br>
  <!-- FIM GASTROPODES -->
 
  <%= f.check_box :bivalves %>
  <%= f.label :bivalves, "Bivalves" %>
- <%= f.label :bivalves, image_tag('macroinvertebrados/bivalves.png') %>
+ <%= f.label :bivalves, image_tag('macroinvertebrados/bivalves.png', :class => "img-responsive") %>
 
  <h4>Coleóptero (escaravelho)</h4>
  <%= f.check_box :patasNadadoras %>
  <%= f.label :patasNadadoras, "Patas Nadadoras (Dystiscidae)" %>
- <%= f.label :patasNadadoras, image_tag('macroinvertebrados/ditiscus.png') %>
+ <%= f.label :patasNadadoras, image_tag('macroinvertebrados/ditiscus.png', :class => "img-responsive") %>
 
  <%= f.check_box :pataLocomotoras %>
  <%= f.label :pataLocomotoras, "Pata Locomotoras (Hydraena)" %>
- <%= f.label :pataLocomotoras, "NO FOTO!!!" %>
+ <%= f.label :pataLocomotoras, image_tag('macroinvertebrados/pataslocomotivas.png', :class => "img-responsive") %> </br>
  <!-- FIM ESCARAVELHO -->
 
  <h4>Trichóptero (mosca d’água)</h4>
  <%= f.check_box :trichopteroS %>
  <%= f.label :trichopteroS, "Trichóptero (mosca d’água) S/Casulo" %>
- <%= f.label :trichopteroS, image_tag('macroinvertebrados/hidropsiquideo.png') %>
+ <%= f.label :trichopteroS, image_tag('macroinvertebrados/hidropsiquideo.png', :class => "img-responsive") %>
 
  <%= f.check_box :trichopteroC %>
  <%= f.label :trichopteroC, "Trichóptero (mosca d’água) C/Casulo" %>
- <%= f.label :trichopteroC, image_tag('macroinvertebrados/trichoptero.png') %>
+ <%= f.label :trichopteroC, image_tag('macroinvertebrados/trichoptero.png', :class => "img-responsive") %> </br>
  <!-- FIM TRICHOPTERO -->
 
  <%= f.check_box :odonata %>
  <%= f.label :odonata, "Odonata (Larva de Libelinhas)" %>
- <%= f.label :odonata, image_tag('macroinvertebrados/larvadelibelula.png') %>
+ <%= f.label :odonata, image_tag('macroinvertebrados/larvadelibelula.png', :class => "img-responsive") %>
  <!-- TODO nao sei se larva de libelula e o mesmo que larva de libelinhas -->
 
  <%= f.check_box :heteropteros %>
  <%= f.label :heteropteros, "Heterópteros" %>
- <%= f.label :heteropteros, "TEM VARIAS FOTOS! qual escolher?" %>
+ <%= f.label :heteropteros, image_tag('macroinvertebrados/heteropteros.png', :class => "img-responsive") %>
 
  <%= f.check_box :plecopteros %>
  <%= f.label :plecopteros, "Plecópteros (mosca-de-pedra)" %>
- <%= f.label :plecopteros, image_tag('macroinvertebrados/plecopteros.png') %>
+ <%= f.label :plecopteros, image_tag('macroinvertebrados/plecopteros.png', :class => "img-responsive") %>
 
  <h4> Efemerópteros (efémera) </h4>
  <%= f.check_box :baetideo %>
  <%= f.label :baetideo, "Baetídeo" %>
- <%= f.label :baetideo, image_tag('macroinvertebrados/baetideo.png') %>
+ <%= f.label :baetideo, image_tag('macroinvertebrados/baetideo.png', :class => "img-responsive") %>
 
  <%= f.check_box :cabecaPlanar %>
  <%= f.label :cabecaPlanar, "Cabeça Planar (Ecdyonurus)" %>
- <%= f.label :cabecaPlanar, "SEM FOTO!!" %>
+ <%= f.label :cabecaPlanar, image_tag('macroinvertebrados/cabecaplanar.png', :class => "img-responsive") %> </br>
  <!-- FIM EFEMERA -->
 
  <%= f.check_box :crustaceos %>
  <%= f.label :crustaceos, "Crustáceos" %>
- <%= f.label :crustaceos, "VARIAS FOTOS!!" %>
+ <%= f.label :crustaceos, image_tag('macroinvertebrados/crustaceos.png', :class => "img-responsive") %>
 
  <%= f.check_box :acaros %>
  <%= f.label :acaros, "Ácaros" %>
- <%= f.label :acaros, image_tag('macroinvertebrados/acaros.png') %>
+ <%= f.label :acaros, image_tag('macroinvertebrados/acaros.png', :class => "img-responsive") %>
 
  <%= f.check_box :pulgaDeAgua %>
  <%= f.label :pulgaDeAgua, "Pulga-de-água (Daphnia)" %>
- <%= f.label :pulgaDeAgua, image_tag('macroinvertebrados/pulgadeagua.png') %>
+ <%= f.label :pulgaDeAgua, image_tag('macroinvertebrados/pulgadeagua.png', :class => "img-responsive") %>
 
  <%= f.check_box :insetos %>
  <%= f.label :insetos, "Insetos – adultos (adultos na forma aérea)" %>
@@ -487,7 +487,8 @@
 
  <%= f.check_box :megalopteres %>
  <%= f.label :megalopteres, "Mégalopteres" %>
- <%= f.label :megalopteres, "SEM FOTO!!" %>
+ <%= f.label :megalopteres, image_tag('macroinvertebrados/megalopteres.png', :class => "img-responsive") %>
+
 </div>
 <!-- TODO por separador qd tem campos h4 -->
 </div>
@@ -627,6 +628,8 @@
             <div class="checkbox">
               <%= f.check_box label %>
               <%= f.label label, labels[i] %>
+              <% imglabel = "corredorecologico/anfibios/#{var_labels[i]}.png"; %>
+              <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
             </div>
           </div>
           <% end %>
@@ -639,22 +642,30 @@
 <div class="form-group">
  <%= f.label :repteisAutoctones, "Répteis autoctones" %>: </br>
 
- <% var_labels = ["lagartoDeAgua","cobraAguaDeColar","cagado","repteis_outro"];
- labels = ["Lagarto-de-água (Lacerta schreiberi)","Cobra-de-água-de-colar (Natrix natrix)","Cágado (Mauremys leprosa)","Outro"]; %>
+ <% var_labels = ["lagartoDeAgua","cobraAguaDeColar","cagado"];
+ labels = ["Lagarto-de-água (Lacerta schreiberi)","Cobra-de-água-de-colar (Natrix natrix)","Cágado (Mauremys leprosa)"]; %>
 
  <div class="row">
   <div class="col-md-12 col-xs-12">
     <div class="container-fluid">
       <div class="row">
-        <% for i in 0..3 %>
+        <% for i in 0..2 %>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = var_labels[i]; %>
           <div class="checkbox">
             <%= f.check_box label %>
             <%= f.label label, labels[i] %>
+            <% imglabel = "corredorecologico/repteis/#{var_labels[i]}.png"; %>
+            <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
           </div>
         </div>
         <% end %>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="checkbox">
+            <%= f.check_box :repteis_outro %>
+            <%= f.label :repteis_outro, "Outro" %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -665,22 +676,30 @@
 <div class="form-group">
  <%= f.label :avesautoctones, "Aves autoctones" %>: </br>
 
- <% var_labels = ["guardaRios","garcaReal","melroDeAgua","galinhaDeAgua","patoReal","tentilhaoComum","chapimReal","aves_outro"];
- labels = ["Guarda-rios (Alcedo atthis)","Garça-real (Ardea cinerea)","Melro-de-água (Cinclus cinclus)","Galinha-de-água (Gallinula chloropus)","Pato-real (Anas platyrhynchos)","Tentilhão-comum (Fringilla coelebs)","Chapim-real (Parus major)","Outro"]; %>
+ <% var_labels = ["guardaRios","garcaReal","melroDeAgua","galinhaDeAgua","patoReal","tentilhaoComum","chapimReal"];
+ labels = ["Guarda-rios (Alcedo atthis)","Garça-real (Ardea cinerea)","Melro-de-água (Cinclus cinclus)","Galinha-de-água (Gallinula chloropus)","Pato-real (Anas platyrhynchos)","Tentilhão-comum (Fringilla coelebs)","Chapim-real (Parus major)"]; %>
 
  <div class="row">
   <div class="col-md-12 col-xs-12">
     <div class="container-fluid">
       <div class="row">
-        <% for i in 0..7 %>
+        <% for i in 0..6 %>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = var_labels[i]; %>
           <div class="checkbox">
             <%= f.check_box label %>
             <%= f.label label, labels[i] %>
+            <% imglabel = "corredorecologico/aves/#{var_labels[i]}.png"; %>
+            <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
           </div>
         </div>
         <% end %>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="checkbox">
+            <%= f.check_box :aves_outro %>
+            <%= f.label :aves_outro, "Outro" %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -691,21 +710,29 @@
 <div class="form-group">
  <%= f.label :mamiferosautoctones, "Mamíferos autoctones" %>: </br>
 
- <% var_labels = ["lontras","morcegosDeAgua","toupeiraDaAgua","ratoDeAgua","ouricoCacheiro","armilho","mamiferos_outro"];
- labels = ["Lontras (Lutra lutra)","Morcegos-de-água (Myotis daubentonii)","Toupeira da água (Galemys pyrenaicus)","Rato-de-água (Arvicola sapidus)","Ouriço cacheiro (Erinaceus europaeus)","Armilho (Mustela Erminea)","Outro"]; %>
+ <% var_labels = ["lontras","morcegosDeAgua","toupeiraDaAgua","ratoDeAgua","ouricoCacheiro","armilho"];
+ labels = ["Lontras (Lutra lutra)","Morcegos-de-água (Myotis daubentonii)","Toupeira da água (Galemys pyrenaicus)","Rato-de-água (Arvicola sapidus)","Ouriço cacheiro (Erinaceus europaeus)","Arminho (Mustela Erminea)"]; %>
  <div class="row">
   <div class="col-md-12 col-xs-12">
     <div class="container-fluid">
       <div class="row">
-        <% for i in 0..6 %>
+        <% for i in 0..5 %>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = var_labels[i]; %>
           <div class="checkbox">
             <%= f.check_box label %>
             <%= f.label label, labels[i] %>
+            <% imglabel = "corredorecologico/mamiferos/#{var_labels[i]}.png"; %>
+            <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
           </div>
         </div>
         <% end %>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="checkbox">
+            <%= f.check_box :mamiferos_outro %>
+            <%= f.label "mamiferos_outro", "Outro" %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -715,21 +742,29 @@
 <div class="form-group">
  <%= f.label :peixesautoctones, "Peixes autoctones" %>: </br>
 
- <% var_labels = ["enguia","lampreia","salmao","truta","bogaPortuguesa","bogaDoNorte","peixes_outro"];
- labels = ["Enguia (Anguilla anguilla)","Lampreia (Lampetra fluiatilis)","Salmão (Salmo salar)","Truta (Salmo trutta fario)","Boga-portuguesa (Iberochondrostoma lusitanicum)","Boga-do-norte (Chondrostoma duriense)","Outro"]; %>
+ <% var_labels = ["enguia","lampreia","salmao","truta","bogaPortuguesa","bogaDoNorte"];
+ labels = ["Enguia (Anguilla anguilla)","Lampreia (Lampetra fluiatilis)","Salmão (Salmo salar)","Truta (Salmo trutta fario)","Boga-portuguesa (Iberochondrostoma lusitanicum)","Boga-do-norte (Chondrostoma duriense)"]; %>
  <div class="row">
   <div class="col-md-12 col-xs-12">
     <div class="container-fluid">
       <div class="row">
-        <% for i in 0..6 %>
+        <% for i in 0..5 %>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = var_labels[i]; %>
           <div class="checkbox">
             <%= f.check_box label %>
             <%= f.label label, labels[i] %>
+            <% imglabel = "corredorecologico/peixes/#{var_labels[i]}.png"; %>
+            <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
           </div>
         </div>
         <% end %>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="checkbox">
+            <%= f.check_box :peixes_outro %>
+            <%= f.label :peixes_outro, "Outro" %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -739,21 +774,29 @@
 <div class="form-group">
  <%= f.label :faunaexotica, "Fauna exótica" %>: </br>
 
- <% var_labels = ["percaSol","tartarugaDaFlorida","caranguejoPeludoChines","gambusia","mustelaVison","lagostimVermelho","trutaArcoIris","achiga","fauna_outro"];
- labels = ["Perca-sol (Lepomis gibbosus)","Tartaruga da Florida (Trachemys scripta)","Caranguejo-peludo-chinês (Eriocheir sinensis)","Gambúsia (Gambusia holbrooki)","Mustela vison","Lagostim vermelho (Procambarus clarkii)","Truta-arco-íris (Oncorhynchus mykiss)","Achigã (Micropterus salmoides)","Outro"]; %>
+ <% var_labels = ["percaSol","tartarugaDaFlorida","caranguejoPeludoChines","gambusia","mustelaVison","lagostimVermelho","trutaArcoIris","achiga"];
+ labels = ["Perca-sol (Lepomis gibbosus)","Tartaruga da Florida (Trachemys scripta)","Caranguejo-peludo-chinês (Eriocheir sinensis)","Gambúsia (Gambusia holbrooki)","Mustela vison","Lagostim vermelho (Procambarus clarkii)","Truta-arco-íris (Oncorhynchus mykiss)","Achigã (Micropterus salmoides)"]; %>
  <div class="row">
   <div class="col-md-12 col-xs-12">
     <div class="container-fluid">
       <div class="row">
-        <% for i in 0..8 %>
+        <% for i in 0..7 %>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = var_labels[i]; %>
           <div class="checkbox">
             <%= f.check_box label %>
             <%= f.label label, labels[i] %>
+            <% imglabel = "corredorecologico/faunaexotica/#{var_labels[i]}.png"; %>
+            <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
           </div>
         </div>
         <% end %>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="checkbox">
+            <%= f.check_box :fauna_outro %>
+            <%= f.label :fauna_outro, "Outro" %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
