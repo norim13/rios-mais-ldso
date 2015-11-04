@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151104013541) do
+ActiveRecord::Schema.define(version: 20151104151134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,8 +39,6 @@ ActiveRecord::Schema.define(version: 20151104013541) do
     t.boolean  "substratoDoLeito_artificial"
     t.boolean  "substratoDoLeito_naoEVisivel"
     t.integer  "estadoGeraldaLinhadeAgua"
-    t.integer  "erosao"
-    t.integer  "sedimentacao"
     t.float    "pH"
     t.float    "condutividade"
     t.float    "temperatura"
@@ -130,19 +128,6 @@ ActiveRecord::Schema.define(version: 20151104013541) do
     t.integer  "patrimonio_coletoresSaneamento"
     t.integer  "patrimonio_defletoresArtificiais"
     t.integer  "patrimonio_motaLateral"
-    t.integer  "poluicao_descargasDomesticas"
-    t.integer  "poluicao_descargasETAR"
-    t.integer  "poluicao_descargasIndustriais"
-    t.integer  "poluicao_descargasQuimicas"
-    t.integer  "poluicao_descargasAguasPluviais"
-    t.integer  "poluicao_presencaCriacaoAnimais"
-    t.integer  "poluicao_lixeiras"
-    t.integer  "poluicao_lixoDomestico"
-    t.integer  "poluicao_entulho"
-    t.integer  "poluicao_monstrosDomesticos"
-    t.integer  "poluicao_sacosDePlastico"
-    t.integer  "poluicao_latasMaterialFerroso"
-    t.integer  "poluicao_queimadas"
     t.boolean  "salamandraLusitanica"
     t.boolean  "salamandraPintasAmarelas"
     t.boolean  "tritaoVentreLaranja"
@@ -214,6 +199,32 @@ ActiveRecord::Schema.define(version: 20151104013541) do
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.integer  "user_id"
+    t.boolean  "erosao_semErosao"
+    t.boolean  "erosao_formacaomais3"
+    t.boolean  "erosao_formacao1a3"
+    t.boolean  "erosao_quedamuros"
+    t.boolean  "erosao_rombos"
+    t.boolean  "sedimentacao_ausente"
+    t.boolean  "sedimentacao_decomposicao"
+    t.boolean  "sedimentacao_mouchoes"
+    t.boolean  "sedimentacao_ilhassemveg"
+    t.boolean  "sedimentacao_ilhascomveg"
+    t.boolean  "sedimentacao_deposicaosemveg"
+    t.boolean  "sedimentacao_deposicaocomveg"
+    t.boolean  "sedimentacao_rochas"
+    t.boolean  "poluicao_descargasDomesticas"
+    t.boolean  "poluicao_descargasETAR"
+    t.boolean  "poluicao_descargasIndustriais"
+    t.boolean  "poluicao_descargasQuimicas"
+    t.boolean  "poluicao_descargasAguasPluviais"
+    t.boolean  "poluicao_presencaCriacaoAnimais"
+    t.boolean  "poluicao_lixeiras"
+    t.boolean  "poluicao_lixoDomestico"
+    t.boolean  "poluicao_entulho"
+    t.boolean  "poluicao_monstrosDomesticos"
+    t.boolean  "poluicao_sacosDePlastico"
+    t.boolean  "poluicao_latasMaterialFerroso"
+    t.boolean  "poluicao_queimadas"
   end
 
   add_index "form_irrs", ["user_id"], name: "index_form_irrs_on_user_id", using: :btree

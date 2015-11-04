@@ -1,8 +1,8 @@
 class CreateFormIrrs < ActiveRecord::Migration
 	def change
-	create_table :form_irrs do |t|
-	  t.integer :tipoDeVale
-	  t.integer :perfilDeMargens
+		create_table :form_irrs do |t|
+			t.integer :tipoDeVale
+			t.integer :perfilDeMargens
       #Volume de agua
       t.float :larguraDaSuperficieDaAgua
       t.float :profundidadeMedia
