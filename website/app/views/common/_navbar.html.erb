@@ -16,7 +16,6 @@
       <!--<ul class="nav navbar-nav"></ul>-->
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"> Rotas rios+ </a></li>
         <li>
           <div class="dropdown-container">
             <button type="button" class="dropdown-toggle custom-btn" data-toggle="dropdown">
@@ -28,9 +27,7 @@
             </ul>
           </div>
         </li>
-        <li><a href="#"> Avaliações </a></li>
-        <li><a href="#"> Rios </a></li>
-        <li><a href="#"> Mapa </a></li>
+        <li><%= link_to "Rios", search_path %></li>
         <li>
           <div class="dropdown-container">
             <button type="button" class="dropdown-toggle custom-btn" data-toggle="dropdown">
@@ -48,8 +45,6 @@
             </ul>
           </div>
         </li>
-        <li><a href="#"> <%= content_tag(:span, '', class: 'glyphicon glyphicon-camera') %> </a></li>
-
       </ul>
     </div>
   </div>
