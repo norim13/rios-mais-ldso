@@ -28,7 +28,7 @@
 				<% for i in 1..7 
 				label = "tipoDeVale_#{i}"; %>
 				<div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
-					<%= f.radio_button :tipoDeVale, "#{i}" %>
+					<%= f.radio_button :tipoDeVale, "#{i}", :disabled => true %>
 					<%= f.label label, image_tag("tipodevale/#{imagens_tipo_vale[i-1]}", :class => "img-responsive") %>
 				</div>
 				<% end %>
@@ -45,14 +45,14 @@
 				<% for i in 1..5 
 				label = "perfilDeMargens_#{i}"; %>
 				<div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
-					<%= f.radio_button :perfilDeMargens, "#{i}" %>
+					<%= f.radio_button :perfilDeMargens, "#{i}", :disabled => true %>
 					<%= f.label label, labels[i-1] %>
 					<%= f.label label, image_tag("perfildemargens/#{imagens_perfil_margens[i-1]}", :class => "img-responsive") %>
 				</div>
 				<% end %>
 
 				<div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
-					<%= f.radio_button :perfilDeMargens, "6" %>
+					<%= f.radio_button :perfilDeMargens, "6", :disabled => true %>
 					<%= f.label :perfilDeMargens_6, "Artificial" %>
 				</div>			
 			</div>
@@ -68,17 +68,17 @@
 						<div class="container-fluid">
 							<div class="right-allign-fields">
 								<%= f.label :larguraDaSuperficieDaAgua, "Largura da superfície da água (L) (m)" %>: 
-								<%= f.number_field :larguraDaSuperficieDaAgua, :class => 'text_field form-control', :step => 'any', :min => '0.00' %>
+								<%= f.number_field :larguraDaSuperficieDaAgua, :class => 'text_field form-control', :step => 'any', :min => '0.00', :disabled => true %>
 							</div>
 
 							<div class="right-allign-fields">
 								<%= f.label :profundidadeMedia, "Profundidade média (P) (m)" %>: 
-								<%= f.number_field :profundidadeMedia, :class => 'text_field form-control', :step => 'any', :min => '0.00' %>
+								<%= f.number_field :profundidadeMedia, :class => 'text_field form-control', :step => 'any', :min => '0.00', :disabled => true %>
 							</div>
 
 							<div class="right-allign-fields">
 								<%= f.label :velocidadeMedia, "Velocidade média (V) (m/s)" %>:
-								<%= f.number_field :velocidadeMedia, :class => 'text_field form-control', :step => 'any', :min => '0.00' %>
+								<%= f.number_field :velocidadeMedia, :class => 'text_field form-control', :step => 'any', :min => '0.00', :disabled => true %>
 							</div>
 						</div>
 
@@ -88,12 +88,12 @@
 						<div class="container-fluid">
 							<div class="right-allign-fields">
 								<%= f.label :seccao, "Secção (S=PxL) (m^2)" %>:
-								<%= f.number_field :seccao, :class => 'text_field form-control', :step => 'any', :readonly => true %>
+								<%= f.number_field :seccao, :class => 'text_field form-control', :step => 'any', :disabled => true %>
 							</div>
 							
 							<div class="right-allign-fields">
 								<%= f.label :caudal, "Caudal (C=VxS) (m^3/s)" %>:
-								<%= f.number_field :caudal, :class => 'text_field form-control', :step => 'any', :min => '0.00', :readonly => true %>
+								<%= f.number_field :caudal, :class => 'text_field form-control', :step => 'any', :min => '0.00', :disabled => true %>
 							</div>
 						</div>
 					</div>
@@ -118,7 +118,7 @@
                   <div class="col-md-4 col-sm-6 col-xs-12">
                     <%label = "substratoDasMargens_#{var_substratodasmargens[i]}"; %>
                     <div class="checkbox">
-                      <%= f.check_box label %>
+                      <%= f.check_box label, :disabled => true %>
                       <%= f.label label, labels[i] %>
                     </div>
                   </div>
@@ -148,7 +148,7 @@
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <%label = "substratoDoLeito_#{var_substratodoleito[i]}"; %>
                   <div class="checkbox">
-                    <%= f.check_box label %>
+                    <%= f.check_box label, :disabled => true %>
                     <%= f.label label, labels[i] %>
                   </div>
                 </div>
@@ -171,7 +171,7 @@
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <%label = "estadoGeraldaLinhadeAgua_#{i}"; %>
                   <div class="radio">
-                    <%= f.radio_button :estadoGeraldaLinhadeAgua, i %>
+                    <%= f.radio_button :estadoGeraldaLinhadeAgua, i, :disabled => true %>
                     <%= f.label label, labels[i-1] %>
                   </div>
                 </div>
@@ -196,7 +196,7 @@
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <% label = "erosao_#{var_erosao[i-1]}"; %>
                   <div class="checkbox">
-                    <%= f.check_box label %>
+                    <%= f.check_box label, :disabled => true %>
                     <%= f.label label, labels[i-1] %>
                   </div>
                 </div>
@@ -221,7 +221,7 @@
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <% label = "sedimentacao_#{var_sedimentacao[i-1]}"; %>
                   <div class="checkbox">
-                    <%= f.check_box label %>
+                    <%= f.check_box label, :disabled => true %>
                     <%= f.label label, labels[i-1] %>
                   </div>
                 </div>
@@ -244,56 +244,56 @@
             <div>
               <div class="right-allign-fields">
                 <%= f.label :pH, "pH" %>:
-                <%= f.number_field :pH, :class => 'text_field form-control', :step => 'any', :min => '0.00', :max => '14.0' %>
+                <%= f.number_field :pH, :class => 'text_field form-control', :step => 'any', :min => '0.00', :max => '14.0', :disabled => true %>
               </div>
             </div>
 
             <div>
               <div class="right-allign-fields">
                 <%= f.label :condutividade, "Condutividade" %>:
-                <%= f.number_field :condutividade, :class => 'text_field form-control', :step => 'any' %>
+                <%= f.number_field :condutividade, :class => 'text_field form-control', :step => 'any', :disabled => true %>
               </div>
             </div>
 
             <div>
               <div class="right-allign-fields">
                 <%= f.label :temperatura, "Temperatura (ºC)" %>:
-                <%= f.number_field :temperatura, :class => 'text_field form-control', :step => 'any' %>
+                <%= f.number_field :temperatura, :class => 'text_field form-control', :step => 'any', :disabled => true %>
               </div>
             </div>
 
             <div>
               <div class="right-allign-fields">
                 <%= f.label :nivelDeOxigenio, "Nível De Oxigenio (mg/L)" %>:
-                <%= f.number_field :nivelDeOxigenio, :class => 'text_field form-control', :step => 'any' %>
+                <%= f.number_field :nivelDeOxigenio, :class => 'text_field form-control', :step => 'any', :disabled => true %>
               </div>
             </div>
 
             <div>
               <div class="right-allign-fields">
                 <%= f.label :percentagemDeOxigenio, "Percentagem De Oxigenio" %>:
-                <%= f.number_field :percentagemDeOxigenio, :class => 'text_field form-control', :step => 'any', :min => '0', :max => '100' %>
+                <%= f.number_field :percentagemDeOxigenio, :class => 'text_field form-control', :step => 'any', :min => '0', :max => '100', :disabled => true %>
               </div>
             </div>
 
             <div>
               <div class="right-allign-fields">
                 <%= f.label :nitratos, "Nitratos" %>:
-                <%= f.number_field :nitratos, :class => 'text_field form-control', :step => 'any' %>
+                <%= f.number_field :nitratos, :class => 'text_field form-control', :step => 'any', :disabled => true %>
               </div>
             </div>
 
             <div>
               <div class="right-allign-fields">
                 <%= f.label :nitritos, "Nitritos" %>:
-                <%= f.number_field :nitritos, :class => 'text_field form-control', :step => 'any' %>
+                <%= f.number_field :nitritos, :class => 'text_field form-control', :step => 'any', :disabled => true %>
               </div>
             </div>
 
             <div>
               <div class="right-allign-fields">
                 <%= f.label :transparencia, "Transparência (I-IV)" %>:
-                <%= f.number_field :transparencia, :class => 'text_field form-control', :min => '1', :max => '4', :step => '1' %>
+                <%= f.number_field :transparencia, :class => 'text_field form-control', :min => '1', :max => '4', :step => '1', :disabled => true %>
               </div>
             </div>
           </div>
@@ -315,7 +315,7 @@
             <% for i in 0..5 %>
             <div class="col-md-4 col-sm-6 col-xs-12">
               <div class="checkbox">
-                <%= f.check_box label[i] %>
+                <%= f.check_box label[i], :disabled => true %>
                 <%= f.label label[i], labels[i] %>
               </div>
             </div>
@@ -323,7 +323,7 @@
             <div class="col-md-4 col-sm-6 col-xs-12">
               <div class="checkbox">
                 <%= f.label :indiciosNaAgua_outros, "Outros" %></br>
-                <%= f.text_area :indiciosNaAgua_outros %>
+                <%= f.text_area :indiciosNaAgua_outros, :disabled => true %>
               </div>
             </div>
           </div>
@@ -345,7 +345,7 @@
           <div class="col-md-4 col-sm-6 col-xs-12">
             <%label = "corDaAgua_#{i}"; %>
             <div class="radio">
-              <%= f.radio_button :corDaAgua, i %>
+              <%= f.radio_button :corDaAgua, i, :disabled => true %>
               <%= f.label label, labels[i-1] %>
             </div>
           </div>
@@ -371,7 +371,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = "odorDaAgua_#{i}"; %>
           <div class="radio">
-            <%= f.radio_button :odorDaAgua, i %>
+            <%= f.radio_button :odorDaAgua, i, :disabled => true %>
             <%= f.label label, labels[i-1] %>
           </div>
         </div>
@@ -386,7 +386,7 @@
 
 <div class="form-group image-options container">
  <h3>Tabela de Macroinvertebrados </h3>
- <%= f.check_box :planarias %>
+ <%= f.check_box :planarias, :disabled => true %>
  <%= f.label :planarias, "Planárias" %>
  <%= f.label :planarias, image_tag('macroinvertebrados/planaria.png', :class => "img-responsive") %>
 
@@ -395,15 +395,15 @@
  <%= f.label :hirudineos, image_tag('macroinvertebrados/hirudineo.png', :class => "img-responsive") %>
 
  <h4>Dípteros</h4>
- <%= f.check_box :oligoquetas %>
+ <%= f.check_box :oligoquetas, :disabled => true %>
  <%= f.label :oligoquetas, "Oligoquetas (minhocas)" %>
  <%= f.label :oligoquetas, image_tag('macroinvertebrados/oligoquetas.png', :class => "img-responsive") %>
 
- <%= f.check_box :simulideos %>
+ <%= f.check_box :simulideos, :disabled => true %>
  <%= f.label :simulideos, "Simulideos" %>
  <%= f.label :simulideos, image_tag('macroinvertebrados/simulideo.png', :class => "img-responsive") %>
 
- <%= f.check_box :quironomideos %>
+ <%= f.check_box :quironomideos, :disabled => true %>
  <%= f.label :quironomideos, "Quironomideos, Sirfídeos, Culidídeos, Tipulídeos (Larva de mosquitos)" %>
  <%= f.label :quironomideos, image_tag('macroinvertebrados/quironomideo.png', :class => "img-responsive") %>
  <%= f.label :quironomideos, image_tag('macroinvertebrados/sirfideo.png', :class => "img-responsive") %>
@@ -412,22 +412,22 @@
  <!-- FIM DIPTEROS -->
 
  <h4>Gastrópodes (Mullusca)</h4>
- <%= f.check_box :ancilideo %>
+ <%= f.check_box :ancilideo, :disabled => true %>
  <%= f.label :ancilideo, "Ancilídeo" %>
  <%= f.label :ancilideo, image_tag('macroinvertebrados/ancilideo.png', :class => "img-responsive") %>
 
- <%= f.check_box :limnideo %>
+ <%= f.check_box :limnideo, :disabled => true %>
  <%= f.label :limnideo, "Limnídeo (Physa)" %>
  <!-- TODO no excel tem limnideo mas no word tem Limnelídeo, qual e? -->
  <%= f.label :limnideo, image_tag('macroinvertebrados/limnelideo.png', :class => "img-responsive") %></br>
  <!-- FIM GASTROPODES -->
 
- <%= f.check_box :bivalves %>
+ <%= f.check_box :bivalves, :disabled => true %>
  <%= f.label :bivalves, "Bivalves" %>
  <%= f.label :bivalves, image_tag('macroinvertebrados/bivalves.png', :class => "img-responsive") %>
 
  <h4>Coleóptero (escaravelho)</h4>
- <%= f.check_box :patasNadadoras %>
+ <%= f.check_box :patasNadadoras, :disabled => true %>
  <%= f.label :patasNadadoras, "Patas Nadadoras (Dystiscidae)" %>
  <%= f.label :patasNadadoras, image_tag('macroinvertebrados/ditiscus.png', :class => "img-responsive") %>
 
@@ -437,7 +437,7 @@
  <!-- FIM ESCARAVELHO -->
 
  <h4>Trichóptero (mosca d’água)</h4>
- <%= f.check_box :trichopteroS %>
+ <%= f.check_box :trichopteroS, :disabled => true %>
  <%= f.label :trichopteroS, "Trichóptero (mosca d’água) S/Casulo" %>
  <%= f.label :trichopteroS, image_tag('macroinvertebrados/hidropsiquideo.png', :class => "img-responsive") %>
 
@@ -446,46 +446,46 @@
  <%= f.label :trichopteroC, image_tag('macroinvertebrados/trichoptero.png', :class => "img-responsive") %> </br>
  <!-- FIM TRICHOPTERO -->
 
- <%= f.check_box :odonata %>
+ <%= f.check_box :odonata, :disabled => true %>
  <%= f.label :odonata, "Odonata (Larva de Libelinhas)" %>
  <%= f.label :odonata, image_tag('macroinvertebrados/larvadelibelula.png', :class => "img-responsive") %>
  <!-- TODO nao sei se larva de libelula e o mesmo que larva de libelinhas -->
 
- <%= f.check_box :heteropteros %>
+ <%= f.check_box :heteropteros, :disabled => true %>
  <%= f.label :heteropteros, "Heterópteros" %>
  <%= f.label :heteropteros, image_tag('macroinvertebrados/heteropteros.png', :class => "img-responsive") %>
 
- <%= f.check_box :plecopteros %>
+ <%= f.check_box :plecopteros, :disabled => true %>
  <%= f.label :plecopteros, "Plecópteros (mosca-de-pedra)" %>
  <%= f.label :plecopteros, image_tag('macroinvertebrados/plecopteros.png', :class => "img-responsive") %>
 
  <h4> Efemerópteros (efémera) </h4>
- <%= f.check_box :baetideo %>
+ <%= f.check_box :baetideo, :disabled => true %>
  <%= f.label :baetideo, "Baetídeo" %>
  <%= f.label :baetideo, image_tag('macroinvertebrados/baetideo.png', :class => "img-responsive") %>
 
- <%= f.check_box :cabecaPlanar %>
+ <%= f.check_box :cabecaPlanar, :disabled => true %>
  <%= f.label :cabecaPlanar, "Cabeça Planar (Ecdyonurus)" %>
  <%= f.label :cabecaPlanar, image_tag('macroinvertebrados/cabecaplanar.png', :class => "img-responsive") %> </br>
  <!-- FIM EFEMERA -->
 
- <%= f.check_box :crustaceos %>
+ <%= f.check_box :crustaceos, :disabled => true %>
  <%= f.label :crustaceos, "Crustáceos" %>
  <%= f.label :crustaceos, image_tag('macroinvertebrados/crustaceos.png', :class => "img-responsive") %>
 
- <%= f.check_box :acaros %>
+ <%= f.check_box :acaros, :disabled => true %>
  <%= f.label :acaros, "Ácaros" %>
  <%= f.label :acaros, image_tag('macroinvertebrados/acaros.png', :class => "img-responsive") %>
 
- <%= f.check_box :pulgaDeAgua %>
+ <%= f.check_box :pulgaDeAgua, :disabled => true %>
  <%= f.label :pulgaDeAgua, "Pulga-de-água (Daphnia)" %>
  <%= f.label :pulgaDeAgua, image_tag('macroinvertebrados/pulgadeagua.png', :class => "img-responsive") %>
 
- <%= f.check_box :insetos %>
+ <%= f.check_box :insetos, :disabled => true %>
  <%= f.label :insetos, "Insetos – adultos (adultos na forma aérea)" %>
  <%= f.label :insetos, "SEM FOTO!!" %>
 
- <%= f.check_box :megalopteres %>
+ <%= f.check_box :megalopteres, :disabled => true %>
  <%= f.label :megalopteres, "Mégalopteres" %>
  <%= f.label :megalopteres, image_tag('macroinvertebrados/megalopteres.png', :class => "img-responsive") %>
 
@@ -510,7 +510,7 @@
           <div class="col-md-4 col-sm-6 col-xs-12">
             <%label = "intervencoes_#{var_labels[i]}"; %>
             <div class="checkbox">
-              <%= f.check_box label %>
+              <%= f.check_box label, :disabled => true %>
               <%= f.label label, labels[i] %>
             </div>
           </div>
@@ -539,7 +539,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = "ocupacao_#{var_labels[i]}"; %>
           <div class="checkbox">
-            <%= f.check_box label %>
+            <%= f.check_box label, :disabled => true %>
             <%= f.label label, labels[i] %>
           </div>
         </div>
@@ -567,7 +567,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = "patrimonio_#{var_patrimonio[i-1]}"; %>
           <div class="">
-            <%= f.select label, [1,2,3,4,5] %>
+            <%= f.select label, [1,2,3,4,5], {}, :disabled => true %>
             <%= f.label label, labels[i-1] %>
           </div>
         </div>
@@ -595,7 +595,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = "poluicao_#{var_poluicao[i-1]}"; %>
           <div class="checkbox">
-            <%= f.check_box label %>
+            <%= f.check_box label, :disabled => true %>
             <%= f.label label, labels[i-1] %>
           </div>
         </div>
@@ -624,9 +624,9 @@
         <div class="row">
           <% for i in 0..5 %>
           <div class="col-md-4 col-sm-6 col-xs-12">
-            <%label = var_labels[i]; %>
+            <% label = var_labels[i]; %>
             <div class="checkbox">
-              <%= f.check_box label %>
+              <%= f.check_box label, :disabled => true %>
               <%= f.label label, labels[i] %>
               <% imglabel = "corredorecologico/anfibios/#{var_labels[i]}.png"; %>
               <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
@@ -653,7 +653,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = var_labels[i]; %>
           <div class="checkbox">
-            <%= f.check_box label %>
+            <%= f.check_box label, :disabled => true %>
             <%= f.label label, labels[i] %>
             <% imglabel = "corredorecologico/repteis/#{var_labels[i]}.png"; %>
             <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
@@ -662,7 +662,7 @@
         <% end %>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="checkbox">
-            <%= f.check_box :repteis_outro %>
+            <%= f.check_box :repteis_outro, :disabled => true %>
             <%= f.label :repteis_outro, "Outro" %>
           </div>
         </div>
@@ -687,7 +687,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = var_labels[i]; %>
           <div class="checkbox">
-            <%= f.check_box label %>
+            <%= f.check_box label, :disabled => true %>
             <%= f.label label, labels[i] %>
             <% imglabel = "corredorecologico/aves/#{var_labels[i]}.png"; %>
             <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
@@ -696,7 +696,7 @@
         <% end %>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="checkbox">
-            <%= f.check_box :aves_outro %>
+            <%= f.check_box :aves_outro, :disabled => true %>
             <%= f.label :aves_outro, "Outro" %>
           </div>
         </div>
@@ -720,7 +720,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = var_labels[i]; %>
           <div class="checkbox">
-            <%= f.check_box label %>
+            <%= f.check_box label, :disabled => true %>
             <%= f.label label, labels[i] %>
             <% imglabel = "corredorecologico/mamiferos/#{var_labels[i]}.png"; %>
             <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
@@ -729,7 +729,7 @@
         <% end %>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="checkbox">
-            <%= f.check_box :mamiferos_outro %>
+            <%= f.check_box :mamiferos_outro, :disabled => true %>
             <%= f.label "mamiferos_outro", "Outro" %>
           </div>
         </div>
@@ -752,7 +752,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = var_labels[i]; %>
           <div class="checkbox">
-            <%= f.check_box label %>
+            <%= f.check_box label, :disabled => true %>
             <%= f.label label, labels[i] %>
             <% imglabel = "corredorecologico/peixes/#{var_labels[i]}.png"; %>
             <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
@@ -761,7 +761,7 @@
         <% end %>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="checkbox">
-            <%= f.check_box :peixes_outro %>
+            <%= f.check_box :peixes_outro, :disabled => true %>
             <%= f.label :peixes_outro, "Outro" %>
           </div>
         </div>
@@ -784,7 +784,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = var_labels[i]; %>
           <div class="checkbox">
-            <%= f.check_box label %>
+            <%= f.check_box label, :disabled => true %>
             <%= f.label label, labels[i] %>
             <% imglabel = "corredorecologico/faunaexotica/#{var_labels[i]}.png"; %>
             <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
@@ -793,7 +793,7 @@
         <% end %>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="checkbox">
-            <%= f.check_box :fauna_outro %>
+            <%= f.check_box :fauna_outro, :disabled => true %>
             <%= f.label :fauna_outro, "Outro" %>
           </div>
         </div>
@@ -816,7 +816,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = var_labels[i]; %>
           <div class="checkbox">
-            <%= f.check_box label %>
+            <%= f.check_box label, :disabled => true %>
             <%= f.label label, labels[i] %>
           </div>
         </div>
@@ -841,7 +841,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = "conservacaoBosqueRibeirinho_#{i}"; %>
           <div class="radio">
-            <%= f.radio_button :conservacaoBosqueRibeirinho, i %>
+            <%= f.radio_button :conservacaoBosqueRibeirinho, i, :disabled => true %>
             <%= f.label label, labels[i-1] %>
           </div>
         </div>
@@ -869,7 +869,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = var_vegetacaoInvasora[i]; %>
           <div class="checkbox">
-            <%= f.check_box label %>
+            <%= f.check_box label, :disabled => true %>
             <%= f.label label, labels[i] %>
           </div>
         </div>
@@ -894,7 +894,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
           <%label = "obstrucaoDoLeitoMargens_#{i}"; %>
           <div class="radio">
-            <%= f.radio_button :obstrucaoDoLeitoMargens, i %>
+            <%= f.radio_button :obstrucaoDoLeitoMargens, i, :disabled => true %>
             <%= f.label label, labels[i-1] %>
           </div>
         </div>
@@ -923,7 +923,7 @@
           <div class="col-md-6 col-sm-6 col-xs-12">
             <%label = "disponibilizacaoDeInformacao_#{i}"; %>
             <div class="radio">
-              <%= f.radio_button :disponibilizacaoDeInformacao, i %>
+              <%= f.radio_button :disponibilizacaoDeInformacao, i, :disabled => true %>
               <%= f.label label, labels[i-1] %>
             </div>
           </div>
@@ -948,7 +948,7 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
           <%label = "envolvimentoPublico_#{i}"; %>
           <div class="radio">
-            <%= f.radio_button :envolvimentoPublico, i %>
+            <%= f.radio_button :envolvimentoPublico, i, :disabled => true %>
             <%= f.label label, labels[i-1] %>
           </div>
         </div>
@@ -973,7 +973,7 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
           <%label = "acao_#{i}"; %>
           <div class="radio">
-            <%= f.radio_button :acao, i %>
+            <%= f.radio_button :acao, i, :disabled => true %>
             <%= f.label label, labels[i-1] %>
           </div>
         </div>
@@ -1001,7 +1001,7 @@
           <div class="col-md-6 col-sm-6 col-xs-12">
             <%label = "legislacao_#{i}"; %>
             <div class="radio">
-              <%= f.radio_button :legislacao, i %>
+              <%= f.radio_button :legislacao, i, :disabled => true %>
               <%= f.label label, labels[i-1] %>
             </div>
           </div>
@@ -1026,7 +1026,7 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
           <%label = "estrategia_#{i}"; %>
           <div class="radio">
-            <%= f.radio_button :estrategia, i %>
+            <%= f.radio_button :estrategia, i, :disabled => true %>
             <%= f.label label, labels[i-1] %>
           </div>
         </div>
@@ -1051,7 +1051,7 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
           <%label = "gestaoDasIntervencoes_#{i}"; %>
           <div class="radio">
-            <%= f.radio_button :gestaoDasIntervencoes, i %>
+            <%= f.radio_button :gestaoDasIntervencoes, i, :disabled => true %>
             <%= f.label label, labels[i-1] %>
           </div>
         </div>
@@ -1063,10 +1063,6 @@
 
 </div>
 </div>
-
-<p>
-  <%= f.submit "Submeter formulario", class: "btn btn-primary" %>
-</p>
 
 <% end %>
 </div>

@@ -4,30 +4,29 @@
 
 	<%= render 'common/navbar' %>
 
-	<p>
-		<strong>ID:</strong>
-		<%= @form_irr.id %>
-	</p>
-	
-	<p>
-		<strong>Tipo de Vale:</strong>
-		<%= @form_irr.tipoDeVale %>
-	</p>
+	<div>
+		<p>
+			<strong>ID:</strong>
+			<%= @form_irr.id %>
+		</p>
 
-	<p>
-		<strong>Id do user:</strong>
-		<%= @form_irr.user_id %>
-	</p>
+		<p>
+			<strong>Id do utilizador:</strong>
+			<%= @form_irr.user_id %>
+		</p>
 
-	<p>
-		<strong>Created at:</strong>
-		<%= @form_irr.created_at %>
-	</p>
+		<p>
+			<strong>Criado em:</strong>
+			<%= @form_irr.created_at %>
+		</p>
 
-	<p>
-		<strong>Updated at:</strong>
-		<%= @form_irr.updated_at %>
-	</p>
+		<p>
+			<strong>Última edição em:</strong>
+			<%= @form_irr.updated_at %>
+		</p>
+	</div>
+
+	<%= render 'readonlyform' %>
 
 	<%= link_to 'Back', form_irrs_path %>
 
