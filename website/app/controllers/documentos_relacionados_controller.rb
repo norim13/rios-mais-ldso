@@ -1,0 +1,2 @@
+class DocumentosRelacionadosController < ApplicationController
+end

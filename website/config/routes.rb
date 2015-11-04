@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'profile' => 'profile#display'
   get 'home' => 'home#homepage'
   get 'contactos' => 'about#about'
+  get 'documentos' => 'documentos_relacionados#documentos'
 
   resources :form_irrs
   # The priority is based upon order of creation: first created -> highest priority.

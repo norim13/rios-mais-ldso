@@ -1,9 +1,10 @@
 class FormIrrsController < ApplicationController
   #fazer validacoes em todos!
   #validates :tipoDeVale, presence: true, length: { minimum: 5 }
+  before_filter :authenticate_user!
 
   def index
-    @form_irrs = FormIrr.all
+    @form_irrs = current_user.form_irrs
   end
 
   def new
@@ -12,14 +13,21 @@ class FormIrrsController < ApplicationController
 
   def show
     @form_irr = FormIrr.find(params[:id])
+    if @form_irr.user_id != current_user.id
+      render 'noaccess'
+    end
   end
 
   def edit
     @form_irr = FormIrr.find(params[:id])
+    if @form_irr.user_id != current_user.id
+      render 'noaccess'
+    end
   end
 
   def create
     @form_irr = FormIrr.new(form_irr_params)
+    @form_irr.user_id = current_user.id
 
     if @form_irr.save
       redirect_to @form_irr
@@ -30,7 +38,7 @@ class FormIrrsController < ApplicationController
 
   def update
     @form_irr = FormIrr.find(params[:id])
-    
+
     if @form_irr.update(form_irr_params)
       redirect_to @form_irr
     else
