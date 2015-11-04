@@ -186,7 +186,7 @@
         <%= f.label :erosao, "Erosão" %>:</br>
 
         <% labels = ["Sem erosão","Formação de >3 regos","Formação de 1-3 regos","Queda de muros e árvores","Rombos com mais de 1 metro com queda de muros ou árvores"]; %>
-        <% label = ["semErosao","formacaomais3","formacao1a3","quedamuros","rombos"]; %>
+        <% var_erosao = ["semErosao","formacaomais3","formacao1a3","quedamuros","rombos"]; %>
 
         <div class="row">
           <div class="col-md-12 col-xs-12">
@@ -194,10 +194,10 @@
               <div class="row">
                 <% for i in 1..5 %>
                 <div class="col-md-4 col-sm-6 col-xs-12">
-                  <% label = "erosao_#{label[i]}"; %>
+                <% label = "erosao_#{var_erosao[i-1]}"; %>
                   <div class="checkbox">
                     <%= f.check_box label %>
-                    <%= f.label label, labels[i] %>
+                    <%= f.label label, labels[i-1] %>
                   </div>
                 </div>
                 <% end %>
@@ -211,7 +211,7 @@
         <%= f.label :sedimentacao, "Sedimentação" %>:</br>
 
         <% labels = ["Ausente","Demposição na margem em curva","Mouchões (deposição de areia no leito)","Ilhas sem vegetação","Ilhas com vegetação","Deposição nas margens (s/vegetação)","Deposição nas margens (c/vegetação)","Rochas expostas no leito"]; %>
-        <% label = ["ausente","decomposicao","mouchoes","ilhassemveg","ilhascomveg","deposicaosemveg","deposicaocomveg","rochas"]; %>
+        <% var_sedimentacao = ["ausente","decomposicao","mouchoes","ilhassemveg","ilhascomveg","deposicaosemveg","deposicaocomveg","rochas"]; %>
 
         <div class="row">
           <div class="col-md-12 col-xs-12">
@@ -219,10 +219,10 @@
               <div class="row">
                 <% for i in 1..8 %>
                 <div class="col-md-4 col-sm-6 col-xs-12">
-                  <% label = "sedimentacao_#{label[i]}"; %>
+                  <% label = "sedimentacao_#{var_sedimentacao[i-1]}"; %>
                   <div class="checkbox">
                     <%= f.check_box label %>
-                    <%= f.label label, labels[i] %>
+                    <%= f.label label, labels[i-1] %>
                   </div>
                 </div>
                 <% end %>
