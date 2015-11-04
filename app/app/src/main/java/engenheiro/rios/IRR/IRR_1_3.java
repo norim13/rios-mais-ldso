@@ -31,8 +31,8 @@ public class IRR_1_3 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_irr_1_3);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         toolbar.setTitle("Novo Formulario");
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mL=(EditText)findViewById(R.id.irr_1_3_1);
@@ -99,13 +99,13 @@ public class IRR_1_3 extends AppCompatActivity {
 
 
     public void goto_next(View view){
-        startActivity(new Intent(this, IRR_1_3.class));
+        startActivity(new Intent(this, IRR_1_4.class));
         this.overridePendingTransition(0, 0);
 
     }
 
     public void goto_previous(View view){
-        startActivity(new Intent(this, IRR_1_1.class));
+        this.finish();
         this.overridePendingTransition(0, 0);
     }
 

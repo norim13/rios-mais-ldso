@@ -130,6 +130,74 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="engenheiro.rios.Homepage" />
         </activity>
+        <activity
+            android:name=".IRR.IRR_1_4"
+            android:label="@string/title_activity_irr_1_4"
+            android:parentActivityName=".Homepage"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="engenheiro.rios.Homepage" />
+        </activity>
+        <activity
+            android:name=".IRR.IRR_1_5"
+            android:label="@string/title_activity_irr_1_5"
+            android:parentActivityName=".Homepage"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="engenheiro.rios.Homepage" />
+        </activity>
+        <activity
+            android:name=".IRR.IRR_1_6"
+            android:label="@string/title_activity_irr_1_6"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".IRR.IRR_1_7"
+            android:label="@string/title_activity_irr_1_7"
+            android:parentActivityName=".Homepage"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="engenheiro.rios.Homepage" />
+        </activity>
+        <activity
+            android:name=".IRR.IRR_1_8"
+            android:label="@string/title_activity_irr_1_8"
+            android:parentActivityName=".Homepage"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="engenheiro.rios.Homepage" />
+        </activity>
+        <activity
+            android:name=".IRR.IRR_2_1"
+            android:label="@string/title_activity_irr_2_1"
+            android:parentActivityName=".Homepage"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="engenheiro.rios.Homepage" />
+        </activity>
+        <activity
+            android:name=".IRR.IRR_2_2"
+            android:label="@string/title_activity_irr_2_2"
+            android:parentActivityName=".Homepage"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="engenheiro.rios.Homepage" />
+        </activity>
+        <activity
+            android:name=".IRR.IRR_2_3"
+            android:label="@string/title_activity_irr_2_3"
+            android:parentActivityName=".Homepage"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="engenheiro.rios.Homepage" />
+        </activity>
     </application>
 
 </manifest>

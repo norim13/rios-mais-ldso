@@ -41,6 +41,16 @@
     <string name="title_activity_irr_1_2">IRR_1_2</string>
     <string name="irr_1_2_4"><![CDATA[Declive <45%]]></string>
     <string name="irr_1_2_5"><![CDATA[5. Suave Composto <45%]]></string>
+    <string name="title_activity_irr_1_4">IRR_1_4</string>
+    <string name="title_activity_irr_1_5">IRR_1_5</string>
+    <string name="irr_1_5_1"><![CDATA[Blocos e tocha (>40cm)]]></string>
+    <string name="irr_1_5_5"><![CDATA[Limo (<0.5mm)]]></string>
+    <string name="title_activity_irr_1_6">IRR_1_6</string>
+    <string name="title_activity_irr_1_7">IRR_1_7</string>
+    <string name="title_activity_irr_1_8">IRR_1_8</string>
+    <string name="title_activity_irr_2_1">IRR_2_1</string>
+    <string name="title_activity_irr_2_2">IRR_2_2</string>
+    <string name="title_activity_irr_2_3">IRR_2_3</string>
 
 
 </resources>
