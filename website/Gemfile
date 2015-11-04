@@ -26,6 +26,9 @@ gem 'bcrypt', "~> 3.1.2"
 
 gem 'tlsmail'
 
+gem 'gravtastic'
+
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'

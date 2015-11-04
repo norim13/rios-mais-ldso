@@ -39,7 +39,7 @@
             <ul id="dropdown-ul" class="dropdown-menu" role="menu">
 
               <% if user_signed_in? %>
-                  <li><%= link_to "Perfil", new_form_irr_path %></li>
+                  <li><%= link_to "Perfil", edit_user_registration_path %></li>
                   <li> <%= link_to('Logout', destroy_user_session_path, :method => 'delete') %> </li>
               <% else %>
                   <li> <%= link_to('Login', new_user_session_path) %> </li>
