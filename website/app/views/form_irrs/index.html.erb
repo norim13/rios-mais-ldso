@@ -3,28 +3,31 @@
 <body>
   <%= render 'common/navbar' %>
 
-  <h1>Listing Forms </h1>
+  <div class="container">
+    <h1>Listing Forms </h1>
 
-  <table border="1">
-    <tr>
-      <th>Id</th>
-      <th>Tipo de vale</th>
-      <th>Created at</th>
-      <th>Created at</th>
-      <th>Show</th>
-      <th>Edit</th>
-    </tr>
+    <table border="1">
+      <tr>
+        <th>Id</th>
+        <th>Tipo de vale</th>
+        <th>Created at</th>
+        <th>Created at</th>
+        <th>Show</th>
+        <th>Edit</th>
+      </tr>
 
-    <% @form_irrs.each do |form_irr| %>
-    <tr>
-      <td><%= form_irr.id %></td>
-      <td><%= form_irr.tipoDeVale %></td>
-      <td><%= form_irr.created_at %></td>
-      <td><%= form_irr.updated_at %></td>
-      <td><%= link_to 'Show', form_irr_path(form_irr) %></td>
-      <td><%= link_to 'Edit', edit_form_irr_path(form_irr) %></td>
-    </tr>
-    <% end %>
-  </table>
+      <% @form_irrs.each do |form_irr| %>
+      <tr>
+        <td><%= form_irr.id %></td>
+        <td><%= form_irr.tipoDeVale %></td>
+        <td><%= form_irr.created_at %></td>
+        <td><%= form_irr.updated_at %></td>
+        <td><%= link_to 'Show', form_irr_path(form_irr) %></td>
+        <td><%= link_to 'Edit', edit_form_irr_path(form_irr) %></td>
+      </tr>
+      <% end %>
+    </table>
+
+  </div>
 
   <%= render 'common/footer' %>
