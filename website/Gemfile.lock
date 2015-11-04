@@ -153,6 +153,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.1)
+    tlsmail (0.0.1)
     turbolinks (2.5.3)
       coffee-rails
     tzinfo (1.2.2)
@@ -188,6 +189,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   simple_form
   sqlite3 (= 1.3.8)
+  tlsmail
   turbolinks
   tzinfo-data
   uglifier (>= 1.3.0)

@@ -24,6 +24,7 @@ gem 'simple_form'
 
 gem 'bcrypt', "~> 3.1.2"
 
+gem 'tlsmail'
 
 group :production do
   gem 'pg'
