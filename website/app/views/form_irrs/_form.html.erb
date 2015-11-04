@@ -564,7 +564,7 @@
                   <div class="col-md-4 col-sm-6 col-xs-12">
                     <%label = "patrimonio_#{var_patrimonio[i-1]}"; %>
                     <div class="">
-                      <%= f.select label, options_for_select(1..5) %>
+                      <%= f.select label, [1,2,3,4,5] %>
                       <%= f.label label, labels[i-1] %>
                     </div>
                   </div>
@@ -593,7 +593,7 @@
                   <div class="col-md-4 col-sm-6 col-xs-12">
                     <%label = "poluicao_#{var_poluicao[i-1]}"; %>
                     <div class="">
-                      <%= f.select label, options_for_select(1..5) %>
+                      <%= f.select label, [1,2,3,4,5] %>
                       <%= f.label label, labels[i-1] %>
                     </div>
                   </div>
