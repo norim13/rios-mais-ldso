@@ -37,6 +37,10 @@
     <string name="title_activity_blank2">Blank2</string>
     <string name="title_activity_irr_0">IRR_0</string>
     <string name="title_activity_irr_1">IRR_1</string>
+    <string name="title_activity_regislogin">Sign in</string>
+    <string name="title_activity_irr_1_2">IRR_1_2</string>
+    <string name="irr_1_2_4"><![CDATA[Declive <45%]]></string>
+    <string name="irr_1_2_5"><![CDATA[5. Suave Composto <45%]]></string>
 
 
 </resources>

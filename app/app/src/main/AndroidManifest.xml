@@ -104,7 +104,7 @@
                 android:value="engenheiro.rios.Login" />
         </activity>
         <activity
-            android:name=".IRR.IRR_0"
+            android:name=".IRR.IRR_1_1"
             android:label="@string/title_activity_irr_0"
             android:parentActivityName=".Homepage"
             android:theme="@style/AppTheme.NoActionBar" >
@@ -113,9 +113,22 @@
                 android:value="engenheiro.rios.Homepage" />
         </activity>
         <activity
-            android:name=".IRR.IRR_1"
+            android:name=".IRR.IRR_1_2"
             android:label="@string/title_activity_irr_1"
+            android:parentActivityName=".Homepage"
             android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="engenheiro.rios.Homepage" />
+        </activity>
+        <activity
+            android:name=".IRR.IRR_1_3"
+            android:label="@string/title_activity_irr_1_2"
+            android:parentActivityName=".Homepage"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="engenheiro.rios.Homepage" />
         </activity>
     </application>
 

@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import engenheiro.rios.DataBases.User;
-import engenheiro.rios.IRR.IRR_0;
+import engenheiro.rios.IRR.IRR_1_1;
 
 public class Homepage extends AppCompatActivity {
 
@@ -48,7 +48,7 @@ public class Homepage extends AppCompatActivity {
     }
 
     public void fomr_irr(View view){
-        startActivity(new Intent(this, IRR_0.class));
+        startActivity(new Intent(this, IRR_1_1.class));
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
