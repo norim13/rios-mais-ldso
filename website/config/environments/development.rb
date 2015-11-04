@@ -39,6 +39,18 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
+  config.action_mailer.default_url_options = { :host => 'rios.pt' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
 
+   config.action_mailer.smtp_settings = {
+      :address => 'cpanel05.dnscpanel.com',
+      :port => '465',
+      :authentication => :plain,
+      :user_name => 'no-reply@rios.pt',
+      :password => 'rios+2015',
+      :domain => 'rios.pt',
+      :enable_starttls_auto => true
+  }
 
 end
