@@ -1,12 +1,15 @@
-<center id="footer-about">
-	<%= link_to 'Documentos', documentos_path %>
-	<%= link_to 'Contactos', contactos_path %>
-</center>
+<footer>
+  <div id="footer-content">
+    <%= link_to 'Documentos', documentos_path %>
+    <%= link_to 'Contactos', contactos_path %>
+  </div>
+</footer>
+
 </body>
 </html>
 
 <%= javascript_include_tag "application" %>
 <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/<%= bootstrap_version %>/js/bootstrap.min.js"></script>
-
+<%= javascript_include_tag "footer" %>
 

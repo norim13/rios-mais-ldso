@@ -17,3 +17,5 @@ Rails.application.config.assets.precompile += %w( searchrios.css )
 Rails.application.config.assets.precompile += %w( users.css )
 
 Rails.application.config.assets.precompile += %w( form_irr.css )
+
+Rails.application.config.assets.precompile += %w( footer.js )
