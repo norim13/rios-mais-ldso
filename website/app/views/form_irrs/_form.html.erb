@@ -13,11 +13,11 @@
 
   <!-- Tab panes -->
   <div class="container">
-    <%= form_for @form_irr, :html => {:role => "form", :class => "#{@is_show} tab-content"}  do |f| %>
+    <%= form_for @form_irr, :html => {:role => 'form', :class => "#{@is_show} tab-content"}  do |f| %>
         <% if @form_irr.errors.any? %>
             <div id="error_explanation">
               <h2>
-                <%= pluralize(@form_irr.errors.count, "error") %> prohibited
+                <%= pluralize(@form_irr.errors.count, 'error') %> prohibited
                 this form_irr from being saved:
               </h2>
               <ul>
@@ -33,13 +33,13 @@
 
           <div class="form-group image-options container">
              <div class="row">
-               <%= f.label :tipoDeVale, "Tipo de Vale" %>: </br>
+               <%= f.label :tipoDeVale, 'Tipo de Vale' %>: </br>
                <% imagens_tipo_vale = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png']; %>
                <% for i in 1..7
                label = "tipoDeVale_#{i}"; %>
                    <div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                     <%= f.radio_button :tipoDeVale, "#{i}" %>
-                     <%= f.label label, image_tag("tipodevale/#{imagens_tipo_vale[i-1]}", :class => "img-responsive") %>
+                     <%= f.radio_button :tipoDeVale, "#{i}", :required => true %>
+                     <%= f.label label, image_tag("tipodevale/#{imagens_tipo_vale[i-1]}", :class => 'img-responsive') %>
                    </div>
              <% end %>
 
@@ -49,25 +49,24 @@
 
 <div class="form-group image-options container">
  <div class="row">
-  <%= f.label :perfilDeMargens, "Perfil de margens" %>: </br>
+  <%= f.label :perfilDeMargens, 'Perfil de margens' %>: </br>
   <% imagens_perfil_margens = ['verticalescavado.png','verticalcortado.png','declivemaior45.png', 'declivemenor45.png', 'suavecomposto.png'];
-  labels = ["Vertical escavado", "Vertical cortado", "Declive >45%", "Declive <45%", "Suave composto <45%", "Artificial"]; %>
-  <% for i in 1..5 
+  labels = ['Vertical escavado', 'Vertical cortado', 'Declive >45%', 'Declive <45%', 'Suave composto <45%', 'Artificial']; %>
+  <% for i in 1..5
   label = "perfilDeMargens_#{i}"; %>
   <div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
-   <%= f.radio_button :perfilDeMargens, "#{i}" %>
+   <%= f.radio_button :perfilDeMargens, "#{i}", :required => true %>
    <%= f.label label, labels[i-1] %>
-   <%= f.label label, image_tag("perfildemargens/#{imagens_perfil_margens[i-1]}", :class => "img-responsive") %>
+   <%= f.label label, image_tag("perfildemargens/#{imagens_perfil_margens[i-1]}", :class => 'img-responsive') %>
  </div>
  <% end %>
 
  <div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
-   <%= f.radio_button :perfilDeMargens, "6" %>
-   <%= f.label :perfilDeMargens_6, "Artificial" %>
+   <%= f.radio_button :perfilDeMargens, '6', :required => true %>
+   <%= f.label :perfilDeMargens_6, 'Artificial' %>
  </div>			
 </div>
 </div>
-
 
 <div class="form-group">
  <h3> Volume de água </h3> 
@@ -77,18 +76,18 @@
    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-10">
     <div class="container-fluid">
      <div class="right-allign-fields">
-      <%= f.label :larguraDaSuperficieDaAgua, "Largura da superfície da água (L) (m)" %>: 
-      <%= f.number_field :larguraDaSuperficieDaAgua, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00' %>
+      <%= f.label :larguraDaSuperficieDaAgua, 'Largura da superfície da água (L) (m)' %>:
+      <%= f.number_field :larguraDaSuperficieDaAgua, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :required => true %>
     </div>
 
     <div class="right-allign-fields">
-      <%= f.label :profundidadeMedia, "Profundidade média (P) (m)" %>: 
-      <%= f.number_field :profundidadeMedia, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00' %>
+      <%= f.label :profundidadeMedia, 'Profundidade média (P) (m)' %>:
+      <%= f.number_field :profundidadeMedia, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :required => true %>
     </div>
 
     <div class="right-allign-fields">
-      <%= f.label :velocidadeMedia, "Velocidade média (V) (m/s)" %>:
-      <%= f.number_field :velocidadeMedia, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00' %>
+      <%= f.label :velocidadeMedia, 'Velocidade média (V) (m/s)' %>:
+      <%= f.number_field :velocidadeMedia, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :required => true %>
     </div>
   </div>
 
@@ -97,13 +96,13 @@
 <div class="col-lg-4 col-md-6 col-sm-8 col-xs-10">
   <div class="container-fluid">
    <div class="right-allign-fields">
-    <%= f.label :seccao, "Secção (S=PxL) (m^2)" %>:
-    <%= f.number_field :seccao, :class => 'text_field form-control input-custom-size', :step => 'any', :readonly => true %>
+    <%= f.label :seccao, 'Secção (S=PxL) (m^2)' %>:
+    <%= f.number_field :seccao, :class => 'text_field form-control input-custom-size', :step => 'any', :readonly => true, :required => true %>
   </div>
 
   <div class="right-allign-fields">
-    <%= f.label :caudal, "Caudal (C=VxS) (m^3/s)" %>:
-    <%= f.number_field :caudal, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :readonly => true %>
+    <%= f.label :caudal, 'Caudal (C=VxS) (m^3/s)' %>:
+    <%= f.number_field :caudal, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :readonly => true, :required => true %>
   </div>
 </div>
 </div>
@@ -115,10 +114,10 @@
 <div class="container-fluid">
 
   <div class="form-group">
-    <%= f.label :substratoDasMargens, "Substrato das margens (selecionar os que tem mais de 35%)" %>: </br>
+    <%= f.label :substratoDasMargens, 'Substrato das margens (selecionar os que tem mais de 35%)' %>: </br>
 
-    <% var_substratodasmargens = ["soloArgiloso","arenoso", "pedregoso","rochoso","artificialPedra","artificialBetao"];
-    labels = ["Solo argiloso", "Arenoso", "Pedregoso", "Rochoso", "Artificial pedra", "Artificial Betão (5)"]; %>
+    <% var_substratodasmargens = ['soloArgiloso','arenoso', 'pedregoso','rochoso','artificialPedra','artificialBetao'];
+    labels = ['Solo argiloso', 'Arenoso', 'Pedregoso', 'Rochoso', 'Artificial pedra', 'Artificial Betão (5)']; %>
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12 col-xs-12">
@@ -144,10 +143,10 @@
 
   <div class="form-group">
 
-    <%= f.label :substratoDoLeito, "Substrato do leito (selecionar os que tem mais de 35%)" %>: </br>
+    <%= f.label :substratoDoLeito, 'Substrato do leito (selecionar os que tem mais de 35%)' %>: </br>
 
-    <% var_substratodoleito = ["blocoseRocha","calhaus", "cascalho","areia","limo","solo","artificial","naoEVisivel"];
-    labels = ["Blocos e rocha (>40cm)", "Calhaus (20-40cm)", "Cascalho (2-20cm)", "Areia (0.5-2cm)", "Limo (<0.5mm)", "Solo", "Artificial", "Não é visível"]; %>
+    <% var_substratodoleito = ['blocoseRocha','calhaus', 'cascalho','areia','limo','solo','artificial','naoEVisivel'];
+    labels = ['Blocos e rocha (>40cm)', 'Calhaus (20-40cm)', 'Cascalho (2-20cm)', 'Areia (0.5-2cm)', 'Limo (<0.5mm)', 'Solo', 'Artificial', 'Não é visível']; %>
 
 
     <div class="row">
@@ -170,9 +169,9 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :estadoGeraldaLinhadeAgua, "Estado geral da linha de água" %>:</br>
+    <%= f.label :estadoGeraldaLinhadeAgua, 'Estado geral da linha de água' %>:</br>
 
-    <% labels = ["Canal sem alterações, estado natural", "Canal ligeiramente perturbado", "Início de uma importante alteração do canal", "Grande alteração do canal", "Canal completamente alterado (canalizado, regularizado)"]; %>
+    <% labels = ['Canal sem alterações, estado natural', 'Canal ligeiramente perturbado', 'Início de uma importante alteração do canal', 'Grande alteração do canal', 'Canal completamente alterado (canalizado, regularizado)']; %>
     <div class="row">
       <div class="col-md-12 col-xs-12">
         <div class="container-fluid">
@@ -181,7 +180,7 @@
             <div class="col-md-4 col-sm-6 col-xs-12">
               <%label = "estadoGeraldaLinhadeAgua_#{i}"; %>
               <div class="radio">
-                <%= f.radio_button :estadoGeraldaLinhadeAgua, i %>
+                <%= f.radio_button :estadoGeraldaLinhadeAgua, i, :required => true %>
                 <%= f.label label, labels[i-1] %>
               </div>
             </div>
@@ -193,10 +192,10 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :erosao, "Erosão" %>:</br>
+    <%= f.label :erosao, 'Erosão' %>:</br>
 
-    <% labels = ["Sem erosão","Formação de >3 regos","Formação de 1-3 regos","Queda de muros e árvores","Rombos com mais de 1 metro com queda de muros ou árvores"]; %>
-    <% var_erosao = ["semErosao","formacaomais3","formacao1a3","quedamuros","rombos"]; %>
+    <% labels = ['Sem erosão','Formação de >3 regos','Formação de 1-3 regos','Queda de muros e árvores','Rombos com mais de 1 metro com queda de muros ou árvores']; %>
+    <% var_erosao = ['semErosao','formacaomais3','formacao1a3','quedamuros','rombos']; %>
 
     <div class="row">
       <div class="col-md-12 col-xs-12">
@@ -218,10 +217,10 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :sedimentacao, "Sedimentação" %>:</br>
+    <%= f.label :sedimentacao, 'Sedimentação' %>:</br>
 
-    <% labels = ["Ausente","Demposição na margem em curva","Mouchões (deposição de areia no leito)","Ilhas sem vegetação","Ilhas com vegetação","Deposição nas margens (s/vegetação)","Deposição nas margens (c/vegetação)","Rochas expostas no leito"]; %>
-    <% var_sedimentacao = ["ausente","decomposicao","mouchoes","ilhassemveg","ilhascomveg","deposicaosemveg","deposicaocomveg","rochas"]; %>
+    <% labels = ['Ausente','Demposição na margem em curva','Mouchões (deposição de areia no leito)','Ilhas sem vegetação','Ilhas com vegetação','Deposição nas margens (s/vegetação)','Deposição nas margens (c/vegetação)','Rochas expostas no leito']; %>
+    <% var_sedimentacao = ['ausente','decomposicao','mouchoes','ilhassemveg','ilhascomveg','deposicaosemveg','deposicaocomveg','rochas']; %>
 
     <div class="row">
       <div class="col-md-12 col-xs-12">
@@ -244,1005 +243,1002 @@
 </div>
 </div>
 
-<div role="tabpanel" class="tab-pane" id="form_irr-qualidadedaagua">
-  <h2> Qualidade da água: </h2>
-  <div class="form-group">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-6 col-md-8 col-sm-8 col-xs-10">
+        <div role="tabpanel" class="tab-pane" id="form_irr-qualidadedaagua">
+          <h2> Qualidade da água: </h2>
+          <div class="form-group">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-8 col-xs-10">
 
-          <div>
-            <div class="right-allign-fields">
-              <%= f.label :pH, "pH" %>:
-              <%= f.number_field :pH, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :max => '14.0' %>
+                  <div>
+                    <div class="right-allign-fields">
+                      <%= f.label :pH, 'pH' %>:
+                      <%= f.number_field :pH, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '1.00', :max => '14.0', :required => true %>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="right-allign-fields">
+                      <%= f.label :condutividade, 'Condutividade' %>:
+                      <%= f.number_field :condutividade, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '50.00', :max => '1500.0', :required => true %>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="right-allign-fields">
+                      <%= f.label :temperatura, 'Temperatura (ºC)' %>:
+                      <%= f.number_field :temperatura, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :max => '40.0', :required => true %>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="right-allign-fields">
+                      <%= f.label :nivelDeOxigenio, 'Nível De Oxigenio (mg/L)' %>:
+                      <%= f.number_field :nivelDeOxigenio, :class => 'text_field form-control input-custom-size', :step => 'any', :required => true %>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="right-allign-fields">
+                      <%= f.label :percentagemDeOxigenio do %> O<sub>2</sub>% : <%end%>
+                      <%= f.number_field :percentagemDeOxigenio, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0', :max => '200', :required => true %>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="right-allign-fields">
+                      <%= f.label :nitratos, 'Nitratos' %>:
+                      <%= f.number_field :nitratos, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :max => '80.0', :required => true %>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="right-allign-fields">
+                      <%= f.label :nitritos, 'Nitritos' %>:
+                      <%= f.number_field :nitritos, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :max => '4.0', :required => true %>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="right-allign-fields">
+                      <%= f.label :transparencia, 'Transparência (I-IV)' %>:
+                      <%= f.number_field :transparencia, :class => 'text_field form-control input-custom-size', :min => '1', :max => '4', :step => '1', :required => true %>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div>
-            <div class="right-allign-fields">
-              <%= f.label :condutividade, "Condutividade" %>:
-              <%= f.number_field :condutividade, :class => 'text_field form-control input-custom-size', :step => 'any' %>
+          <div class="form-group">
+            <h3> Indícios na água: </h3>
+
+            <% labels = ['Óleo', 'Espuma','Esgostos','Impurezas','Sacos de plástico', 'Latas']
+               label = ['oleo','espuma','esgotos','impurezas','sacosDePlastico','latas'] %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 0..5 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <div class="checkbox">
+                            <%= f.check_box label[i] %>
+                            <%= f.label label[i], labels[i] %>
+                          </div>
+                        </div>
+                    <% end %>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <div class="checkbox">
+                        <%= f.label :indiciosNaAgua_outros, 'Outros' %></br>
+                        <%= f.text_area :indiciosNaAgua_outros %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div>
-            <div class="right-allign-fields">
-              <%= f.label :temperatura, "Temperatura (ºC)" %>:
-              <%= f.number_field :temperatura, :class => 'text_field form-control input-custom-size', :step => 'any' %>
+          <div class="form-group">
+            <%= f.label :corDaAgua, 'Cor da água' %>:</br>
+
+            <% labels = ['Transparente', 'Leitosa','Castanha','Verde-escura','Laranja','Cinzenta','Preta','Outra cor'] %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 1..8 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = "corDaAgua_#{i}"; %>
+                          <div class="radio">
+                            <%= f.radio_button :corDaAgua, i, :required => true %>
+                            <%= f.label label, labels[i-1] %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
+          </div>
+
+          <div class="form-group">
+            <%= f.label :odorDaAgua, 'Odor (cheiro) da água' %>:</br>
+
+            <% labels = ['Não tem odor', 'Cheiro a fresco','Cheiro a lama (Vasa)','Cheiro a esgoto','Cheiro químico (cloro)','Cheiro podre (ovos podres)','Outro odor'] %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 1..7 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = "odorDaAgua_#{i}"; %>
+                          <div class="radio">
+                            <%= f.radio_button :odorDaAgua, i, :required => true %>
+                            <%= f.label label, labels[i-1] %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
+          </div>
+
+          <div class="form-group image-options container">
+            <h3>Tabela de Macroinvertebrados </h3>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :planarias %>
+                    <%= f.label :planarias, 'Planárias' %> <span name="planarias" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/planaria.png</div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :hirudineos %>
+                    <%= f.label :hirudineos, 'Hirudíneos (Sanguessugas)' %> <span name="hirudineos" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/hirudineo.png</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+
+
+            <h4>Dípteros</h4>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :oligoquetas %>
+                    <%= f.label :oligoquetas, 'Oligoquetas (minhocas)' %> <span name="oligoquetas" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/oligoquetas.png</div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :simulideos %>
+                    <%= f.label :simulideos , 'Simulideos' %> <span name="simulideos" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/simulideo.png</div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :quironomideos %>
+                    <%= f.label :quironomideos, 'Quironomideos, Sirfídeos, Culidídeos, Tipulídeos (Larva de mosquitos)' %> <span name="quironomideos" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/quironomideos.png</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- FIM DIPTEROS -->
+            <hr>
+
+            <h4>Gastrópodes (Mullusca)</h4>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :ancilideo %>
+                    <%= f.label :ancilideo, 'Ancilídeo' %> <span name="ancilideo" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/ancilideo.png</div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :limnideo %>
+                    <%= f.label :limnideo, 'Limnídeo; Physa' %> <span name="limnideo" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <!-- TODO no excel tem limnideo mas no word tem Limnelídeo, qual e? -->
+                    <div class="photo-path">macroinvertebrados/limnelideo.png</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FIM GASTROPODES -->
+            <hr>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :bivalves %>
+                    <%= f.label :bivalves, 'Bivalves' %> <span name="bivalves" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/bivalves.png</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+
+            <h4>Coleóptero (escaravelho)</h4>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :patasNadadoras %>
+                    <%= f.label :patasNadadoras, 'Patas Nadadoras (Dystiscidae)' %> <span name="patasNadadoras" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/ditiscus.png</div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :pataLocomotoras %>
+                    <%= f.label :pataLocomotoras, 'Pata Locomotoras (Hydraena)' %>  <span name="pataLocomotoras" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/pataslocomotivas.png</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FIM ESCARAVELHO -->
+            <hr>
+
+            <h4>Trichóptero (mosca d’água)</h4>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :trichopteroS %>
+                    <%= f.label :trichopteroS, 'Trichóptero (mosca d’água) S/Casulo' %> <span name="trichopteroS" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/hidropsiquideo.png</div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :trichopteroC %>
+                    <%= f.label :trichopteroC, 'Trichóptero (mosca d’água) C/Casulo' %> <span name="trichopteroC" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/trichoptero.png</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- FIM TRICHOPTERO -->
+            <hr>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :odonata %>
+                    <%= f.label :odonata, 'Odonata (Larva de Libelinhas)' %> <span name="odonata" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <!-- TODO nao sei se larva de libelula e o mesmo que larva de libelinhas -->
+                    <div class="photo-path">macroinvertebrados/larvadelibelula.png</div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :heteropteros %>
+                    <%= f.label :heteropteros, 'Heterópteros' %> <span name="heteropteros" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/heteropteros.png</div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :plecopteros %>
+                    <%= f.label :plecopteros, 'Plecópteros (mosca-de-pedra)' %> <span name="plecopteros" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/plecopteros.png</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+
+
+            <h4> Efemerópteros (efémera) </h4>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :baetideo %>
+                    <%= f.label :baetideo, 'Baetídeo' %> <span name="baetideo" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/baetideo.png</div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :cabecaPlanar %>
+                    <%= f.label :cabecaPlanar, 'Cabeça Planar (Ecdyonurus)' %> <span name="cabecaPlanar" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/cabecaplanar.png</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- FIM EFEMERA -->
+            <hr>
+
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :crustaceos %>
+                    <%= f.label :crustaceos, 'Crustáceos' %> <span name="crustaceos" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/crustaceos.png</div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :acaros %>
+                    <%= f.label :acaros, 'Ácaros' %> <span name="acaros" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/acaros.png</div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :pulgaDeAgua %>
+                    <%= f.label :pulgaDeAgua, 'Pulga-de-água (Daphnia)' %> <span name="pulgaDeAgua" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/pulgadeagua.png</div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :insetos %>
+                    <%= f.label :insetos, 'Insetos – adultos (adultos na forma aérea)' %> <span name="insetos" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path"></div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="checkbox">
+                    <%= f.check_box :megalopteres %>
+                    <%= f.label :megalopteres, 'Mégalopteres' %> <span name="megalopteres" class="question-mark glyphicon glyphicon-question-sign"></span>
+                    <div class="photo-path">macroinvertebrados/megalopteres.png</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <!-- TODO por separador qd tem campos h4 -->
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="form_irr-alteracoesantropicas">
+          <h2> Alterações antrópicas </h2>
+
+          <div class="form-group">
+            <%= f.label :intervencoes, 'Intervenções presentes' %>: </br>
+
+            <% var_labels = ['edificios','pontes','limpezasDasMargens','estabilizacaoDeMargens','modelacaoDeMargensNatural','modelacaoDeMargensArtificial','barragem','diques','rioCanalizado','rioEntubado','esporoes','paredoes','tecnicasDeEngenhariaNatural','outras'];
+               labels = ['Edifícios','Pontes','Limpeza das margens','Estabilização de margens','Modelação de margens natural','Modelação de margens artificial','Barragem','Diques','Rio canalizado','Rio entubado','Esporões','Paredões','Técnicas de engenharia natural','Outras']; %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 0..13 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = "intervencoes_#{var_labels[i]}"; %>
+                          <div class="checkbox">
+                            <%= f.check_box label %>
+                            <%= f.label label, labels[i] %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TODO como inserir outras? -->
+          </div>
+
+          <div class="form-group">
+
+            <%= f.label :ocupacao, 'Ocupação das margens [<10 m]' %>: </br>
+
+            <% var_labels = ['florestaNatural','florestaPlantadas','matoAlto','matoRasteiro','pastagem','agricultura','espacoAbandonado','jardins','zonaEdificada','zonaIndustrial','ruas','entulho'];
+
+               labels = ['Zona natural com/sem intervenção (Floresta Natural)','Floresta/arvores plantadas','Mato alto (1-5 m)','Mato rasteiro <1m','Pastagem (pecuária)','Agricultura','Espaço abandonado (+ 3 anos)','Jardins ou espaços de lazer','Zona edificada (casas/edifícios)','Zona industrial','Vias de comunicação (ruas)','Entulho e zona degradada']; %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 0..11 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = "ocupacao_#{var_labels[i]}"; %>
+                          <div class="checkbox">
+                            <%= f.check_box label %>
+                            <%= f.label label, labels[i] %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TODO como inserir outras? -->
+          </div>
+
+
+          <div class="form-group">
+            <h3>Património edificado Leito/margem [estado de conservação: 1 - Bom a 5- Mau]</h3>
+
+            <% labels = ['Moinho/azenhas','Açude (> 2m)','Micro-açude (1m)','Micro-açude (1-2m)','Barragem (> 10m)','Levadas','Pesqueiras','Escadas de peixe','Poldras','Pontes/pontões sem pilar no canal','Pontes/pontões com pilar no canal','Passagem a vau','Barcos','Caís','Igreja, capela, santuário (< 100m)','Solares ou casas agrícolas (< 100m)','Núcleo habitacional (< 100m)','Edifícios particulares (< 100m)','Edifícios públicos (estatais) (< 100m)','ETA/ETAR/elevatórias','Descarregadores de águas pluviais','Coletores saneamento','Defletores artificiais','Mota lateral']; %>
+            <% var_patrimonio = ['moinho','acude','microAcude1','microAcude2','barragem','levadas','pesqueiras','escadasDePeixe','poldras','pontesSemPilar','pontesComPilar','passagemAVau','barcos','cais','igreja','solares','nucleoHabitacional','edificiosParticulares','edificiosPublicos','ETA','descarregadoresDeAguasPluviais','coletoresSaneamento','defletoresArtificiais','motaLateral']; %>
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 1..24 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = "patrimonio_#{var_patrimonio[i-1]}"; %>
+                          <div>
+                            <%= f.select label, [1,2,3,4,5], :required => true %>
+                            <%= f.label label, labels[i-1] %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--<h5> Embarcações </h5> dentro disto [barcos e cais] -->
+            <!-- FIM EMBARCAÇOES -->
+          </div>
+
+          <div class="form-group">
+            <h3>Poluição</h3>
+
+            <% labels = ['Descargas domésticas','Descargas ETAR','Descargas industriais','Descargas químicas','Descargas águas pluviais','Presença de criação animais','Lixeiras','Lixo doméstico','Entulho (restos de obras)','Monstros domésticos','Sacos de plástico','Latas e material ferroso','Queimadas']; %>
+            <% var_poluicao = ['descargasDomesticas','descargasETAR','descargasIndustriais','descargasQuimicas','descargasAguasPluviais','presencaCriacaoAnimais','lixeiras','lixoDomestico','entulho','monstrosDomesticos','sacosDePlastico','latasMaterialFerroso','queimadas']; %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 1..13 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = "poluicao_#{var_poluicao[i-1]}"; %>
+                          <div class="checkbox">
+                            <%= f.check_box label %>
+                            <%= f.label label, labels[i-1] %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="form_irr-corredorecologico">
+          <h2> Corredor ecológico </h2>
+
+          <h3> Fauna </h3>
+
+          <div class="form-group">
+            <%= f.label :anfibiosAutoctones, 'Anfíbios autoctones' %>: </br>
+
+            <% var_labels = ['salamandraLusitanica','salamandraPintasAmarelas','tritaoVentreLaranja','raIberica','raVerde','sapoComum'];
+               labels = ['Salamandra-lusitânica (<i>Chioglossa lusitanica</i>)','Salamandra-de-pintas-amarelas (<i>Salamandra salamandra</i>)','Tritão-ventre-laranja (<i>Lissotriton boscai</i>)','Rã-ibérica (<i>Rana ibérica</i>)','Rã-verde (<i>Rana perezi</i>)','Sapo-comum (<i>Bufo bufo</i>)']; %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 0..5 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = var_labels[i]; %>
+                          <div class="checkbox">
+                            <%= f.check_box label %>
+                            <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
+                            <% imglabel = "corredorecologico/anfibios/#{var_labels[i]}.png"; %>
+                            <div class="photo-path"><%=imglabel%></div>
+                            <p></p>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div>
-            <div class="right-allign-fields">
-              <%= f.label :nivelDeOxigenio, "Nível De Oxigenio (mg/L)" %>:
-              <%= f.number_field :nivelDeOxigenio, :class => 'text_field form-control input-custom-size', :step => 'any' %>
+          <div class="form-group">
+            <%= f.label :repteisAutoctones, 'Répteis autoctones' %>: </br>
+
+            <% var_labels = ['lagartoDeAgua','cobraAguaDeColar','cagado'];
+               labels = ['Lagarto-de-água (<i>Lacerta schreiberi</i>)','Cobra-de-água-de-colar (<i>Natrix natrix</i>)','Cágado (<i>Mauremys leprosa</i>)']; %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 0..2 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = var_labels[i]; %>
+                          <div class="checkbox">
+                            <%= f.check_box label %>
+                            <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
+                            <% imglabel = "corredorecologico/repteis/#{var_labels[i]}.png"; %>
+                            <div class="photo-path"><%=imglabel%></div>
+                          </div>
+                        </div>
+                    <% end %>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <div class="checkbox">
+                        <%= f.check_box :repteis_outro %>
+                        <%= f.label :repteis_outro, 'Outro' %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <%= f.label :avesautoctones, 'Aves autoctones' %>: </br>
+
+            <% var_labels = ['guardaRios','garcaReal','melroDeAgua','galinhaDeAgua','patoReal','tentilhaoComum','chapimReal'];
+               labels = ['Guarda-rios (<i>Alcedo atthis</i>)','Garça-real (<i>Ardea cinerea</i>)','Melro-de-água (<i>Cinclus cinclus</i>)','Galinha-de-água (<i>Gallinula chloropus</i>)','Pato-real (<i>Anas platyrhynchos</i>)','Tentilhão-comum (<i>Fringilla coelebs</i>)','Chapim-real (<i>Parus major</i>)']; %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 0..6 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = var_labels[i]; %>
+                          <div class="checkbox">
+                            <%= f.check_box label %>
+                            <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
+                            <% imglabel = "corredorecologico/aves/#{var_labels[i]}.png"; %>
+                            <div class="photo-path"><%=imglabel%></div>
+                          </div>
+                        </div>
+                    <% end %>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <div class="checkbox">
+                        <%= f.check_box :aves_outro %>
+                        <%= f.label :aves_outro, 'Outro' %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <%= f.label :mamiferosautoctones, 'Mamíferos autoctones' %>: </br>
+
+            <% var_labels = ['lontras','morcegosDeAgua','toupeiraDaAgua','ratoDeAgua','ouricoCacheiro','armilho'];
+               labels = ['Lontras (<i>Lutra lutra</i>)','Morcegos-de-água (<i>Myotis daubentonii</i>)','Toupeira da água (<i>Galemys pyrenaicus</i>)','Rato-de-água (<i>Arvicola sapidus</i>)','Ouriço cacheiro (<i>Erinaceus europaeus</i>)','Arminho (<i>Mustela Erminea</i>)']; %>
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 0..5 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = var_labels[i]; %>
+                          <div class="checkbox">
+                            <%= f.check_box label %>
+                            <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
+                            <% imglabel = "corredorecologico/mamiferos/#{var_labels[i]}.png"; %>
+                            <div class="photo-path"><%=imglabel%></div>
+                          </div>
+                        </div>
+                    <% end %>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <div class="checkbox">
+                        <%= f.check_box :mamiferos_outro %>
+                        <%= f.label :mamiferos_outro, 'Outro' %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div>
-            <div class="right-allign-fields">
-              <%= f.label :percentagemDeOxigenio, "Percentagem De Oxigenio" %>:
-              <%= f.number_field :percentagemDeOxigenio, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0', :max => '100' %>
+          <div class="form-group">
+            <%= f.label :peixesautoctones, 'Peixes autoctones' %>: </br>
+
+            <% var_labels = ['enguia','lampreia','salmao','truta','bogaPortuguesa','bogaDoNorte'];
+               labels = ['Enguia (<i>Anguilla anguilla</i>)','Lampreia (<i>Lampetra fluiatilis</i>)','Salmão (<i>Salmo salar</i>)','Truta (<i>Salmo trutta fario</i>)','Boga-portuguesa (<i>Iberochondrostoma lusitanicum</i>)','Boga-do-norte (<i>Chondrostoma duriense</i>)']; %>
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 0..5 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = var_labels[i]; %>
+                          <div class="checkbox">
+                            <%= f.check_box label %>
+                            <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
+                            <% imglabel = "corredorecologico/peixes/#{var_labels[i]}.png"; %>
+                            <div class="photo-path"><%=imglabel%></div>
+                          </div>
+                        </div>
+                    <% end %>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <div class="checkbox">
+                        <%= f.check_box :peixes_outro %>
+                        <%= f.label :peixes_outro, 'Outro' %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div>
-            <div class="right-allign-fields">
-              <%= f.label :nitratos, "Nitratos" %>:
-              <%= f.number_field :nitratos, :class => 'text_field form-control input-custom-size', :step => 'any' %>
+          <div class="form-group">
+            <%= f.label :faunaexotica, "Fauna exótica" %>: </br>
+
+            <% var_labels = ['percaSol','tartarugaDaFlorida','caranguejoPeludoChines','gambusia','mustelaVison','lagostimVermelho','trutaArcoIris','achiga'];
+               labels = ['Perca-sol (<i>Lepomis gibbosus</i>)','Tartaruga da Florida (<i>Trachemys scripta</i>)','Caranguejo-peludo-chinês (<i>Eriocheir sinensis</i>)','Gambúsia (<i>Gambusia holbrooki</i>)','Mustela vison','Lagostim vermelho (<i>Procambarus clarkii</i>)','Truta-arco-íris (<i>Oncorhynchus mykiss</i>)','Achigã (<i>Micropterus salmoides</i>)']; %>
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 0..7 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = var_labels[i]; %>
+                          <div class="checkbox">
+                            <%= f.check_box label %>
+                            <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
+                            <% imglabel = "corredorecologico/faunaexotica/#{var_labels[i]}.png"; %>
+                            <div class="photo-path"><%=imglabel%></div>
+                          </div>
+                        </div>
+                    <% end %>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <div class="checkbox">
+                        <%= f.check_box :fauna_outro %>
+                        <%= f.label :fauna_outro, 'Outro' %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div>
-            <div class="right-allign-fields">
-              <%= f.label :nitritos, "Nitritos" %>:
-              <%= f.number_field :nitritos, :class => 'text_field form-control input-custom-size', :step => 'any' %>
+          <div class="form-group">
+            <%= f.label :flora, 'Flora' %>: </br>
+
+            <% var_labels = ['salgueiral','amial','freixal','choupal','ulmeiral','sanguinos','ladual','tramazeiras','carvalhal','sobreiral','azinhal','flora_outro'];
+               labels = ['Salgueiral (salgueiros)','Amial (amieiral)','Freixial (freixos)','Choupal (choupos)','Ulmeiral (ulmerios)','Sanguinhos (Sanguinhal)','Ladual (lódãos-bastardos)','Tramazeiras','Carvalhal (Carvalhos)','Sobreiral','Azinhal','Outro']; %>
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 0..11 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = var_labels[i]; %>
+                          <div class="checkbox">
+                            <%= f.check_box label %>
+                            <%= f.label label, labels[i] %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div>
-            <div class="right-allign-fields">
-              <%= f.label :transparencia, "Transparência (I-IV)" %>:
-              <%= f.number_field :transparencia, :class => 'text_field form-control input-custom-size', :min => '1', :max => '4', :step => '1' %>
+          <div class="form-group">
+            <%= f.label :conservacaoBosqueRibeirinho, 'Estado de conservação do bosque ribeirinho (10m x 10m)' %>:</br>
+
+            <% labels = ['Total (>75%) com bosque - continuidade arbórea com total sobreposição de copas','(50-75%) Com bosque ripícola Semi-continua arbórea','(25-50%) Sem bosque ripícola (Semi-continua arbórea)','Campos agrícolas (10-25%) Descontinua - na arbórea','(5 a 10%) Interrompida – com manchas de árvores','(<5%) Esparsa - Só árvores isoladas ou Urbanizações ou infra-estruturas']; %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 1..6 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = "conservacaoBosqueRibeirinho_#{i}"; %>
+                          <div class="radio">
+                            <%= f.radio_button :conservacaoBosqueRibeirinho, i, :required => true %>
+                            <%= f.label label, labels[i-1] %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="form-group">
+            <%= f.label :vegetacaoInvasora, 'Espécies vegetação invasora' %>: </br>
+
+            <% var_vegetacaoInvasora = ['silvas','ervaDaFortuna', 'plumas','lentilhaDaAgua','pinheirinha','jacintoDeAgua','vegetacaoInvasora_outro'];
+               labels = ['Silvas','Erva-da-fortuna','Plumas','Lentilha da água','Pinheirinha','Jacinto de água','Outro']; %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 0..6 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = var_vegetacaoInvasora[i]; %>
+                          <div class="checkbox">
+                            <%= f.check_box label %>
+                            <%= f.label label, labels[i] %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <%= f.label :obstrucaoDoLeitoMargens, 'Obstrução do leito e margens (vegetação)' %>:</br>
+
+            <% labels = ['Com pouca ou sem vegetação no leito <5%','Com alguns ramos e pequenos troncos no leito (5 a 25%)','Com ramos e troncos no leito e margem (25 a 50%)','Com obstrução de 50 a 75% com ramos e troncos','Com obstrução quase total>75% do leito e margens']; %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 1..5 %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <%label = "obstrucaoDoLeitoMargens_#{i}"; %>
+                          <div class="radio">
+                            <%= f.radio_button :obstrucaoDoLeitoMargens, i, :required => true %>
+                            <%= f.label label, labels[i-1] %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="form_irr-participacaopublica">
+          <h2> Participação pública </h2>
+          <div class="form-group">
+            <%= f.label :disponibilizacaoDeInformacao, 'Disponibilização de informação' %>:</br>
+
+            <% labels = ['Local de informação por junta de freguesia mais próxima ou acesso público á internet, Disponibilidade de informação (técnicos e não técnicos) e acesso a informação de projetos de Participação Pública', 'Local de informação por município ou acesso público á internet, Disponibilidade de informação (técnicos e não técnicos) e acesso à informação de projetos de Participação Pública', 'Acesso á internet com indicações da localização da informação e disponibilidade de informação (técnicos e não técnicos)','Disponibilidade de informação de qualidade deficiente para os objetivos de reabilitação','Ausência de locais de informação acessível']; %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 1..5 %>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <%label = "disponibilizacaoDeInformacao_#{i}"; %>
+                          <div class="radio">
+                            <%= f.radio_button :disponibilizacaoDeInformacao, i, :required => true %>
+                            <%= f.label label, labels[i-1] %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <%= f.label :envolvimentoPublico, 'Envolvimento público' %>:</br>
+
+            <% labels = ['Envolvimento de Decisores-Chave (propietários, município, ARH), em pelo menos duas sessões por ano de participação pública, grupos tipo \'Projeto Rios\',  Realização de sondagens e Inquéritos a população','Envolvimento de Decisores-Chave (município, ARH), em pelo menos 1 sessão de participação pública e/ou associações locais por ano','Poucas atividades de participação pública','Atividades pontuais e com deficiente envolvimento publico local ou de fraca qualidade','Ausência de envolvimento']; %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 1..5 %>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <%label = "envolvimentoPublico_#{i}"; %>
+                          <div class="radio">
+                            <%= f.radio_button :envolvimentoPublico, i, :required => true %>
+                            <%= f.label label, labels[i-1] %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <%= f.label :acao, 'Ação' %>:</br>
+
+            <% labels = ['São realizadas pelo menos uma das atividades de ações de fiscalização, Monitorização, acompanhamento de participação e envolvimento da população,  e há o seu feedback','São realizadas pelo menos uma das atividades de ações de fiscalização e há o seu feedback','Integração das decisões de participação nas soluções e inexistência de feedback das decisões finais','Sem integração nem feedback das decisões finais','Ausência total de atividades']; %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 1..5 %>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <%label = "acao_#{i}"; %>
+                          <div class="radio">
+                            <%= f.radio_button :acao, i, :required => true %>
+                            <%= f.label label, labels[i-1] %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="form_irr-organizacaoeplaneamento">
+          <h2> Organização e planeamento </h2>
+          <div class="form-group">
+            <%= f.label :legislacao, 'Legislação' %>:</br>
+
+            <% labels = ['Cumpre todos os requisitos legais nacionais, diretivas europeias e convenções internacionais assinadas por Portugal','Cumpre todos os requisitos legais nacionais','Não cumpre requisitos legais ao nível de pessoas singulares','Não cumpre requisitos legais ao nível de pessoas singulares e de pessoas coletivas','Não se observa nenhuma aplicação legal']; %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 1..5 %>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <%label = "legislacao_#{i}"; %>
+                          <div class="radio">
+                            <%= f.radio_button :legislacao, i, :required => true %>
+                            <%= f.label label, labels[i-1] %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="form-group">
-   <h3> Indicios na água: </h3>
 
-   <% labels = ["Oleo", "Espuma","Esgostos","Impurezas","Sacos de plástico", "Latas"];
-   label = ["oleo","espuma","esgotos","impurezas","sacosDePlastico","latas"] %>
+          <div class="form-group">
+            <%= f.label :estrategia, 'Estratégia, planos de ordenamento e gestão' %>:</br>
 
-   <div class="row">
-    <div class="col-md-12 col-xs-12">
-      <div class="container-fluid">
-        <div class="row">
-          <% for i in 0..5 %>
-          <div class="col-md-4 col-sm-6 col-xs-12">
-            <div class="checkbox">
-              <%= f.check_box label[i] %>
-              <%= f.label label[i], labels[i] %>
+            <% labels = ['Existem evidências de implementação de uma estratégia de reabilitação integrada com as figuras de ordenamento locais e regionais','Existe uma estratégia de reabilitação integrada ou planos de ordenamento e de gestão de bacia hidrográfica implementados','Existem planos de ordenamento e de gestão de bacia hidrográfica desintegrados das figuras de ordenamento local e regional e com diminuta implementação','Existem planos de ordenamento e de gestão de bacia hidrográfica sem implementação','Não existe nenhum documento estratégica, planeamento de ordenamento e de gestão a nível de recursos hídricos']; %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 1..5 %>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <%label = "estrategia_#{i}"; %>
+                          <div class="radio">
+                            <%= f.radio_button :estrategia, i, :required => true %>
+                            <%= f.label label, labels[i-1] %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
             </div>
+
           </div>
-          <% end %>
-          <div class="col-md-4 col-sm-6 col-xs-12">
-            <div class="checkbox">
-              <%= f.label :indiciosNaAgua_outros, "Outros" %></br>
-              <%= f.text_area :indiciosNaAgua_outros %>
+
+          <div class="form-group">
+            <%= f.label :gestaoDasIntervencoes, 'Gestão das intervenções de melhoria' %> (Existe pelo menos uma atividade de cada um dos grupos): </br>
+
+            <% labels = ['Definição de objetivos claros de intervenção de melhoria, ações de monitorização com valores de referência, ações de fiscalização, plano de intervenção em caso de acidente ou catástrofe, plano de ações de intervenção de melhoria e ações de manutenção com envolvimento dos proprietários','Definição de objetivos claros de intervenção de melhoria, plano de ações de intervenção de melhoria, ações de monitorização com valores de referência e ações de manutenção com envolvimento dos proprietários','Definição de objetivos claros de intervenção de melhoria e plano de ações de intervenção de melhoria','Definição de objetivos claros de intervenção de melhoria, mas sem qualquer intervenção','Não existe nenhuma evidência de gestão das intervenções de melhoria']; %>
+
+            <div class="row">
+              <div class="col-md-12 col-xs-12">
+                <div class="container-fluid">
+                  <div class="row">
+                    <% for i in 1..5 %>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <%label = "gestaoDasIntervencoes_#{i}"; %>
+                          <div class="radio">
+                            <%= f.radio_button :gestaoDasIntervencoes, i, :required => true %>
+                            <%= f.label label, labels[i-1] %>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
             </div>
+
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="form-group">
- <%= f.label :corDaAgua, "Cor da água" %>:</br>
-
- <% labels = ["Transparente", "Leitosa","Castanha","Verde-escura","Laranja","Cinzenta","Preta","Outra cor"]; %>
-
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 1..8 %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <%label = "corDaAgua_#{i}"; %>
-          <div class="radio">
-            <%= f.radio_button :corDaAgua, i %>
-            <%= f.label label, labels[i-1] %>
-          </div>
+        <div>
+          <p>
+            <a class="btn btn-primary btnPrevious" >Anterior</a>
+            <a class="btn btn-primary btnNext" >Seguinte</a>
+            <%= f.submit 'Submeter formulario', class: "btn btn-primary" %>
+          </p>
         </div>
-        <% end %>
-      </div>
-    </div>
+
+    <% end %>
   </div>
-</div>
 
-<!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
-</div>
-
-<div class="form-group">
- <%= f.label :odorDaAgua, "Odor (cheiro) da água" %>:</br>
-
- <% labels = ["Não tem odor", "Cheiro a fresco","Cheiro a Lama (Vasa)","Cheiro a esgoto","Cheiro químico (cloro)","Cheiro podre (ovos podres)","Outro odor"]; %>
-
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 1..7 %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <%label = "odorDaAgua_#{i}"; %>
-          <div class="radio">
-            <%= f.radio_button :odorDaAgua, i %>
-            <%= f.label label, labels[i-1] %>
-          </div>
+  <!-- Modal -->
+  <div class="modal fade" id="modal-photo" tabindex="-1" role="dialog" aria-labelledby="modal-photo-title">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="modal-photo-title"></h4>
         </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
+        <div class="modal-body">
 
-<!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
-</div>
-
-<div class="form-group image-options container">
- <h3>Tabela de Macroinvertebrados </h3>
- <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :planarias %>
-        <%= f.label :planarias, "Planárias" %> <span name="planarias" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path">macroinvertebrados/planaria.png</div>
-      </div>
-    </div>
-
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :hirudineos %>
-        <%= f.label :hirudineos, "Hirudíneos (Sanguessugas)" %> <span name="hirudineos" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path">macroinvertebrados/hirudineo.png</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<hr>
-
-
-<h4>Dípteros</h4>
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-       <%= f.check_box :oligoquetas %>
-       <%= f.label :oligoquetas, "Oligoquetas (minhocas)" %> <span name="oligoquetas" class="question-mark glyphicon glyphicon-question-sign"></span>
-       <div class="photo-path">macroinvertebrados/oligoquetas.png</div>
-     </div>
-   </div>
-
-   <div class="col-md-4 col-sm-6 col-xs-12">
-    <div class="checkbox">
-      <%= f.check_box :simulideos %>
-      <%= f.label :simulideos , "Simulideos" %> <span name="simulideos" class="question-mark glyphicon glyphicon-question-sign"></span>
-      <div class="photo-path">macroinvertebrados/simulideo.png</div>
-    </div>
-  </div>
-
-  <div class="col-md-4 col-sm-6 col-xs-12">
-    <div class="checkbox">
-      <%= f.check_box :quironomideos %>
-      <%= f.label :quironomideos, "Quironomideos, Sirfídeos, Culidídeos, Tipulídeos (Larva de mosquitos)" %> <span name="quironomideos" class="question-mark glyphicon glyphicon-question-sign"></span>
-      <div class="photo-path">macroinvertebrados/quironomideos.png</div>
-    </div>
-  </div>
-
-</div>
-</div>
-
-<!-- FIM DIPTEROS -->
-<hr>
-
-<h4>Gastrópodes (Mullusca)</h4>
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :ancilideo %>
-        <%= f.label :ancilideo, "Ancilídeo" %> <span name="ancilideo" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path">macroinvertebrados/ancilideo.png</div>
-      </div>
-    </div>
-
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :limnideo %>
-        <%= f.label :limnideo, "Limnídeo (Physa)" %> <span name="limnideo" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <!-- TODO no excel tem limnideo mas no word tem Limnelídeo, qual e? -->
-        <div class="photo-path">macroinvertebrados/limnelideo.png</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FIM GASTROPODES -->
-<hr>
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :bivalves %>
-        <%= f.label :bivalves, "Bivalves" %> <span name="bivalves" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path">macroinvertebrados/bivalves.png</div>
-      </div>
-    </div>
-  </div>
-</div>
-<hr>
-
-<h4>Coleóptero (escaravelho)</h4>
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :patasNadadoras %>
-        <%= f.label :patasNadadoras, "Patas Nadadoras (Dystiscidae)" %> <span name="patasNadadoras" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path">macroinvertebrados/ditiscus.png</div>
-      </div>
-    </div>
-
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :pataLocomotoras %>
-        <%= f.label :pataLocomotoras, "Pata Locomotoras (Hydraena)" %>  <span name="pataLocomotoras" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path">macroinvertebrados/pataslocomotivas.png</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FIM ESCARAVELHO -->
-<hr>
-
-<h4>Trichóptero (mosca d’água)</h4>
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :trichopteroS %>
-        <%= f.label :trichopteroS, "Trichóptero (mosca d’água) S/Casulo" %> <span name="trichopteroS" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path">macroinvertebrados/hidropsiquideo.png</div>
-      </div>
-    </div>
-
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :trichopteroC %>
-        <%= f.label :trichopteroC, "Trichóptero (mosca d’água) C/Casulo" %> <span name="trichopteroC" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path">macroinvertebrados/trichoptero.png</div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIM TRICHOPTERO -->
-<hr>
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :odonata %>
-        <%= f.label :odonata, "Odonata (Larva de Libelinhas)" %> <span name="odonata" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <!-- TODO nao sei se larva de libelula e o mesmo que larva de libelinhas -->
-        <div class="photo-path">macroinvertebrados/larvadelibelula.png</div>
-      </div>
-    </div>
-
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :heteropteros %>
-        <%= f.label :heteropteros, "Heterópteros" %> <span name="heteropteros" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path">macroinvertebrados/heteropteros.png</div>
-      </div>
-    </div>
-
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :plecopteros %>
-        <%= f.label :plecopteros, "Plecópteros (mosca-de-pedra)" %> <span name="plecopteros" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path">macroinvertebrados/plecopteros.png</div>
-      </div>
-    </div>
-  </div>
-</div>
-<hr>
-
-
-<h4> Efemerópteros (efémera) </h4>
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :baetideo %>
-        <%= f.label :baetideo, "Baetídeo" %> <span name="baetideo" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path">macroinvertebrados/baetideo.png</div>
-      </div>
-    </div>
-
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :cabecaPlanar %>
-        <%= f.label :cabecaPlanar, "Cabeça Planar (Ecdyonurus)" %> <span name="cabecaPlanar" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path">macroinvertebrados/cabecaplanar.png</div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- FIM EFEMERA -->
-<hr>
-
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :crustaceos %>
-        <%= f.label :crustaceos, "Crustáceos" %> <span name="crustaceos" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path">macroinvertebrados/crustaceos.png</div>
-      </div>
-    </div>
-
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :acaros %>
-        <%= f.label :acaros, "Ácaros" %> <span name="acaros" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path">macroinvertebrados/acaros.png</div>
-      </div>
-    </div>
-
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :pulgaDeAgua %>
-        <%= f.label :pulgaDeAgua, "Pulga-de-água (Daphnia)" %> <span name="pulgaDeAgua" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path">macroinvertebrados/pulgadeagua.png</div>
-      </div>
-    </div>
-
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :insetos %>
-        <%= f.label :insetos, "Insetos – adultos (adultos na forma aérea)" %> <span name="insetos" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path"></div>
-      </div>
-    </div>
-
-    <div class="col-md-4 col-sm-6 col-xs-12">
-      <div class="checkbox">
-        <%= f.check_box :megalopteres %>
-        <%= f.label :megalopteres, "Mégalopteres" %> <span name="megalopteres" class="question-mark glyphicon glyphicon-question-sign"></span>
-        <div class="photo-path">macroinvertebrados/megalopteres.png</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-</div>
-<!-- TODO por separador qd tem campos h4 -->
-</div>
-
-<div role="tabpanel" class="tab-pane" id="form_irr-alteracoesantropicas">
-  <h2> Alterações antrópicas </h2>
-
-  <div class="form-group">
-   <%= f.label :intervencoes, "Intervenções presentes" %>: </br>
-
-   <% var_labels = ["edificios","pontes","limpezasDasMargens","estabilizacaoDeMargens","modelacaoDeMargensNatural","modelacaoDeMargensArtificial","barragem","diques","rioCanalizado","rioEntubado","esporoes","paredoes","tecnicasDeEngenhariaNatural","outras"];
-   labels = ["Edifícios","Pontes","Limpeza das margens","Estabilização de margens","Modelação de margens natural","Modelação de margens artificial","Barragem","Diques","Rio canalizado","Rio entubado","Esporões","Paredões","Técnicas de engenharia natural","Outras"]; %>
-
-   <div class="row">
-    <div class="col-md-12 col-xs-12">
-      <div class="container-fluid">
-        <div class="row">
-          <% for i in 0..13 %>
-          <div class="col-md-4 col-sm-6 col-xs-12">
-            <%label = "intervencoes_#{var_labels[i]}"; %>
-            <div class="checkbox">
-              <%= f.check_box label %>
-              <%= f.label label, labels[i] %>
-            </div>
-          </div>
-          <% end %>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TODO como inserir outras? -->
-</div>
-
-<div class="form-group">
-
- <%= f.label :ocupacao, "Ocupação das margens [<10 m]" %>: </br>
-
- <% var_labels = ["florestaNatural","florestaPlantadas","matoAlto","matoRasteiro","pastagem","agricultura","espacoAbandonado","jardins","zonaEdificada","zonaIndustrial","ruas","entulho"];
-
- labels = ["Zona natural com/sem intervenção (Floresta Natural)","Floresta/arvores plantadas","Mato alto (1-5 m)","Mato rasteiro <1m","Pastagem (pecuária)","Agricultura","Espaço abandonado (+ 3 anos)","Jardins ou espaços de lazer","Zona edificada (casas/edifícios)","Zona industrial","Vias de comunicação (ruas)","Entulho e zona degradada"]; %>
-
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 0..11 %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <%label = "ocupacao_#{var_labels[i]}"; %>
-          <div class="checkbox">
-            <%= f.check_box label %>
-            <%= f.label label, labels[i] %>
-          </div>
-        </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- TODO como inserir outras? -->
-</div>
-
-
-<div class="form-group">
- <h3>Património edificado Leito/margem [estado de conservação: 1 - Bom a 5- Mau]</h3>
-
- <% labels = ["Moinho/azenhas","Açude (> 2m)","Micro-açude (1m)","Micro-açude (1-2m)","Barragem (> 10m)","Levadas","Pesqueiras","Escadas de peixe","Poldras","Pontes/pontões sem pilar no canal","Pontes/pontões com pilar no canal","Passagem a vau","Barcos","Caís","Igreja, capela, santuário (< 100m)","Solares ou casas agrícolas (< 100m)","Núcleo habitacional (< 100m)","Edifícios particulares (< 100m)","Edifícios públicos (estatais) (< 100m)","ETA/ETAR/elevatórias","Descarregadores de águas pluviais","Coletores saneamento","Defletores artificiais","Mota lateral"]; %>
- <% var_patrimonio = ["moinho","acude","microAcude1","microAcude2","barragem","levadas","pesqueiras","escadasDePeixe","poldras","pontesSemPilar","pontesComPilar","passagemAVau","barcos","cais","igreja","solares","nucleoHabitacional","edificiosParticulares","edificiosPublicos","ETA","descarregadoresDeAguasPluviais","coletoresSaneamento","defletoresArtificiais","motaLateral"]; %>
-
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 1..24 %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <%label = "patrimonio_#{var_patrimonio[i-1]}"; %>
-          <div class="">
-            <%= f.select label, [1,2,3,4,5] %>
-            <%= f.label label, labels[i-1] %>
-          </div>
-        </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!--<h5> Embarcações </h5> dentro disto [barcos e cais] -->
-<!-- FIM EMBARCAÇOES -->
-</div>
-
-<div class="form-group">
- <h3>Poluição</h3>
-
- <% labels = ["Descargas domésticas","Descargas ETAR","Descargas industriais","Descargas químicas","Descargas águas pluviais","Presença de criação animais","Lixeiras","Lixo doméstico","Entulho (restos de obras)","Monstros domésticos","Sacos de plástico","Latas e material ferroso","Queimadas"]; %>
- <% var_poluicao = ["descargasDomesticas","descargasETAR","descargasIndustriais","descargasQuimicas","descargasAguasPluviais","presencaCriacaoAnimais","lixeiras","lixoDomestico","entulho","monstrosDomesticos","sacosDePlastico","latasMaterialFerroso","queimadas"]; %>
-
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 1..13 %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <%label = "poluicao_#{var_poluicao[i-1]}"; %>
-          <div class="checkbox">
-            <%= f.check_box label %>
-            <%= f.label label, labels[i-1] %>
-          </div>
-        </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-
-<div role="tabpanel" class="tab-pane" id="form_irr-corredorecologico">
-  <h2> Corredor ecológico </h2>
-
-  <h3> Fauna </h3>
-
-  <div class="form-group">
-   <%= f.label :anfibiosAutoctones, "Anfíbios autoctones" %>: </br>
-
-   <% var_labels = ["salamandraLusitanica","salamandraPintasAmarelas","tritaoVentreLaranja","raIberica","raVerde","sapoComum"];
-   labels = ["Salamandra-lusitânica (Chioglossa lusitanica)","Salamandra-de-pintas-amarelas (Salamandra salamandra)","Tritão-ventre-laranja (Lissotriton boscai)","Rã-ibérica (Rana ibérica)","Rã-verde (Rana perezi)","Sapo-comum (Bufo bufo)"]; %>
-
-   <div class="row">
-    <div class="col-md-12 col-xs-12">
-      <div class="container-fluid">
-        <div class="row">
-          <% for i in 0..5 %>
-          <div class="col-md-4 col-sm-6 col-xs-12">
-            <%label = var_labels[i]; %>
-            <div class="checkbox">
-              <%= f.check_box label %>
-              <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
-              <% imglabel = "corredorecologico/anfibios/#{var_labels[i]}.png"; %>
-              <div class="photo-path"><%=imglabel%></div>
-              <p></p>
-            </div>
-          </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="form-group">
- <%= f.label :repteisAutoctones, "Répteis autoctones" %>: </br>
-
- <% var_labels = ["lagartoDeAgua","cobraAguaDeColar","cagado"];
- labels = ["Lagarto-de-água (Lacerta schreiberi)","Cobra-de-água-de-colar (Natrix natrix)","Cágado (Mauremys leprosa)"]; %>
-
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 0..2 %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <%label = var_labels[i]; %>
-          <div class="checkbox">
-            <%= f.check_box label %>
-            <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
-            <% imglabel = "corredorecologico/repteis/#{var_labels[i]}.png"; %>
-            <div class="photo-path"><%=imglabel%></div>
-          </div>
-        </div>
-        <% end %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="checkbox">
-            <%= f.check_box :repteis_outro %>
-            <%= f.label :repteis_outro, "Outro" %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<div class="form-group">
- <%= f.label :avesautoctones, "Aves autoctones" %>: </br>
-
- <% var_labels = ["guardaRios","garcaReal","melroDeAgua","galinhaDeAgua","patoReal","tentilhaoComum","chapimReal"];
- labels = ["Guarda-rios (Alcedo atthis)","Garça-real (Ardea cinerea)","Melro-de-água (Cinclus cinclus)","Galinha-de-água (Gallinula chloropus)","Pato-real (Anas platyrhynchos)","Tentilhão-comum (Fringilla coelebs)","Chapim-real (Parus major)"]; %>
-
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 0..6 %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <%label = var_labels[i]; %>
-          <div class="checkbox">
-            <%= f.check_box label %>
-            <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
-            <% imglabel = "corredorecologico/aves/#{var_labels[i]}.png"; %>
-            <div class="photo-path"><%=imglabel%></div>
-          </div>
-        </div>
-        <% end %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="checkbox">
-            <%= f.check_box :aves_outro %>
-            <%= f.label :aves_outro, "Outro" %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<div class="form-group">
- <%= f.label :mamiferosautoctones, "Mamíferos autoctones" %>: </br>
-
- <% var_labels = ["lontras","morcegosDeAgua","toupeiraDaAgua","ratoDeAgua","ouricoCacheiro","armilho"];
- labels = ["Lontras (Lutra lutra)","Morcegos-de-água (Myotis daubentonii)","Toupeira da água (Galemys pyrenaicus)","Rato-de-água (Arvicola sapidus)","Ouriço cacheiro (Erinaceus europaeus)","Arminho (Mustela Erminea)"]; %>
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 0..5 %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <%label = var_labels[i]; %>
-          <div class="checkbox">
-            <%= f.check_box label %>
-            <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
-            <% imglabel = "corredorecologico/mamiferos/#{var_labels[i]}.png"; %>
-            <div class="photo-path"><%=imglabel%></div>
-          </div>
-        </div>
-        <% end %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="checkbox">
-            <%= f.check_box :mamiferos_outro %>
-            <%= f.label "mamiferos_outro", "Outro" %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<div class="form-group">
- <%= f.label :peixesautoctones, "Peixes autoctones" %>: </br>
-
- <% var_labels = ["enguia","lampreia","salmao","truta","bogaPortuguesa","bogaDoNorte"];
- labels = ["Enguia (Anguilla anguilla)","Lampreia (Lampetra fluiatilis)","Salmão (Salmo salar)","Truta (Salmo trutta fario)","Boga-portuguesa (Iberochondrostoma lusitanicum)","Boga-do-norte (Chondrostoma duriense)"]; %>
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 0..5 %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <%label = var_labels[i]; %>
-          <div class="checkbox">
-            <%= f.check_box label %>
-            <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
-            <% imglabel = "corredorecologico/peixes/#{var_labels[i]}.png"; %>
-            <div class="photo-path"><%=imglabel%></div>
-          </div>
-        </div>
-        <% end %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="checkbox">
-            <%= f.check_box :peixes_outro %>
-            <%= f.label :peixes_outro, "Outro" %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<div class="form-group">
- <%= f.label :faunaexotica, "Fauna exótica" %>: </br>
-
- <% var_labels = ["percaSol","tartarugaDaFlorida","caranguejoPeludoChines","gambusia","mustelaVison","lagostimVermelho","trutaArcoIris","achiga"];
- labels = ["Perca-sol (Lepomis gibbosus)","Tartaruga da Florida (Trachemys scripta)","Caranguejo-peludo-chinês (Eriocheir sinensis)","Gambúsia (Gambusia holbrooki)","Mustela vison","Lagostim vermelho (Procambarus clarkii)","Truta-arco-íris (Oncorhynchus mykiss)","Achigã (Micropterus salmoides)"]; %>
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 0..7 %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <%label = var_labels[i]; %>
-          <div class="checkbox">
-            <%= f.check_box label %>
-            <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
-            <% imglabel = "corredorecologico/faunaexotica/#{var_labels[i]}.png"; %>
-            <div class="photo-path"><%=imglabel%></div>
-          </div>
-        </div>
-        <% end %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="checkbox">
-            <%= f.check_box :fauna_outro %>
-            <%= f.label :fauna_outro, "Outro" %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<div class="form-group">
- <%= f.label :flora, "Flora" %>: </br>
-
- <% var_labels = ["salgueiral","amial","freixal","choupal","ulmeiral","sanguinos","ladual","tramazeiras","carvalhal","sobreiral","azinhal","flora_outro"];
- labels = ["Salgueiral (salgueiros)","Amial (amieiral)","Freixial (freixos)","Choupal (choupos)","Ulmeiral (ulmerios)","Sanguinhos (Sanguinhal)","Ladual (lódãos-bastardos)","Tramazeiras","Carvalhal (Carvalhos)","Sobreiral","Azinhal","Outro"]; %>
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 0..11 %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <%label = var_labels[i]; %>
-          <div class="checkbox">
-            <%= f.check_box label %>
-            <%= f.label label, labels[i] %>
-          </div>
-        </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<div class="form-group">
- <%= f.label :conservacaoBosqueRibeirinho, "Estado de conservação do bosque ribeirinho (10m x 10m)" %>:</br>
-
- <% labels = ["Total (>75%) com bosque - continuidade arbórea com total sobreposição de copas","(50-75%) Com bosque ripícola Semi-continua arbórea","(25-50%) Sem bosque ripícola (Semi-continua arbórea)","Campos agrícolas (10-25%) Descontinua - na arbórea","(5 a 10%) Interrompida – com manchas de árvores","(<5%) Esparsa - Só árvores isoladas ou Urbanizações ou infra-estruturas"]; %>
-
-
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 1..6 %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <%label = "conservacaoBosqueRibeirinho_#{i}"; %>
-          <div class="radio">
-            <%= f.radio_button :conservacaoBosqueRibeirinho, i %>
-            <%= f.label label, labels[i-1] %>
-          </div>
-        </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-</div>
-
-<div class="form-group">
- <%= f.label :vegetacaoInvasora, "Espécies vegetação invasora" %>: </br>
-
- <% var_vegetacaoInvasora = ["silvas","ervaDaFortuna", "plumas","lentilhaDaAgua","pinheirinha","jacintoDeAgua","vegetacaoInvasora_outro"];
- labels = ["Silvas","Erva-da-fortuna","Plumas","Lentilha da água","Pinheirinha","Jacinto de água","Outro"]; %>
-
-
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 0..6 %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <%label = var_vegetacaoInvasora[i]; %>
-          <div class="checkbox">
-            <%= f.check_box label %>
-            <%= f.label label, labels[i] %>
-          </div>
-        </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<div class="form-group">
- <%= f.label :obstrucaoDoLeitoMargens, "Obstrução do leito e margens (vegetação)" %>:</br>
-
- <% labels = ["Com pouca ou sem vegetação no leito <5%","Com alguns ramos e pequenos troncos no leito (5 a 25%)","Com ramos e troncos no leito e margem (25 a 50%)","Com obstrução de 50 a 75% com ramos e troncos","Com obstrução quase total>75% do leito e margens"]; %>
-
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 1..5 %>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <%label = "obstrucaoDoLeitoMargens_#{i}"; %>
-          <div class="radio">
-            <%= f.radio_button :obstrucaoDoLeitoMargens, i %>
-            <%= f.label label, labels[i-1] %>
-          </div>
-        </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-
-</div>
-</div>
-
-<div role="tabpanel" class="tab-pane" id="form_irr-participacaopublica">
-  <h2> Participação pública </h2>
-  <div class="form-group">
-   <%= f.label :disponibilizacaoDeInformacao, "Disponibilização de informação" %>:</br>
-
-   <% labels = ["Local de informação por junta de freguesia mais próxima ou acesso público á internet, Disponibilidade de informação (técnicos e não técnicos) e acesso a informação de projetos de Participação Pública", "Local de informação por município ou acesso público á internet, Disponibilidade de informação (técnicos e não técnicos) e acesso à informação de projetos de Participação Pública", "Acesso á internet com indicações da localização da informação e disponibilidade de informação (técnicos e não técnicos)","Disponibilidade de informação de qualidade deficiente para os objetivos de reabilitação","Ausência de locais de informação acessível"]; %>
-
-   <div class="row">
-    <div class="col-md-12 col-xs-12">
-      <div class="container-fluid">
-        <div class="row">
-          <% for i in 1..5 %>
-          <div class="col-md-6 col-sm-6 col-xs-12">
-            <%label = "disponibilizacaoDeInformacao_#{i}"; %>
-            <div class="radio">
-              <%= f.radio_button :disponibilizacaoDeInformacao, i %>
-              <%= f.label label, labels[i-1] %>
-            </div>
-          </div>
-          <% end %>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
   </div>
 
 </div>
-
-<div class="form-group">
- <%= f.label :envolvimentoPublico, "Envolvimento público" %>:</br>
-
- <% labels = ["Envolvimento de Decisores-Chave (propietários, município, ARH), em pelo menos duas sessões por ano de participação pública, grupos tipo \"Projeto Rios\",  Realização de sondagens e Inquéritos a população","Envolvimento de Decisores-Chave (município, ARH), em pelo menos 1 sessão de participação pública e/ou associações locais por ano","Poucas atividades de participação pública","Atividades pontuais e com deficiente envolvimento publico local ou de fraca qualidade","Ausência de envolvimento"]; %>
-
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 1..5 %>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-          <%label = "envolvimentoPublico_#{i}"; %>
-          <div class="radio">
-            <%= f.radio_button :envolvimentoPublico, i %>
-            <%= f.label label, labels[i-1] %>
-          </div>
-        </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<div class="form-group">
- <%= f.label :acao, "Ação" %>:</br>
-
- <% labels = ["São realizadas pelo menos uma das atividades de ações de fiscalização, Monitorização, acompanhamento de participação e envolvimento da população,  e há o seu feedback","São realizadas pelo menos uma das atividades de ações de fiscalização e há o seu feedback","Integração das decisões de participação nas soluções e inexistência de feedback das decisões finais","Sem integração nem feedback das decisões finais","Ausência total de atividades"]; %>
-
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 1..5 %>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-          <%label = "acao_#{i}"; %>
-          <div class="radio">
-            <%= f.radio_button :acao, i %>
-            <%= f.label label, labels[i-1] %>
-          </div>
-        </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-
-</div>
-</div>
-
-<div role="tabpanel" class="tab-pane" id="form_irr-organizacaoeplaneamento">
-  <h2> Organização e planeamento </h2>
-  <div class="form-group">
-   <%= f.label :legislacao, "Legislação" %>:</br>
-
-   <% labels = ["Cumpre todos os requisitos legais nacionais, diretivas europeias e convenções internacionais assinadas por Portugal","Cumpre todos os requisitos legais nacionais","Não cumpre requisitos legais ao nível de pessoas singulares","Não cumpre requisitos legais ao nível de pessoas singulares e de pessoas coletivas","Não se observa nenhuma aplicação legal"]; %>
-
-   <div class="row">
-    <div class="col-md-12 col-xs-12">
-      <div class="container-fluid">
-        <div class="row">
-          <% for i in 1..5 %>
-          <div class="col-md-6 col-sm-6 col-xs-12">
-            <%label = "legislacao_#{i}"; %>
-            <div class="radio">
-              <%= f.radio_button :legislacao, i %>
-              <%= f.label label, labels[i-1] %>
-            </div>
-          </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="form-group">
- <%= f.label :estrategia, "Estratégia, planos de ordenamento e gestão" %>:</br>
-
- <% labels = ["Existem evidências de implementação de uma estratégia de reabilitação integrada com as figuras de ordenamento locais e regionais","Existe uma estratégia de reabilitação integrada ou planos de ordenamento e de gestão de bacia hidrográfica implementados","Existem planos de ordenamento e de gestão de bacia hidrográfica desintegrados das figuras de ordenamento local e regional e com diminuta implementação","Existem planos de ordenamento e de gestão de bacia hidrográfica sem implementação","Não existe nenhum documento estratégica, planeamento de ordenamento e de gestão a nível de recursos hídricos"]; %>
-
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 1..5 %>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-          <%label = "estrategia_#{i}"; %>
-          <div class="radio">
-            <%= f.radio_button :estrategia, i %>
-            <%= f.label label, labels[i-1] %>
-          </div>
-        </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<div class="form-group">
- <%= f.label :gestaoDasIntervencoes, "Gestão das intervenções de melhoria" %> (Existe pelo menos uma atividade de cada um dos grupos): </br>
-
- <% labels = ["Definição de objetivos claros de intervenção de melhoria, ações de monitorização com valores de referência, ações de fiscalização, plano de intervenção em caso de acidente ou catástrofe, plano de ações de intervenção de melhoria e ações de manutenção com envolvimento dos proprietários","Definição de objetivos claros de intervenção de melhoria, plano de ações de intervenção de melhoria, ações de monitorização com valores de referência e ações de manutenção com envolvimento dos proprietários","Definição de objetivos claros de intervenção de melhoria e plano de ações de intervenção de melhoria","Definição de objetivos claros de intervenção de melhoria, mas sem qualquer intervenção","Não existe nenhuma evidência de gestão das intervenções de melhoria"]; %>
-
- <div class="row">
-  <div class="col-md-12 col-xs-12">
-    <div class="container-fluid">
-      <div class="row">
-        <% for i in 1..5 %>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-          <%label = "gestaoDasIntervencoes_#{i}"; %>
-          <div class="radio">
-            <%= f.radio_button :gestaoDasIntervencoes, i %>
-            <%= f.label label, labels[i-1] %>
-          </div>
-        </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-
-</div>
-</div>
-
-<p>
-  <a class="btn btn-primary btnPrevious" >Anterior</a>
-  <a class="btn btn-primary btnNext" >Seguinte</a>
-  <%= f.submit "Submeter formulario", class: "btn btn-primary" %>
-</p>
-
-<% end %>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="modal-photo" tabindex="-1" role="dialog" aria-labelledby="modal-photo-title">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modal-photo-title"></h4>
-      </div>
-      <div class="modal-body">
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<!-- TODO adicionar por ajax (class="form-control" a todos os inputs para ter os elementos bootstrap -->
