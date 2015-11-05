@@ -53,6 +53,25 @@
     <string name="title_activity_irr_2_3">IRR_2_3</string>
     <string name="title_activity_irr_2_4">IRR_2_4</string>
     <string name="title_activity_irr_3_1">IRR_3_1</string>
+    <string name="title_activity_irr_3_2">IRR_3_2</string>
+    <string name="title_activity_irr_4_1">IRR_4_1</string>
+    <string name="title_activity_irr_4_2">IRR_4_2</string>
+    <string name="title_activity_irr_5_1">IRR_5_1</string>
+    <string name="title_activity_irr_5_2">IRR_5_2</string>
+    <string name="title_activity_irr_5_3">IRR_5_3</string>
+    <string name="title_activity_irr_5_4">IRR_5_4</string>
+    <string name="title_activity_irr_5_5">IRR_5_5</string>
+    <string name="title_activity_irr_5_6">IRR_5_6</string>
+    <string name="title_activity_irr_6_1">IRR_6_1</string>
+    <string name="title_activity_irr_6_2">IRR_6_2</string>
+    <string name="title_activity_irr_6_3">IRR_6_3</string>
+    <string name="title_activity_irr_6_4">IRR_6_4</string>
+    <string name="title_activity_irr_7_1">IRR_7_1</string>
+    <string name="title_activity_irr_8_1">IRR_8_1</string>
+    <string name="title_activity_irr_9_1">IRR_9_1</string>
+    <string name="title_activity_irr_10_1">IRR_10_1</string>
+    <string name="title_activity_irr_11_1">IRR_11_1</string>
+    <string name="title_activity_irr_12_1">IRR_12_1</string>
 
 
 </resources>

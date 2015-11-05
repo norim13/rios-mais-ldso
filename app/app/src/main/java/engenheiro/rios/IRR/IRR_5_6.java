@@ -17,14 +17,14 @@ import engenheiro.rios.GuardaRios;
 import engenheiro.rios.Login;
 import engenheiro.rios.R;
 
-public class IRR_3_1 extends AppCompatActivity {
+public class IRR_5_6 extends AppCompatActivity {
     protected LinearLayout linearLayout;
     ArrayList<CheckBox> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_irr_3_1);
+        setContentView(R.layout.activity_irr_5_6);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Novo Formulario");
         setSupportActionBar(toolbar);
@@ -32,28 +32,23 @@ public class IRR_3_1 extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         TextView irr_textview_name_main= (TextView) this.findViewById(R.id.irr_textview_name_main);
-        irr_textview_name_main.setText("Alterações Antrópicas");
+        irr_textview_name_main.setText("Corredor ecológico");
 
         TextView irr_textview_name= (TextView) this.findViewById(R.id.irr_textview_name);
-        irr_textview_name.setText("Intervenções presentes");
+        irr_textview_name.setText("Fauna Exótica");
 
         linearLayout = (LinearLayout) this.findViewById(R.id.irr_linear);
         String[] array=new String[]{
-                "Edificíos",
-                "Pontes",
-                "Limpezas de margens",
-                "Estabilização de margens",
-                "Modelação de margens natural",
-                "Modelação de margens artificial",
-                "Barragem",
-                "Diques",
-                "Rio canalizado",
-                "Rio Entubado",
-                "Esporões",
-                "Pardões",
-                "Paredões",
-                "Técnicas de Engenharia Natural",
-                "Outras"
+                "Perca-sol (Lepomis gibbosus)",
+                "Tartaruga da Florida (Trachemys scripta)",
+                "Caranguejo-peludo-chinês (Eriocheir sinensis)",
+                "Gambúsia (Gambusia holbrooki)",
+                "Mustela vison",
+                "Lagostim vermelho (Procambarus clarkii)",
+                "Truta-arco-íris (Oncorhynchus mykiss)",
+                "Achigã (Micropterus salmoides)",
+                "Perca-sol (Lepomis gibbosus)",
+                "Outro"
         };
         list=Form_functions.createCheckboxes(array,linearLayout,this);
 
@@ -62,7 +57,7 @@ public class IRR_3_1 extends AppCompatActivity {
     }
 
     public void goto_next(View view){
-        startActivity(new Intent(this, IRR_3_2.class));
+        startActivity(new Intent(this, IRR_6_1.class));
         this.overridePendingTransition(0, 0);
 
     }
@@ -92,5 +87,4 @@ public class IRR_3_1 extends AppCompatActivity {
     }
 
 }
-
 
