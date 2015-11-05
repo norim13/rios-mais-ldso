@@ -386,108 +386,251 @@
 
 <div class="form-group image-options container">
  <h3>Tabela de Macroinvertebrados </h3>
- <%= f.check_box :planarias %>
- <%= f.label :planarias, "Planárias" %>
- <%= f.label :planarias, image_tag('macroinvertebrados/planaria.png', :class => "img-responsive") %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :planarias %>
+          <%= f.label :planarias, "Planárias" %> <span name="planarias" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/planaria.png</div>
+        </div>
+      </div>
 
- <%= f.check_box :hirudineos %>
- <%= f.label :hirudineos, "Hirudíneos (Sanguessugas)" %>
- <%= f.label :hirudineos, image_tag('macroinvertebrados/hirudineo.png', :class => "img-responsive") %>
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :hirudineos %>
+          <%= f.label :hirudineos, "Hirudíneos (Sanguessugas)" %> <span name="hirudineos" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/hirudineo.png</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
 
  <h4>Dípteros</h4>
- <%= f.check_box :oligoquetas %>
- <%= f.label :oligoquetas, "Oligoquetas (minhocas)" %>
- <%= f.label :oligoquetas, image_tag('macroinvertebrados/oligoquetas.png', :class => "img-responsive") %>
 
- <%= f.check_box :simulideos %>
- <%= f.label :simulideos, "Simulideos" %>
- <%= f.label :simulideos, image_tag('macroinvertebrados/simulideo.png', :class => "img-responsive") %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+           <%= f.check_box :oligoquetas %>
+           <%= f.label :oligoquetas, "Oligoquetas (minhocas)" %> <span name="oligoquetas" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/oligoquetas.png</div>
+        </div>
+      </div>
 
- <%= f.check_box :quironomideos %>
- <%= f.label :quironomideos, "Quironomideos, Sirfídeos, Culidídeos, Tipulídeos (Larva de mosquitos)" %>
- <%= f.label :quironomideos, image_tag('macroinvertebrados/quironomideo.png', :class => "img-responsive") %>
- <%= f.label :quironomideos, image_tag('macroinvertebrados/sirfideo.png', :class => "img-responsive") %>
- <%= f.label :quironomideos, image_tag('macroinvertebrados/culicideo.png', :class => "img-responsive") %> <!-- TODO no excel tem Culidídeos mas no word tem culicideos, qual e? -->
- <%= f.label :quironomideos, image_tag('macroinvertebrados/tipulideo.png', :class => "img-responsive") %> </br>
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :simulideos %>
+          <%= f.label :simulideos , "Simulideos" %> <span name="simulideos" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/simulideo.png</div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :quironomideos %>
+          <%= f.label :quironomideos, "Quironomideos, Sirfídeos, Culidídeos, Tipulídeos (Larva de mosquitos)" %> <span name="quironomideos" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/quironomideos.png</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
  <!-- FIM DIPTEROS -->
+  <hr>
 
  <h4>Gastrópodes (Mullusca)</h4>
- <%= f.check_box :ancilideo %>
- <%= f.label :ancilideo, "Ancilídeo" %>
- <%= f.label :ancilideo, image_tag('macroinvertebrados/ancilideo.png', :class => "img-responsive") %>
 
- <%= f.check_box :limnideo %>
- <%= f.label :limnideo, "Limnídeo (Physa)" %>
- <!-- TODO no excel tem limnideo mas no word tem Limnelídeo, qual e? -->
- <%= f.label :limnideo, image_tag('macroinvertebrados/limnelideo.png', :class => "img-responsive") %></br>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :ancilideo %>
+          <%= f.label :ancilideo, "Ancilídeo" %> <span name="ancilideo" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/ancilideo.png</div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :limnideo %>
+          <%= f.label :limnideo, "Limnídeo (Physa)" %> <span name="limnideo" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <!-- TODO no excel tem limnideo mas no word tem Limnelídeo, qual e? -->
+          <div class="photo-path">macroinvertebrados/limnelideo.png</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
  <!-- FIM GASTROPODES -->
+  <hr>
 
- <%= f.check_box :bivalves %>
- <%= f.label :bivalves, "Bivalves" %>
- <%= f.label :bivalves, image_tag('macroinvertebrados/bivalves.png', :class => "img-responsive") %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :bivalves %>
+          <%= f.label :bivalves, "Bivalves" %> <span name="bivalves" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/bivalves.png</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
 
  <h4>Coleóptero (escaravelho)</h4>
- <%= f.check_box :patasNadadoras %>
- <%= f.label :patasNadadoras, "Patas Nadadoras (Dystiscidae)" %>
- <%= f.label :patasNadadoras, image_tag('macroinvertebrados/ditiscus.png', :class => "img-responsive") %>
 
- <%= f.check_box :pataLocomotoras %>
- <%= f.label :pataLocomotoras, "Pata Locomotoras (Hydraena)" %>
- <%= f.label :pataLocomotoras, image_tag('macroinvertebrados/pataslocomotivas.png', :class => "img-responsive") %> </br>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :patasNadadoras %>
+          <%= f.label :patasNadadoras, "Patas Nadadoras (Dystiscidae)" %> <span name="patasNadadoras" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/ditiscus.png</div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :pataLocomotoras %>
+          <%= f.label :pataLocomotoras, "Pata Locomotoras (Hydraena)" %>  <span name="pataLocomotoras" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/pataslocomotivas.png</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
  <!-- FIM ESCARAVELHO -->
+  <hr>
 
  <h4>Trichóptero (mosca d’água)</h4>
- <%= f.check_box :trichopteroS %>
- <%= f.label :trichopteroS, "Trichóptero (mosca d’água) S/Casulo" %>
- <%= f.label :trichopteroS, image_tag('macroinvertebrados/hidropsiquideo.png', :class => "img-responsive") %>
 
- <%= f.check_box :trichopteroC %>
- <%= f.label :trichopteroC, "Trichóptero (mosca d’água) C/Casulo" %>
- <%= f.label :trichopteroC, image_tag('macroinvertebrados/trichoptero.png', :class => "img-responsive") %> </br>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :trichopteroS %>
+          <%= f.label :trichopteroS, "Trichóptero (mosca d’água) S/Casulo" %> <span name="trichopteroS" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/hidropsiquideo.png</div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :trichopteroC %>
+          <%= f.label :trichopteroC, "Trichóptero (mosca d’água) C/Casulo" %> <span name="trichopteroC" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/trichoptero.png</div>
+        </div>
+      </div>
+    </div>
+  </div>
  <!-- FIM TRICHOPTERO -->
+  <hr>
 
- <%= f.check_box :odonata %>
- <%= f.label :odonata, "Odonata (Larva de Libelinhas)" %>
- <%= f.label :odonata, image_tag('macroinvertebrados/larvadelibelula.png', :class => "img-responsive") %>
- <!-- TODO nao sei se larva de libelula e o mesmo que larva de libelinhas -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :odonata %>
+          <%= f.label :odonata, "Odonata (Larva de Libelinhas)" %> <span name="odonata" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <!-- TODO nao sei se larva de libelula e o mesmo que larva de libelinhas -->
+          <div class="photo-path">macroinvertebrados/larvadelibelula.png</div>
+        </div>
+      </div>
 
- <%= f.check_box :heteropteros %>
- <%= f.label :heteropteros, "Heterópteros" %>
- <%= f.label :heteropteros, image_tag('macroinvertebrados/heteropteros.png', :class => "img-responsive") %>
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :heteropteros %>
+          <%= f.label :heteropteros, "Heterópteros" %> <span name="heteropteros" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/heteropteros.png</div>
+        </div>
+      </div>
 
- <%= f.check_box :plecopteros %>
- <%= f.label :plecopteros, "Plecópteros (mosca-de-pedra)" %>
- <%= f.label :plecopteros, image_tag('macroinvertebrados/plecopteros.png', :class => "img-responsive") %>
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :plecopteros %>
+          <%= f.label :plecopteros, "Plecópteros (mosca-de-pedra)" %> <span name="plecopteros" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/plecopteros.png</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+
 
  <h4> Efemerópteros (efémera) </h4>
- <%= f.check_box :baetideo %>
- <%= f.label :baetideo, "Baetídeo" %>
- <%= f.label :baetideo, image_tag('macroinvertebrados/baetideo.png', :class => "img-responsive") %>
 
- <%= f.check_box :cabecaPlanar %>
- <%= f.label :cabecaPlanar, "Cabeça Planar (Ecdyonurus)" %>
- <%= f.label :cabecaPlanar, image_tag('macroinvertebrados/cabecaplanar.png', :class => "img-responsive") %> </br>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :baetideo %>
+          <%= f.label :baetideo, "Baetídeo" %> <span name="baetideo" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/baetideo.png</div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :cabecaPlanar %>
+          <%= f.label :cabecaPlanar, "Cabeça Planar (Ecdyonurus)" %> <span name="cabecaPlanar" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/cabecaplanar.png</div>
+        </div>
+      </div>
+    </div>
+  </div>
  <!-- FIM EFEMERA -->
+  <hr>
 
- <%= f.check_box :crustaceos %>
- <%= f.label :crustaceos, "Crustáceos" %>
- <%= f.label :crustaceos, image_tag('macroinvertebrados/crustaceos.png', :class => "img-responsive") %>
 
- <%= f.check_box :acaros %>
- <%= f.label :acaros, "Ácaros" %>
- <%= f.label :acaros, image_tag('macroinvertebrados/acaros.png', :class => "img-responsive") %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :crustaceos %>
+          <%= f.label :crustaceos, "Crustáceos" %> <span name="crustaceos" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/crustaceos.png</div>
+        </div>
+      </div>
 
- <%= f.check_box :pulgaDeAgua %>
- <%= f.label :pulgaDeAgua, "Pulga-de-água (Daphnia)" %>
- <%= f.label :pulgaDeAgua, image_tag('macroinvertebrados/pulgadeagua.png', :class => "img-responsive") %>
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :acaros %>
+          <%= f.label :acaros, "Ácaros" %> <span name="acaros" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/acaros.png</div>
+        </div>
+      </div>
 
- <%= f.check_box :insetos %>
- <%= f.label :insetos, "Insetos – adultos (adultos na forma aérea)" %>
- <%= f.label :insetos, "SEM FOTO!!" %>
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :pulgaDeAgua %>
+          <%= f.label :pulgaDeAgua, "Pulga-de-água (Daphnia)" %> <span name="pulgaDeAgua" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/pulgadeagua.png</div>
+        </div>
+      </div>
 
- <%= f.check_box :megalopteres %>
- <%= f.label :megalopteres, "Mégalopteres" %>
- <%= f.label :megalopteres, image_tag('macroinvertebrados/megalopteres.png', :class => "img-responsive") %>
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :insetos %>
+          <%= f.label :insetos, "Insetos – adultos (adultos na forma aérea)" %> <span name="insetos" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path"></div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="checkbox">
+          <%= f.check_box :megalopteres %>
+          <%= f.label :megalopteres, "Mégalopteres" %> <span name="megalopteres" class="question-mark glyphicon glyphicon-question-sign"></span>
+          <div class="photo-path">macroinvertebrados/megalopteres.png</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 </div>
 <!-- TODO por separador qd tem campos h4 -->
@@ -627,9 +770,10 @@
             <%label = var_labels[i]; %>
             <div class="checkbox">
               <%= f.check_box label %>
-              <%= f.label label, labels[i] %>
+              <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%> class="question-mark glyphicon glyphicon-question-sign"></span>
               <% imglabel = "corredorecologico/anfibios/#{var_labels[i]}.png"; %>
-              <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
+              <div class="photo-path"><%=imglabel%></div>
+              <p></p>
             </div>
           </div>
           <% end %>
@@ -654,9 +798,9 @@
           <%label = var_labels[i]; %>
           <div class="checkbox">
             <%= f.check_box label %>
-            <%= f.label label, labels[i] %>
+            <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%> class="question-mark glyphicon glyphicon-question-sign"></span>
             <% imglabel = "corredorecologico/repteis/#{var_labels[i]}.png"; %>
-            <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
+            <div class="photo-path"><%=imglabel%></div>
           </div>
         </div>
         <% end %>
@@ -688,9 +832,9 @@
           <%label = var_labels[i]; %>
           <div class="checkbox">
             <%= f.check_box label %>
-            <%= f.label label, labels[i] %>
+            <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%> class="question-mark glyphicon glyphicon-question-sign"></span>
             <% imglabel = "corredorecologico/aves/#{var_labels[i]}.png"; %>
-            <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
+            <div class="photo-path"><%=imglabel%></div>
           </div>
         </div>
         <% end %>
@@ -721,9 +865,9 @@
           <%label = var_labels[i]; %>
           <div class="checkbox">
             <%= f.check_box label %>
-            <%= f.label label, labels[i] %>
+            <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%> class="question-mark glyphicon glyphicon-question-sign"></span>
             <% imglabel = "corredorecologico/mamiferos/#{var_labels[i]}.png"; %>
-            <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
+            <div class="photo-path"><%=imglabel%></div>
           </div>
         </div>
         <% end %>
@@ -753,9 +897,9 @@
           <%label = var_labels[i]; %>
           <div class="checkbox">
             <%= f.check_box label %>
-            <%= f.label label, labels[i] %>
+            <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%> class="question-mark glyphicon glyphicon-question-sign"></span>
             <% imglabel = "corredorecologico/peixes/#{var_labels[i]}.png"; %>
-            <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
+            <div class="photo-path"><%=imglabel%></div>
           </div>
         </div>
         <% end %>
@@ -785,9 +929,9 @@
           <%label = var_labels[i]; %>
           <div class="checkbox">
             <%= f.check_box label %>
-            <%= f.label label, labels[i] %>
+            <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%> class="question-mark glyphicon glyphicon-question-sign"></span>
             <% imglabel = "corredorecologico/faunaexotica/#{var_labels[i]}.png"; %>
-            <%= f.label label, image_tag(imglabel, :class => "img-responsive") %>
+            <div class="photo-path"><%=imglabel%></div>
           </div>
         </div>
         <% end %>
@@ -1074,19 +1218,18 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modal-photo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="modal-photo-title"></h4>
       </div>
       <div class="modal-body">
-        ...
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
