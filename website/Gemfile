@@ -29,6 +29,7 @@ gem 'tlsmail'
 
 gem 'gravtastic'
 
+gem 'jquery-turbolinks'
 
 group :production do
   gem 'pg'
