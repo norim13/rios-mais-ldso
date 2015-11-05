@@ -7,8 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,14 +17,15 @@ import engenheiro.rios.GuardaRios;
 import engenheiro.rios.Login;
 import engenheiro.rios.R;
 
-public class IRR_1_1 extends AppCompatActivity {
+public class IRR_2_5 extends AppCompatActivity {
+
     protected LinearLayout linearLayout;
-    ArrayList<RadioButton> list;
+    ArrayList<CheckBox> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_irr_1_1);
+        setContentView(R.layout.activity_irr_2_5);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Novo Formulario");
         setSupportActionBar(toolbar);
@@ -32,27 +33,43 @@ public class IRR_1_1 extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         TextView irr_textview_name_main= (TextView) this.findViewById(R.id.irr_textview_name_main);
-        irr_textview_name_main.setText("Hidrogeomorfologia");
+        irr_textview_name_main.setText("Qualidade da água");
 
         TextView irr_textview_name= (TextView) this.findViewById(R.id.irr_textview_name);
-        irr_textview_name.setText("Tipo de Vale");
+        irr_textview_name.setText("Tabela de Macroinvertebrados");
 
         linearLayout = (LinearLayout) this.findViewById(R.id.irr_linear);
         String[] array=new String[]{
-                "1","2","3","4","5","6","7"
+                "1. Planárias",
+                "2. Hidudíneros (Sanguessugas)",
+                "3.1 Simulideos",
+                "3.2 Quironomideos, Sirfídeos, Culidídeos, Tipulídeos (Larva de mosquitos)",
+                "4.1 Ancilídeo",
+                "4.2 Limnídeo; Physa",
+                "5. Bivalves",
+                "6.1 Patas Nadadoras (Dystiscidae)",
+                "6.2 Pata Locomotoras (Hydraena)",
+                "7.1 Trichóptero (mosca d’água) S/Casulo",
+                "7.2 Trichóptero (mosca d’água) C/Casulo",
+                "8. Odonata (Larva de Libelinhas)",
+                "9. Heterópteros",
+                "10. Plecópteros (mosca-de-pedra)",
+                "11.1 Baetídeo",
+                "11.2 Cabeça Planar (Ecdyonurus)",
+                "12. Crustáceos",
+                "13. Ácaros",
+                "14. Pulga-de-água (Daphnia)",
+                "15. Insetos – adultos (adultos na forma aérea)",
+                "16. Mégalopteres"
         };
-        list=Form_functions.createRadioButtons(array,linearLayout,this);
+        list=Form_functions.createCheckboxes(array,linearLayout,this);
 
 
 
     }
 
     public void goto_next(View view){
-        Intent i=new Intent(this, IRR_1_2.class);
-        ArrayList<Object> ar=new ArrayList<Object>();
-        ar.add(Form_functions.getRadioButtonOption(list));
-        i.putExtra("response",ar);
-        startActivity(i);
+        startActivity(new Intent(this, IRR_3_1.class));
         this.overridePendingTransition(0, 0);
 
     }

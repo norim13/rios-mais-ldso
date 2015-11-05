@@ -75,4 +75,17 @@
         android:onClick="mapas_init"
         />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contactos"
+        android:id="@+id/contacts_button"
+        android:layout_marginBottom="83dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@null"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:onClick="about"/>
+
 </RelativeLayout>

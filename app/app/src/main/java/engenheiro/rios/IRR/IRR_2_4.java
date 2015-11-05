@@ -35,31 +35,17 @@ public class IRR_2_4 extends AppCompatActivity {
         irr_textview_name_main.setText("Qualidade da água");
 
         TextView irr_textview_name= (TextView) this.findViewById(R.id.irr_textview_name);
-        irr_textview_name.setText("Tabela de Macroinvertebrados");
+        irr_textview_name.setText("O odor (cheiro) da água");
 
         linearLayout = (LinearLayout) this.findViewById(R.id.irr_linear);
         String[] array=new String[]{
-                "1. Planárias",
-                "2. Hidudíneros (Sanguessugas)",
-                "3.1 Simulideos",
-                "3.2 Quironomideos, Sirfídeos, Culidídeos, Tipulídeos (Larva de mosquitos)",
-                "4.1 Ancilídeo",
-                "4.2 Limnídeo; Physa",
-                "5. Bivalves",
-                "6.1 Patas Nadadoras (Dystiscidae)",
-                "6.2 Pata Locomotoras (Hydraena)",
-                "7.1 Trichóptero (mosca d’água) S/Casulo",
-                "7.2 Trichóptero (mosca d’água) C/Casulo",
-                "8. Odonata (Larva de Libelinhas)",
-                "9. Heterópteros",
-                "10. Plecópteros (mosca-de-pedra)",
-                "11.1 Baetídeo",
-                "11.2 Cabeça Planar (Ecdyonurus)",
-                "12. Crustáceos",
-                "13. Ácaros",
-                "14. Pulga-de-água (Daphnia)",
-                "15. Insetos – adultos (adultos na forma aérea)",
-                "16. Mégalopteres"
+                "Não tem odor",
+                "Cheiro a fresco",
+                "Cheiro a Lama (Vasa)",
+                "Cheiro a esgoto",
+                "Cheiro químico (cloro)",
+                "Cheiro podre (ovos podres)",
+                "Outro odor"
         };
         list=Form_functions.createCheckboxes(array,linearLayout,this);
 
@@ -68,7 +54,7 @@ public class IRR_2_4 extends AppCompatActivity {
     }
 
     public void goto_next(View view){
-        startActivity(new Intent(this, IRR_3_1.class));
+        startActivity(new Intent(this, IRR_2_5.class));
         this.overridePendingTransition(0, 0);
 
     }

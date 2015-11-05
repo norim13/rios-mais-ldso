@@ -8,8 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -51,12 +49,14 @@ public class IRR_2_2 extends AppCompatActivity {
         };
         list=Form_functions.createCheckboxes(array,linearLayout,this);
 
+        /*
         final EditText outro=  new EditText(this);
         outro.setWidth(linearLayout.getWidth());
         outro.setFocusable(false);
         outro.setFocusableInTouchMode(false);
         outro.setClickable(false);
         linearLayout.addView(outro);
+
 
 
         list.get(6).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -77,6 +77,7 @@ public class IRR_2_2 extends AppCompatActivity {
                }
            }
         );
+        */
 
     }
 

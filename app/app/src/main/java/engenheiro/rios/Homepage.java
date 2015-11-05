@@ -10,8 +10,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+
+import engenheiro.rios.DataBases.DB_functions;
 import engenheiro.rios.DataBases.User;
-import engenheiro.rios.IRR.IRR_2_4;
+import engenheiro.rios.IRR.IRR_1_1;
 
 public class Homepage extends AppCompatActivity {
 
@@ -47,9 +52,20 @@ public class Homepage extends AppCompatActivity {
         startActivity(new Intent(this, Mapa_rios.class));
     }
 
-    public void fomr_irr(View view){
-        startActivity(new Intent(this, IRR_2_4.class));
+    public void fomr_irr(View view) throws IOException, JSONException {
+        startActivity(new Intent(this, IRR_1_1.class));
+        DB_functions.saveForm();
     }
+
+
+
+    public void about(View view)  {
+        startActivity(new Intent(this, About.class));
+    }
+
+
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

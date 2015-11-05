@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -31,12 +32,22 @@ public class IRR_1_7 extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        TextView irr_textview_name_main= (TextView) this.findViewById(R.id.irr_textview_name_main);
+        irr_textview_name_main.setText("Hidrogeomorfologia");
+
+        TextView irr_textview_name= (TextView) this.findViewById(R.id.irr_textview_name);
+        irr_textview_name.setText("Erosão");
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         linearLayout = (LinearLayout) this.findViewById(R.id.irr_linear);
-        String[] array=new String[]{"Sem Erosão",
-        "Formação de > 3 regos",
-        "Formação de 1-3 regos",
-        "Queda de muros e árvores",
-        "Rombos com mais de 1 metro com queda de muros ou árvores"};
+        String[] array=new String[]{
+                "Sem Erosão",
+                "Formação de > 3 regos",
+                "Formação de 1-3 regos",
+                "Queda de muros e árvores",
+                "Rombos com mais de 1 metro com queda de muros ou árvores"
+        };
         list=Form_functions.createCheckboxes(array,linearLayout,this);
 
 

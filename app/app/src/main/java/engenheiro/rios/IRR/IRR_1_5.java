@@ -7,12 +7,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import engenheiro.rios.GuardaRios;
 import engenheiro.rios.Login;
 import engenheiro.rios.R;
 
 public class IRR_1_5 extends AppCompatActivity {
+    protected LinearLayout linearLayout;
+    ArrayList<CheckBox> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +30,29 @@ public class IRR_1_5 extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        TextView irr_textview_name_main= (TextView) this.findViewById(R.id.irr_textview_name_main);
+        irr_textview_name_main.setText("Hidrogeomorfologia");
+
+        TextView irr_textview_name= (TextView) this.findViewById(R.id.irr_textview_name);
+        irr_textview_name.setText("Substrato do leito (selecionar os que tem mais de 35%)");
+
+        linearLayout = (LinearLayout) this.findViewById(R.id.irr_linear);
+        String[] array=new String[]{
+                "Blocos e rocha> 40 cm"
+                ,"Calhaus 20 - 40 cm"
+                ,"Cascalho 2 cm - 20 cm"
+                ,"Areia 0,5 - 2cm"
+                ,"Limo <0,5 mm"
+                ,"Solo"
+                ,"Artificial"
+                ,"Não é visível"
+        };
+        list=Form_functions.createCheckboxes(array,linearLayout,this);
+
+
+
     }
-
-
-
 
     public void goto_next(View view){
         startActivity(new Intent(this, IRR_1_6.class));
@@ -57,4 +83,7 @@ public class IRR_1_5 extends AppCompatActivity {
             startActivity(new Intent(this,Login.class));
         return super.onOptionsItemSelected(item);
     }
+
 }
+
+

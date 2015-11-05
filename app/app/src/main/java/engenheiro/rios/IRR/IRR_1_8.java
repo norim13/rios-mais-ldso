@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,13 @@ public class IRR_1_8 extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        TextView irr_textview_name_main= (TextView) this.findViewById(R.id.irr_textview_name_main);
+        irr_textview_name_main.setText("Hidrogeomorfologia");
+
+        TextView irr_textview_name= (TextView) this.findViewById(R.id.irr_textview_name);
+        irr_textview_name.setText("Sedimentação");
+
         linearLayout = (LinearLayout) this.findViewById(R.id.irr_linear);
         String[] array=new String[]{
                 "Ausente",

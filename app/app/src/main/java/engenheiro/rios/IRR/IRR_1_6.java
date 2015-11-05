@@ -1,18 +1,15 @@
 package engenheiro.rios.IRR;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -22,10 +19,9 @@ import engenheiro.rios.R;
 
 public class IRR_1_6 extends AppCompatActivity {
 
-
     protected LinearLayout linearLayout;
     ArrayList<CheckBox> list;
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,40 +31,26 @@ public class IRR_1_6 extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        TextView irr_textview_name_main= (TextView) this.findViewById(R.id.irr_textview_name_main);
+        irr_textview_name_main.setText("Hidrogeomorfologia");
+
+        TextView irr_textview_name= (TextView) this.findViewById(R.id.irr_textview_name);
+        irr_textview_name.setText("Estado geral da linha de água");
+
         linearLayout = (LinearLayout) this.findViewById(R.id.irr_linear);
-        String[] array=new String[]{"I. Canal sem alterações, estado natural",
-                        "II. Canal ligeiramente perturbado",
-                        "III. Início de uma importante alteração do canal",
-                        "IV. Grande alteração do canal",
-                        "V. Canal completamente alterado (canalizado, regularizado)"};
+        String[] array=new String[]{
+                "Canal sem alterações, estado natural",
+                "Canal ligeiramente perturbado",
+                "Início de uma importante alteração do canal",
+                "Grande alteração do canal",
+                "Canal completamente alterado (canalizado, regularizado)"
+        };
         list=Form_functions.createCheckboxes(array,linearLayout,this);
 
 
 
-
-        list.get(0).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-                                                   @Override
-                                                   public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                       for (int i = 0; i < list.size(); i++) {
-                                                           if (list.get(i).isChecked()){
-                                                               Log.v("teste","id:"+i);
-                                                           }
-                                                       }
-                                                   }
-                                               }
-        );
-
-
-
-
-
-
-
     }
-
-
-
 
     public void goto_next(View view){
         startActivity(new Intent(this, IRR_1_7.class));
@@ -99,4 +81,7 @@ public class IRR_1_6 extends AppCompatActivity {
             startActivity(new Intent(this,Login.class));
         return super.onOptionsItemSelected(item);
     }
+
 }
+
+
