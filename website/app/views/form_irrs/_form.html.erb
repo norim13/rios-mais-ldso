@@ -78,17 +78,17 @@
     <div class="container-fluid">
      <div class="right-allign-fields">
       <%= f.label :larguraDaSuperficieDaAgua, "Largura da superfície da água (L) (m)" %>: 
-      <%= f.number_field :larguraDaSuperficieDaAgua, :class => 'text_field form-control', :step => 'any', :min => '0.00' %>
+      <%= f.number_field :larguraDaSuperficieDaAgua, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00' %>
     </div>
 
     <div class="right-allign-fields">
       <%= f.label :profundidadeMedia, "Profundidade média (P) (m)" %>: 
-      <%= f.number_field :profundidadeMedia, :class => 'text_field form-control', :step => 'any', :min => '0.00' %>
+      <%= f.number_field :profundidadeMedia, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00' %>
     </div>
 
     <div class="right-allign-fields">
       <%= f.label :velocidadeMedia, "Velocidade média (V) (m/s)" %>:
-      <%= f.number_field :velocidadeMedia, :class => 'text_field form-control', :step => 'any', :min => '0.00' %>
+      <%= f.number_field :velocidadeMedia, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00' %>
     </div>
   </div>
 
@@ -98,12 +98,12 @@
   <div class="container-fluid">
    <div class="right-allign-fields">
     <%= f.label :seccao, "Secção (S=PxL) (m^2)" %>:
-    <%= f.number_field :seccao, :class => 'text_field form-control', :step => 'any', :readonly => true %>
+    <%= f.number_field :seccao, :class => 'text_field form-control input-custom-size', :step => 'any', :readonly => true %>
   </div>
 
   <div class="right-allign-fields">
     <%= f.label :caudal, "Caudal (C=VxS) (m^3/s)" %>:
-    <%= f.number_field :caudal, :class => 'text_field form-control', :step => 'any', :min => '0.00', :readonly => true %>
+    <%= f.number_field :caudal, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :readonly => true %>
   </div>
 </div>
 </div>
@@ -254,56 +254,56 @@
           <div>
             <div class="right-allign-fields">
               <%= f.label :pH, "pH" %>:
-              <%= f.number_field :pH, :class => 'text_field form-control', :step => 'any', :min => '0.00', :max => '14.0' %>
+              <%= f.number_field :pH, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :max => '14.0' %>
             </div>
           </div>
 
           <div>
             <div class="right-allign-fields">
               <%= f.label :condutividade, "Condutividade" %>:
-              <%= f.number_field :condutividade, :class => 'text_field form-control', :step => 'any' %>
+              <%= f.number_field :condutividade, :class => 'text_field form-control input-custom-size', :step => 'any' %>
             </div>
           </div>
 
           <div>
             <div class="right-allign-fields">
               <%= f.label :temperatura, "Temperatura (ºC)" %>:
-              <%= f.number_field :temperatura, :class => 'text_field form-control', :step => 'any' %>
+              <%= f.number_field :temperatura, :class => 'text_field form-control input-custom-size', :step => 'any' %>
             </div>
           </div>
 
           <div>
             <div class="right-allign-fields">
               <%= f.label :nivelDeOxigenio, "Nível De Oxigenio (mg/L)" %>:
-              <%= f.number_field :nivelDeOxigenio, :class => 'text_field form-control', :step => 'any' %>
+              <%= f.number_field :nivelDeOxigenio, :class => 'text_field form-control input-custom-size', :step => 'any' %>
             </div>
           </div>
 
           <div>
             <div class="right-allign-fields">
               <%= f.label :percentagemDeOxigenio, "Percentagem De Oxigenio" %>:
-              <%= f.number_field :percentagemDeOxigenio, :class => 'text_field form-control', :step => 'any', :min => '0', :max => '100' %>
+              <%= f.number_field :percentagemDeOxigenio, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0', :max => '100' %>
             </div>
           </div>
 
           <div>
             <div class="right-allign-fields">
               <%= f.label :nitratos, "Nitratos" %>:
-              <%= f.number_field :nitratos, :class => 'text_field form-control', :step => 'any' %>
+              <%= f.number_field :nitratos, :class => 'text_field form-control input-custom-size', :step => 'any' %>
             </div>
           </div>
 
           <div>
             <div class="right-allign-fields">
               <%= f.label :nitritos, "Nitritos" %>:
-              <%= f.number_field :nitritos, :class => 'text_field form-control', :step => 'any' %>
+              <%= f.number_field :nitritos, :class => 'text_field form-control input-custom-size', :step => 'any' %>
             </div>
           </div>
 
           <div>
             <div class="right-allign-fields">
               <%= f.label :transparencia, "Transparência (I-IV)" %>:
-              <%= f.number_field :transparencia, :class => 'text_field form-control', :min => '1', :max => '4', :step => '1' %>
+              <%= f.number_field :transparencia, :class => 'text_field form-control input-custom-size', :min => '1', :max => '4', :step => '1' %>
             </div>
           </div>
         </div>
