@@ -73,4 +73,25 @@ public class Form_functions {
         return al;
 
     };
+
+
+    public static int getRadioButtonOption(ArrayList<RadioButton> arrayList){
+        for (int i=0;i<arrayList.size();i++){
+            if (arrayList.get(i).isChecked()){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static ArrayList<Boolean> getCheckboxes(ArrayList<CheckBox> arrayList){
+        ArrayList<Boolean> al = new ArrayList<Boolean>();
+        for (int i=0;i<arrayList.size();i++){
+            if(arrayList.get(i).isChecked())
+                al.add(true);
+            else
+                al.add(false);
+        }
+        return al;
+    }
 }

@@ -26,11 +26,11 @@
         android:background="@color/colorPrimary"
         android:textColor="@color/white"
         android:layout_marginTop="34dp"
+        android:layout_marginLeft="53dp"
+        android:layout_marginStart="66dp"
         android:layout_below="@+id/title"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="41dp"
-        android:layout_marginStart="41dp" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="150dp"
@@ -39,11 +39,11 @@
         android:id="@+id/button_rotas"
         android:background="@color/colorPrimary"
         android:textColor="@color/white"
+        android:layout_marginRight="53dp"
+        android:layout_marginEnd="53dp"
         android:layout_alignTop="@+id/button_avaliacoes"
-        android:layout_toRightOf="@+id/title"
-        android:layout_toEndOf="@+id/title"
-        android:layout_marginLeft="47dp"
-        android:layout_marginStart="47dp" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="150dp"
@@ -69,5 +69,18 @@
         android:layout_alignTop="@+id/button_irr_form"
         android:layout_alignLeft="@+id/button_rotas"
         android:layout_alignStart="@+id/button_rotas" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contactos"
+        android:id="@+id/contacts_button"
+        android:layout_marginBottom="83dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@null"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:onClick="about"/>
 
 </RelativeLayout>

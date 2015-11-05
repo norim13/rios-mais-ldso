@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+
 import engenheiro.rios.GuardaRios;
 import engenheiro.rios.Login;
 import engenheiro.rios.R;
@@ -25,10 +27,15 @@ public class IRR_1_3 extends AppCompatActivity {
     protected EditText mS;
     protected EditText mC;
 
+    protected ArrayList<Object> answers;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        answers= (ArrayList<Object>) getIntent().getSerializableExtra("response");
+
         setContentView(R.layout.activity_irr_1_3);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Novo Formulario");
@@ -99,7 +106,47 @@ public class IRR_1_3 extends AppCompatActivity {
 
 
     public void goto_next(View view){
-        startActivity(new Intent(this, IRR_1_4.class));
+
+        boolean error=false;
+
+        if(mL.getText().length()==0)
+        {
+            mL.setError("Preencha o campo");
+            error=true;
+        }
+        if(mP.getText().length()==0)
+        {
+            mP.setError("Preencha o campo");
+            error=true;
+        }
+        if(mV.getText().length()==0)
+        {
+            mV.setError("Preencha o campo");
+            error=true;
+        }
+        if (error)
+        {
+            return;
+        }
+        Intent i=new Intent(this, IRR_1_4.class);
+        ArrayList<Float> a=new ArrayList<Float>();
+
+        a.add(Float.parseFloat(mL.getText().toString()));
+
+        Float v1=Float.parseFloat(mL.getText().toString());
+        Float v2=Float.parseFloat(mP.getText().toString());
+        Float v3=Float.parseFloat(mV.getText().toString());
+        Float v4=v1*v2;
+        Float v5=v4*v3;
+        a.add(v1);
+        a.add(v2);
+        a.add(v3);
+        a.add(v4);
+        a.add(v5);
+
+        answers.add(a);
+        i.putExtra("response",answers);
+        startActivity(i);
         this.overridePendingTransition(0, 0);
 
     }
