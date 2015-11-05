@@ -26,7 +26,12 @@ footer {
     margin-right: auto;
 }
 
-
+.center-div{
+    display: table;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .separate{
     margin-bottom: 70px;
