@@ -22,18 +22,21 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/EmailRegisterEditText"
-        android:hint="Email"
-        android:layout_below="@+id/UserNameRegisterEditText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+    <AutoCompleteTextView
+     android:maxLines="1"
+        android:singleLine="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:inputType="textEmailAddress"
+    android:ems="10"
+    android:id="@+id/EmailRegisterEditText"
+    android:hint="Email"
+    android:layout_below="@+id/UserNameRegisterEditText"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true" />
+
 
     <EditText
         android:layout_width="wrap_content"
@@ -48,15 +51,29 @@
         android:layout_alignRight="@+id/EmailRegisterEditText"
         android:layout_alignEnd="@+id/EmailRegisterEditText" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/PasswordConfirmRegisterEditText"
+        android:layout_below="@+id/PasswordRegisterEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/PasswordRegisterEditText"
+        android:layout_alignEnd="@+id/PasswordRegisterEditText"
+        android:hint="Confirmar Password" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Registar"
         android:id="@+id/RegisterButton"
-        android:layout_below="@+id/PasswordRegisterEditText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:onClick="register"
+        android:layout_below="@+id/PasswordConfirmRegisterEditText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="register"/>
+        android:layout_alignRight="@+id/PasswordConfirmRegisterEditText"
+        android:layout_alignEnd="@+id/PasswordConfirmRegisterEditText" />
+
 </RelativeLayout>
