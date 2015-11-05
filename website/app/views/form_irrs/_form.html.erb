@@ -766,7 +766,7 @@
             <%= f.label :anfibiosAutoctones, 'Anfíbios autoctones' %>: </br>
 
             <% var_labels = ['salamandraLusitanica','salamandraPintasAmarelas','tritaoVentreLaranja','raIberica','raVerde','sapoComum'];
-               labels = ['Salamandra-lusitânica (Chioglossa lusitanica)','Salamandra-de-pintas-amarelas (Salamandra salamandra)','Tritão-ventre-laranja (Lissotriton boscai)','Rã-ibérica (Rana ibérica)','Rã-verde (Rana perezi)','Sapo-comum (Bufo bufo)']; %>
+               labels = ['Salamandra-lusitânica (<i>Chioglossa lusitanica</i>)','Salamandra-de-pintas-amarelas (<i>Salamandra salamandra</i>)','Tritão-ventre-laranja (<i>Lissotriton boscai</i>)','Rã-ibérica (<i>Rana ibérica</i>)','Rã-verde (<i>Rana perezi</i>)','Sapo-comum (<i>Bufo bufo</i>)']; %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
@@ -777,7 +777,7 @@
                           <%label = var_labels[i]; %>
                           <div class="checkbox">
                             <%= f.check_box label %>
-                            <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
+                            <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
                             <% imglabel = "corredorecologico/anfibios/#{var_labels[i]}.png"; %>
                             <div class="photo-path"><%=imglabel%></div>
                             <p></p>
@@ -794,7 +794,7 @@
             <%= f.label :repteisAutoctones, 'Répteis autoctones' %>: </br>
 
             <% var_labels = ['lagartoDeAgua','cobraAguaDeColar','cagado'];
-               labels = ['Lagarto-de-água (Lacerta schreiberi)','Cobra-de-água-de-colar (Natrix natrix)','Cágado (Mauremys leprosa)']; %>
+               labels = ['Lagarto-de-água (<i>Lacerta schreiberi</i>)','Cobra-de-água-de-colar (<i>Natrix natrix</i>)','Cágado (<i>Mauremys leprosa</i>)']; %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
@@ -805,7 +805,7 @@
                           <%label = var_labels[i]; %>
                           <div class="checkbox">
                             <%= f.check_box label %>
-                            <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
+                            <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
                             <% imglabel = "corredorecologico/repteis/#{var_labels[i]}.png"; %>
                             <div class="photo-path"><%=imglabel%></div>
                           </div>
@@ -828,7 +828,7 @@
             <%= f.label :avesautoctones, 'Aves autoctones' %>: </br>
 
             <% var_labels = ['guardaRios','garcaReal','melroDeAgua','galinhaDeAgua','patoReal','tentilhaoComum','chapimReal'];
-               labels = ['Guarda-rios (Alcedo atthis)','Garça-real (Ardea cinerea)','Melro-de-água (Cinclus cinclus)','Galinha-de-água (Gallinula chloropus)','Pato-real (Anas platyrhynchos)','Tentilhão-comum (Fringilla coelebs)','Chapim-real (Parus major)']; %>
+               labels = ['Guarda-rios (<i>Alcedo atthis</i>)','Garça-real (<i>Ardea cinerea</i>)','Melro-de-água (<i>Cinclus cinclus</i>)','Galinha-de-água (<i>Gallinula chloropus</i>)','Pato-real (<i>Anas platyrhynchos</i>)','Tentilhão-comum (<i>Fringilla coelebs</i>)','Chapim-real (<i>Parus major</i>)']; %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
@@ -839,7 +839,7 @@
                           <%label = var_labels[i]; %>
                           <div class="checkbox">
                             <%= f.check_box label %>
-                            <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
+                            <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
                             <% imglabel = "corredorecologico/aves/#{var_labels[i]}.png"; %>
                             <div class="photo-path"><%=imglabel%></div>
                           </div>
@@ -862,7 +862,7 @@
             <%= f.label :mamiferosautoctones, 'Mamíferos autoctones' %>: </br>
 
             <% var_labels = ['lontras','morcegosDeAgua','toupeiraDaAgua','ratoDeAgua','ouricoCacheiro','armilho'];
-               labels = ['Lontras (Lutra lutra)','Morcegos-de-água (Myotis daubentonii)','Toupeira da água (Galemys pyrenaicus)','Rato-de-água (Arvicola sapidus)','Ouriço cacheiro (Erinaceus europaeus)','Arminho (Mustela Erminea)']; %>
+               labels = ['Lontras (<i>Lutra lutra</i>)','Morcegos-de-água (<i>Myotis daubentonii</i>)','Toupeira da água (<i>Galemys pyrenaicus</i>)','Rato-de-água (<i>Arvicola sapidus</i>)','Ouriço cacheiro (<i>Erinaceus europaeus</i>)','Arminho (<i>Mustela Erminea</i>)']; %>
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="container-fluid">
@@ -872,7 +872,7 @@
                           <%label = var_labels[i]; %>
                           <div class="checkbox">
                             <%= f.check_box label %>
-                            <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
+                            <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
                             <% imglabel = "corredorecologico/mamiferos/#{var_labels[i]}.png"; %>
                             <div class="photo-path"><%=imglabel%></div>
                           </div>
@@ -894,7 +894,7 @@
             <%= f.label :peixesautoctones, 'Peixes autoctones' %>: </br>
 
             <% var_labels = ['enguia','lampreia','salmao','truta','bogaPortuguesa','bogaDoNorte'];
-               labels = ['Enguia (Anguilla anguilla)','Lampreia (Lampetra fluiatilis)','Salmão (Salmo salar)','Truta (Salmo trutta fario)','Boga-portuguesa (Iberochondrostoma lusitanicum)','Boga-do-norte (Chondrostoma duriense)']; %>
+               labels = ['Enguia (<i>Anguilla anguilla</i>)','Lampreia (<i>Lampetra fluiatilis</i>)','Salmão (<i>Salmo salar</i>)','Truta (<i>Salmo trutta fario</i>)','Boga-portuguesa (<i>Iberochondrostoma lusitanicum</i>)','Boga-do-norte (<i>Chondrostoma duriense</i>)']; %>
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="container-fluid">
@@ -904,7 +904,7 @@
                           <%label = var_labels[i]; %>
                           <div class="checkbox">
                             <%= f.check_box label %>
-                            <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
+                            <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
                             <% imglabel = "corredorecologico/peixes/#{var_labels[i]}.png"; %>
                             <div class="photo-path"><%=imglabel%></div>
                           </div>
@@ -926,7 +926,7 @@
             <%= f.label :faunaexotica, "Fauna exótica" %>: </br>
 
             <% var_labels = ['percaSol','tartarugaDaFlorida','caranguejoPeludoChines','gambusia','mustelaVison','lagostimVermelho','trutaArcoIris','achiga'];
-               labels = ['Perca-sol (Lepomis gibbosus)','Tartaruga da Florida (Trachemys scripta)','Caranguejo-peludo-chinês (Eriocheir sinensis)','Gambúsia (Gambusia holbrooki)','Mustela vison','Lagostim vermelho (Procambarus clarkii)','Truta-arco-íris (Oncorhynchus mykiss)','Achigã (Micropterus salmoides)']; %>
+               labels = ['Perca-sol (<i>Lepomis gibbosus</i>)','Tartaruga da Florida (<i>Trachemys scripta</i>)','Caranguejo-peludo-chinês (<i>Eriocheir sinensis</i>)','Gambúsia (<i>Gambusia holbrooki</i>)','Mustela vison','Lagostim vermelho (<i>Procambarus clarkii</i>)','Truta-arco-íris (<i>Oncorhynchus mykiss</i>)','Achigã (<i>Micropterus salmoides</i>)']; %>
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="container-fluid">
@@ -936,7 +936,7 @@
                           <%label = var_labels[i]; %>
                           <div class="checkbox">
                             <%= f.check_box label %>
-                            <%= f.label label, labels[i] %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
+                            <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%>"" class="question-mark glyphicon glyphicon-question-sign"></span>
                             <% imglabel = "corredorecologico/faunaexotica/#{var_labels[i]}.png"; %>
                             <div class="photo-path"><%=imglabel%></div>
                           </div>
