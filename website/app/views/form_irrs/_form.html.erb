@@ -2,7 +2,7 @@
 
 
 <div class="container">
-	<%= form_for @form_irr, :html => {:role => "form"}  do |f| %>
+	<%= form_for @form_irr, :html => {:role => "form", :class => @is_show}  do |f| %>
 
 	<% if @form_irr.errors.any? %>
 	<div id="error_explanation">

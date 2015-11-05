@@ -9,12 +9,16 @@ class FormIrrsController < ApplicationController
 
   def new
     @form_irr = FormIrr.new
+    @is_show = ''
   end
 
   def show
     @form_irr = FormIrr.find(params[:id])
+
     if @form_irr.user_id != current_user.id
       render 'noaccess'
+    else
+      @is_show = 'form-disabled'
     end
   end
 
@@ -22,6 +26,8 @@ class FormIrrsController < ApplicationController
     @form_irr = FormIrr.find(params[:id])
     if @form_irr.user_id != current_user.id
       render 'noaccess'
+    else
+      @is_show = ''
     end
   end
 

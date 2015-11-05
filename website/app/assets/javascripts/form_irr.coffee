@@ -3,5 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  $('#myModal').modal();
+  $('#myModal').modal({show: false});
   console.log("GGGG");
+  $(".form-disabled input").prop("disabled", true);
+  $(".form-disabled select").prop("disabled", true);
