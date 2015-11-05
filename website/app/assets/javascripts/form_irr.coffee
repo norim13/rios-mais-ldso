@@ -16,8 +16,6 @@ $ ->
 	$('#form_irr_seccao').change(calculateCauldal);
 
 
-
-
 `function calculateSeccao() {
 	if(!isNaN($('#form_irr_larguraDaSuperficieDaAgua').val()) &&
 		!isNaN($('#form_irr_profundidadeMedia').val())) {
