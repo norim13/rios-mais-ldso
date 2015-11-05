@@ -1,33 +1,34 @@
 <%= render 'common/header' %>
 </head>
 <body>
-  <%= render 'common/navbar' %>
+<%= render 'common/navbar' %>
 
-  <div class="container">
-    <h1>Listing Forms </h1>
+<div class="container">
+  <h1>Meus formulários</h1>
 
-    <table border="1">
+  <div class="table-responsive">
+    <table class="table">
       <tr>
         <th>Id</th>
-        <th>Tipo de vale</th>
-        <th>Created at</th>
-        <th>Created at</th>
-        <th>Show</th>
-        <th>Edit</th>
+        <th>Rio</th>
+        <th>Criado em</th>
+        <th>Editado em</th>
+        <th>Ver</th>
+        <th>Editar</th>
       </tr>
 
       <% @form_irrs.each do |form_irr| %>
-      <tr>
-        <td><%= form_irr.id %></td>
-        <td><%= form_irr.tipoDeVale %></td>
-        <td><%= form_irr.created_at %></td>
-        <td><%= form_irr.updated_at %></td>
-        <td><%= link_to 'Show', form_irr_path(form_irr) %></td>
-        <td><%= link_to 'Edit', edit_form_irr_path(form_irr) %></td>
-      </tr>
+          <tr>
+            <td><%= form_irr.id %></td>
+            <td>Nome do rio</td>
+            <td><%= form_irr.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
+            <td><%= form_irr.updated_at.strftime("%d/%m/%Y - %H:%M") %></td>
+            <td><%= link_to 'Ver', form_irr_path(form_irr) %></td>
+            <td><%= link_to 'Editar', edit_form_irr_path(form_irr) %></td>
+          </tr>
       <% end %>
     </table>
-
   </div>
+</div>
 
-  <%= render 'common/footer' %>
+<%= render 'common/footer' %>
