@@ -3,17 +3,17 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  $('#modal-photo').modal({show: false});
-  $(".form-disabled input").prop("disabled", true);
-  $(".form-disabled select").prop("disabled", true);
+	$('#modal-photo').modal({show: false});
+	$(".form-disabled input").prop("disabled", true);
+	$(".form-disabled select").prop("disabled", true);
 
-  $(".question-mark").click(showImageInModal);
+	$(".question-mark").click(showImageInModal);
 
-  $('#form_irr_larguraDaSuperficieDaAgua').change(calculateSeccao);
-  $('#form_irr_profundidadeMedia').change(calculateSeccao);
+	$('#form_irr_larguraDaSuperficieDaAgua').change(calculateSeccao);
+	$('#form_irr_profundidadeMedia').change(calculateSeccao);
 
-  $('#form_irr_velocidadeMedia').change(calculateCauldal);
-  $('#form_irr_seccao').change(calculateCauldal);
+	$('#form_irr_velocidadeMedia').change(calculateCauldal);
+	$('#form_irr_seccao').change(calculateCauldal);
 
 
 `function calculateSeccao() {
@@ -55,5 +55,16 @@ $('.btnNext').click(function(){
 $('.btnPrevious').click(function(){
     $('.nav-tabs > .active').prev('li').find('a').trigger('click');
     $('html,body').animate({scrollTop: 0});
+});
+
+$('.tab-pane input, .tab-pane select, .tab-pane textarea').on('invalid', function(){
+
+    // Find the tab-pane that this element is inside, and get the id
+    var $closest = $(this).closest('.tab-pane');
+    var id = $closest.attr('id');
+
+    // Find the link that corresponds to the pane and have it show
+    $('.nav a[href="#' + id + '"]').tab('show');
+
 });
 `

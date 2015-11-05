@@ -9,4 +9,14 @@ class FormIrr < ActiveRecord::Base
 	          :patrimonio_edificiosPublicos,:patrimonio_ETA,:patrimonio_descarregadoresDeAguasPluviais,:patrimonio_coletoresSaneamento,
 	          :patrimonio_defletoresArtificiais,:patrimonio_motaLateral,:conservacaoBosqueRibeirinho,:obstrucaoDoLeitoMargens,
 	          :disponibilizacaoDeInformacao,:envolvimentoPublico,:acao,:legislacao,:estrategia,:gestaoDasIntervencoes,presence: true
+
+	validates :pH, :inclusion => 1..14
+	validates :condutividade, :inclusion => 50..1500
+	validates :temperatura, :inclusion => 0..40
+	validates :nivelDeOxigenio, :inclusion => 0..15
+	validates :percentagemDeOxigenio, :inclusion => 0..200
+	validates :nitratos, :inclusion => 0..80
+	validates :nitritos, :inclusion => 0..4
+	validates :transparencia, :inclusion => 1..4
+
 end
