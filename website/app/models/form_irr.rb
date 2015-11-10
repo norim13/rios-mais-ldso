@@ -1,6 +1,6 @@
 class FormIrr < ActiveRecord::Base
 	belongs_to :user
-	validates :tipoDeVale,:perfilDeMargens,:larguraDaSuperficieDaAgua,:profundidadeMedia,:seccao,:velocidadeMedia,:caudal,
+	validates :margem,:tipoDeVale,:perfilDeMargens,:larguraDaSuperficieDaAgua,:profundidadeMedia,:seccao,:velocidadeMedia,:caudal,
 	          :pH,:condutividade,:temperatura,:nivelDeOxigenio,:percentagemDeOxigenio,:nitratos,:nitritos,:transparencia,
 	          :corDaAgua,:odorDaAgua,:patrimonio_moinho,:patrimonio_acude,:patrimonio_microAcude1,:patrimonio_microAcude2,
 	          :patrimonio_barragem,:patrimonio_levadas,:patrimonio_pesqueiras,:patrimonio_escadasDePeixe,:patrimonio_poldras,
@@ -18,5 +18,5 @@ class FormIrr < ActiveRecord::Base
 	validates :nitratos, :inclusion => 0..80
 	validates :nitritos, :inclusion => 0..4
 	validates :transparencia, :inclusion => 1..4
-
+	validates :margem, :inclusion => 1..2 #1- esquerda, 2- direita
 end

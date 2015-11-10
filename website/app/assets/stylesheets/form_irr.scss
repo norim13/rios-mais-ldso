@@ -1,6 +1,7 @@
 // Place all the styles related to the formIRR controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$mainblue: #2196F3;
 
 .image-options {
     //background-color: green;
@@ -37,5 +38,16 @@
 
 
 input[type=number].input-custom-size{
-  width: 140px;
+    width: 140px;
+}
+
+.input-img-radio-container input[type="radio"]:checked ~ .img-label {
+    border: 1.5px solid $mainblue;
+    -moz-box-shadow: 0 0 3px black;
+    -webkit-box-shadow: 0 0 3px black;
+    box-shadow: 0 0 3px black;
+}
+
+.input-img-radio-container input[type="radio"]{
+    display: none;
 }

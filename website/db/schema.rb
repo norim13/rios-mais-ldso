@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151104151134) do
+ActiveRecord::Schema.define(version: 20151110002655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,7 +91,6 @@ ActiveRecord::Schema.define(version: 20151104151134) do
     t.boolean  "intervencoes_esporoes"
     t.boolean  "intervencoes_paredoes"
     t.boolean  "intervencoes_tecnicasDeEngenhariaNatural"
-    t.boolean  "intervencoes_outras"
     t.boolean  "ocupacao_florestaNatural"
     t.boolean  "ocupacao_florestaPlantadas"
     t.boolean  "ocupacao_matoAlto"
@@ -137,7 +136,6 @@ ActiveRecord::Schema.define(version: 20151104151134) do
     t.boolean  "lagartoDeAgua"
     t.boolean  "cobraAguaDeColar"
     t.boolean  "cagado"
-    t.boolean  "repteis_outro"
     t.boolean  "guardaRios"
     t.boolean  "garcaReal"
     t.boolean  "melroDeAgua"
@@ -145,21 +143,18 @@ ActiveRecord::Schema.define(version: 20151104151134) do
     t.boolean  "patoReal"
     t.boolean  "tentilhaoComum"
     t.boolean  "chapimReal"
-    t.boolean  "aves_outro"
     t.boolean  "lontras"
     t.boolean  "morcegosDeAgua"
     t.boolean  "toupeiraDaAgua"
     t.boolean  "ratoDeAgua"
     t.boolean  "ouricoCacheiro"
     t.boolean  "armilho"
-    t.boolean  "mamiferos_outro"
     t.boolean  "enguia"
     t.boolean  "lampreia"
     t.boolean  "salmao"
     t.boolean  "truta"
     t.boolean  "bogaPortuguesa"
     t.boolean  "bogaDoNorte"
-    t.boolean  "peixes_outro"
     t.boolean  "percaSol"
     t.boolean  "tartarugaDaFlorida"
     t.boolean  "caranguejoPeludoChines"
@@ -168,7 +163,6 @@ ActiveRecord::Schema.define(version: 20151104151134) do
     t.boolean  "lagostimVermelho"
     t.boolean  "trutaArcoIris"
     t.boolean  "achiga"
-    t.boolean  "fauna_outro"
     t.boolean  "salgueiral"
     t.boolean  "amial"
     t.boolean  "freixal"
@@ -180,7 +174,6 @@ ActiveRecord::Schema.define(version: 20151104151134) do
     t.boolean  "carvalhal"
     t.boolean  "sobreiral"
     t.boolean  "azinhal"
-    t.boolean  "flora_outro"
     t.integer  "conservacaoBosqueRibeirinho"
     t.boolean  "silvas"
     t.boolean  "ervaDaFortuna"
@@ -188,7 +181,6 @@ ActiveRecord::Schema.define(version: 20151104151134) do
     t.boolean  "lentilhaDaAgua"
     t.boolean  "pinheirinha"
     t.boolean  "jacintoDeAgua"
-    t.boolean  "vegetacaoInvasora_outro"
     t.integer  "obstrucaoDoLeitoMargens"
     t.integer  "disponibilizacaoDeInformacao"
     t.integer  "envolvimentoPublico"
@@ -225,6 +217,15 @@ ActiveRecord::Schema.define(version: 20151104151134) do
     t.boolean  "poluicao_sacosDePlastico"
     t.boolean  "poluicao_latasMaterialFerroso"
     t.boolean  "poluicao_queimadas"
+    t.string   "intervencoes_outras"
+    t.string   "repteis_outro"
+    t.string   "aves_outro"
+    t.string   "mamiferos_outro"
+    t.string   "peixes_outro"
+    t.string   "fauna_outro"
+    t.string   "flora_outro"
+    t.string   "vegetacaoInvasora_outro"
+    t.integer  "margem"
   end
 
   add_index "form_irrs", ["user_id"], name: "index_form_irrs_on_user_id", using: :btree
@@ -244,8 +245,10 @@ ActiveRecord::Schema.define(version: 20151104151134) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.string   "authentication_token"
   end
 
+  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 

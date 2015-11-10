@@ -6,6 +6,7 @@ $ ->
 	$('#modal-photo').modal({show: false});
 	$(".form-disabled input").prop("disabled", true);
 	$(".form-disabled select").prop("disabled", true);
+	$(".form-disabled textarea").prop("disabled", true);
 
 	$(".question-mark").click(showImageInModal);
 

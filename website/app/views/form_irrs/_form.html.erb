@@ -2,15 +2,7 @@
 
 <div>
 
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#form_irr-hidrogeomorfologia" aria-controls="form_irr-hidrogeomorfologia" role="tab" data-toggle="tab">Hidrogeomorfologia</a></li>
-    <li role="presentation"><a href="#form_irr-qualidadedaagua" aria-controls="form_irr-qualidadedaagua" role="tab" data-toggle="tab">Qualidade da água</a></li>
-    <li role="presentation"><a href="#form_irr-alteracoesantropicas" aria-controls="form_irr-alteracoesantropicas" role="tab" data-toggle="tab">Alterações antrópicas</a></li>
-    <li role="presentation"><a href="#form_irr-corredorecologico" aria-controls="form_irr-corredorecologico" role="tab" data-toggle="tab">Corredor ecológico</a></li>
-    <li role="presentation"><a href="#form_irr-participacaopublica" aria-controls="form_irr-participacaopublica" role="tab" data-toggle="tab">Participação pública</a></li>
-    <li role="presentation"><a href="#form_irr-organizacaoeplaneamento" aria-controls="form_irr-organizacaoeplaneamento" role="tab" data-toggle="tab">Organização e planeamento</a></li>
-  </ul>
+
 
   <!-- Tab panes -->
   <div class="container">
@@ -29,42 +21,75 @@
             </div>
         <% end %>
 
+        <div class="rio-info form-inline">
+          <div class="row">
+            <div class="thumbnail">
+              <h2>Rio</h2>
+              <div class="form-group container">
+                <h4>Nome do rio:</h4>
+              </div>
+              <div class="form-group container">
+                <%= f.label :margem, 'Margem' %>:
+                <div class="radio">
+                  <%= f.radio_button :margem, "1", :required => true %>
+                  <%= f.label :margem_1, "Esquerda" %>
+                </div>
+                <div class="radio">
+                  <%= f.radio_button :margem, "2", :required => true %>
+                  <%= f.label :margem_2, "Direita" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#form_irr-hidrogeomorfologia" aria-controls="form_irr-hidrogeomorfologia" role="tab" data-toggle="tab">Hidrogeomorfologia</a></li>
+          <li role="presentation"><a href="#form_irr-qualidadedaagua" aria-controls="form_irr-qualidadedaagua" role="tab" data-toggle="tab">Qualidade da água</a></li>
+          <li role="presentation"><a href="#form_irr-alteracoesantropicas" aria-controls="form_irr-alteracoesantropicas" role="tab" data-toggle="tab">Alterações antrópicas</a></li>
+          <li role="presentation"><a href="#form_irr-corredorecologico" aria-controls="form_irr-corredorecologico" role="tab" data-toggle="tab">Corredor ecológico</a></li>
+          <li role="presentation"><a href="#form_irr-participacaopublica" aria-controls="form_irr-participacaopublica" role="tab" data-toggle="tab">Participação pública</a></li>
+          <li role="presentation"><a href="#form_irr-organizacaoeplaneamento" aria-controls="form_irr-organizacaoeplaneamento" role="tab" data-toggle="tab">Organização e planeamento</a></li>
+        </ul>
+
         <div role="tabpanel" class="tab-pane active" id="form_irr-hidrogeomorfologia">
           <h2> Hidrogeomorfologia </h2>
 
           <div class="form-group image-options container">
-             <div class="row">
+             <div class="row input-img-radio-container">
                <%= f.label :tipoDeVale, 'Tipo de Vale' %>: </br>
                <% imagens_tipo_vale = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png']; %>
                <% for i in 1..7
                label = "tipoDeVale_#{i}"; %>
                    <div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
                      <%= f.radio_button :tipoDeVale, "#{i}", :required => true %>
-                     <%= f.label label, image_tag("tipodevale/#{imagens_tipo_vale[i-1]}", :class => 'img-responsive') %>
+                     <%= f.label label, image_tag("tipodevale/#{imagens_tipo_vale[i-1]}", :class => 'img-responsive'), :class => 'img-label' %>
                    </div>
              <% end %>
 
             </div>
           </div>
 
-
 <div class="form-group image-options container">
- <div class="row">
+ <div class="row input-img-radio-container">
   <%= f.label :perfilDeMargens, 'Perfil de margens' %>: </br>
   <% imagens_perfil_margens = ['verticalescavado.png','verticalcortado.png','declivemaior45.png', 'declivemenor45.png', 'suavecomposto.png'];
   labels = ['Vertical escavado', 'Vertical cortado', 'Declive >45%', 'Declive <45%', 'Suave composto <45%', 'Artificial']; %>
   <% for i in 1..5
   label = "perfilDeMargens_#{i}"; %>
-  <div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
-   <%= f.radio_button :perfilDeMargens, "#{i}", :required => true %>
-   <%= f.label label, labels[i-1] %>
-   <%= f.label label, image_tag("perfildemargens/#{imagens_perfil_margens[i-1]}", :class => 'img-responsive') %>
- </div>
+       <div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
+         <%= f.radio_button :perfilDeMargens, "#{i}", :required => true, :class => "input-img-radio" %>
+         <div class="img-label">
+           <%= f.label label, labels[i-1] %>
+           <%= f.label label, image_tag("perfildemargens/#{imagens_perfil_margens[i-1]}", :class => 'img-responsive') %>
+         </div>
+       </div>
  <% end %>
 
- <div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
+ <div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12 img-label">
    <%= f.radio_button :perfilDeMargens, '6', :required => true %>
-   <%= f.label :perfilDeMargens_6, 'Artificial' %>
+   <%= f.label :perfilDeMargens_6, 'Artificial', :class => 'img-label' %>
  </div>			
 </div>
 </div>
@@ -651,14 +676,14 @@
           <div class="form-group">
             <%= f.label :intervencoes, 'Intervenções presentes' %>: </br>
 
-            <% var_labels = ['edificios','pontes','limpezasDasMargens','estabilizacaoDeMargens','modelacaoDeMargensNatural','modelacaoDeMargensArtificial','barragem','diques','rioCanalizado','rioEntubado','esporoes','paredoes','tecnicasDeEngenhariaNatural','outras'];
-               labels = ['Edifícios','Pontes','Limpeza das margens','Estabilização de margens','Modelação de margens natural','Modelação de margens artificial','Barragem','Diques','Rio canalizado','Rio entubado','Esporões','Paredões','Técnicas de engenharia natural','Outras']; %>
+            <% var_labels = ['edificios','pontes','limpezasDasMargens','estabilizacaoDeMargens','modelacaoDeMargensNatural','modelacaoDeMargensArtificial','barragem','diques','rioCanalizado','rioEntubado','esporoes','paredoes','tecnicasDeEngenhariaNatural'];
+               labels = ['Edifícios','Pontes','Limpeza das margens','Estabilização de margens','Modelação de margens natural','Modelação de margens artificial','Barragem','Diques','Rio canalizado','Rio entubado','Esporões','Paredões','Técnicas de engenharia natural']; %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="container-fluid">
                   <div class="row">
-                    <% for i in 0..13 %>
+                    <% for i in 0..12 %>
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = "intervencoes_#{var_labels[i]}"; %>
                           <div class="checkbox">
@@ -667,6 +692,12 @@
                           </div>
                         </div>
                     <% end %>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <div class="checkbox">
+                        <%= f.label :intervencoes_outras, 'Outras' %></br>
+                        <%= f.text_area :intervencoes_outras %>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -700,8 +731,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- TODO como inserir outras? -->
           </div>
 
 
@@ -718,7 +747,7 @@
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = "patrimonio_#{var_patrimonio[i-1]}"; %>
                           <div>
-                            <%= f.select label, [1,2,3,4,5], :required => true %>
+                            <%= f.select label, ['Nao',1,2,3,4,5], :required => true %>
                             <%= f.label label, labels[i-1] %>
                           </div>
                         </div>
@@ -727,9 +756,6 @@
                 </div>
               </div>
             </div>
-
-            <!--<h5> Embarcações </h5> dentro disto [barcos e cais] -->
-            <!-- FIM EMBARCAÇOES -->
           </div>
 
           <div class="form-group">
@@ -814,8 +840,8 @@
                     <% end %>
                     <div class="col-md-4 col-sm-6 col-xs-12">
                       <div class="checkbox">
-                        <%= f.check_box :repteis_outro %>
                         <%= f.label :repteis_outro, 'Outro' %>
+                        <%= f.text_area :repteis_outro %>
                       </div>
                     </div>
                   </div>
@@ -848,8 +874,8 @@
                     <% end %>
                     <div class="col-md-4 col-sm-6 col-xs-12">
                       <div class="checkbox">
-                        <%= f.check_box :aves_outro %>
                         <%= f.label :aves_outro, 'Outro' %>
+                        <%= f.text_area :aves_outro %>
                       </div>
                     </div>
                   </div>
@@ -881,8 +907,8 @@
                     <% end %>
                     <div class="col-md-4 col-sm-6 col-xs-12">
                       <div class="checkbox">
-                        <%= f.check_box :mamiferos_outro %>
                         <%= f.label :mamiferos_outro, 'Outro' %>
+                        <%= f.text_area :mamiferos_outro %>
                       </div>
                     </div>
                   </div>
@@ -913,8 +939,8 @@
                     <% end %>
                     <div class="col-md-4 col-sm-6 col-xs-12">
                       <div class="checkbox">
-                        <%= f.check_box :peixes_outro %>
                         <%= f.label :peixes_outro, 'Outro' %>
+                        <%= f.text_area :peixes_outro %>
                       </div>
                     </div>
                   </div>
@@ -945,8 +971,8 @@
                     <% end %>
                     <div class="col-md-4 col-sm-6 col-xs-12">
                       <div class="checkbox">
-                        <%= f.check_box :fauna_outro %>
                         <%= f.label :fauna_outro, 'Outro' %>
+                        <%= f.text_area :fauna_outro %>
                       </div>
                     </div>
                   </div>
@@ -958,13 +984,13 @@
           <div class="form-group">
             <%= f.label :flora, 'Flora' %>: </br>
 
-            <% var_labels = ['salgueiral','amial','freixal','choupal','ulmeiral','sanguinos','ladual','tramazeiras','carvalhal','sobreiral','azinhal','flora_outro'];
-               labels = ['Salgueiral (salgueiros)','Amial (amieiral)','Freixial (freixos)','Choupal (choupos)','Ulmeiral (ulmerios)','Sanguinhos (Sanguinhal)','Ladual (lódãos-bastardos)','Tramazeiras','Carvalhal (Carvalhos)','Sobreiral','Azinhal','Outro']; %>
+            <% var_labels = ['salgueiral','amial','freixal','choupal','ulmeiral','sanguinos','ladual','tramazeiras','carvalhal','sobreiral','azinhal'];
+               labels = ['Salgueiral (salgueiros)','Amial (amieiral)','Freixial (freixos)','Choupal (choupos)','Ulmeiral (ulmerios)','Sanguinhos (Sanguinhal)','Ladual (lódãos-bastardos)','Tramazeiras','Carvalhal (Carvalhos)','Sobreiral','Azinhal']; %>
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="container-fluid">
                   <div class="row">
-                    <% for i in 0..11 %>
+                    <% for i in 0..10 %>
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = var_labels[i]; %>
                           <div class="checkbox">
@@ -973,6 +999,12 @@
                           </div>
                         </div>
                     <% end %>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <div class="checkbox">
+                        <%= f.label :flora_outro, 'Outro' %>
+                        <%= f.text_area :flora_outro %>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1008,14 +1040,14 @@
           <div class="form-group">
             <%= f.label :vegetacaoInvasora, 'Espécies vegetação invasora' %>: </br>
 
-            <% var_vegetacaoInvasora = ['silvas','ervaDaFortuna', 'plumas','lentilhaDaAgua','pinheirinha','jacintoDeAgua','vegetacaoInvasora_outro'];
-               labels = ['Silvas','Erva-da-fortuna','Plumas','Lentilha da água','Pinheirinha','Jacinto de água','Outro']; %>
+            <% var_vegetacaoInvasora = ['silvas','ervaDaFortuna', 'plumas','lentilhaDaAgua','pinheirinha','jacintoDeAgua'];
+               labels = ['Silvas','Erva-da-fortuna','Plumas','Lentilha da água','Pinheirinha','Jacinto de água']; %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="container-fluid">
                   <div class="row">
-                    <% for i in 0..6 %>
+                    <% for i in 0..5 %>
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = var_vegetacaoInvasora[i]; %>
                           <div class="checkbox">
@@ -1024,6 +1056,12 @@
                           </div>
                         </div>
                     <% end %>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <div class="checkbox">
+                        <%= f.label :vegetacaoInvasora_outro, 'Outro' %>
+                        <%= f.text_area :vegetacaoInvasora_outro %>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

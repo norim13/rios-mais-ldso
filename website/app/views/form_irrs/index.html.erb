@@ -11,6 +11,7 @@
       <tr>
         <th>Id</th>
         <th>Rio</th>
+        <th>Margem</th>
         <th>Criado em</th>
         <th>Editado em</th>
         <th>Ver</th>
@@ -24,6 +25,12 @@
           <tr>
             <td><%= form_irr.id %></td>
             <td>Nome do rio</td>
+            <td><% if form_irr.margem == 1 %>
+                  Esquerda
+              <% else %>
+                  Direita
+              <% end %>
+            </td>
             <td><%= form_irr.created_at.in_time_zone(cur_timezone).strftime("%d/%m/%Y - %H:%M") %></td>
             <td><%= form_irr.updated_at.strftime("%d/%m/%Y - %H:%M") %></td>
             <td><%= link_to 'Ver', form_irr_path(form_irr) %></td>
