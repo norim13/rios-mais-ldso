@@ -34,7 +34,7 @@
     //List of layers 
         var lund = new OpenLayers.Layer.WMS(
             "Rios",
-            "http://localhost:10500/geoserver/rios/wms?",
+            "http://***REMOVED***:10500/geoserver/rios/wms?",
             {
                 //layers: "rios:AtAgua_Agsup_rios_AAmb_SNIRH_PC",
                 //layers: "rios:AtAgua_Agsup_zhidnetord5km2_PC",

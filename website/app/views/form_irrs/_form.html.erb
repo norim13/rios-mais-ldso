@@ -414,12 +414,11 @@
                 </div>
               </div>
             </div>
-
-            <!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
           </div>
 
           <div class="form-group image-options container">
             <h3>Tabela de Macroinvertebrados </h3>
+            <h4>Planárias</h4>
             <div class="container-fluid">
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
@@ -429,7 +428,14 @@
                     <div class="photo-path">macroinvertebrados/planaria.png</div>
                   </div>
                 </div>
+              </div>
+            </div>
 
+            <hr>
+
+            <h4>Hirudíneos</h4>
+            <div class="container-fluid">
+              <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
                     <%= f.check_box :hirudineos %>
@@ -441,7 +447,6 @@
             </div>
 
             <hr>
-
 
             <h4>Dípteros</h4>
 
@@ -470,14 +475,13 @@
                     <div class="photo-path">macroinvertebrados/quironomideos.png</div>
                   </div>
                 </div>
-
               </div>
             </div>
 
             <!-- FIM DIPTEROS -->
             <hr>
 
-            <h4>Gastrópodes (Mullusca)</h4>
+            <h4>Gastrópodes (<i>Mullusca</i>)</h4>
 
             <div class="container-fluid">
               <div class="row">
@@ -497,14 +501,7 @@
                     <div class="photo-path">macroinvertebrados/limnelideo.png</div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <!-- FIM GASTROPODES -->
-            <hr>
-
-            <div class="container-fluid">
-              <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
                     <%= f.check_box :bivalves %>
@@ -514,6 +511,8 @@
                 </div>
               </div>
             </div>
+
+            <!-- FIM GASTROPODES -->
             <hr>
 
             <h4>Coleóptero (escaravelho)</h4>
@@ -565,17 +564,23 @@
             <!-- FIM TRICHOPTERO -->
             <hr>
 
+            <h4>Odonata</h4>
             <div class="container-fluid">
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
                     <%= f.check_box :odonata %>
                     <%= f.label :odonata, 'Odonata (Larva de Libelinhas)' %> <span name="odonata" class="question-mark glyphicon glyphicon-question-sign"></span>
-                    <!-- TODO nao sei se larva de libelula e o mesmo que larva de libelinhas -->
                     <div class="photo-path">macroinvertebrados/larvadelibelula.png</div>
                   </div>
                 </div>
+              </div>
+            </div>
 
+            <hr>
+            <h4>Heterópteros</h4>
+            <div class="container-fluid">
+              <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
                     <%= f.check_box :heteropteros %>
@@ -583,7 +588,14 @@
                     <div class="photo-path">macroinvertebrados/heteropteros.png</div>
                   </div>
                 </div>
+              </div>
+            </div>
 
+            <hr>
+
+            <h4>Plecópteros</h4>
+            <div class="container-fluid">
+              <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
                     <%= f.check_box :plecopteros %>
@@ -593,11 +605,10 @@
                 </div>
               </div>
             </div>
+
             <hr>
 
-
             <h4> Efemerópteros (efémera) </h4>
-
             <div class="container-fluid">
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
@@ -620,7 +631,7 @@
             <!-- FIM EFEMERA -->
             <hr>
 
-
+            <h4>Crustáceos</h4>
             <div class="container-fluid">
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
@@ -630,7 +641,13 @@
                     <div class="photo-path">macroinvertebrados/crustaceos.png</div>
                   </div>
                 </div>
+              </div>
+            </div>
 
+            <hr>
+            <h4>Ácaros</h4>
+            <div class="container-fluid">
+              <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
                     <%= f.check_box :acaros %>
@@ -638,7 +655,13 @@
                     <div class="photo-path">macroinvertebrados/acaros.png</div>
                   </div>
                 </div>
+              </div>
+            </div>
 
+            <hr>
+            <h4>Pulga-de-água</h4>
+            <div class="container-fluid">
+              <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
                     <%= f.check_box :pulgaDeAgua %>
@@ -646,7 +669,13 @@
                     <div class="photo-path">macroinvertebrados/pulgadeagua.png</div>
                   </div>
                 </div>
+              </div>
+            </div>
 
+            <hr>
+            <h4>Insetos</h4>
+            <div class="container-fluid">
+              <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
                     <%= f.check_box :insetos %>
@@ -654,7 +683,13 @@
                     <div class="photo-path"></div>
                   </div>
                 </div>
+              </div>
+            </div>
 
+            <hr>
+            <h4>Mégalopteres</h4>
+            <div class="container-fluid">
+              <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
                     <%= f.check_box :megalopteres %>
@@ -664,10 +699,7 @@
                 </div>
               </div>
             </div>
-
-
           </div>
-          <!-- TODO por separador qd tem campos h4 -->
         </div>
 
         <div role="tabpanel" class="tab-pane" id="form_irr-alteracoesantropicas">

@@ -17,7 +17,10 @@ FORM IRR:
 	
 	
 PAPEL MAGICO:
-	- patrimonio edificado: adicionar opcao "NAO"
+	(done) patrimonio edificado: adicionar opcao "NAO"
+	(done) guardar info sobre a margem
+	(done) por titulo em cada grupo na tabela de invertebrados
+	(done) bivalves dentro do mullusca
 	
 	- macroinvertebrados: os que n tem categoria tem o mm titulo
 	
@@ -25,7 +28,5 @@ PAPEL MAGICO:
 	Admin valia e so depois e que conta
 	
 	- adicionar formulario id do user que editou por ultimo
-	
-	(done) guardar info sobre a margem
 	
 	- incluir fotos no IRR (optativa, max 7)
