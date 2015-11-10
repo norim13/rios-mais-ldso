@@ -16,6 +16,7 @@
         <th>Editado em</th>
         <th>Ver</th>
         <th>Editar</th>
+        <th>Apagar</th>
       </tr>
       <%
          t = Time.current
@@ -35,7 +36,7 @@
             <td><%= form_irr.updated_at.strftime("%d/%m/%Y - %H:%M") %></td>
             <td><%= link_to 'Ver', form_irr_path(form_irr) %></td>
             <td><%= link_to 'Editar', edit_form_irr_path(form_irr) %></td>
-            <td><%= cur_timezone %></td>
+            <td><%= link_to 'Apagar', form_irr_path(form_irr), method: :delete, data: {:confirm => "Tem a certeza que quer apagar o formulário?"} %></td>
           </tr>
       <% end %>
     </table>

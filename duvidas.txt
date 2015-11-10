@@ -21,8 +21,7 @@ PAPEL MAGICO:
 	(done) guardar info sobre a margem
 	(done) por titulo em cada grupo na tabela de invertebrados
 	(done) bivalves dentro do mullusca
-	
-	- macroinvertebrados: os que n tem categoria tem o mm titulo
+	(done) macroinvertebrados: os que n tem categoria tem o mm titulo
 	
 	- validacao do formulario antes do seu resultado : influenciar dados dos rios.
 	Admin valia e so depois e que conta

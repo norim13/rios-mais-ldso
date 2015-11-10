@@ -51,6 +51,13 @@ class FormIrrsController < ApplicationController
 		end
 	end
 
+	def destroy
+		@form_irr = FormIrr.find(params[:id])
+		@form_irr.destroy
+
+		redirect_to form_irrs_path
+	end
+
 	private
 	def form_irr_params
 		params.require(:form_irr).permit(:margem,:tipoDeVale,:perfilDeMargens,:larguraDaSuperficieDaAgua,:profundidadeMedia,:seccao,:velocidadeMedia,:caudal,:substratoDasMargens_soloArgiloso,:substratoDasMargens_arenoso,:substratoDasMargens_pedregoso,:substratoDasMargens_rochoso,
