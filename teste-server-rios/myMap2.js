@@ -34,17 +34,37 @@
     //List of layers 
         var lund = new OpenLayers.Layer.WMS(
             "Rios",
-            "http://***REMOVED***:10500/geoserver/rios/wms?",
+            "http://localhost:10500/geoserver/rios/wms?",
             {
-                //layers: "rios:AtAgua_Agsup_rios_AAmb_SNIRH_PC",
+                layers: "rios:AtAgua_Agsup_rios_AAmb_SNIRH_PC",
                 //layers: "rios:AtAgua_Agsup_zhidnetord5km2_PC",
-                layers: "rios:netElementL",
+                //layers: "rios:netElementL",
                 
                 transparent: "true",
                 format: "image/png"
             }
         );
         map.addLayer(lund);
+
+        info = new OpenLayers.Control.WMSGetFeatureInfo({
+            url: 'http://localhost:10500/geoserver/rios/wms?', 
+            title: 'Identify features by clicking',
+            queryVisible: true,
+            eventListeners: {
+                getfeatureinfo: function(event) {
+                    map.addPopup(new OpenLayers.Popup.FramedCloud(
+                        "chicken", 
+                        map.getLonLatFromPixel(event.xy),
+                        null,
+                        event.text,
+                        null,
+                        true
+                    ));
+                }
+            }
+        });
+        map.addControl(info);
+        info.activate();
 
         //?service=WMS&version=1.1.0&request=GetMap&layers=rios:AtAgua_Agsup_rios_AAmb_SNIRH_PC&styles=&bbox=-116041.26840000041,-294342.9310999997,162111.18240000028,275275.92229999974&width=375&height=768&srs=EPSG:3763&format=application/openlayers
        
