@@ -2,8 +2,6 @@
 
 <div>
 
-
-
   <!-- Tab panes -->
   <div class="container">
     <%= form_for @form_irr, :html => {:role => 'form', :class => "#{@is_show} tab-content"}  do |f| %>
@@ -217,11 +215,12 @@
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group" id="form_irr-erosao">
     <%= f.label :erosao, 'Erosão' %>:</br>
 
-    <% labels = ['Sem erosão','Formação de >3 regos','Formação de 1-3 regos','Queda de muros e árvores','Rombos com mais de 1 metro com queda de muros ou árvores']; %>
-    <% var_erosao = ['semErosao','formacaomais3','formacao1a3','quedamuros','rombos']; %>
+    <% labels = ['Sem erosão','Formação de >3 regos','Formação de 1-3 regos','Queda de muros e árvores','Rombos com mais de 1 metro com queda de muros ou árvores'] %>
+    <% var_erosao = ['semErosao','formacaomais3','formacao1a3','quedamuros','rombos'] %>
+    <% value_irr = [1,2,3,3,4] %>
 
     <div class="row">
       <div class="col-md-12 col-xs-12">
@@ -231,7 +230,7 @@
             <div class="col-md-4 col-sm-6 col-xs-12">
               <% label = "erosao_#{var_erosao[i-1]}"; %>
               <div class="checkbox">
-                <%= f.check_box label %>
+                <%= f.check_box label, :value_irr => value_irr[i-1] %>
                 <%= f.label label, labels[i-1] %>
               </div>
             </div>
@@ -242,11 +241,12 @@
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group" id="form_irr-sedimentacao">
     <%= f.label :sedimentacao, 'Sedimentação' %>:</br>
 
-    <% labels = ['Ausente','Demposição na margem em curva','Mouchões (deposição de areia no leito)','Ilhas sem vegetação','Ilhas com vegetação','Deposição nas margens (s/vegetação)','Deposição nas margens (c/vegetação)','Rochas expostas no leito']; %>
-    <% var_sedimentacao = ['ausente','decomposicao','mouchoes','ilhassemveg','ilhascomveg','deposicaosemveg','deposicaocomveg','rochas']; %>
+    <% labels = ['Ausente','Demposição na margem em curva','Mouchões (deposição de areia no leito)','Ilhas sem vegetação','Ilhas com vegetação','Deposição nas margens (s/vegetação)','Deposição nas margens (c/vegetação)','Rochas expostas no leito'] %>
+    <% var_sedimentacao = ['ausente','decomposicao','mouchoes','ilhassemveg','ilhascomveg','deposicaosemveg','deposicaocomveg','rochas'] %>
+    <% value_irr = [5,5,5,5,5,5,5,5] %>
 
     <div class="row">
       <div class="col-md-12 col-xs-12">
@@ -256,7 +256,7 @@
             <div class="col-md-4 col-sm-6 col-xs-12">
               <% label = "sedimentacao_#{var_sedimentacao[i-1]}"; %>
               <div class="checkbox">
-                <%= f.check_box label %>
+                <%= f.check_box label, :value_irr => value_irr[i-1]%>
                 <%= f.label label, labels[i-1] %>
               </div>
             </div>
@@ -336,11 +336,12 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-group" id="form_irr-indiciosnaagua">
             <h3> Indícios na água: </h3>
 
             <% labels = ['Óleo', 'Espuma','Esgostos','Impurezas','Sacos de plástico', 'Latas']
                label = ['oleo','espuma','esgotos','impurezas','sacosDePlastico','latas'] %>
+            <% value_irr = [5,4,3,2,2,3] %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
@@ -349,7 +350,7 @@
                     <% for i in 0..5 %>
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <div class="checkbox">
-                            <%= f.check_box label[i] %>
+                            <%= f.check_box label[i], :value_irr => value_irr[i-1]%>
                             <%= f.label label[i], labels[i] %>
                           </div>
                         </div>
@@ -366,10 +367,11 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-group" id="form_irr-cordaagua">
             <%= f.label :corDaAgua, 'Cor da água' %>:</br>
 
             <% labels = ['Transparente', 'Leitosa','Castanha','Verde-escura','Laranja','Cinzenta','Preta','Outra cor'] %>
+            <% value_irr = [1,4,1,4,5,5,5] %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
@@ -379,7 +381,7 @@
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = "corDaAgua_#{i}"; %>
                           <div class="radio">
-                            <%= f.radio_button :corDaAgua, i, :required => true %>
+                            <%= f.radio_button :corDaAgua, i, :required => true, :value_irr => value_irr[i-1] %>
                             <%= f.label label, labels[i-1] %>
                           </div>
                         </div>
@@ -388,14 +390,13 @@
                 </div>
               </div>
             </div>
-
-            <!-- TODO fazer aparecer com ajax uma textarea para escrever a cor ao clicar na radio button do outros -->
           </div>
 
-          <div class="form-group">
+          <div class="form-group" id="form_irr-odordaagua">
             <%= f.label :odorDaAgua, 'Odor (cheiro) da água' %>:</br>
 
             <% labels = ['Não tem odor', 'Cheiro a fresco','Cheiro a lama (Vasa)','Cheiro a esgoto','Cheiro químico (cloro)','Cheiro podre (ovos podres)','Outro odor'] %>
+            <% value_irr = [1,1,4,3,5,4] %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
@@ -405,7 +406,7 @@
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = "odorDaAgua_#{i}"; %>
                           <div class="radio">
-                            <%= f.radio_button :odorDaAgua, i, :required => true %>
+                            <%= f.radio_button :odorDaAgua, i, :required => true, :value_irr => value_irr[i-1] %>
                             <%= f.label label, labels[i-1] %>
                           </div>
                         </div>
@@ -416,14 +417,14 @@
             </div>
           </div>
 
-          <div class="form-group image-options container">
+          <div class="form-group image-options container" id="form_irr-macroinvertebrados">
             <h3>Tabela de Macroinvertebrados </h3>
             <h4>Planárias</h4>
             <div class="container-fluid">
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :planarias %>
+                    <%= f.check_box :planarias, :value_irr => 1 %>
                     <%= f.label :planarias, 'Planárias' %> <span name="planarias" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/planaria.png</div>
                   </div>
@@ -438,7 +439,7 @@
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :hirudineos %>
+                    <%= f.check_box :hirudineos, :value_irr => 5 %>
                     <%= f.label :hirudineos, 'Hirudíneos (Sanguessugas)' %> <span name="hirudineos" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/hirudineo.png</div>
                   </div>
@@ -454,7 +455,7 @@
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :oligoquetas %>
+                    <%= f.check_box :oligoquetas, :value_irr => 5 %>
                     <%= f.label :oligoquetas, 'Oligoquetas (minhocas)' %> <span name="oligoquetas" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/oligoquetas.png</div>
                   </div>
@@ -462,7 +463,7 @@
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :simulideos %>
+                    <%= f.check_box :simulideos, :value_irr => 2 %>
                     <%= f.label :simulideos , 'Simulideos' %> <span name="simulideos" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/simulideo.png</div>
                   </div>
@@ -470,7 +471,7 @@
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :quironomideos %>
+                    <%= f.check_box :quironomideos, :value_irr => 5 %>
                     <%= f.label :quironomideos, 'Quironomideos, Sirfídeos, Culidídeos, Tipulídeos (Larva de mosquitos)' %> <span name="quironomideos" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/quironomideos.png</div>
                   </div>
@@ -487,7 +488,7 @@
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :ancilideo %>
+                    <%= f.check_box :ancilideo, :value_irr => 2 %>
                     <%= f.label :ancilideo, 'Ancilídeo' %> <span name="ancilideo" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/ancilideo.png</div>
                   </div>
@@ -495,16 +496,15 @@
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :limnideo %>
+                    <%= f.check_box :limnideo, :value_irr => 4 %>
                     <%= f.label :limnideo, 'Limnídeo; Physa' %> <span name="limnideo" class="question-mark glyphicon glyphicon-question-sign"></span>
-                    <!-- TODO no excel tem limnideo mas no word tem Limnelídeo, qual e? -->
                     <div class="photo-path">macroinvertebrados/limnelideo.png</div>
                   </div>
                 </div>
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :bivalves %>
+                    <%= f.check_box :bivalves, :value_irr => 3 %>
                     <%= f.label :bivalves, 'Bivalves' %> <span name="bivalves" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/bivalves.png</div>
                   </div>
@@ -521,7 +521,7 @@
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :patasNadadoras %>
+                    <%= f.check_box :patasNadadoras, :value_irr => 3 %>
                     <%= f.label :patasNadadoras, 'Patas Nadadoras (Dystiscidae)' %> <span name="patasNadadoras" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/ditiscus.png</div>
                   </div>
@@ -529,7 +529,7 @@
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :pataLocomotoras %>
+                    <%= f.check_box :pataLocomotoras, :value_irr => 4 %>
                     <%= f.label :pataLocomotoras, 'Pata Locomotoras (Hydraena)' %>  <span name="pataLocomotoras" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/pataslocomotivas.png</div>
                   </div>
@@ -546,7 +546,7 @@
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :trichopteroS %>
+                    <%= f.check_box :trichopteroS, :value_irr => 3 %>
                     <%= f.label :trichopteroS, 'Trichóptero (mosca d’água) S/Casulo' %> <span name="trichopteroS" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/hidropsiquideo.png</div>
                   </div>
@@ -554,7 +554,7 @@
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :trichopteroC %>
+                    <%= f.check_box :trichopteroC, :value_irr => 2 %>
                     <%= f.label :trichopteroC, 'Trichóptero (mosca d’água) C/Casulo' %> <span name="trichopteroC" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/trichoptero.png</div>
                   </div>
@@ -569,7 +569,7 @@
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :odonata %>
+                    <%= f.check_box :odonata, :value_irr => 2 %>
                     <%= f.label :odonata, 'Odonata (Larva de Libelinhas)' %> <span name="odonata" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/larvadelibelula.png</div>
                   </div>
@@ -583,7 +583,7 @@
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :heteropteros %>
+                    <%= f.check_box :heteropteros, :value_irr => 3 %>
                     <%= f.label :heteropteros, 'Heterópteros' %> <span name="heteropteros" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/heteropteros.png</div>
                   </div>
@@ -598,7 +598,7 @@
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :plecopteros %>
+                    <%= f.check_box :plecopteros, :value_irr => 1 %>
                     <%= f.label :plecopteros, 'Plecópteros (mosca-de-pedra)' %> <span name="plecopteros" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/plecopteros.png</div>
                   </div>
@@ -613,7 +613,7 @@
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :baetideo %>
+                    <%= f.check_box :baetideo, :value_irr => 3 %>
                     <%= f.label :baetideo, 'Baetídeo' %> <span name="baetideo" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/baetideo.png</div>
                   </div>
@@ -621,7 +621,7 @@
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :cabecaPlanar %>
+                    <%= f.check_box :cabecaPlanar, :value_irr => 1 %>
                     <%= f.label :cabecaPlanar, 'Cabeça Planar (Ecdyonurus)' %> <span name="cabecaPlanar" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/cabecaplanar.png</div>
                   </div>
@@ -636,7 +636,7 @@
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :crustaceos %>
+                    <%= f.check_box :crustaceos, :value_irr => 3 %>
                     <%= f.label :crustaceos, 'Crustáceos' %> <span name="crustaceos" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/crustaceos.png</div>
                   </div>
@@ -650,7 +650,7 @@
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :acaros %>
+                    <%= f.check_box :acaros, :value_irr => 3 %>
                     <%= f.label :acaros, 'Ácaros' %> <span name="acaros" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/acaros.png</div>
                   </div>
@@ -664,7 +664,7 @@
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :pulgaDeAgua %>
+                    <%= f.check_box :pulgaDeAgua, :value_irr => 2 %>
                     <%= f.label :pulgaDeAgua, 'Pulga-de-água (Daphnia)' %> <span name="pulgaDeAgua" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/pulgadeagua.png</div>
                   </div>
@@ -692,7 +692,7 @@
               <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="checkbox">
-                    <%= f.check_box :megalopteres %>
+                    <%= f.check_box :megalopteres, :value_irr => 3 %>
                     <%= f.label :megalopteres, 'Mégalopteres' %> <span name="megalopteres" class="question-mark glyphicon glyphicon-question-sign"></span>
                     <div class="photo-path">macroinvertebrados/megalopteres.png</div>
                   </div>
@@ -705,11 +705,12 @@
         <div role="tabpanel" class="tab-pane" id="form_irr-alteracoesantropicas">
           <h2> Alterações antrópicas </h2>
 
-          <div class="form-group">
+          <div class="form-group" id="form_irr-intervencoes">
             <%= f.label :intervencoes, 'Intervenções presentes' %>: </br>
 
-            <% var_labels = ['edificios','pontes','limpezasDasMargens','estabilizacaoDeMargens','modelacaoDeMargensNatural','modelacaoDeMargensArtificial','barragem','diques','rioCanalizado','rioEntubado','esporoes','paredoes','tecnicasDeEngenhariaNatural'];
-               labels = ['Edifícios','Pontes','Limpeza das margens','Estabilização de margens','Modelação de margens natural','Modelação de margens artificial','Barragem','Diques','Rio canalizado','Rio entubado','Esporões','Paredões','Técnicas de engenharia natural']; %>
+            <% var_labels = ['edificios','pontes','limpezasDasMargens','estabilizacaoDeMargens','modelacaoDeMargensNatural','modelacaoDeMargensArtificial','barragem','diques','rioCanalizado','rioEntubado','esporoes','paredoes','tecnicasDeEngenhariaNatural']
+               labels = ['Edifícios','Pontes','Limpeza das margens','Estabilização de margens','Modelação de margens natural','Modelação de margens artificial','Barragem','Diques','Rio canalizado','Rio entubado','Esporões','Paredões','Técnicas de engenharia natural'] %>
+            <% value_irr = [2,2,2,1,1,4,5,3,5,5,4,3,1,3] %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
@@ -719,7 +720,7 @@
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = "intervencoes_#{var_labels[i]}"; %>
                           <div class="checkbox">
-                            <%= f.check_box label %>
+                            <%= f.check_box label, :value_irr => value_irr[i] %>
                             <%= f.label label, labels[i] %>
                           </div>
                         </div>
@@ -742,9 +743,9 @@
 
             <%= f.label :ocupacao, 'Ocupação das margens [<10 m]' %>: </br>
 
-            <% var_labels = ['florestaNatural','florestaPlantadas','matoAlto','matoRasteiro','pastagem','agricultura','espacoAbandonado','jardins','zonaEdificada','zonaIndustrial','ruas','entulho'];
-
-               labels = ['Zona natural com/sem intervenção (Floresta Natural)','Floresta/arvores plantadas','Mato alto (1-5 m)','Mato rasteiro <1m','Pastagem (pecuária)','Agricultura','Espaço abandonado (+ 3 anos)','Jardins ou espaços de lazer','Zona edificada (casas/edifícios)','Zona industrial','Vias de comunicação (ruas)','Entulho e zona degradada']; %>
+            <% var_labels = ['florestaNatural','florestaPlantadas','matoAlto','matoRasteiro','pastagem','agricultura','espacoAbandonado','jardins','zonaEdificada','zonaIndustrial','ruas','entulho']
+               labels = ['Zona natural com/sem intervenção (Floresta Natural)','Floresta/arvores plantadas','Mato alto (1-5 m)','Mato rasteiro <1m','Pastagem (pecuária)','Agricultura','Espaço abandonado (+ 3 anos)','Jardins ou espaços de lazer','Zona edificada (casas/edifícios)','Zona industrial','Vias de comunicação (ruas)','Entulho e zona degradada'] %>
+            <% value_irr = [1,1,3,2,3,3,3,2,4,5,3,5] %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
@@ -754,7 +755,7 @@
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = "ocupacao_#{var_labels[i]}"; %>
                           <div class="checkbox">
-                            <%= f.check_box label %>
+                            <%= f.check_box label, :value_irr => value_irr[i] %>
                             <%= f.label label, labels[i] %>
                           </div>
                         </div>
@@ -769,8 +770,9 @@
           <div class="form-group">
             <h3>Património edificado Leito/margem [estado de conservação: 1 - Bom a 5- Mau]</h3>
 
-            <% labels = ['Moinho/azenhas','Açude (> 2m)','Micro-açude (1m)','Micro-açude (1-2m)','Barragem (> 10m)','Levadas','Pesqueiras','Escadas de peixe','Poldras','Pontes/pontões sem pilar no canal','Pontes/pontões com pilar no canal','Passagem a vau','Barcos','Caís','Igreja, capela, santuário (< 100m)','Solares ou casas agrícolas (< 100m)','Núcleo habitacional (< 100m)','Edifícios particulares (< 100m)','Edifícios públicos (estatais) (< 100m)','ETA/ETAR/elevatórias','Descarregadores de águas pluviais','Coletores saneamento','Defletores artificiais','Mota lateral']; %>
-            <% var_patrimonio = ['moinho','acude','microAcude1','microAcude2','barragem','levadas','pesqueiras','escadasDePeixe','poldras','pontesSemPilar','pontesComPilar','passagemAVau','barcos','cais','igreja','solares','nucleoHabitacional','edificiosParticulares','edificiosPublicos','ETA','descarregadoresDeAguasPluviais','coletoresSaneamento','defletoresArtificiais','motaLateral']; %>
+            <% labels = ['Moinho/azenhas','Açude (> 2m)','Micro-açude (1m)','Micro-açude (1-2m)','Barragem (> 10m)','Levadas','Pesqueiras','Escadas de peixe','Poldras','Pontes/pontões sem pilar no canal','Pontes/pontões com pilar no canal','Passagem a vau','Barcos','Caís','Igreja, capela, santuário (< 100m)','Solares ou casas agrícolas (< 100m)','Núcleo habitacional (< 100m)','Edifícios particulares (< 100m)','Edifícios públicos (estatais) (< 100m)','ETA/ETAR/elevatórias','Descarregadores de águas pluviais','Coletores saneamento','Defletores artificiais','Mota lateral'] %>
+            <% var_patrimonio = ['moinho','acude','microAcude1','microAcude2','barragem','levadas','pesqueiras','escadasDePeixe','poldras','pontesSemPilar','pontesComPilar','passagemAVau','barcos','cais','igreja','solares','nucleoHabitacional','edificiosParticulares','edificiosPublicos','ETA','descarregadoresDeAguasPluviais','coletoresSaneamento','defletoresArtificiais','motaLateral'] %>
+            <% value_irr = [1,2,1,1,5,2,3,1,2,2,3,2,1,2,1,1,3,2,3,4,5,4,3,3] %>
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="container-fluid">
@@ -779,7 +781,7 @@
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = "patrimonio_#{var_patrimonio[i-1]}"; %>
                           <div>
-                            <%= f.select label, ['Nao',1,2,3,4,5], :required => true %>
+                            <%= f.select label, ['Nao',1,2,3,4,5], :required => true, :value_irr => value_irr[i-1] %>
                             <%= f.label label, labels[i-1] %>
                           </div>
                         </div>
@@ -793,8 +795,9 @@
           <div class="form-group">
             <h3>Poluição</h3>
 
-            <% labels = ['Descargas domésticas','Descargas ETAR','Descargas industriais','Descargas químicas','Descargas águas pluviais','Presença de criação animais','Lixeiras','Lixo doméstico','Entulho (restos de obras)','Monstros domésticos','Sacos de plástico','Latas e material ferroso','Queimadas']; %>
-            <% var_poluicao = ['descargasDomesticas','descargasETAR','descargasIndustriais','descargasQuimicas','descargasAguasPluviais','presencaCriacaoAnimais','lixeiras','lixoDomestico','entulho','monstrosDomesticos','sacosDePlastico','latasMaterialFerroso','queimadas']; %>
+            <% labels = ['Descargas domésticas','Descargas ETAR','Descargas industriais','Descargas químicas','Descargas águas pluviais','Presença de criação animais','Lixeiras','Lixo doméstico','Entulho (restos de obras)','Monstros domésticos','Sacos de plástico','Latas e material ferroso','Queimadas'] %>
+            <% var_poluicao = ['descargasDomesticas','descargasETAR','descargasIndustriais','descargasQuimicas','descargasAguasPluviais','presencaCriacaoAnimais','lixeiras','lixoDomestico','entulho','monstrosDomesticos','sacosDePlastico','latasMaterialFerroso','queimadas'] %>
+            <% value_irr = [2,3,5,5,2,4,4,3,3,5,3,4,3] %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
@@ -804,7 +807,7 @@
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = "poluicao_#{var_poluicao[i-1]}"; %>
                           <div class="checkbox">
-                            <%= f.check_box label %>
+                            <%= f.check_box label, :value_irr => value_irr[i-1] %>
                             <%= f.label label, labels[i-1] %>
                           </div>
                         </div>
@@ -824,8 +827,9 @@
           <div class="form-group">
             <%= f.label :anfibiosAutoctones, 'Anfíbios autoctones' %>: </br>
 
-            <% var_labels = ['salamandraLusitanica','salamandraPintasAmarelas','tritaoVentreLaranja','raIberica','raVerde','sapoComum'];
-               labels = ['Salamandra-lusitânica (<i>Chioglossa lusitanica</i>)','Salamandra-de-pintas-amarelas (<i>Salamandra salamandra</i>)','Tritão-ventre-laranja (<i>Lissotriton boscai</i>)','Rã-ibérica (<i>Rana ibérica</i>)','Rã-verde (<i>Rana perezi</i>)','Sapo-comum (<i>Bufo bufo</i>)']; %>
+            <% var_labels = ['salamandraLusitanica','salamandraPintasAmarelas','tritaoVentreLaranja','raIberica','raVerde','sapoComum']
+               labels = ['Salamandra-lusitânica (<i>Chioglossa lusitanica</i>)','Salamandra-de-pintas-amarelas (<i>Salamandra salamandra</i>)','Tritão-ventre-laranja (<i>Lissotriton boscai</i>)','Rã-ibérica (<i>Rana ibérica</i>)','Rã-verde (<i>Rana perezi</i>)','Sapo-comum (<i>Bufo bufo</i>)'] %>
+            <% value_irr = [1,1,1,1,1,1] %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
@@ -835,7 +839,7 @@
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = var_labels[i]; %>
                           <div class="checkbox">
-                            <%= f.check_box label %>
+                            <%= f.check_box label, :value_irr => value_irr[i] %>
                             <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%> class="question-mark glyphicon glyphicon-question-sign"></span>
                             <% imglabel = "corredorecologico/anfibios/#{var_labels[i]}.png"; %>
                             <div class="photo-path"><%=imglabel%></div>
@@ -852,8 +856,9 @@
           <div class="form-group">
             <%= f.label :repteisAutoctones, 'Répteis autoctones' %>: </br>
 
-            <% var_labels = ['lagartoDeAgua','cobraAguaDeColar','cagado'];
-               labels = ['Lagarto-de-água (<i>Lacerta schreiberi</i>)','Cobra-de-água-de-colar (<i>Natrix natrix</i>)','Cágado (<i>Mauremys leprosa</i>)']; %>
+            <% var_labels = ['lagartoDeAgua','cobraAguaDeColar','cagado']
+               labels = ['Lagarto-de-água (<i>Lacerta schreiberi</i>)','Cobra-de-água-de-colar (<i>Natrix natrix</i>)','Cágado (<i>Mauremys leprosa</i>)'] %>
+            <% value_irr = [1,1,3] %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
@@ -863,7 +868,7 @@
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = var_labels[i]; %>
                           <div class="checkbox">
-                            <%= f.check_box label %>
+                            <%= f.check_box label, :value_irr => value_irr[i] %>
                             <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%> class="question-mark glyphicon glyphicon-question-sign"></span>
                             <% imglabel = "corredorecologico/repteis/#{var_labels[i]}.png"; %>
                             <div class="photo-path"><%=imglabel%></div>
@@ -886,8 +891,9 @@
           <div class="form-group">
             <%= f.label :avesautoctones, 'Aves autoctones' %>: </br>
 
-            <% var_labels = ['guardaRios','garcaReal','melroDeAgua','galinhaDeAgua','patoReal','tentilhaoComum','chapimReal'];
-               labels = ['Guarda-rios (<i>Alcedo atthis</i>)','Garça-real (<i>Ardea cinerea</i>)','Melro-de-água (<i>Cinclus cinclus</i>)','Galinha-de-água (<i>Gallinula chloropus</i>)','Pato-real (<i>Anas platyrhynchos</i>)','Tentilhão-comum (<i>Fringilla coelebs</i>)','Chapim-real (<i>Parus major</i>)']; %>
+            <% var_labels = ['guardaRios','garcaReal','melroDeAgua','galinhaDeAgua','patoReal','tentilhaoComum','chapimReal']
+               labels = ['Guarda-rios (<i>Alcedo atthis</i>)','Garça-real (<i>Ardea cinerea</i>)','Melro-de-água (<i>Cinclus cinclus</i>)','Galinha-de-água (<i>Gallinula chloropus</i>)','Pato-real (<i>Anas platyrhynchos</i>)','Tentilhão-comum (<i>Fringilla coelebs</i>)','Chapim-real (<i>Parus major</i>)'] %>
+            <% value_irr = [1,1,1,1,2,1,1] %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
@@ -897,7 +903,7 @@
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = var_labels[i]; %>
                           <div class="checkbox">
-                            <%= f.check_box label %>
+                            <%= f.check_box label, :value_irr => value_irr[i] %>
                             <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%> class="question-mark glyphicon glyphicon-question-sign"></span>
                             <% imglabel = "corredorecologico/aves/#{var_labels[i]}.png"; %>
                             <div class="photo-path"><%=imglabel%></div>
@@ -920,8 +926,10 @@
           <div class="form-group">
             <%= f.label :mamiferosautoctones, 'Mamíferos autoctones' %>: </br>
 
-            <% var_labels = ['lontras','morcegosDeAgua','toupeiraDaAgua','ratoDeAgua','ouricoCacheiro','armilho'];
-               labels = ['Lontras (<i>Lutra lutra</i>)','Morcegos-de-água (<i>Myotis daubentonii</i>)','Toupeira da água (<i>Galemys pyrenaicus</i>)','Rato-de-água (<i>Arvicola sapidus</i>)','Ouriço cacheiro (<i>Erinaceus europaeus</i>)','Arminho (<i>Mustela Erminea</i>)']; %>
+            <% var_labels = ['lontras','morcegosDeAgua','toupeiraDaAgua','ratoDeAgua','ouricoCacheiro','armilho']
+               labels = ['Lontras (<i>Lutra lutra</i>)','Morcegos-de-água (<i>Myotis daubentonii</i>)','Toupeira da água (<i>Galemys pyrenaicus</i>)','Rato-de-água (<i>Arvicola sapidus</i>)','Ouriço cacheiro (<i>Erinaceus europaeus</i>)','Arminho (<i>Mustela Erminea</i>)'] %>
+            <% value_irr = [1,1,1,3,1,1] %>
+
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="container-fluid">
@@ -930,7 +938,7 @@
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = var_labels[i]; %>
                           <div class="checkbox">
-                            <%= f.check_box label %>
+                            <%= f.check_box label, :value_irr => value_irr[i] %>
                             <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%> class="question-mark glyphicon glyphicon-question-sign"></span>
                             <% imglabel = "corredorecologico/mamiferos/#{var_labels[i]}.png"; %>
                             <div class="photo-path"><%=imglabel%></div>
@@ -952,8 +960,10 @@
           <div class="form-group">
             <%= f.label :peixesautoctones, 'Peixes autoctones' %>: </br>
 
-            <% var_labels = ['enguia','lampreia','salmao','truta','bogaPortuguesa','bogaDoNorte'];
-               labels = ['Enguia (<i>Anguilla anguilla</i>)','Lampreia (<i>Lampetra fluiatilis</i>)','Salmão (<i>Salmo salar</i>)','Truta (<i>Salmo trutta fario</i>)','Boga-portuguesa (<i>Iberochondrostoma lusitanicum</i>)','Boga-do-norte (<i>Chondrostoma duriense</i>)']; %>
+            <% var_labels = ['enguia','lampreia','salmao','truta','bogaPortuguesa','bogaDoNorte']
+               labels = ['Enguia (<i>Anguilla anguilla</i>)','Lampreia (<i>Lampetra fluiatilis</i>)','Salmão (<i>Salmo salar</i>)','Truta (<i>Salmo trutta fario</i>)','Boga-portuguesa (<i>Iberochondrostoma lusitanicum</i>)','Boga-do-norte (<i>Chondrostoma duriense</i>)'] %>
+            <% value_irr = [1,1,1,1,1,1] %>
+
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="container-fluid">
@@ -962,7 +972,7 @@
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = var_labels[i]; %>
                           <div class="checkbox">
-                            <%= f.check_box label %>
+                            <%= f.check_box label, :value_irr => value_irr[i] %>
                             <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%> class="question-mark glyphicon glyphicon-question-sign"></span>
                             <% imglabel = "corredorecologico/peixes/#{var_labels[i]}.png"; %>
                             <div class="photo-path"><%=imglabel%></div>
@@ -984,8 +994,10 @@
           <div class="form-group">
             <%= f.label :faunaexotica, "Fauna exótica" %>: </br>
 
-            <% var_labels = ['percaSol','tartarugaDaFlorida','caranguejoPeludoChines','gambusia','mustelaVison','lagostimVermelho','trutaArcoIris','achiga'];
-               labels = ['Perca-sol (<i>Lepomis gibbosus</i>)','Tartaruga da Florida (<i>Trachemys scripta</i>)','Caranguejo-peludo-chinês (<i>Eriocheir sinensis</i>)','Gambúsia (<i>Gambusia holbrooki</i>)','Mustela vison','Lagostim vermelho (<i>Procambarus clarkii</i>)','Truta-arco-íris (<i>Oncorhynchus mykiss</i>)','Achigã (<i>Micropterus salmoides</i>)']; %>
+            <% var_labels = ['percaSol','tartarugaDaFlorida','caranguejoPeludoChines','gambusia','mustelaVison','lagostimVermelho','trutaArcoIris','achiga']
+               labels = ['Perca-sol (<i>Lepomis gibbosus</i>)','Tartaruga da Florida (<i>Trachemys scripta</i>)','Caranguejo-peludo-chinês (<i>Eriocheir sinensis</i>)','Gambúsia (<i>Gambusia holbrooki</i>)','Mustela vison','Lagostim vermelho (<i>Procambarus clarkii</i>)','Truta-arco-íris (<i>Oncorhynchus mykiss</i>)','Achigã (<i>Micropterus salmoides</i>)'] %>
+            <% value_irr = [5,5,5,5,5,5,5,5,5] %>
+
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="container-fluid">
@@ -994,7 +1006,7 @@
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = var_labels[i]; %>
                           <div class="checkbox">
-                            <%= f.check_box label %>
+                            <%= f.check_box label, :value_irr => value_irr[i] %>
                             <%= f.label label, raw(labels[i]) %> <span name=<%=var_labels[i]%> class="question-mark glyphicon glyphicon-question-sign"></span>
                             <% imglabel = "corredorecologico/faunaexotica/#{var_labels[i]}.png"; %>
                             <div class="photo-path"><%=imglabel%></div>
@@ -1016,17 +1028,19 @@
           <div class="form-group">
             <%= f.label :flora, 'Flora' %>: </br>
 
-            <% var_labels = ['salgueiral','amial','freixal','choupal','ulmeiral','sanguinos','ladual','tramazeiras','carvalhal','sobreiral','azinhal'];
-               labels = ['Salgueiral (salgueiros)','Amial (amieiral)','Freixial (freixos)','Choupal (choupos)','Ulmeiral (ulmerios)','Sanguinhos (Sanguinhal)','Ladual (lódãos-bastardos)','Tramazeiras','Carvalhal (Carvalhos)','Sobreiral','Azinhal']; %>
+            <% var_labels = ['salgueiral','amial','freixal','choupal','ulmeiral','sanguinos','ladual','tramazeiras','carvalhal','sobreiral','azinhal']
+               labels = ['Salgueiral (salgueiros)','Amial (amieiral)','Freixial (freixos)','Choupal (choupos)','Ulmeiral (ulmerios)','Sanguinhos (Sanguinhal)','Ladual (lódãos-bastardos)','Tramazeiras','Carvalhal (Carvalhos)','Sobreiral','Azinhal'] %>
+            <% value_irr = [1,1,1,1,1,1,1,1,1,1,1] %>
+
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="container-fluid">
                   <div class="row">
                     <% for i in 0..10 %>
                         <div class="col-md-4 col-sm-6 col-xs-12">
-                          <%label = var_labels[i]; %>
+                          <% label = var_labels[i]; %>
                           <div class="checkbox">
-                            <%= f.check_box label %>
+                            <%= f.check_box label, :value_irr => value_irr[i] %>
                             <%= f.label label, labels[i] %>
                           </div>
                         </div>
@@ -1046,7 +1060,8 @@
           <div class="form-group">
             <%= f.label :conservacaoBosqueRibeirinho, 'Estado de conservação do bosque ribeirinho (10m x 10m)' %>:</br>
 
-            <% labels = ['Total (>75%) com bosque - continuidade arbórea com total sobreposição de copas','(50-75%) Com bosque ripícola Semi-continua arbórea','(25-50%) Sem bosque ripícola (Semi-continua arbórea)','Campos agrícolas (10-25%) Descontinua - na arbórea','(5 a 10%) Interrompida – com manchas de árvores','(<5%) Esparsa - Só árvores isoladas ou Urbanizações ou infra-estruturas']; %>
+            <% labels = ['Total (>75%) com bosque - continuidade arbórea com total sobreposição de copas','(50-75%) Com bosque ripícola Semi-continua arbórea','(25-50%) Sem bosque ripícola (Semi-continua arbórea)','Campos agrícolas (10-25%) Descontinua - na arbórea','(5 a 10%) Interrompida – com manchas de árvores','(<5%) Esparsa - Só árvores isoladas ou Urbanizações ou infra-estruturas'] %>
+            <% value_irr = [1,2,3,4,5,5] %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
@@ -1054,9 +1069,9 @@
                   <div class="row">
                     <% for i in 1..6 %>
                         <div class="col-md-4 col-sm-6 col-xs-12">
-                          <%label = "conservacaoBosqueRibeirinho_#{i}"; %>
+                          <% label = "conservacaoBosqueRibeirinho_#{i}"; %>
                           <div class="radio">
-                            <%= f.radio_button :conservacaoBosqueRibeirinho, i, :required => true %>
+                            <%= f.radio_button :conservacaoBosqueRibeirinho, i, :required => true, :value_irr => value_irr[i-1] %>
                             <%= f.label label, labels[i-1] %>
                           </div>
                         </div>
@@ -1072,8 +1087,9 @@
           <div class="form-group">
             <%= f.label :vegetacaoInvasora, 'Espécies vegetação invasora' %>: </br>
 
-            <% var_vegetacaoInvasora = ['silvas','ervaDaFortuna', 'plumas','lentilhaDaAgua','pinheirinha','jacintoDeAgua'];
-               labels = ['Silvas','Erva-da-fortuna','Plumas','Lentilha da água','Pinheirinha','Jacinto de água']; %>
+            <% var_vegetacaoInvasora = ['silvas','ervaDaFortuna', 'plumas','lentilhaDaAgua','pinheirinha','jacintoDeAgua']
+               labels = ['Silvas','Erva-da-fortuna','Plumas','Lentilha da água','Pinheirinha','Jacinto de água'] %>
+            <% value_irr = [1,3,4,3,3,4,3] %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
@@ -1083,7 +1099,7 @@
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = var_vegetacaoInvasora[i]; %>
                           <div class="checkbox">
-                            <%= f.check_box label %>
+                            <%= f.check_box label, :value_irr => value_irr[i] %>
                             <%= f.label label, labels[i] %>
                           </div>
                         </div>
@@ -1104,7 +1120,8 @@
           <div class="form-group">
             <%= f.label :obstrucaoDoLeitoMargens, 'Obstrução do leito e margens (vegetação)' %>:</br>
 
-            <% labels = ['Com pouca ou sem vegetação no leito <5%','Com alguns ramos e pequenos troncos no leito (5 a 25%)','Com ramos e troncos no leito e margem (25 a 50%)','Com obstrução de 50 a 75% com ramos e troncos','Com obstrução quase total>75% do leito e margens']; %>
+            <% labels = ['Com pouca ou sem vegetação no leito <5%','Com alguns ramos e pequenos troncos no leito (5 a 25%)','Com ramos e troncos no leito e margem (25 a 50%)','Com obstrução de 50 a 75% com ramos e troncos','Com obstrução quase total>75% do leito e margens'] %>
+            <% value_irr = [1,2,3,4,5] %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
@@ -1114,7 +1131,7 @@
                         <div class="col-md-4 col-sm-6 col-xs-12">
                           <%label = "obstrucaoDoLeitoMargens_#{i}"; %>
                           <div class="radio">
-                            <%= f.radio_button :obstrucaoDoLeitoMargens, i, :required => true %>
+                            <%= f.radio_button :obstrucaoDoLeitoMargens, i, :required => true, :value_irr => value_irr[i-1] %>
                             <%= f.label label, labels[i-1] %>
                           </div>
                         </div>
@@ -1142,7 +1159,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <%label = "disponibilizacaoDeInformacao_#{i}"; %>
                           <div class="radio">
-                            <%= f.radio_button :disponibilizacaoDeInformacao, i, :required => true %>
+                            <%= f.radio_button :disponibilizacaoDeInformacao, i, :required => true, :value_irr => i %>
                             <%= f.label label, labels[i-1] %>
                           </div>
                         </div>
@@ -1157,7 +1174,7 @@
           <div class="form-group">
             <%= f.label :envolvimentoPublico, 'Envolvimento público' %>:</br>
 
-            <% labels = ['Envolvimento de Decisores-Chave (propietários, município, ARH), em pelo menos duas sessões por ano de participação pública, grupos tipo \'Projeto Rios\',  Realização de sondagens e Inquéritos a população','Envolvimento de Decisores-Chave (município, ARH), em pelo menos 1 sessão de participação pública e/ou associações locais por ano','Poucas atividades de participação pública','Atividades pontuais e com deficiente envolvimento publico local ou de fraca qualidade','Ausência de envolvimento']; %>
+            <% labels = ['Envolvimento de Decisores-Chave (proprietários, município, ARH), em pelo menos duas sessões por ano de participação pública, grupos tipo \'Projeto Rios\',  Realização de sondagens e Inquéritos a população','Envolvimento de Decisores-Chave (município, ARH), em pelo menos 1 sessão de participação pública e/ou associações locais por ano','Poucas atividades de participação pública','Atividades pontuais e com deficiente envolvimento publico local ou de fraca qualidade','Ausência de envolvimento'] %>
 
             <div class="row">
               <div class="col-md-12 col-xs-12">
@@ -1167,7 +1184,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <%label = "envolvimentoPublico_#{i}"; %>
                           <div class="radio">
-                            <%= f.radio_button :envolvimentoPublico, i, :required => true %>
+                            <%= f.radio_button :envolvimentoPublico, i, :required => true, :value_irr => i %>
                             <%= f.label label, labels[i-1] %>
                           </div>
                         </div>
@@ -1192,7 +1209,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <%label = "acao_#{i}"; %>
                           <div class="radio">
-                            <%= f.radio_button :acao, i, :required => true %>
+                            <%= f.radio_button :acao, i, :required => true, :value_irr => i %>
                             <%= f.label label, labels[i-1] %>
                           </div>
                         </div>
@@ -1220,7 +1237,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <%label = "legislacao_#{i}"; %>
                           <div class="radio">
-                            <%= f.radio_button :legislacao, i, :required => true %>
+                            <%= f.radio_button :legislacao, i, :required => true, :value_irr => i %>
                             <%= f.label label, labels[i-1] %>
                           </div>
                         </div>
@@ -1245,7 +1262,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <%label = "estrategia_#{i}"; %>
                           <div class="radio">
-                            <%= f.radio_button :estrategia, i, :required => true %>
+                            <%= f.radio_button :estrategia, i, :required => true, :value_irr => i %>
                             <%= f.label label, labels[i-1] %>
                           </div>
                         </div>
@@ -1270,7 +1287,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <%label = "gestaoDasIntervencoes_#{i}"; %>
                           <div class="radio">
-                            <%= f.radio_button :gestaoDasIntervencoes, i, :required => true %>
+                            <%= f.radio_button :gestaoDasIntervencoes, i, :required => true, :value_irr => i %>
                             <%= f.label label, labels[i-1] %>
                           </div>
                         </div>

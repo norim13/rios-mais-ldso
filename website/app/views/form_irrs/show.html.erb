@@ -27,6 +27,30 @@
 			<%= @form_irr.updated_at %>
 		</p>
 
+		<div class="table-responsive">
+			<table class="table" id="irr">
+				<tr>
+					<th>Hidrogeomorfologia</th>
+					<th>Qualidade da agua</th>
+					<th>Alterações antrópicas</th>
+					<th>Corredor ecológico</th>
+					<th>Participação pública</th>
+					<th>Organização e planeamento</th>
+					<th>IRR total</th>
+				</tr>
+				<tr>
+					<td id="irr_hidrogeomorfologia"></td>
+					<td id="irr_qualidadedaagua"></td>
+					<td id="irr_alteracoesantropicas"></td>
+					<td id="irr_corredorecologico"></td>
+					<td id="irr_participacaopublica"></td>
+					<td id="irr_organizacaoeplaneamento"></td>
+					<td id="irr_total"></td>
+				</tr>
+
+			</table>
+		</div>
+
 		<%= render 'form' %>
 
     <%= link_to 'Voltar para os meus formulários', form_irrs_path %>
