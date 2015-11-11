@@ -1,0 +1,2 @@
+class MapaController < ApplicationController
+end
