@@ -7,4 +7,6 @@ class User < ActiveRecord::Base
   :recoverable, :rememberable, :trackable, :validatable
 
   has_many :form_irrs, dependent: :destroy
+
+  acts_as_token_authenticatable
 end
