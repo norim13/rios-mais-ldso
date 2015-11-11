@@ -1,11 +1,13 @@
 package engenheiro.rios;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,8 @@ import engenheiro.rios.IRR.IRR_1_1;
 public class Homepage extends AppCompatActivity {
 
     User current_user;
+    public static final String PREFS_NAME = "UserInfo";
+    String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +43,12 @@ public class Homepage extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        // Restore preferences
+        token="";
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        token=settings.getString("token","-1");
+        Log.e("token", ": " + token);
     }
 
     @Override
@@ -86,7 +96,7 @@ public class Homepage extends AppCompatActivity {
         }
 
         if(id==R.id.navigate_account){
-            startActivity(new Intent(this,Login.class));
+            startActivity(new Intent(this,Login_2.class));
 
         }
 

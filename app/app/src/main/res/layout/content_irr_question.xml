@@ -7,9 +7,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_irr_1_8" tools:context="engenheiro.rios.IRR.IRR_1_8"
-    android:background="@color/white">
-
+    tools:showIn="@layout/activity_irr_question" tools:context="engenheiro.rios.IRR.IRR_question">
 
     <LinearLayout
         android:orientation="vertical"
@@ -21,14 +19,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Características de rio/ribeira"
+            android:text="Grande"
             android:id="@+id/irr_textview_name_main" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Sedimentação"
+            android:text="Médio"
             android:id="@+id/irr_textview_name"
             android:layout_margin="10dp" />
     </LinearLayout>
@@ -87,6 +85,7 @@
             android:onClick="goto_next"/>
 
     </RelativeLayout>
+
 
 
 </RelativeLayout>

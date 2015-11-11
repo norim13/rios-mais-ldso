@@ -13,18 +13,24 @@
 		</p>
 
 		<p>
-			<strong>Id do utilizador:</strong>
-			<%= @form_irr.user_id %>
+			<strong>Utilizador:</strong>
+			<%= @form_irr.user_id %> -
+			<%= User.find(@form_irr.user_id).nome %>
 		</p>
+
+		<%
+			 t = Time.current
+			 cur_timezone = t.zone
+		%>
 
 		<p>
 			<strong>Criado em:</strong>
-			<%= @form_irr.created_at %>
+			<%= @form_irr.created_at.in_time_zone(cur_timezone).strftime("%d/%m/%Y - %H:%M") %>
 		</p>
 
 		<p>
 			<strong>Última edição em:</strong>
-			<%= @form_irr.updated_at %>
+			<%= @form_irr.updated_at.strftime("%d/%m/%Y - %H:%M") %>
 		</p>
 
 		<div class="table-responsive">
@@ -53,6 +59,7 @@
 
 		<%= render 'form' %>
 
+		<%= link_to 'Editar este formulário', edit_form_irr_path(@form_irr) %> </br>
     <%= link_to 'Voltar para os meus formulários', form_irrs_path %>
 	</div>
 

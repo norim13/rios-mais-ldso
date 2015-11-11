@@ -75,6 +75,8 @@
     <string name="title_activity_irr_2_5">IRR_2_5</string>
     <string name="title_activity_about">About</string>
     <string name="logo_string">Logo</string>
+    <string name="title_activity_irr_question">IRR_question</string>
+    <string name="title_activity_login_2">Login_2</string>
 
 
 </resources>

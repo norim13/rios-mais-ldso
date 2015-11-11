@@ -14,14 +14,16 @@ public class User extends _Default {
     private int id;
     private String name;
     private String email;
+    private String authentication_token;
     private String password;
 
     public User(){
         super();
         this.id=-1;
-        this.name="nome";
-        this.email="email";
-        this.password="pass";
+        this.name="";
+        this.email="";
+        this.password="";
+        this.authentication_token="";
 
     }
 

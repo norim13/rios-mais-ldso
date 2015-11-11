@@ -11,10 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110002655) do
+ActiveRecord::Schema.define(version: 20151111190007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "concelhos", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "distrito_id"
+    t.string   "nome"
+  end
+
+  add_index "concelhos", ["distrito_id"], name: "index_concelhos_on_distrito_id", using: :btree
+
+  create_table "distritos", force: :cascade do |t|
+    t.string   "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "form_irrs", force: :cascade do |t|
     t.integer  "tipoDeVale"
@@ -245,6 +260,12 @@ ActiveRecord::Schema.define(version: 20151110002655) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.string   "distrito"
+    t.string   "concelho"
+    t.integer  "telef"
+    t.string   "habilitacoes"
+    t.string   "profissao"
+    t.string   "formacao"
     t.string   "authentication_token"
   end
 
@@ -252,5 +273,6 @@ ActiveRecord::Schema.define(version: 20151110002655) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "concelhos", "distritos"
   add_foreign_key "form_irrs", "users"
 end
