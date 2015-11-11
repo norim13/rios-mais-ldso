@@ -13,9 +13,15 @@
 
   <div class="form-inputs">
     <%= f.input :nome, required:true, autofocus:true %>
-    <%= f.input :email, required:true, autofocus:true %>
+    <%= f.input :email, required:true %>
     <%= f.input :password, required:true, hint: ("#{@minimum_password_length} caracteres no minimo" if @minimum_password_length) %>
     <%= f.input :password_confirmation, required:true %>
+    <%= f.input :concelho %>
+    <%= f.input :distrito %>
+    <%= f.input :telef %>
+    <%= f.input :habilitacoes %>
+    <%= f.input :profissao %>
+    <%= f.input :formacao %>
   </div>
 
   <div class="form-actions">
