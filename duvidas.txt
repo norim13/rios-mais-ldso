@@ -1,19 +1,12 @@
 
 FORM IRR:
 	- ainda n percebi como se calcula o IRR
-	- e possivel apagar um formulario IRR? (sim, pelo que escreveu ou pelo admin)
-	- quem pode VER um IRR preenchido? (sim, por quem tem permissoes [tecnicos, admin])
-
-	
-	- Nos animais/fauna e no macroinvertebrados, faltam imagens
-		- macroinvertebrados falta imagem de 
-			- insetos adultos
-			- sapo comum (bufo bufo)
-			- guarda rios
-			- pato real
 
 	- na flora e preciso imagem? (se sim tem que enviar)
 	
+- CALCULO IRR
+	- sedimentacao, tds com 5?
+	- qd n e selecionado nada nas categorias, qual o valor a atribuir?
 	
 	
 PAPEL MAGICO:
