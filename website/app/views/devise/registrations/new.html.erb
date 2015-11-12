@@ -16,19 +16,25 @@
     <%= f.input :email, required:true %>
     <%= f.input :password, required:true, hint: ("#{@minimum_password_length} caracteres no minimo" if @minimum_password_length) %>
 
-
     <%= f.input :password_confirmation, :label => "Confirmação da password" , required:true %>
 
-    <%= f.label :Distrito %><br/>
-    <%= collection_select :distrito, :distrito_id, Distrito.all, :id, :nome %> <br/><br/>
-    <%= f.label :Concelho %><br/>
-    <%= collection_select :concelho, :concelho_id, [], :id, :nome %> <br/><br/>
+    <%= f.label :distrito_id %>
+    <%= f.select :distrito_id, Distrito.all.collect {|d| [ d.nome, d.id ] },{:include_blank => 'Escolha o distrito'} %>
 
+    <%= f.label :concelho_id %>
+    <%= f.select :concelho_id, [],{:include_blank => 'Escolha o concelho'} %>
 
-    <%= f.input :telef %>
-    <%= f.input :habilitacoes %>
-    <%= f.input :profissao %>
-    <%= f.input :formacao %>
+    <%= f.input :telef, :label => "Telefone/Telemóvel" %>
+
+    <%= f.input :habilitacoes, :label => "Habilitações" %>
+
+    <%= f.input :profissao, :label => "Profissão" %>
+
+    <%= f.label :formacao, "Fez formação na aplicação?" %>
+    <%= label :formacao_sim, 'Sim' %>
+    <%= f.radio_button :formacao, 'Sim' %>
+    <%= label :formacao_nao, 'Não' %>
+    <%= f.radio_button :formacao, 'Nao' %>
   </div>
 
   <div class="form-actions">

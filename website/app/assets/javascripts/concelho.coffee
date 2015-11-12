@@ -3,32 +3,31 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 `
-$( document ).ready(function() {
-    $("#distrito_distrito_id").on('change',function() {
-        getConcelhos($("#distrito_distrito_id").val());
-    });
-});
-
-function getConcelhos(distritoId) {
-
-    $.ajax ({
-        url: '/concelhos?id=' + distritoId,
-        type: 'GET',
-        dataType: 'json',
-        error: function (jqXHR, textStatus, errorThrown) {
-            $('body').append("AJAX Error:" + textStatus);
-        },
-        success: function (data, textStatus, jqXHR) {
-            var select = $('#concelho_concelho_id');
-            select.html('');
-
-            $.each(data,function(key, value)
-            {
-                select.append('<option value=' + key + '>' + value.nome + '</option>');
-            });
-
-           // $('body').append("Successful AJAX call:" + data);
-        }
+    $( document ).ready(function() {
+        $("#user_distrito_id").on('change',function() {
+            getConcelhos($("#user_distrito_id").val());
+        });
     });
 
-} `
+    function getConcelhos(distritoId) {
+        var select = $('#user_concelho_id');
+        select.html('');
+
+        $.ajax ({
+            url: '/concelhos?id=' + distritoId,
+            type: 'GET',
+            dataType: 'json',
+            error: function (jqXHR, textStatus, errorThrown) {
+                //$('body').append("AJAX Error:" + textStatus);
+                select.html('<option>Escolha o concelho</option>');
+            },
+            success: function (data, textStatus, jqXHR) {
+                $.each(data,function(key, value)
+                {
+                    select.append('<option value=' + value.id + '>' + value.nome + '</option>');
+                });
+                // $('body').append("Successful AJAX call:" + data);
+            }
+        });
+
+    } `

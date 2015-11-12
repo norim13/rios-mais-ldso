@@ -22,4 +22,5 @@ class FormIrr < ActiveRecord::Base
 	validates :nitritos, :inclusion => 0..4
 	validates :transparencia, :inclusion => 1..4
 	validates :margem, :inclusion => 1..2 #1- esquerda, 2- direita
+
 end
