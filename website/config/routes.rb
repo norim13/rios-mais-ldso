@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get 'contactos' => 'about#about'
   get 'documentos' => 'documentos_relacionados#documentos'
 
+  get 'concelhos' => 'concelho#getConcelhosFromDistrito'
+
   resources :form_irrs
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

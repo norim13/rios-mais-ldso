@@ -260,13 +260,13 @@ ActiveRecord::Schema.define(version: 20151111190007) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.string   "authentication_token"
     t.string   "distrito"
     t.string   "concelho"
     t.integer  "telef"
     t.string   "habilitacoes"
     t.string   "profissao"
     t.string   "formacao"
-    t.string   "authentication_token"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
