@@ -15,9 +15,16 @@
     <%= f.input :nome, required:true, autofocus:true %>
     <%= f.input :email, required:true %>
     <%= f.input :password, required:true, hint: ("#{@minimum_password_length} caracteres no minimo" if @minimum_password_length) %>
-    <%= f.input :password_confirmation, required:true %>
-    <%= f.input :concelho %>
-    <%= f.input :distrito %>
+
+
+    <%= f.input :password_confirmation, :label => "Confirmação da password" , required:true %>
+
+    <%= f.label :Distrito %><br/>
+    <%= collection_select :distrito, :distrito_id, Distrito.all, :id, :nome %> <br/><br/>
+    <%= f.label :Concelho %><br/>
+    <%= collection_select :concelho, :concelho_id, [], :id, :nome %> <br/><br/>
+
+
     <%= f.input :telef %>
     <%= f.input :habilitacoes %>
     <%= f.input :profissao %>
@@ -25,12 +32,13 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
+    <%= f.button :submit, "Registar" %>
   </div>
 <% end %>
 
 <%= render "devise/shared/links" %>
 
 </div>
+
 
 <%= render 'common/footer' %>
