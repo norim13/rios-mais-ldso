@@ -19,6 +19,22 @@
             </div>
         <% end %>
 
+        <div id="form_irr-imgs">
+          <% if !@form_irr['images'].nil? %>
+              <div id="show-form_irr-imgs">
+                <div class="row">
+                  <% @form_irr['images'].each do |img|%>
+                      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <%= image_tag("#{@img_path}#{img}", :class => 'img-responsive') %>
+                      </div>
+                  <% end %>
+                </div>
+              </div>
+          <% end %>
+          <%= f.label :images, 'Adicionar imagens', class: 'control-label' %>
+          <%= f.file_field :images, multiple: true, class: 'file' %>
+        </div>
+
         <div class="rio-info form-inline">
           <div class="row">
             <div class="thumbnail">
@@ -55,219 +71,219 @@
           <h2> Hidrogeomorfologia </h2>
 
           <div class="form-group image-options container">
-             <div class="row input-img-radio-container">
-               <%= f.label :tipoDeVale, 'Tipo de Vale' %>: </br>
-               <% imagens_tipo_vale = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png']; %>
-               <% for i in 1..7
-               label = "tipoDeVale_#{i}"; %>
-                   <div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                     <%= f.radio_button :tipoDeVale, "#{i}", :required => true %>
-                     <%= f.label label, image_tag("tipodevale/#{imagens_tipo_vale[i-1]}", :class => 'img-responsive'), :class => 'img-label' %>
-                   </div>
-             <% end %>
+            <div class="row input-img-radio-container">
+              <%= f.label :tipoDeVale, 'Tipo de Vale' %>: </br>
+              <% imagens_tipo_vale = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png']; %>
+              <% for i in 1..7
+                   label = "tipoDeVale_#{i}"; %>
+                  <div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <%= f.radio_button :tipoDeVale, "#{i}", :required => true %>
+                    <%= f.label label, image_tag("tipodevale/#{imagens_tipo_vale[i-1]}", :class => 'img-responsive'), :class => 'img-label' %>
+                  </div>
+              <% end %>
 
             </div>
           </div>
 
-<div class="form-group image-options container">
- <div class="row input-img-radio-container">
-  <%= f.label :perfilDeMargens, 'Perfil de margens' %>: </br>
-  <% imagens_perfil_margens = ['verticalescavado.png','verticalcortado.png','declivemaior45.png', 'declivemenor45.png', 'suavecomposto.png'];
-  labels = ['Vertical escavado', 'Vertical cortado', 'Declive >45%', 'Declive <45%', 'Suave composto <45%', 'Artificial']; %>
-  <% for i in 1..5
-  label = "perfilDeMargens_#{i}"; %>
-       <div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
-         <%= f.radio_button :perfilDeMargens, "#{i}", :required => true, :class => "input-img-radio" %>
-         <div class="img-label">
-           <%= f.label label, labels[i-1] %>
-           <%= f.label label, image_tag("perfildemargens/#{imagens_perfil_margens[i-1]}", :class => 'img-responsive') %>
-         </div>
-       </div>
- <% end %>
+          <div class="form-group image-options container">
+            <div class="row input-img-radio-container">
+              <%= f.label :perfilDeMargens, 'Perfil de margens' %>: </br>
+              <% imagens_perfil_margens = ['verticalescavado.png','verticalcortado.png','declivemaior45.png', 'declivemenor45.png', 'suavecomposto.png'];
+                 labels = ['Vertical escavado', 'Vertical cortado', 'Declive >45%', 'Declive <45%', 'Suave composto <45%', 'Artificial']; %>
+              <% for i in 1..5
+                   label = "perfilDeMargens_#{i}"; %>
+                  <div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <%= f.radio_button :perfilDeMargens, "#{i}", :required => true, :class => "input-img-radio" %>
+                    <div class="img-label">
+                      <%= f.label label, labels[i-1] %>
+                      <%= f.label label, image_tag("perfildemargens/#{imagens_perfil_margens[i-1]}", :class => 'img-responsive') %>
+                    </div>
+                  </div>
+              <% end %>
 
- <div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12 img-label">
-   <%= f.radio_button :perfilDeMargens, '6', :required => true %>
-   <%= f.label :perfilDeMargens_6, 'Artificial', :class => 'img-label' %>
- </div>			
-</div>
-</div>
+              <div class="form-option col-lg-3 col-md-4 col-sm-6 col-xs-12 img-label">
+                <%= f.radio_button :perfilDeMargens, '6', :required => true %>
+                <%= f.label :perfilDeMargens_6, 'Artificial', :class => 'img-label' %>
+              </div>
+            </div>
+          </div>
 
-<div class="form-group">
- <h3> Volume de água </h3> 
- <div class="container">
-  <div class="row">
+          <div class="form-group">
+            <h3> Volume de água </h3>
+            <div class="container">
+              <div class="row">
 
-   <div class="col-lg-6 col-md-6 col-sm-8 col-xs-10">
-    <div class="container-fluid">
-     <div class="right-allign-fields">
-      <%= f.label :larguraDaSuperficieDaAgua, 'Largura da superfície da água (L) (m)' %>:
-      <%= f.number_field :larguraDaSuperficieDaAgua, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :required => true %>
-    </div>
+                <div class="col-lg-6 col-md-6 col-sm-8 col-xs-10">
+                  <div class="container-fluid">
+                    <div class="right-allign-fields">
+                      <%= f.label :larguraDaSuperficieDaAgua, 'Largura da superfície da água (L) (m)' %>:
+                      <%= f.number_field :larguraDaSuperficieDaAgua, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :required => true %>
+                    </div>
 
-    <div class="right-allign-fields">
-      <%= f.label :profundidadeMedia, 'Profundidade média (P) (m)' %>:
-      <%= f.number_field :profundidadeMedia, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :required => true %>
-    </div>
+                    <div class="right-allign-fields">
+                      <%= f.label :profundidadeMedia, 'Profundidade média (P) (m)' %>:
+                      <%= f.number_field :profundidadeMedia, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :required => true %>
+                    </div>
 
-    <div class="right-allign-fields">
-      <%= f.label :velocidadeMedia, 'Velocidade média (V) (m/s)' %>:
-      <%= f.number_field :velocidadeMedia, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :required => true %>
-    </div>
-  </div>
+                    <div class="right-allign-fields">
+                      <%= f.label :velocidadeMedia, 'Velocidade média (V) (m/s)' %>:
+                      <%= f.number_field :velocidadeMedia, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :required => true %>
+                    </div>
+                  </div>
 
-</div>
+                </div>
 
-<div class="col-lg-4 col-md-6 col-sm-8 col-xs-10">
-  <div class="container-fluid">
-   <div class="right-allign-fields">
-    <%= f.label :seccao, 'Secção (S=PxL) (m^2)' %>:
-    <%= f.number_field :seccao, :class => 'text_field form-control input-custom-size', :step => 'any', :readonly => true, :required => true %>
-  </div>
+                <div class="col-lg-4 col-md-6 col-sm-8 col-xs-10">
+                  <div class="container-fluid">
+                    <div class="right-allign-fields">
+                      <%= f.label :seccao, 'Secção (S=PxL) (m^2)' %>:
+                      <%= f.number_field :seccao, :class => 'text_field form-control input-custom-size', :step => 'any', :readonly => true, :required => true %>
+                    </div>
 
-  <div class="right-allign-fields">
-    <%= f.label :caudal, 'Caudal (C=VxS) (m^3/s)' %>:
-    <%= f.number_field :caudal, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :readonly => true, :required => true %>
-  </div>
-</div>
-</div>
+                    <div class="right-allign-fields">
+                      <%= f.label :caudal, 'Caudal (C=VxS) (m^3/s)' %>:
+                      <%= f.number_field :caudal, :class => 'text_field form-control input-custom-size', :step => 'any', :min => '0.00', :readonly => true, :required => true %>
+                    </div>
+                  </div>
+                </div>
 
-</div>
-</div>
-</div>
+              </div>
+            </div>
+          </div>
 
-<div class="container-fluid">
-
-  <div class="form-group">
-    <%= f.label :substratoDasMargens, 'Substrato das margens (selecionar os que tem mais de 35%)' %>: </br>
-
-    <% var_substratodasmargens = ['soloArgiloso','arenoso', 'pedregoso','rochoso','artificialPedra','artificialBetao'];
-    labels = ['Solo argiloso', 'Arenoso', 'Pedregoso', 'Rochoso', 'Artificial pedra', 'Artificial Betão (5)']; %>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12 col-xs-12">
           <div class="container-fluid">
-            <div class="row">
-              <% for i in 0..5 %>
-              <div class="col-md-4 col-sm-6 col-xs-12">
-                <%label = "substratoDasMargens_#{var_substratodasmargens[i]}"; %>
-                <div class="checkbox">
-                  <%= f.check_box label %>
-                  <%= f.label label, labels[i] %>
+
+            <div class="form-group">
+              <%= f.label :substratoDasMargens, 'Substrato das margens (selecionar os que tem mais de 35%)' %>: </br>
+
+              <% var_substratodasmargens = ['soloArgiloso','arenoso', 'pedregoso','rochoso','artificialPedra','artificialBetao'];
+                 labels = ['Solo argiloso', 'Arenoso', 'Pedregoso', 'Rochoso', 'Artificial pedra', 'Artificial Betão (5)']; %>
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12 col-xs-12">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <% for i in 0..5 %>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                              <%label = "substratoDasMargens_#{var_substratodasmargens[i]}"; %>
+                              <div class="checkbox">
+                                <%= f.check_box label %>
+                                <%= f.label label, labels[i] %>
+                              </div>
+                            </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <% end %>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 
-  <div class="form-group">
+            <div class="form-group">
 
-    <%= f.label :substratoDoLeito, 'Substrato do leito (selecionar os que tem mais de 35%)' %>: </br>
+              <%= f.label :substratoDoLeito, 'Substrato do leito (selecionar os que tem mais de 35%)' %>: </br>
 
-    <% var_substratodoleito = ['blocoseRocha','calhaus', 'cascalho','areia','limo','solo','artificial','naoEVisivel'];
-    labels = ['Blocos e rocha (>40cm)', 'Calhaus (20-40cm)', 'Cascalho (2-20cm)', 'Areia (0.5-2cm)', 'Limo (<0.5mm)', 'Solo', 'Artificial', 'Não é visível']; %>
+              <% var_substratodoleito = ['blocoseRocha','calhaus', 'cascalho','areia','limo','solo','artificial','naoEVisivel'];
+                 labels = ['Blocos e rocha (>40cm)', 'Calhaus (20-40cm)', 'Cascalho (2-20cm)', 'Areia (0.5-2cm)', 'Limo (<0.5mm)', 'Solo', 'Artificial', 'Não é visível']; %>
 
 
-    <div class="row">
-      <div class="col-md-12 col-xs-12">
-        <div class="container-fluid">
-          <div class="row">
-            <% for i in 0..7 %>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-              <%label = "substratoDoLeito_#{var_substratodoleito[i]}"; %>
-              <div class="checkbox">
-                <%= f.check_box label %>
-                <%= f.label label, labels[i] %>
+              <div class="row">
+                <div class="col-md-12 col-xs-12">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <% for i in 0..7 %>
+                          <div class="col-md-4 col-sm-6 col-xs-12">
+                            <%label = "substratoDoLeito_#{var_substratodoleito[i]}"; %>
+                            <div class="checkbox">
+                              <%= f.check_box label %>
+                              <%= f.label label, labels[i] %>
+                            </div>
+                          </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="form-group">
-    <%= f.label :estadoGeraldaLinhadeAgua, 'Estado geral da linha de água' %>:</br>
+            <div class="form-group">
+              <%= f.label :estadoGeraldaLinhadeAgua, 'Estado geral da linha de água' %>:</br>
 
-    <% labels = ['Canal sem alterações, estado natural', 'Canal ligeiramente perturbado', 'Início de uma importante alteração do canal', 'Grande alteração do canal', 'Canal completamente alterado (canalizado, regularizado)']; %>
-    <div class="row">
-      <div class="col-md-12 col-xs-12">
-        <div class="container-fluid">
-          <div class="row">
-            <% for i in 1..5 %>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-              <%label = "estadoGeraldaLinhadeAgua_#{i}"; %>
-              <div class="radio">
-                <%= f.radio_button :estadoGeraldaLinhadeAgua, i, :required => true %>
-                <%= f.label label, labels[i-1] %>
+              <% labels = ['Canal sem alterações, estado natural', 'Canal ligeiramente perturbado', 'Início de uma importante alteração do canal', 'Grande alteração do canal', 'Canal completamente alterado (canalizado, regularizado)']; %>
+              <div class="row">
+                <div class="col-md-12 col-xs-12">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <% for i in 1..5 %>
+                          <div class="col-md-4 col-sm-6 col-xs-12">
+                            <%label = "estadoGeraldaLinhadeAgua_#{i}"; %>
+                            <div class="radio">
+                              <%= f.radio_button :estadoGeraldaLinhadeAgua, i, :required => true %>
+                              <%= f.label label, labels[i-1] %>
+                            </div>
+                          </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="form-group" id="form_irr-erosao">
-    <%= f.label :erosao, 'Erosão' %>:</br>
+            <div class="form-group" id="form_irr-erosao">
+              <%= f.label :erosao, 'Erosão' %>:</br>
 
-    <% labels = ['Sem erosão','Formação de >3 regos','Formação de 1-3 regos','Queda de muros e árvores','Rombos com mais de 1 metro com queda de muros ou árvores'] %>
-    <% var_erosao = ['semErosao','formacaomais3','formacao1a3','quedamuros','rombos'] %>
-    <% value_irr = [1,2,3,3,4] %>
+              <% labels = ['Sem erosão','Formação de >3 regos','Formação de 1-3 regos','Queda de muros e árvores','Rombos com mais de 1 metro com queda de muros ou árvores'] %>
+              <% var_erosao = ['semErosao','formacaomais3','formacao1a3','quedamuros','rombos'] %>
+              <% value_irr = [1,2,3,3,4] %>
 
-    <div class="row">
-      <div class="col-md-12 col-xs-12">
-        <div class="container-fluid">
-          <div class="row">
-            <% for i in 1..5 %>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-              <% label = "erosao_#{var_erosao[i-1]}"; %>
-              <div class="checkbox">
-                <%= f.check_box label, :value_irr => value_irr[i-1] %>
-                <%= f.label label, labels[i-1] %>
+              <div class="row">
+                <div class="col-md-12 col-xs-12">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <% for i in 1..5 %>
+                          <div class="col-md-4 col-sm-6 col-xs-12">
+                            <% label = "erosao_#{var_erosao[i-1]}"; %>
+                            <div class="checkbox">
+                              <%= f.check_box label, :value_irr => value_irr[i-1] %>
+                              <%= f.label label, labels[i-1] %>
+                            </div>
+                          </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="form-group" id="form_irr-sedimentacao">
-    <%= f.label :sedimentacao, 'Sedimentação' %>:</br>
+            <div class="form-group" id="form_irr-sedimentacao">
+              <%= f.label :sedimentacao, 'Sedimentação' %>:</br>
 
-    <% labels = ['Ausente','Demposição na margem em curva','Mouchões (deposição de areia no leito)','Ilhas sem vegetação','Ilhas com vegetação','Deposição nas margens (s/vegetação)','Deposição nas margens (c/vegetação)','Rochas expostas no leito'] %>
-    <% var_sedimentacao = ['ausente','decomposicao','mouchoes','ilhassemveg','ilhascomveg','deposicaosemveg','deposicaocomveg','rochas'] %>
-    <% value_irr = [5,5,5,5,5,5,5,5] %>
+              <% labels = ['Ausente','Demposição na margem em curva','Mouchões (deposição de areia no leito)','Ilhas sem vegetação','Ilhas com vegetação','Deposição nas margens (s/vegetação)','Deposição nas margens (c/vegetação)','Rochas expostas no leito'] %>
+              <% var_sedimentacao = ['ausente','decomposicao','mouchoes','ilhassemveg','ilhascomveg','deposicaosemveg','deposicaocomveg','rochas'] %>
+              <% value_irr = [5,5,5,5,5,5,5,5] %>
 
-    <div class="row">
-      <div class="col-md-12 col-xs-12">
-        <div class="container-fluid">
-          <div class="row">
-            <% for i in 1..8 %>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-              <% label = "sedimentacao_#{var_sedimentacao[i-1]}"; %>
-              <div class="checkbox">
-                <%= f.check_box label, :value_irr => value_irr[i-1]%>
-                <%= f.label label, labels[i-1] %>
+              <div class="row">
+                <div class="col-md-12 col-xs-12">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <% for i in 1..8 %>
+                          <div class="col-md-4 col-sm-6 col-xs-12">
+                            <% label = "sedimentacao_#{var_sedimentacao[i-1]}"; %>
+                            <div class="checkbox">
+                              <%= f.check_box label, :value_irr => value_irr[i-1]%>
+                              <%= f.label label, labels[i-1] %>
+                            </div>
+                          </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <% end %>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
 
         <div role="tabpanel" class="tab-pane" id="form_irr-qualidadedaagua">
           <h2> Qualidade da água: </h2>

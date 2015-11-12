@@ -1,5 +1,4 @@
 class FormIrrsController < ApplicationController
-	#fazer validacoes em todos!
 	before_filter :authenticate_user!
 
 	def index
@@ -9,6 +8,7 @@ class FormIrrsController < ApplicationController
 	def new
 		@form_irr = FormIrr.new
 		@is_show = ''
+		@img_path = "/uploads/form_irr/images/#{params[:id]}/"
 	end
 
 	def show
@@ -18,6 +18,7 @@ class FormIrrsController < ApplicationController
 			render 'noaccess'
 		else
 			@is_show = 'form-disabled'
+			@img_path = "/uploads/form_irr/images/#{params[:id]}/"
 		end
 	end
 
@@ -26,6 +27,7 @@ class FormIrrsController < ApplicationController
 		if @form_irr.user_id != current_user.id
 			render 'noaccess'
 		else
+			@img_path = "/uploads/form_irr/images/#{params[:id]}/"
 			@is_show = ''
 		end
 	end
@@ -74,6 +76,6 @@ class FormIrrsController < ApplicationController
 		                                 :tritaoVentreLaranja,:raIberica,:raVerde,:sapoComum,:lagartoDeAgua,:cobraAguaDeColar,:cagado,:repteis_outro,:guardaRios,:garcaReal,:melroDeAgua,:galinhaDeAgua,:patoReal,:tentilhaoComum,:chapimReal,:aves_outro,:lontras,:morcegosDeAgua,:toupeiraDaAgua,:ratoDeAgua,:ouricoCacheiro,
 		                                 :armilho,:mamiferos_outro,:enguia,:lampreia,:salmao,:truta,:bogaPortuguesa,:bogaDoNorte,:peixes_outro,:percaSol,:tartarugaDaFlorida,:caranguejoPeludoChines,:gambusia,:mustelaVison,:lagostimVermelho,:trutaArcoIris,:achiga,:fauna_outro,:salgueiral,:amial,:freixal,:choupal,:ulmeiral,
 		                                 :sanguinos,:ladual,:tramazeiras,:carvalhal,:sobreiral,:azinhal,:flora_outro,:conservacaoBosqueRibeirinho,:silvas,:ervaDaFortuna,:plumas,:lentilhaDaAgua,:pinheirinha,:jacintoDeAgua,:vegetacaoInvasora_outro,:obstrucaoDoLeitoMargens,:disponibilizacaoDeInformacao,:envolvimentoPublico,
-		                                 :acao,:legislacao,:estrategia,:gestaoDasIntervencoes)
+		                                 :acao,:legislacao,:estrategia,:gestaoDasIntervencoes, {images: []})
 	end
 end
