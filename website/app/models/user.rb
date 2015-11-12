@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
 
   has_many :form_irrs, dependent: :destroy
 
+  validates :telef, length: { is: 9 }
+
   acts_as_token_authenticatable
 end
 
