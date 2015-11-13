@@ -1,0 +1,41 @@
+<%= render 'common/header' %>
+
+</head>
+<body>
+<%= render 'common/navbar' %>
+<div class="container">
+
+
+<p id="notice"><%= notice %></p>
+
+<h1> Lista de avistamentos guarda-rios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rio</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @guardarios.each do |guardario| %>
+      <tr>
+        <td><%= guardario.rio %></td>
+        <td><%= guardario.user_id %></td>
+         <td><%= link_to 'Mostrar |', guardario %></td>
+        <td><%= link_to 'Editar |', edit_guardario_path(guardario) %></td>
+        <td><%= link_to 'Apagar ', guardario, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Novo avistamento', new_guardario_path %>
+
+</div>
+
+<%= render 'common/footer' %>

@@ -9,8 +9,8 @@ var myLon = null;
 var geographic = new OpenLayers.Projection("EPSG:4326");
 var mercator = new OpenLayers.Projection("EPSG:900913");
 var geographic2 = new OpenLayers.Projection("EPSG:3763");
-var base_url = '***REMOVED***/geoserver/rios';
-//var base_url = 'http://***REMOVED***:10500/geoserver/rios';
+//var base_url = '***REMOVED***/geoserver/rios';
+var base_url = 'http://***REMOVED***:10500/geoserver/rios';
 
 (function () {
 window.onload = function () {
@@ -99,9 +99,16 @@ window.onload = function () {
 
 				            if(data.features){
 						            var designacao = data.features[0].properties.designacao;
-                        if(!designacao)
-                            $(".rio-info h4").html("Nome do rio: não encontrado...");
-                        else $(".rio-info h4").html("Nome do rio: "+designacao);
+                        var codigo = data.features[0].properties.codrios;
+
+                        if(!designacao) {
+                            $("#rio-nome h4").html("Nome do rio: não encontrado...");
+                            $("#codigo-rio").val("");
+                        }
+                        else {
+                            $("#rio-nome h4").html("Nome do rio: " + designacao);
+                            $("#codigo-rio").val(codigo);
+                        }
 						        }
 
 		            },

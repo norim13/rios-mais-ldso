@@ -1,0 +1,74 @@
+<%= render 'common/header' %>
+
+</head>
+<body>
+<%= render 'common/navbar' %>
+
+
+<p id="notice"><%= notice %></p>
+<div class="container">
+
+<p>
+  <strong>Rio:</strong>
+  <%= @guardario.rio %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @guardario.user_id %>
+</p>
+
+
+  <p>
+    <strong>Local:</strong>
+    <%= @guardario.local %>
+  </p>
+
+
+  <p>
+    <strong>Estava a voar? </strong>
+    <%= @guardario.voar %>
+  </p>
+
+
+  <p>
+    <strong>Estava a cantar? </strong>
+    <%= @guardario.cantar %>
+  </p>
+
+
+  <p>
+    <strong>Estava parado? </strong>
+    <%= @guardario.parado %>
+  </p>
+
+
+  <p>
+    <strong>Estava a beber? </strong>
+    <%= @guardario.beber %>
+  </p>
+
+
+  <p>
+    <strong>Estava a caçar? </strong>
+    <%= @guardario.cacar %>
+  </p>
+
+  <p>
+    <strong>Estava a cuidar de crias? </strong>
+    <%= @guardario.cuidarcrias %>
+  </p>
+
+
+  <p>
+    <strong>Estava-se a alimentar? </strong>
+    <%= @guardario.alimentar %>
+  </p>
+
+<%= link_to 'Edit', edit_guardario_path(@guardario) %> |
+<%= link_to 'Back', guardarios_path %>
+
+</div>
+
+
+<%= render 'common/footer' %>

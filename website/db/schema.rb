@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151111223536) do
+ActiveRecord::Schema.define(version: 20151112230903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -248,6 +248,22 @@ ActiveRecord::Schema.define(version: 20151111223536) do
   add_index "form_irrs", ["image_id"], name: "index_form_irrs_on_image_id", using: :btree
   add_index "form_irrs", ["user_id"], name: "index_form_irrs_on_user_id", using: :btree
 
+  create_table "guardarios", force: :cascade do |t|
+    t.string   "rio"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "local"
+    t.string   "voar"
+    t.string   "cantar"
+    t.boolean  "parado"
+    t.boolean  "beber"
+    t.boolean  "cacar"
+    t.boolean  "cuidarcrias"
+    t.string   "alimentar"
+    t.string   "outro"
+  end
+
   create_table "images", force: :cascade do |t|
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -273,12 +289,12 @@ ActiveRecord::Schema.define(version: 20151111223536) do
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.string   "authentication_token"
-    t.string   "distrito"
-    t.string   "concelho"
     t.integer  "telef"
     t.string   "habilitacoes"
     t.string   "profissao"
     t.string   "formacao"
+    t.integer  "distrito_id"
+    t.integer  "concelho_id"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
