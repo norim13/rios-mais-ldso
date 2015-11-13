@@ -34,6 +34,12 @@
 
       <%= f.input :outro, :label => 'Outro comportamento?' %><br/>
 
+      <div id="guarda-rios-imgs">
+        <%= f.label :images, 'Adicionar imagens', class: 'control-label' %>
+        <%= f.file_field :images, multiple: true, class: 'file' %>
+      </div>
+
+
     </div>
 
 

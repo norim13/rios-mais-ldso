@@ -10,6 +10,7 @@ class GuardariosController < ApplicationController
   # GET /guardarios/1
   # GET /guardarios/1.json
   def show
+     @img_path = "/uploads/guardario/images/#{params[:id]}/"
   end
 
   # GET /guardarios/new
@@ -63,6 +64,7 @@ class GuardariosController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_guardario
       @guardario = Guardario.find(params[:id])
@@ -70,6 +72,6 @@ class GuardariosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def guardario_params
-      params.require(:guardario).permit(:rio,:local,:voar,:cantar,:parado,:beber,:cacar,:cuidarcrias,:alimentar,:outro)
+      params.require(:guardario).permit(:rio,:local,:voar,:cantar,:parado,:beber,:cacar,:cuidarcrias,:alimentar,:outro,{images: []})
     end
 end
