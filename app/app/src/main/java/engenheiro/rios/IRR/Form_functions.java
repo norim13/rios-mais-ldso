@@ -2,6 +2,7 @@ package engenheiro.rios.IRR;
 
 import android.content.Context;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -45,7 +46,6 @@ public class Form_functions {
 
     };
 
-
     public static ArrayList<ArrayList> createSeekbar(String[] array, LinearLayout linearLayout, Context context,int max){
         ArrayList<ArrayList> al= new ArrayList<ArrayList>();
         ArrayList<SeekBar> list = new ArrayList<SeekBar>();
@@ -74,6 +74,31 @@ public class Form_functions {
 
     };
 
+    public static ArrayList<EditText> createEditText(String[] array, LinearLayout linearLayout, Context context) {
+        ArrayList<EditText> list = new ArrayList<EditText>();
+        for(int i=0;i<array.length;i++)
+        {
+
+            EditText et = new EditText(context);
+            TextView tv=new TextView(context);
+            tv.setText(array[i]);
+            LinearLayout ll=new LinearLayout(context);
+            ll.setOrientation(LinearLayout.VERTICAL);
+            ll.addView(tv);
+            ll.addView(et);
+            list.add(et);
+            linearLayout.addView(ll);
+        }
+        return list;
+
+    };
+
+
+
+
+
+
+
 
     public static int getRadioButtonOption(ArrayList<RadioButton> arrayList){
         for (int i=0;i<arrayList.size();i++){
@@ -94,4 +119,14 @@ public class Form_functions {
         }
         return al;
     }
+
+    public static ArrayList<String> getEditTexts(ArrayList<EditText> arrayList){
+        ArrayList<String> al = new ArrayList<String>();
+        for (int i=0;i<arrayList.size();i++){
+            al.add(arrayList.get(i).getText().toString());
+        }
+        return al;
+
+    }
+
 }

@@ -80,6 +80,7 @@ public class Login_2 extends AppCompatActivity {
 
                             // Commit the edits!
                             editor.commit();
+                           finish();
                         }
                     }
                 });

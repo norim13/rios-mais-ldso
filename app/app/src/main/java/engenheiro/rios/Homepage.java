@@ -15,10 +15,11 @@ import android.view.View;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import engenheiro.rios.DataBases.DB_functions;
 import engenheiro.rios.DataBases.User;
-import engenheiro.rios.IRR.IRR_1_1;
+import engenheiro.rios.IRR.IRR_question;
 
 public class Homepage extends AppCompatActivity {
 
@@ -49,6 +50,13 @@ public class Homepage extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         token=settings.getString("token","-1");
         Log.e("token", ": " + token);
+        try {
+            DB_functions.saveForm();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -63,8 +71,19 @@ public class Homepage extends AppCompatActivity {
     }
 
     public void fomr_irr(View view) throws IOException, JSONException {
-        startActivity(new Intent(this, IRR_1_1.class));
-        DB_functions.saveForm();
+        Intent i=new Intent(this, IRR_question.class);
+        i.putExtra("main_title","Hidrogeomorfologia");
+        i.putExtra("sub_title", "Tipo de Vale");
+        ArrayList<ArrayList<Object>> al= new ArrayList<>();
+        i.putExtra("answers",al);
+        i.putExtra("type",0);
+        i.putExtra("required", true);
+        String[] options={"1","2","3","4","5","6","7"};
+        i.putExtra("options",options);
+        i.putExtra("question_num", 1);
+        startActivity(i);
+        //startActivity(new Intent(this, IRR_question.class));
+        //DB_functions.saveForm();
     }
 
 

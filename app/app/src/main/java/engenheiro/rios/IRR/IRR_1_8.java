@@ -47,8 +47,8 @@ public class IRR_1_8 extends AppCompatActivity {
                 "Mouchões (deposição de areia no leito",
                 "Ilhas sem vegetação",
                 "Ilhas com vegetação",
-                "Deposição nas margens (s/vegetação",
-                "Deposição nas margens (c/vegetação",
+                "Deposição nas margens (s/vegetação)",
+                "Deposição nas margens (c/vegetação)",
                 "Rochas expostas no leito"
         };
         list=Form_functions.createCheckboxes(array,linearLayout,this);
