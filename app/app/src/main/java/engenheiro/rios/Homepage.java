@@ -3,8 +3,6 @@ package engenheiro.rios;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,6 +14,8 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 
 import engenheiro.rios.DataBases.DB_functions;
 import engenheiro.rios.DataBases.User;
@@ -36,14 +36,6 @@ public class Homepage extends AppCompatActivity {
 
         current_user = new User();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         // Restore preferences
         token="";
@@ -71,6 +63,7 @@ public class Homepage extends AppCompatActivity {
     }
 
     public void fomr_irr(View view) throws IOException, JSONException {
+        HashMap<Integer,ArrayList<Objects>> answers2=new HashMap<Integer,ArrayList<Objects>>();
         Intent i=new Intent(this, IRR_question.class);
         i.putExtra("main_title","Hidrogeomorfologia");
         i.putExtra("sub_title", "Tipo de Vale");
@@ -89,7 +82,7 @@ public class Homepage extends AppCompatActivity {
 
 
     public void about(View view)  {
-        startActivity(new Intent(this, Info_Docs.class));
+        startActivity(new Intent(this, Information.class));
     }
 
 

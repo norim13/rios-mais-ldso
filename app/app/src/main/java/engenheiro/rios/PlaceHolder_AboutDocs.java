@@ -52,9 +52,9 @@ public class PlaceHolder_AboutDocs extends Fragment {
         Log.e("teste","number:"+number);
         View rootView=null;
         if(number==0)
-            rootView = inflater.inflate(R.layout.fragment_info__docs, container, false);
+            rootView = inflater.inflate(R.layout.fragment_info_about, container, false);
         else{
-            rootView=inflater.inflate(R.layout.fragment_doc,container,false);
+            rootView=inflater.inflate(R.layout.fragment_info_doc,container,false);
             TextView link = (TextView) rootView.findViewById(R.id.link_docs_irr_1);
             link.setMovementMethod(LinkMovementMethod.getInstance());
             link=(TextView) rootView.findViewById(R.id.link_docs_irr_2);

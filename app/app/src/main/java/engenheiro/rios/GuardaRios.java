@@ -15,6 +15,7 @@ public class GuardaRios extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guarda_rios);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Guarda Rios");
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

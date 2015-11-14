@@ -78,14 +78,14 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Contactos e Documentos"
+        android:text="Mais Informação"
         android:id="@+id/contacts_button"
-        android:layout_marginBottom="83dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="36dp"
         android:background="@null"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
-        android:onClick="about"/>
+        android:onClick="about"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
