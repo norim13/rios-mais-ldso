@@ -82,4 +82,14 @@
         android:layout_below="@+id/button_irr_form"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textView19"
+        android:layout_above="@+id/button"
+        android:layout_alignRight="@+id/contacts_button"
+        android:layout_alignEnd="@+id/contacts_button" />
+
 </RelativeLayout>
