@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import engenheiro.rios.Login_2;
+import engenheiro.rios.Login;
 
 /**
  * Created by filipe on 02/11/2015.
@@ -201,7 +201,7 @@ public class DB_functions {
 
 
 
-    public static void login(final String email, final String password, final Login_2 login) throws IOException, JSONException {
+    public static void login(final String email, final String password, final Login login) throws IOException, JSONException {
 
 
         new Thread(new Runnable() {

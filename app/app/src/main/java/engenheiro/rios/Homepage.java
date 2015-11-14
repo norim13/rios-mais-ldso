@@ -89,7 +89,7 @@ public class Homepage extends AppCompatActivity {
 
 
     public void about(View view)  {
-        startActivity(new Intent(this, About.class));
+        startActivity(new Intent(this, Info_Docs.class));
     }
 
 
@@ -115,7 +115,7 @@ public class Homepage extends AppCompatActivity {
         }
 
         if(id==R.id.navigate_account){
-            startActivity(new Intent(this,Login_2.class));
+            startActivity(new Intent(this,Login.class));
 
         }
 

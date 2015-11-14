@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:text="Novo Formulário"
         android:id="@+id/button_irr_form"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="28dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/white"
         android:onClick="fomr_irr"
@@ -73,14 +73,13 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Contactos"
+        android:text="Contactos e Documentos"
         android:id="@+id/contacts_button"
-        android:layout_marginBottom="83dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:background="@null"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
-        android:onClick="about"/>
+        android:onClick="about"
+        android:layout_below="@+id/button_irr_form"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

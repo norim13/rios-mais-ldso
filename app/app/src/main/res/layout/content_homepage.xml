@@ -78,7 +78,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Contactos"
+        android:text="Contactos e Documentos"
         android:id="@+id/contacts_button"
         android:layout_marginBottom="83dp"
         android:layout_alignParentBottom="true"
