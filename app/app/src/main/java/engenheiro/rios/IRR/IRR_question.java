@@ -16,6 +16,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import engenheiro.rios.GuardaRios;
 import engenheiro.rios.Login;
@@ -31,6 +32,7 @@ public class IRR_question extends AppCompatActivity {
     protected int min,max;                      //values of min and max on seekbar and edit text. null if there is none
     protected ArrayList<String> image_list;     //null if there is no image
     protected ArrayList<ArrayList<Object>> answers;        //array to pass the answers for one activity to another
+    protected HashMap<Integer,Object> answers2;
     protected Integer type;                     //type=0 RadioButton, type=1 CheckBox, type=2 EditText, type=3 SeekBar
     protected Boolean required;
     Integer question_num;
@@ -45,6 +47,7 @@ public class IRR_question extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         TextView irr_textview_name_main= (TextView) this.findViewById(R.id.irr_textview_name_main);
         String main_title= (String) getIntent().getSerializableExtra("main_title");
         irr_textview_name_main.setText(main_title);
@@ -56,6 +59,9 @@ public class IRR_question extends AppCompatActivity {
         linearLayout = (LinearLayout) this.findViewById(R.id.irr_linear);
 
         answers= (ArrayList<ArrayList<Object>>) getIntent().getSerializableExtra("answers");
+        answers2= (HashMap<Integer, Object>) getIntent().getSerializableExtra("answers2");
+        Log.e("teste", "size2:" + answers2.size());
+        Log.e("teste", "size:" + answers.size());
         type= (Integer) getIntent().getSerializableExtra("type");
         required=(Boolean) getIntent().getSerializableExtra("required");
         String [] options= (String[]) getIntent().getSerializableExtra("options");
@@ -99,35 +105,37 @@ public class IRR_question extends AppCompatActivity {
 
     public void goto_next(View view){
         Intent i=new Intent(this, IRR_question.class);
-
         ArrayList<Object> al=new ArrayList<Object>();
         al.add(question_num);
+        Object obj = null;
         switch (type){
             case 0:
-                int radioButtonOption = Form_functions.getRadioButtonOption(radio_list);
-                al.add(radioButtonOption);
+                obj = Form_functions.getRadioButtonOption(radio_list);
                 break;
             case 1:
-                ArrayList<Boolean> checkboxes = Form_functions.getCheckboxes(check_list);
-                al.add(checkboxes);
+                obj = Form_functions.getCheckboxes(check_list);
                 break;
             case 2:
-                ArrayList<String> editTexts = Form_functions.getEditTexts(edit_list);
-                al.add(editTexts);
+                obj = Form_functions.getEditTexts(edit_list);
                 break;
 
         }
         answers.add(al);
 
+        answers2.put(question_num, obj);
+
         int next_question=question_num+1;
-        Log.e("teste","num pergunta:"+question_num+" next:"+next_question);
+        Log.e("teste", "num pergunta:" + question_num + " next:" + next_question);
+
+        i.putExtra("answers2",answers2);
+
+        i.putExtra("answers", answers);
 
         String[] options;
         switch (next_question){
             case 2:
                 i.putExtra("main_title", "Hidrogeomorfologia");
                 i.putExtra("sub_title", "Perfil de margens");
-                i.putExtra("answers",answers);
                 i.putExtra("type",1);
                 i.putExtra("required", true);
                 options= new String[]{"Vertical escavado",
@@ -143,8 +151,9 @@ public class IRR_question extends AppCompatActivity {
             case 3:
                 Intent pergunta3=new Intent(this, IRR_1_3.class);
                 pergunta3.putExtra("main_title","Hidrogeomorfologia");
+                pergunta3.putExtra("answers", answers);
+                pergunta3.putExtra("answers2", answers2);
                 pergunta3.putExtra("sub_title", "Perfil de margens");
-                pergunta3.putExtra("answers",answers);
                 pergunta3.putExtra("required", true);
                 pergunta3.putExtra("question_num",next_question);
                 startActivity(pergunta3);
@@ -154,7 +163,6 @@ public class IRR_question extends AppCompatActivity {
             case 5:
                 i.putExtra("main_title", "Hidrogeomorfologia");
                 i.putExtra("sub_title", "Substrato do leito (selecionar os que tem mais de 35%)");
-                i.putExtra("answers",answers);
                 i.putExtra("type",1);
                 i.putExtra("required", true);
                 options= new String[]{"Blocos e rocha> 40 cm"
@@ -172,7 +180,6 @@ public class IRR_question extends AppCompatActivity {
             case 6:
                 i.putExtra("main_title", "Hidrogeomorfologia");
                 i.putExtra("sub_title", "Estado geral da linha de água");
-                i.putExtra("answers",answers);
                 i.putExtra("type",1);
                 i.putExtra("required", true);
                 options= new String[]{"Canal sem alterações, estado natural",
@@ -187,7 +194,6 @@ public class IRR_question extends AppCompatActivity {
             case 7:
                 i.putExtra("main_title", "Hidrogeomorfologia");
                 i.putExtra("sub_title", "Erosão");
-                i.putExtra("answers",answers);
                 i.putExtra("type",1);
                 i.putExtra("required", true);
                 options= new String[]{"Sem Erosão",
@@ -202,7 +208,6 @@ public class IRR_question extends AppCompatActivity {
             case 8:
                 i.putExtra("main_title", "Hidrogeomorfologia");
                 i.putExtra("sub_title", "Sedimentação");
-                i.putExtra("answers",answers);
                 i.putExtra("type",1);
                 i.putExtra("required", true);
                 options= new String[]{"Ausente",
@@ -220,6 +225,7 @@ public class IRR_question extends AppCompatActivity {
             case 9:
                 Intent pergunta2_1=new Intent(this, IRR_2_1.class);
                 pergunta2_1.putExtra("answers",answers);
+                pergunta2_1.putExtra("answers2",answers2);
                 pergunta2_1.putExtra("required", true);
                 pergunta2_1.putExtra("question_num",next_question);
                 startActivity(pergunta2_1);
@@ -228,7 +234,6 @@ public class IRR_question extends AppCompatActivity {
             case 11:
                 i.putExtra("main_title", "Qualidade da água");
                 i.putExtra("sub_title", "A cor da água");
-                i.putExtra("answers",answers);
                 i.putExtra("type",0);
                 i.putExtra("required", true);
                 options= new String[]{"Transparente",

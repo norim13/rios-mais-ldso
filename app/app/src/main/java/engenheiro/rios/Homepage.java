@@ -63,12 +63,13 @@ public class Homepage extends AppCompatActivity {
     }
 
     public void fomr_irr(View view) throws IOException, JSONException {
-        HashMap<Integer,ArrayList<Objects>> answers2=new HashMap<Integer,ArrayList<Objects>>();
+        HashMap<Integer,Object> answers2=new HashMap<Integer,Object>();
         Intent i=new Intent(this, IRR_question.class);
         i.putExtra("main_title","Hidrogeomorfologia");
         i.putExtra("sub_title", "Tipo de Vale");
         ArrayList<ArrayList<Object>> al= new ArrayList<>();
         i.putExtra("answers",al);
+        i.putExtra("answers2",answers2);
         i.putExtra("type",0);
         i.putExtra("required", true);
         String[] options={"1","2","3","4","5","6","7"};

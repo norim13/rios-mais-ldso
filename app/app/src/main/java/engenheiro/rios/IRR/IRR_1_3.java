@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import engenheiro.rios.GuardaRios;
 import engenheiro.rios.Login;
@@ -27,6 +28,7 @@ public class IRR_1_3 extends AppCompatActivity {
     protected EditText mS;
     protected EditText mC;
     protected ArrayList<ArrayList<Object>> answers;
+    protected HashMap<Integer,Object> answers2;
     protected Integer question_num;
 
 
@@ -35,10 +37,16 @@ public class IRR_1_3 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        answers= (ArrayList<ArrayList<Object>>) getIntent().getSerializableExtra("answers");
-        Log.e("teste", "size:" + answers.size());
+        ;
+
         question_num=0;
         question_num= (Integer) getIntent().getSerializableExtra("question_num");
+
+
+        answers= (ArrayList<ArrayList<Object>>) getIntent().getSerializableExtra("answers");
+        answers2= (HashMap<Integer, Object>) getIntent().getSerializableExtra("answers2");
+        Log.e("teste", "size2:" + answers2.size());
+        Log.e("teste", "size:" + answers.size());
 
         setContentView(R.layout.activity_irr_1_3);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -149,6 +157,14 @@ public class IRR_1_3 extends AppCompatActivity {
         array_float.add(v5);
         ArrayList<Object> aObj=new ArrayList<Object>();
 
+        if(answers2.get(question_num)!=null){
+            answers2.put(question_num,array_float);
+        }
+        else {
+            answers2.remove(question_num);
+            answers2.put(question_num,array_float);
+        }
+
 
 
         if(answers.get(answers.size()-1).get(0)==question_num){
@@ -167,6 +183,7 @@ public class IRR_1_3 extends AppCompatActivity {
         i.putExtra("main_title","Hidrogeomorfologia");
         i.putExtra("sub_title", "Substrato das margens (selecionar os que tem mais de 35%)");
         i.putExtra("answers", answers);
+        i.putExtra("answers2",answers2);
         i.putExtra("type", 1);
         i.putExtra("required", true);
         String[] options= new String[]{"Solo argiloso",

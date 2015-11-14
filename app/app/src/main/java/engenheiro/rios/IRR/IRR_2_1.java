@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import engenheiro.rios.GuardaRios;
 import engenheiro.rios.Login;
@@ -28,6 +29,9 @@ public class IRR_2_1 extends AppCompatActivity {
     EditText ph,condutividade,temperatura,o2,o2_percentagem,nitratos,nitritos,transparencia;
 
     protected ArrayList<ArrayList<Object>> answers;
+    protected HashMap<Integer,Object> answers2;
+
+
     protected Integer question_num;
 
     @Override
@@ -40,6 +44,8 @@ public class IRR_2_1 extends AppCompatActivity {
 
 
         answers= (ArrayList<ArrayList<Object>>) getIntent().getSerializableExtra("answers");
+        answers2= (HashMap<Integer, Object>) getIntent().getSerializableExtra("answers2");
+
         Log.e("teste", "size:" + answers.size());
         question_num=0;
         question_num= (Integer) getIntent().getSerializableExtra("question_num");
@@ -243,6 +249,17 @@ public class IRR_2_1 extends AppCompatActivity {
         array_float.add(Float.parseFloat(String.valueOf(nitritos.getText())));
         array_float.add(Float.parseFloat(String.valueOf(transparencia.getText())));
 
+        if(answers2.get(question_num)!=null){
+            answers2.put(question_num,array_float);
+        }
+        else {
+            answers2.remove(question_num);
+            answers2.put(question_num,array_float);
+        }
+
+
+
+
         ArrayList<Object> aObj=new ArrayList<Object>();
         if(answers.get(answers.size()-1).get(0)==question_num){
             answers.get(answers.size()-1).remove(1);
@@ -257,6 +274,7 @@ public class IRR_2_1 extends AppCompatActivity {
         i.putExtra("main_title","Qualidade da água");
         i.putExtra("sub_title", "Indícios na água :))))");
         i.putExtra("answers", answers);
+        i.putExtra("answers2", answers2);
         i.putExtra("type", 1);
         i.putExtra("required", true);
         String[] options= new String[]{"Óleo (reflexos multicolores)",
