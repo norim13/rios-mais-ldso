@@ -14,7 +14,7 @@
     <item android:id="@id/navigate_guardarios"
         android:title="@string/guardarios"
         android:orderInCategory="20"
-        android:icon="@drawable/ic_action_twitter"
+        android:icon="@drawable/guardarios_icon2"
         app:showAsAction="always"
         />
 </menu>
