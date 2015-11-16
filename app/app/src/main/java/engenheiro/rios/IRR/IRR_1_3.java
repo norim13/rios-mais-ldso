@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import engenheiro.rios.GuardaRios;
 import engenheiro.rios.Login;
@@ -26,15 +27,26 @@ public class IRR_1_3 extends AppCompatActivity {
     protected EditText mV;
     protected EditText mS;
     protected EditText mC;
+    protected ArrayList<ArrayList<Object>> answers;
+    protected HashMap<Integer,Object> answers2;
+    protected Integer question_num;
 
-    protected ArrayList<Object> answers;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        answers= (ArrayList<Object>) getIntent().getSerializableExtra("response");
+        ;
+
+        question_num=0;
+        question_num= (Integer) getIntent().getSerializableExtra("question_num");
+
+
+        answers= (ArrayList<ArrayList<Object>>) getIntent().getSerializableExtra("answers");
+        answers2= (HashMap<Integer, Object>) getIntent().getSerializableExtra("answers2");
+        Log.e("teste", "size2:" + answers2.size());
+        Log.e("teste", "size:" + answers.size());
 
         setContentView(R.layout.activity_irr_1_3);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -47,6 +59,7 @@ public class IRR_1_3 extends AppCompatActivity {
         mV=(EditText)findViewById(R.id.irr_1_3_3);
         mS=(EditText)findViewById(R.id.irr_1_3_4);
         mC=(EditText)findViewById(R.id.irr_1_3_5);
+
 
         //listeners to write mS and mC in runtime
 
@@ -128,24 +141,60 @@ public class IRR_1_3 extends AppCompatActivity {
         {
             return;
         }
-        Intent i=new Intent(this, IRR_1_4.class);
-        ArrayList<Float> a=new ArrayList<Float>();
 
-        a.add(Float.parseFloat(mL.getText().toString()));
 
+
+        ArrayList<Float> array_float=new ArrayList<Float>();
         Float v1=Float.parseFloat(mL.getText().toString());
         Float v2=Float.parseFloat(mP.getText().toString());
         Float v3=Float.parseFloat(mV.getText().toString());
         Float v4=v1*v2;
         Float v5=v4*v3;
-        a.add(v1);
-        a.add(v2);
-        a.add(v3);
-        a.add(v4);
-        a.add(v5);
+        array_float.add(v1);
+        array_float.add(v2);
+        array_float.add(v3);
+        array_float.add(v4);
+        array_float.add(v5);
+        ArrayList<Object> aObj=new ArrayList<Object>();
 
-        answers.add(a);
-        i.putExtra("response",answers);
+        if(answers2.get(question_num)!=null){
+            answers2.put(question_num,array_float);
+        }
+        else {
+            answers2.remove(question_num);
+            answers2.put(question_num,array_float);
+        }
+
+
+
+        if(answers.get(answers.size()-1).get(0)==question_num){
+            answers.get(answers.size()-1).remove(1);
+            answers.get(answers.size()-1).add(array_float);
+        }
+        else {
+            aObj.add(question_num);
+            aObj.add(array_float);
+            answers.add(aObj);
+        }
+
+
+
+        Intent i=new Intent(this, IRR_question.class);
+        i.putExtra("main_title","Hidrogeomorfologia");
+        i.putExtra("sub_title", "Substrato das margens (selecionar os que tem mais de 35%)");
+        i.putExtra("answers", answers);
+        i.putExtra("answers2",answers2);
+        i.putExtra("type", 1);
+        i.putExtra("required", true);
+        String[] options= new String[]{"Solo argiloso",
+                "Arenoso",
+                "Pedregoso",
+                "Rochoso",
+                "Artificial pedra",
+                "Artificial Betão(5)"};
+        i.putExtra("options", options);
+        i.putExtra("question_num", 4);
+        Log.e("teste", "size depois:" + answers.size());
         startActivity(i);
         this.overridePendingTransition(0, 0);
 

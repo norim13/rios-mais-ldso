@@ -1,13 +1,8 @@
 package engenheiro.rios;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,41 +10,30 @@ import android.view.View;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-import engenheiro.rios.DataBases.DB_functions;
 import engenheiro.rios.DataBases.User;
-import engenheiro.rios.IRR.IRR_1_1;
+import engenheiro.rios.IRR.IRR_question;
+public class Homepage extends AppCompatActivity{
 
-public class Homepage extends AppCompatActivity {
+    private Bundle savedInstanceState;
 
-    User current_user;
-    public static final String PREFS_NAME = "UserInfo";
-    String token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.homepage_title);
-        setSupportActionBar(toolbar);
 
-        current_user = new User();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
-        // Restore preferences
-        token="";
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        token=settings.getString("token","-1");
-        Log.e("token", ": " + token);
     }
+
+    User current_user;
+    public static final String PREFS_NAME = "UserInfo";
+    String token;
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,17 +47,28 @@ public class Homepage extends AppCompatActivity {
     }
 
     public void fomr_irr(View view) throws IOException, JSONException {
-        startActivity(new Intent(this, IRR_1_1.class));
-        DB_functions.saveForm();
+        HashMap<Integer,Object> answers2=new HashMap<Integer,Object>();
+        Intent i=new Intent(this, IRR_question.class);
+        i.putExtra("main_title","Hidrogeomorfologia");
+        i.putExtra("sub_title", "Tipo de Vale");
+        ArrayList<ArrayList<Object>> al= new ArrayList<>();
+        i.putExtra("answers",al);
+        i.putExtra("answers2",answers2);
+        i.putExtra("type",0);
+        i.putExtra("required", true);
+        String[] options={"1","2","3","4","5","6","7"};
+        i.putExtra("options",options);
+        i.putExtra("question_num", 1);
+        startActivity(i);
+        //startActivity(new Intent(this, IRR_question.class));
+        //DB_functions.saveForm();
     }
 
 
 
     public void about(View view)  {
-        startActivity(new Intent(this, About.class));
+        startActivity(new Intent(this, Information.class));
     }
-
-
 
 
     @Override
@@ -96,11 +91,13 @@ public class Homepage extends AppCompatActivity {
         }
 
         if(id==R.id.navigate_account){
-            startActivity(new Intent(this,Login_2.class));
+            startActivity(new Intent(this,Login.class));
 
         }
 
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

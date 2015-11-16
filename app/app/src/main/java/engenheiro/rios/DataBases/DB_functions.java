@@ -12,8 +12,11 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
-import engenheiro.rios.Login_2;
+import engenheiro.rios.Login;
 
 /**
  * Created by filipe on 02/11/2015.
@@ -104,7 +107,10 @@ public class DB_functions {
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.setRequestProperty("Content-Type", "application/json");
+                    con.setRequestProperty("Authorization", "Basic " +"zBkecP8DMF-vvGaFieno");
+                    con.addRequestProperty("x-csrf-token", "fetch");
                     con.setRequestMethod("POST");
+                    Log.e("teste", "antes da conexao");
                     con.connect();
                     JSONObject jsonObject = new JSONObject();
                     JSONObject user = new JSONObject();
@@ -112,10 +118,11 @@ public class DB_functions {
                         jsonObject.accumulate("tipoDeVale", 1);
                         user.accumulate("form_irr", jsonObject);
                     } catch (JSONException e) {
+                        Log.e("teste","nao criou o json");
                         e.printStackTrace();
                     }
 
-
+                    Log.e("teste","depois");
                     Log.w("teste", user.toString());
 
                     OutputStream os = null;
@@ -129,6 +136,7 @@ public class DB_functions {
                     StringBuilder sb=null;
                     sb= new StringBuilder();
                     HttpResult = con.getResponseCode();
+                    Log.e("teste","antes do if");
                     if (HttpResult == HttpURLConnection.HTTP_OK) {
                         BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
                         String line = null;
@@ -137,11 +145,48 @@ public class DB_functions {
                         }
 
                         br.close();
-
-                        System.out.println("" + sb.toString());
+                        Log.e("teste", "dentro do if");
+                        System.out.println("output:" + sb.toString());
 
                     } else {
-                        System.out.println(con.getResponseMessage());
+                        Log.e("teste","dentro do else");
+                        Log.e("teste","nao deu a conection");
+                        Log.e("teste",con.getResponseMessage());
+                        System.out.println("erro:" + con.getResponseMessage());
+                        System.out.println("erro:"+con.getErrorStream());
+
+                        Log.e("teste", "fodeu");
+
+                        StringBuilder builder = new StringBuilder();
+                        builder.append(con.getResponseCode())
+                                .append(" ")
+                                .append(con.getResponseMessage())
+                                .append("\n");
+
+                        Map<String, List<String>> map = con.getHeaderFields();
+                        for (Map.Entry<String, List<String>> entry : map.entrySet())
+                        {
+                            if (entry.getKey() == null)
+                                continue;
+                            builder.append( entry.getKey())
+                                    .append(": ");
+
+                            List<String> headerValues = entry.getValue();
+                            Iterator<String> it = headerValues.iterator();
+                            if (it.hasNext()) {
+                                builder.append(it.next());
+
+                                while (it.hasNext()) {
+                                    builder.append(", ")
+                                            .append(it.next());
+                                }
+                            }
+
+                            builder.append("\n");
+                        }
+                        Log.e("teste","fodeu");
+                        System.out.println(builder);
+
                     }
 
 
@@ -156,7 +201,7 @@ public class DB_functions {
 
 
 
-    public static void login(final String email, final String password, final Login_2 login) throws IOException, JSONException {
+    public static void login(final String email, final String password, final Login login) throws IOException, JSONException {
 
 
         new Thread(new Runnable() {
