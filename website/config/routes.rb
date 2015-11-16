@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :reports
   get 'search' => 'searchrios#display'
   get 'profile' => 'profile#display'
   get 'home' => 'home#homepage'
@@ -8,6 +9,7 @@ Rails.application.routes.draw do
 
   get 'concelhos' => 'concelho#getConcelhosFromDistrito'
 
+  resources :guardarios
   resources :form_irrs
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

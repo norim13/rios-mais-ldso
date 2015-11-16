@@ -1,155 +1,21 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:gravity="center_horizontal"
-    android:orientation="vertical" android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" tools:context="engenheiro.rios.Login"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:layout_height="match_parent" android:fitsSystemWindows="true"
+    tools:context="engenheiro.rios.Login"
+    android:background="@color/white">
 
-    <!-- Login progress -->
-    <ProgressBar android:id="@+id/login_progress" style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp" android:visibility="gone" />
+    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
+        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
 
-    <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
-        android:layout_height="fill_parent">
+        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
+            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
 
+    </android.support.design.widget.AppBarLayout>
 
+    <include layout="@layout/content_login" />
 
-        <LinearLayout android:id="@+id/email_login_form" android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:orientation="vertical">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageView10"
-                        android:src="@mipmap/ic_launcher"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true" />
-                </RelativeLayout>
-            </FrameLayout>
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <AutoCompleteTextView android:id="@+id/email" android:layout_width="300dp"
-                    android:layout_height="wrap_content" android:hint="@string/prompt_email"
-                    android:inputType="textEmailAddress" android:maxLines="1"
-                    android:singleLine="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <EditText android:id="@+id/password" android:layout_width="300dp"
-                    android:layout_height="wrap_content" android:hint="**********"
-                    android:imeActionId="@+id/login"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified" android:inputType="textPassword"
-                    android:maxLines="1" android:singleLine="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
-            </RelativeLayout>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="74dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <Button android:id="@+id/email_sign_in_button" style="?android:textAppearanceSmall"
-                        android:layout_width="140dp" android:layout_height="wrap_content"
-                        android:text="Entrar"
-                        android:textStyle="bold"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"
-                        android:background="@color/colorPrimary"
-                        android:textColor="@color/white" />
-                </RelativeLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="74dp" >
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-
-                    <Button
-                        style="?android:textAppearanceSmall"
-                        android:id="@+id/button3"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:text="Recuperar Password"
-                        android:textStyle="bold"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"
-                        android:textSize="12dp"
-                        android:background="@null"
-                        android:textColor="@color/colorPrimary" />
-                </RelativeLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="165dp">
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="103dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="Não tem conta?"
-                            android:id="@+id/textView3"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Registar"
-                            android:id="@+id/id_register"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:textColor="@color/colorPrimary"
-                            android:background="@null"
-                            android:onClick="register_init"/>
-
-                    </RelativeLayout>
-                </RelativeLayout>
-
-            </TableRow>
-
-        </LinearLayout>
-    </ScrollView>
-
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

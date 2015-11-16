@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   :recoverable, :rememberable, :trackable, :validatable
 
   has_many :form_irrs, dependent: :destroy
+  has_many :reports, dependent: :destroy
+
 
   validates :telef, length: { is: 9 }
 

@@ -1,0 +1,49 @@
+<%= simple_form_for(@guardario) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :rio, :label => 'Código do rio', :input_html => { :id => 'codigo-rio' } ,:readonly=>true, :placeholder=>"Clique em cima do rio para selecionar" %>
+      <%= f.label :local, "Local onde foi observado?" %><br/>
+      <%= f.radio_button :local, 'Árvores/Ramo' %>
+      <%= label :local_arvores, 'Árvores/Ramo' %>
+      <%= f.radio_button :local, 'Pedra/Rocha' %>
+      <%= label :local_pedra, 'Pedra/Rocha' %>
+      <%= f.radio_button :local, 'Ninho' %>
+      <%= label :local_ninho, 'Ninho' %><br/><br/>
+
+      <%= f.label :voar, "Estava a voar?" %><br/>
+      <%= f.select :voar, ['Pairar','Voo picado para mergulhar','Mergulhar','De passagem'],{:include_blank => 'Não estava a voar'} %><br/><br/>
+
+      <%= f.label :cantar, "Estava a cantar?" %><br/>
+      <%= f.select :cantar, ['Presença','Alerta e marcação de território'],{:include_blank => 'Não estava a cantar'} %><br/><br/>
+
+      <%= f.label :alimentar, "Estava a alimentar-se?" %><br/>
+      <%= f.select :alimentar, ['Peixe','Libelinha','Pequenos insectos'],{:include_blank => 'Não estava a alimentar-se'} %><br/><br/>
+
+      <%= label :parado, 'Estava parado?' %>
+      <%= f.check_box :parado %> <br/>
+
+      <%= label :beber, 'Estava a beber?' %>
+      <%= f.check_box :beber %><br/>
+
+      <%= label :cacar, 'Estava a caçar?' %>
+      <%= f.check_box :cacar %><br/>
+
+      <%= label :cuidarcrias, 'Estava a cuidar das crias?' %>
+      <%= f.check_box :cuidarcrias %><br/><br/>
+
+      <%= f.input :outro, :label => 'Outro comportamento?' %><br/>
+
+      <div id="guarda-rios-imgs">
+        <%= f.label :images, 'Adicionar imagens', class: 'control-label' %>
+        <%= f.file_field :images, multiple: true, class: 'file' %>
+      </div>
+
+
+    </div>
+
+
+    <div class="form-actions">
+      <%= f.button :submit, 'Reportar avistamento' %>
+    </div>
+<% end %>

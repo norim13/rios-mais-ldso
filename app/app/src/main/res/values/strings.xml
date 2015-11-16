@@ -77,6 +77,27 @@
     <string name="logo_string">Logo</string>
     <string name="title_activity_irr_question">IRR_question</string>
     <string name="title_activity_login_2">Login_2</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_info__docs">Info_Docs</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
+
+    <string name="link_docs_irr_1"><a href="http://rios.pt/documentos/IRR/HabitatsAnex1.pdf">Habitats naturais e Sítios onde ocorrem</a></string>
+    <string name="link_docs_irr_2"><a href="http://rios.pt/documentos/IRR/IRR-%20Question%C3%A1rio.docx">Questionário IRR</a></string>
+    <string name="link_docs_irr_3"><a href="http://rios.pt/documentos/IRR/tipologia-de-rios-em-portugal-continental.pdf">Tipologia de rios em Portugal Continental no âmbito da implementação da directiva quadro da água</a></string>
+    <string name="link_docs_other_1"><a href="http://repositorio-aberto.up.pt/handle/10216/11051">Tese Mestrado de Pedro Teiga</a></string>
+    <string name="link_docs_other_2"><a href="http://repositorio-aberto.up.pt/handle/10216/61206">Tese Doutoramento de Pedro Teiga</a></string>
+    <string name="link_docs_other_3"><a href="http://rios.pt/documentos/As%20passagens%20para%20peixes%20em%20Portugal.pdf">As passagens para peixes em Portugal</a></string>
+    <string name="link_docs_other_4"><a href="http://rios.pt/documentos/Design%20guideline%20for%20the%20reintroduction%20madeira%20_australia.pdf">Design guideline for the reintroduction of wood into Australian streamsm</a></string>
+    <string name="link_docs_other_5"><a href="http://rios.pt/documentos/PNA2015.pdf">Plano Nacional da Água</a></string>
+    <string name="link_docs_other_6"><a href="http://rios.pt/documentos/REP-A.Monteiroetal_controlo_cana_IN_MANUAL_RICOVER_2013.pdf">Restauro e gestão ecológica fluvial</a></string>
+    <string name="link_docs_other_7"><a href="http://rios.pt/documentos/Rios_B_Restauracion_tcm7-27570.pdf">Restauración de Rios</a></string>
+
 
 
 </resources>

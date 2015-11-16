@@ -1,0 +1,91 @@
+<%= render 'common/header' %>
+
+</head>
+<body>
+<%= render 'common/navbar' %>
+
+
+<p id="notice"><%= notice %></p>
+<div class="container">
+
+  <p>
+    <strong>Rio:</strong>
+    <%= @guardario.rio %>
+  </p>
+
+  <p>
+    <strong>User:</strong>
+    <%= @guardario.user_id %>
+  </p>
+
+  <p>
+    <strong>Local:</strong>
+    <%= @guardario.local %>
+  </p>
+
+  <% if !@guardario['images'].nil? %>
+      <div id="show-form_irr-imgs">
+        <div class="row">
+          <% @guardario['images'].each do |img|%>
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <%= image_tag("#{@img_path}#{img}", :class => 'img-responsive') %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+  <% end %>
+
+  <p>
+    <strong>Estava a voar? </strong>
+    <%= @guardario.voar %>
+  </p>
+
+  <p>
+    <strong>Estava a cantar? </strong>
+    <%= @guardario.cantar %>
+  </p>
+
+  <p>
+    <strong>Estava parado? </strong>
+    <% if @guardario.parado %> Sim
+    <% else %> Não
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Estava a beber? </strong>
+    <% if @guardario.beber %> Sim
+    <% else %> Não
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Estava a caçar? </strong>
+    <% if @guardario.cacar %> Sim
+    <% else %> Não
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Estava a cuidar de crias? </strong>
+    <% if @guardario.cuidarcrias %> Sim
+    <% else %> Não
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Estava-se a alimentar? </strong>
+    <% if @guardario.alimentar %> Sim
+    <% else %> Não
+    <% end %>
+  </p>
+
+
+
+  <%= link_to 'Edit', edit_guardario_path(@guardario) %> |
+  <%= link_to 'Back', guardarios_path %>
+
+</div>
+
+
+<%= render 'common/footer' %>

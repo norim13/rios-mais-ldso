@@ -10,17 +10,14 @@
     tools:showIn="@layout/activity_register2" tools:context="engenheiro.rios.RegisterActivity">
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/UserNameRegisterEditText"
         android:hint="Nome"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/imageView12"
+        android:layout_centerHorizontal="true" />
 
     <AutoCompleteTextView
      android:maxLines="1"
@@ -31,11 +28,11 @@
     android:ems="10"
     android:id="@+id/EmailRegisterEditText"
     android:hint="Email"
-    android:layout_below="@+id/UserNameRegisterEditText"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/UserNameRegisterEditText"
+        android:layout_alignLeft="@+id/UserNameRegisterEditText"
+        android:layout_alignStart="@+id/UserNameRegisterEditText"
+        android:layout_alignRight="@+id/UserNameRegisterEditText"
+        android:layout_alignEnd="@+id/UserNameRegisterEditText" />
 
 
     <EditText
@@ -46,8 +43,8 @@
         android:id="@+id/PasswordRegisterEditText"
         android:hint="Password"
         android:layout_below="@+id/EmailRegisterEditText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignLeft="@+id/EmailRegisterEditText"
+        android:layout_alignStart="@+id/EmailRegisterEditText"
         android:layout_alignRight="@+id/EmailRegisterEditText"
         android:layout_alignEnd="@+id/EmailRegisterEditText" />
 
@@ -57,12 +54,12 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/PasswordConfirmRegisterEditText"
+        android:hint="Confirmar Password"
         android:layout_below="@+id/PasswordRegisterEditText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignLeft="@+id/PasswordRegisterEditText"
+        android:layout_alignStart="@+id/PasswordRegisterEditText"
         android:layout_alignRight="@+id/PasswordRegisterEditText"
-        android:layout_alignEnd="@+id/PasswordRegisterEditText"
-        android:hint="Confirmar Password" />
+        android:layout_alignEnd="@+id/PasswordRegisterEditText" />
 
     <Button
         android:layout_width="wrap_content"
@@ -70,10 +67,21 @@
         android:text="Registar"
         android:id="@+id/RegisterButton"
         android:onClick="register"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/PasswordConfirmRegisterEditText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignLeft="@+id/PasswordConfirmRegisterEditText"
+        android:layout_alignStart="@+id/PasswordConfirmRegisterEditText"
         android:layout_alignRight="@+id/PasswordConfirmRegisterEditText"
-        android:layout_alignEnd="@+id/PasswordConfirmRegisterEditText" />
+        android:layout_alignEnd="@+id/PasswordConfirmRegisterEditText"
+        android:background="@null"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView12"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/logo" />
 
 </RelativeLayout>
