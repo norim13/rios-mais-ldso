@@ -94,14 +94,35 @@ window.onload = function () {
 		            },
 		            dataType: 'json',
 		            success: function(data) {
-		                console.log("success. data:");
-				            console.log(data);
+		                //console.log("success. data:");
+				            //console.log(data);
 
-				            if(data.features){
+				            if(data.features[0] != undefined) {
+                        console.log(data.features[0].properties);
+
 						            var designacao = data.features[0].properties.designacao;
                         var codigo = data.features[0].properties.codrios;
+                        var bacia = data.features[0].properties.bacia;
+                        var tipo = data.features[0].properties.tipo;
 
-                        if(!designacao) {
+						            // for search rios
+                        if(window.location.href.split('/')[window.location.href.split('/').length -1] == 'search') {
+                            if(!designacao) {
+                                $("#rio-nome h4").html("Nome do rio: não encontrado...");
+                                $("#rio-codigo h4").html("Código: não encontrado...");
+                                $("#rio-bacia h4").html("Bacia: não encontrado...");
+                                $("#rio-tipo h4").html("Tipo: não encontrado...");
+                                $("#rio-irr-avg h4").html("Média IRR: não encontrado...");
+                            }
+                            else {
+                                $("#rio-nome h4").html("Nome do rio: " + designacao);
+                                $("#rio-codigo h4").html("Código: " + codigo);
+                                $("#rio-bacia h4").html("Bacia: " + bacia);
+                                $("#rio-tipo h4").html("Tipo: " + tipo);
+                                $("#rio-irr-avg h4").html("Média IRR: nao definido");
+                            }
+
+                        } else if(!designacao) {
                             $("#rio-nome h4").html("Nome do rio: não encontrado...");
                             $("#codigo-rio").val("");
                         }
@@ -109,7 +130,7 @@ window.onload = function () {
                             $("#rio-nome h4").html("Nome do rio: " + designacao);
                             $("#codigo-rio").val(codigo);
                         }
-						        }
+                    }
 
 		            },
 		            type: 'GET'
