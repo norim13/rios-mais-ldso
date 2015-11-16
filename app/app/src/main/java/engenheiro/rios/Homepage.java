@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import engenheiro.rios.DataBases.DB_functions;
 import engenheiro.rios.DataBases.User;
 import engenheiro.rios.IRR.IRR_question;
 public class Homepage extends AppCompatActivity{
@@ -31,6 +32,13 @@ public class Homepage extends AppCompatActivity{
         setSupportActionBar(toolbar);
 
 
+        try {
+            DB_functions.saveForm();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -107,7 +107,7 @@ public class DB_functions {
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.setRequestProperty("Content-Type", "application/json");
-                    con.setRequestProperty("Authorization", "Basic " +"zBkecP8DMF-vvGaFieno");
+                    con.setRequestProperty("Authorization", "Basic " +"EXbFj1G7O/ZmZPLLhf7X3nJTLjV/8fH2ZlkcTDr26wE4KgcmOqDWgwGj3enKxztBvIMpC6wFbmerJywyD0aYHQ==");
                     con.addRequestProperty("x-csrf-token", "fetch");
                     con.setRequestMethod("POST");
                     Log.e("teste", "antes da conexao");
