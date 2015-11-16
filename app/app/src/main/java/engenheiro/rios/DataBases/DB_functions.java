@@ -99,7 +99,7 @@ public class DB_functions {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String url = "http://riosmais.herokuapp.com/form_irrs";
+                    String url = "http://riosmais.herokuapp.com/guardarios";
                     URL object = null;
                     object = new URL(url);
                     HttpURLConnection con = null;
@@ -114,6 +114,31 @@ public class DB_functions {
                     con.connect();
                     JSONObject jsonObject = new JSONObject();
                     JSONObject user = new JSONObject();
+
+                    JSONObject obj_json=new JSONObject();
+                    JSONObject response=new JSONObject();
+
+                    try {
+                        obj_json.accumulate("authenticity_token","MNecl7j7YnciuIudGdlotmjuyqLDQ\n" +
+                                "dTQIDyyZej2A5ncMl4u8Atld3mRPjGu2Ln3ZJb5r+ogh1MIAaWKnoYCUg==");
+                        response.accumulate("rio","");
+                        response.accumulate("local","Árvores/Ramo");
+                        response.accumulate("voar","");
+                        response.accumulate("cantar","");
+                        response.accumulate("alimentar","");
+                        response.accumulate("parado","0");
+                        response.accumulate("beber","1");
+                        response.accumulate("cacar","0");
+                        response.accumulate("cuidarcrias","0");
+                        response.accumulate("outro","");
+                        response.accumulate("beber","1");
+                        obj_json.accumulate("guardario",response);
+                        obj_json.accumulate("commit","Reportar avistamento");
+                    } catch (JSONException e) {
+                        Log.e("teste","nao criou o json");
+                        e.printStackTrace();
+                    }
+
                     try {
                         jsonObject.accumulate("tipoDeVale", 1);
                         user.accumulate("form_irr", jsonObject);
@@ -122,7 +147,7 @@ public class DB_functions {
                         e.printStackTrace();
                     }
 
-                    Log.e("teste","depois");
+                    Log.e("teste", "depois");
                     Log.w("teste", user.toString());
 
                     OutputStream os = null;

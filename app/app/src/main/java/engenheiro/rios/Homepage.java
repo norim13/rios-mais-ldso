@@ -56,7 +56,9 @@ public class Homepage extends AppCompatActivity{
     }
 
     public void mapas_init(View view){
-        startActivity(new Intent(this, Mapa_rios.class));
+       // startActivity(new Intent(this, Mapa_rios.class));
+        startActivity(new Intent(this, GuardaRios_form.class));
+
     }
 
     public void fomr_irr(View view) throws IOException, JSONException {

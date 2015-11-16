@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -32,9 +33,15 @@ public class Form_functions {
 
     public static ArrayList<RadioButton> createRadioButtons(String[] array, LinearLayout linearLayout, Context context){
         ArrayList<RadioButton> list = new ArrayList<RadioButton>();
+        RelativeLayout.LayoutParams radioParams;
+        radioParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+        radioParams.setMargins(10,10,10,10);
         RadioGroup rg= new RadioGroup(context);
+        rg.setLayoutParams(radioParams);
         for(int i=0;i<array.length;i++)
         {
+
+
             RadioButton cb = new RadioButton(context);
             cb.setText(array[i]);
             list.add(cb);

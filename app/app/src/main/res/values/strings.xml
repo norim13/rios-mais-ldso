@@ -97,6 +97,7 @@
     <string name="link_docs_other_5"><a href="http://rios.pt/documentos/PNA2015.pdf">Plano Nacional da Água</a></string>
     <string name="link_docs_other_6"><a href="http://rios.pt/documentos/REP-A.Monteiroetal_controlo_cana_IN_MANUAL_RICOVER_2013.pdf">Restauro e gestão ecológica fluvial</a></string>
     <string name="link_docs_other_7"><a href="http://rios.pt/documentos/Rios_B_Restauracion_tcm7-27570.pdf">Restauración de Rios</a></string>
+    <string name="title_activity_guarda_rios_form">GuardaRios_form</string>
 
 
 
