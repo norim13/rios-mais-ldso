@@ -1,13 +1,21 @@
 package engenheiro.rios;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +30,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class Mapa_rios extends AppCompatActivity  implements OnMapReadyCallback,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
@@ -32,35 +40,38 @@ public class Mapa_rios extends AppCompatActivity  implements OnMapReadyCallback,
     Marker select_loc;
 
 
-
     private boolean isPotentialLongPress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapa_rios);
+        mLastLocation = null;
+        mGoogleApiClient = null;
+        select_loc = null;
+        current_loc = null;
 
-        if(!isLocationServiceEnabled())
-        {
-            Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        if (!isLocationServiceEnabled()) {
+            Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             this.startActivity(myIntent);
+        } else {
+            buildGoogleApiClient();
+
+            if (mGoogleApiClient != null) {
+                mGoogleApiClient.connect();
+            } else
+                Toast.makeText(this, "Not connected...", Toast.LENGTH_SHORT).show();
+
+
+            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
         }
-        buildGoogleApiClient();
-
-        if(mGoogleApiClient!= null){
-            mGoogleApiClient.connect();
-        }
-        else
-            Toast.makeText(this, "Not connected...", Toast.LENGTH_SHORT).show();
-
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
     }
 
     //maps
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -83,25 +94,47 @@ public class Mapa_rios extends AppCompatActivity  implements OnMapReadyCallback,
     }
 
 
-    public boolean isLocationServiceEnabled(){
+    public boolean isLocationServiceEnabled() {
         LocationManager locationManager = null;
-        boolean gps_enabled= false,network_enabled = false;
+        boolean gps_enabled = false, network_enabled = false;
 
-        if(locationManager ==null)
+        if (locationManager == null)
             locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        try{
+        try {
             gps_enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             //do nothing...
         }
 
-        try{
+        try {
             network_enabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             //do nothing...
         }
 
         return gps_enabled || network_enabled;
+
+    }
+
+    public void onResume() {
+        super.onResume();
+        if (mLastLocation != null && isLocationServiceEnabled()) {
+            buildGoogleApiClient();
+
+            if (mGoogleApiClient != null) {
+                mGoogleApiClient.connect();
+            } else
+                Toast.makeText(this, "Not connected...", Toast.LENGTH_SHORT).show();
+
+
+            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                    mGoogleApiClient);
+        }
+
 
     }
 
@@ -114,19 +147,21 @@ public class Mapa_rios extends AppCompatActivity  implements OnMapReadyCallback,
             Log.e("location", "Latitude: " + String.valueOf(mLastLocation.getLatitude()) + "Longitude: " +
                     String.valueOf(mLastLocation.getLongitude()));
         }
-        select_loc=null;
+        if(current_loc!=null)
+            current_loc.remove();
+
         LatLng current_location = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-        current_loc= mMap.addMarker(new MarkerOptions().position(current_location).title("Localização Actual"));
+        current_loc = mMap.addMarker(new MarkerOptions().position(current_location).title("Localização Actual"));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current_location, 12.0f));
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
             @Override
             public void onMapClick(LatLng arg0) {
-                if(select_loc!=null)select_loc.remove();
+                if (select_loc != null) select_loc.remove();
                 Log.d("arg0", arg0.latitude + "-" + arg0.longitude);
                 LatLng current_location = new LatLng(arg0.latitude, arg0.longitude);
-                select_loc=mMap.addMarker(new MarkerOptions().position(current_location).title("Localização escolhida"));
+                select_loc = mMap.addMarker(new MarkerOptions().position(current_location).title("Localização escolhida"));
                 //mMap.moveCamera(CameraUpdateFactory.newLatLng(current_location));
             }
         });
@@ -145,6 +180,71 @@ public class Mapa_rios extends AppCompatActivity  implements OnMapReadyCallback,
     }
 
 
+    public void current(View view) {
+
+        if (!isLocationServiceEnabled()) {
+            Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            this.startActivity(myIntent);
+        } else {
+            buildGoogleApiClient();
+
+            if (mGoogleApiClient != null) {
+                mGoogleApiClient.connect();
+            } else
+                Toast.makeText(this, "Not connected...", Toast.LENGTH_SHORT).show();
+
+
+            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+        }
+
+
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.M)
+    protected void getLocation() {
+        LocationManager locationManager = null;
+        Criteria criteria = null;
+        String bestProvider = null;
+        if (isLocationServiceEnabled()) {
+            locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+            criteria = new Criteria();
+            bestProvider = String.valueOf(locationManager.getBestProvider(criteria, true)).toString();
+
+            //You can still do this if you like, you might get lucky:
+            if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for Activity#requestPermissions for more details.
+
+                return;
+            }
+            Location location = locationManager.getLastKnownLocation(bestProvider);
+            if (location != null) {
+                Log.e("TAG", "GPS is on");
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                Toast.makeText(Mapa_rios.this, "latitude:" + latitude + " longitude:" + longitude, Toast.LENGTH_SHORT).show();
+                //searchNearestPlace(voice2text);
+            }
+            else{
+                //This is what you need:
+                locationManager.requestLocationUpdates(bestProvider, 1000, 0, (LocationListener) this);
+            }
+        }
+        else
+        {
+            //prompt user to enable location....
+            //.................
+        }
+    }
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -152,6 +252,26 @@ public class Mapa_rios extends AppCompatActivity  implements OnMapReadyCallback,
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
+    }
+
+
+
+
+
+    //menu action bar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_homepage, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.navigate_guardarios)
+            startActivity(new Intent(this,GuardaRios.class));
+        if(id==R.id.navigate_account)
+            startActivity(new Intent(this,Login.class));
+        return super.onOptionsItemSelected(item);
     }
 
 

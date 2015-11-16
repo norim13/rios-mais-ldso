@@ -3,6 +3,7 @@ package engenheiro.rios;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,10 @@ public class Homepage extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Inicio");
+        setSupportActionBar(toolbar);
 
 
 
@@ -98,6 +103,8 @@ public class Homepage extends AppCompatActivity{
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 
 }
