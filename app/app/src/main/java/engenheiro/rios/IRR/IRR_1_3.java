@@ -27,7 +27,6 @@ public class IRR_1_3 extends AppCompatActivity {
     protected EditText mV;
     protected EditText mS;
     protected EditText mC;
-    protected ArrayList<ArrayList<Object>> answers;
     protected HashMap<Integer,Object> answers2;
     protected Integer question_num;
 
@@ -43,10 +42,8 @@ public class IRR_1_3 extends AppCompatActivity {
         question_num= (Integer) getIntent().getSerializableExtra("question_num");
 
 
-        answers= (ArrayList<ArrayList<Object>>) getIntent().getSerializableExtra("answers");
         answers2= (HashMap<Integer, Object>) getIntent().getSerializableExtra("answers2");
         Log.e("teste", "size2:" + answers2.size());
-        Log.e("teste", "size:" + answers.size());
 
         setContentView(R.layout.activity_irr_1_3);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -165,36 +162,9 @@ public class IRR_1_3 extends AppCompatActivity {
             answers2.put(question_num,array_float);
         }
 
-
-
-        if(answers.get(answers.size()-1).get(0)==question_num){
-            answers.get(answers.size()-1).remove(1);
-            answers.get(answers.size()-1).add(array_float);
-        }
-        else {
-            aObj.add(question_num);
-            aObj.add(array_float);
-            answers.add(aObj);
-        }
-
-
-
-        Intent i=new Intent(this, IRR_question.class);
-        i.putExtra("main_title","Hidrogeomorfologia");
-        i.putExtra("sub_title", "Substrato das margens (selecionar os que tem mais de 35%)");
-        i.putExtra("answers", answers);
-        i.putExtra("answers2",answers2);
-        i.putExtra("type", 1);
-        i.putExtra("required", true);
-        String[] options= new String[]{"Solo argiloso",
-                "Arenoso",
-                "Pedregoso",
-                "Rochoso",
-                "Artificial pedra",
-                "Artificial Betão(5)"};
-        i.putExtra("options", options);
-        i.putExtra("question_num", 4);
-        Log.e("teste", "size depois:" + answers.size());
+        Intent i =new Intent(this, IRR_question.class);
+        Questions.getQuestion(4, i, this);
+        i.putExtra("answers2", answers2);
         startActivity(i);
         this.overridePendingTransition(0, 0);
 
