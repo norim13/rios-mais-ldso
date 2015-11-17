@@ -86,4 +86,11 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  namespace :api do
+    namespace :v2 do
+      post "/form_irrs", :to => 'form_irrs#create'
+    end
+  end
+
 end
