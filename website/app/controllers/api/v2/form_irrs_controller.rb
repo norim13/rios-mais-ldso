@@ -2,7 +2,6 @@ class Api::V2::FormIrrsController < ApplicationController
 
   before_filter :authenticate_user_from_token!
 
-
   def create
     user_email = params[:user_email].presence
     user       = user_email && User.find_by_email(user_email)
@@ -18,7 +17,6 @@ class Api::V2::FormIrrsController < ApplicationController
   end
 
   def authenticate_user_from_token!
-
     user_email = params[:user_email].presence
     user       = user_email && User.find_by_email(user_email)
 
