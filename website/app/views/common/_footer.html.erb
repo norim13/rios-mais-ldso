@@ -5,14 +5,9 @@
     <%= link_to 'Contactos', contactos_path %>
   </div>
 </footer>
-
 </body>
-</html>
-
 <%= javascript_include_tag 'http://www.openlayers.org/api/OpenLayers.js' %>
-<%= javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=false' %>
+<%= javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=false','data-turbolinks-track' => true %>
 <%= javascript_include_tag 'application', 'data-turbolinks-eval' => false %>
 <%= javascript_include_tag "concelho" %>
-
-
-
+</html>
