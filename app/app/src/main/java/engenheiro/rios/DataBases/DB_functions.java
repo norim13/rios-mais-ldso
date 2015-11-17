@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import engenheiro.rios.Login;
+import engenheiro.rios.Register;
 
 /**
  * Created by filipe on 02/11/2015.
@@ -24,11 +25,12 @@ import engenheiro.rios.Login;
 
 public class DB_functions {
 
-    public static void saveUser(final String nome, final String email, final String password, final String password_confirmation) throws IOException, JSONException {
+    public static void saveUser(final String nome, final String email, final String password, final String password_confirmation, final Register register_class) throws IOException, JSONException {
 
         new Thread(new Runnable() {
             public void run() {
                 try {
+
                 String url = "http://riosmais.herokuapp.com/api/v1/sign_up";
                 URL object = null;
                 object = new URL(url);
@@ -71,6 +73,23 @@ public class DB_functions {
                     while ((line = br.readLine()) != null) {
                         sb.append(line + "\n");
                     }
+
+                    final String[] error_txt = {""};
+                    final Boolean[] error = {false};
+
+                    try {
+                        JSONObject obj = new JSONObject(sb.toString());
+                        try {
+                            error_txt[0] = obj.getString("error");
+                            error[0] =true;
+                        } catch (JSONException ignored) {
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.e("resposta:","a meio     error:"+ error_txt[0]);
+                    register_class.register_response(error[0], error_txt[0]);
 
                     br.close();
 
@@ -168,6 +187,7 @@ public class DB_functions {
                         while ((line = br.readLine()) != null) {
                             sb.append(line + "\n");
                         }
+
 
                         br.close();
                         Log.e("teste", "dentro do if");

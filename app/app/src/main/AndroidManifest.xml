@@ -156,6 +156,15 @@
         <activity
             android:name=".GuardaRios_form"
             android:label="@string/title_activity_guarda_rios_form"
+            android:parentActivityName=".GuardaRios"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="engenheiro.rios.GuardaRios" />
+        </activity>
+        <activity
+            android:name=".Sos_rios"
+            android:label="@string/title_activity_sos_rios"
             android:parentActivityName=".Homepage"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data

@@ -1,5 +1,6 @@
 package engenheiro.rios;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -110,7 +111,7 @@ public class Register extends AppCompatActivity {
         */
 
         try {
-            DB_functions.saveUser(username,email,password,password_confirm);
+            DB_functions.saveUser(username,email,password,password_confirm,this);
         } catch (IOException e) {
             Toast.makeText(Register.this, "Erro ao registar utilizador", Toast.LENGTH_LONG).show();
             e.printStackTrace();
@@ -150,4 +151,34 @@ public class Register extends AppCompatActivity {
             startActivity(new Intent(this,Login.class));
         return super.onOptionsItemSelected(item);
     }
+
+
+    public void register_response(final Boolean error, final String error_txt) {
+
+
+        new Thread()
+        {
+            public void run()
+            {
+                Register.this.runOnUiThread(new Runnable()
+                {
+                    public void run()
+                    {
+                        Toast toast;
+                        Context context = getApplicationContext();
+                        if (error){
+
+                            toast = Toast.makeText(context, ""+error_txt, Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                        else {
+                        }
+                    }
+                });
+            }
+        }.start();
+
+
+    }
+
 }

@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.CheckBox;
@@ -15,8 +16,11 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Calendar;
 
+import engenheiro.rios.DataBases.DB;
 import engenheiro.rios.IRR.Form_functions;
 
 public class GuardaRios_form extends AppCompatActivity {
@@ -111,12 +115,28 @@ public class GuardaRios_form extends AppCompatActivity {
         linearLayout.addView(question6);
 
 
+        saveGuardaRios();
 
 
 
+    }
 
 
+    public void saveGuardaRios(){
+            String command="";
+        Calendar c = Calendar.getInstance();
+        String curr_time = ""+c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-"+c.get(Calendar.DAY_OF_MONTH)+" "+
+                c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":"+c.get(Calendar.SECOND)+".0";
+                command=String.format("INSERT INTO guardarios (created_at,updated_at,user_id,rio,descricao,categoria,motivo,coordenadas) VALUES ('%s','%s','%s','%d','%s','%s');",
+                        curr_time,curr_time,0,"Douro","desc","categoria","motivo","coordenadas");
+                Log.w("teste", "insert:" + command);
+                Log.w("teste","calendario:"+curr_time);
 
+            DB db=new DB();
+            ResultSet rs=db.execute(command);
+
+            Log.w("teste", "mensagem: "+db.is_status());
+            Log.w("teste","status: "+db.get_message());
     }
 
 }

@@ -56,8 +56,13 @@ public class Homepage extends AppCompatActivity{
     }
 
     public void mapas_init(View view){
-       // startActivity(new Intent(this, Mapa_rios.class));
-        startActivity(new Intent(this, GuardaRios_form.class));
+        startActivity(new Intent(this, Mapa_rios.class));
+        //startActivity(new Intent(this, GuardaRios_form.class));
+
+    }
+
+    public void sosRios(View view){
+        startActivity(new Intent(this, Sos_rios.class));
 
     }
 
