@@ -61,6 +61,9 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+  #speed up rails
+  gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git'
+	gem 'wdm', '>=0.0.3'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -71,3 +74,4 @@ gem 'simple_token_authentication', '~> 1.0'
 
 #imagens
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+
