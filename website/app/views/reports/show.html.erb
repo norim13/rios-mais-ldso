@@ -1,4 +1,55 @@
+<%= render 'common/header' %>
+
+</head>
+<body>
+<%= render 'common/navbar' %>
+
+
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_report_path(@report) %> |
-<%= link_to 'Back', reports_path %>
+<div class="container">
+
+  <p>
+    <strong>Código do Rio:</strong>
+    <%= @report.rio %>
+  </p>
+
+  <p>
+    <strong>Nº utilizador:</strong>
+    <%= @report.user_id %>
+  </p>
+
+  <p>
+    <strong> Categoria: </strong>
+    <%= @report.categoria %>
+  </p>
+
+  <p>
+    <strong> Motivo: </strong>
+    <%= @report.motivo %>
+  </p>
+
+
+  <p>
+    <strong> Descrição: </strong>
+    <%= @report.descricao %>
+  </p>
+
+  <% if !@report['images'].nil? %>
+      <div id="show-form_irr-imgs">
+        <div class="row">
+          <% @report['images'].each do |img| %>
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <%= image_tag("#{@img_path}#{img}", :class => 'img-responsive') %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+  <% end %>
+
+  <%= link_to 'Voltar atrás', report_path %>
+
+</div>
+
+
+<%= render 'common/footer' %>

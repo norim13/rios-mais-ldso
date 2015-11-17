@@ -1,10 +1,11 @@
 class ReportsController < ApplicationController
-  before_action :set_report, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
+  before_action :set_report, only: [:show, :destroy]
 
   # GET /reports
   # GET /reports.json
   def index
-    @reports = Report.all
+    @reports = current_user.reports
   end
 
   # GET /reports/1

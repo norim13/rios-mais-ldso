@@ -1,10 +1,11 @@
 class GuardariosController < ApplicationController
-  before_action :set_guardario, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
+  before_action :set_guardario, only: [:show, :destroy]
 
   # GET /guardarios
   # GET /guardarios.json
   def index
-    @guardarios = Guardario.all
+    @guardarios = current_user.guardarios
   end
 
   # GET /guardarios/1
