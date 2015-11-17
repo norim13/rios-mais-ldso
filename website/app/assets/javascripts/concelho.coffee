@@ -3,8 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 `
-    $( document ).ready(function() {
-        $("#user_distrito_id").on('change',function() {
+    $(document).ready(function () {
+        $("#user_distrito_id").on('change', function () {
             getConcelhos($("#user_distrito_id").val());
         });
     });
@@ -22,8 +22,7 @@
                 select.html('<option>Escolha o concelho</option>');
             },
             success: function (data, textStatus, jqXHR) {
-                $.each(data,function(key, value)
-                {
+                $.each(data, function (key, value) {
                     select.append('<option value=' + value.id + '>' + value.nome + '</option>');
                 });
                 // $('body').append("Successful AJAX call:" + data);

@@ -1,33 +1,34 @@
 <%= simple_form_for(@report) do |f| %>
-  <%= f.error_notification %>
+    <%= f.error_notification %>
 
-  <div class="form-inputs">
+    <div class="form-inputs">
 
-    <%= f.input :rio, :label => 'Código do rio', :input_html => { :id => 'codigo-rio' } ,:readonly=>true, :placeholder=>"Clique em cima do rio para selecionar" %>
+      <%= f.input :rio, :label => 'Código do rio', :input_html => {:id => 'codigo-rio'}, :readonly => true, :placeholder => "Clique em cima do rio para selecionar" %>
 
-    <%= f.label :categoria, "Categoria" %><br/>
-    <%= f.select :categoria, ['Erosão','Poluição','Acidente','Desflorestação','Pesca e caça ilegal',
-    'Cheia','Incêndio','Vandalismo','Presença de espécies exóticas e invasoras'],{:include_blank => 'Selecione uma categoria'} %><br/><br/>
+      <%= f.label :categoria, "Categoria" %><br/>
+      <%= f.select :categoria, ['Erosão', 'Poluição', 'Acidente', 'Desflorestação', 'Pesca e caça ilegal',
+                                'Cheia', 'Incêndio', 'Vandalismo', 'Presença de espécies exóticas e invasoras'], {:include_blank => 'Selecione uma categoria'} %>
+      <br/><br/>
 
-    <%= f.label :motivo, "Motivo" %><br/>
-    <%= f.select :motivo, ['Preocupado com a situação a nível ambiental',
-                           'Preocupado com a situação a nível Pessoal',
-                           'Má Vizinhança',
-                           'Necessida de informação adicional',
-                           'Demora do processo de esclarecimento/resolução'],{:include_blank => 'Selecione o motivo'} %><br/><br/>
+      <%= f.label :motivo, "Motivo" %><br/>
+      <%= f.select :motivo, ['Preocupado com a situação a nível ambiental',
+                             'Preocupado com a situação a nível Pessoal',
+                             'Má Vizinhança',
+                             'Necessida de informação adicional',
+                             'Demora do processo de esclarecimento/resolução'], {:include_blank => 'Selecione o motivo'} %>
+      <br/><br/>
 
-    <%= f.input :descricao, :label => 'Descrição' %><br/>
+      <%= f.input :descricao, :label => 'Descrição' %><br/>
 
-    <div id="reports-imgs">
-      <%= f.label :images, 'Adicionar imagens', class: 'control-label' %>
-      <%= f.file_field :images, multiple: true, class: 'file' %>
+      <div id="reports-imgs">
+        <%= f.label :images, 'Adicionar imagens', class: 'control-label' %>
+        <%= f.file_field :images, multiple: true, class: 'file' %>
+      </div>
+
+
     </div>
 
-
-
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
 <% end %>

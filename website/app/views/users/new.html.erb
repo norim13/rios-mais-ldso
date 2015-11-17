@@ -5,46 +5,46 @@
 
 <body>
 
-  <%= render 'common/navbar' %>
+<%= render 'common/navbar' %>
 
-  <div class="container">
+<div class="container">
 
-    <%= form_for :user, url: users_path, :html => {:id => 'register_form', :class => "form-horizontal"} do |f| %>
+  <%= form_for :user, url: users_path, :html => {:id => 'register_form', :class => "form-horizontal"} do |f| %>
 
 
-    <p class="form-group">
-      <%= f.label :nome %><br>
-      <%= f.text_field :nome %>
-    </p>
+      <p class="form-group">
+        <%= f.label :nome %><br>
+        <%= f.text_field :nome %>
+      </p>
 
-    <p class="form-group">
-      <%= f.label :email %><br>
-      <%= f.email_field :email %>
-    </p>
+      <p class="form-group">
+        <%= f.label :email %><br>
+        <%= f.email_field :email %>
+      </p>
 
-    <p class="form-group">
-      <%= f.label :password %><br>
-      <%= f.password_field :password %>
-    </p>
+      <p class="form-group">
+        <%= f.label :password %><br>
+        <%= f.password_field :password %>
+      </p>
 
-    <p class="form-group">
-      <%= f.label :password_confirmation %><br>
-      <%= f.password_field :password_confirmation %>
-    </p>
+      <p class="form-group">
+        <%= f.label :password_confirmation %><br>
+        <%= f.password_field :password_confirmation %>
+      </p>
 
-    <p class="form-group">
-      <%= f.submit "Registar", :class => "btn btn-default" %>
-    </p>
+      <p class="form-group">
+        <%= f.submit "Registar", :class => "btn btn-default" %>
+      </p>
 
-    <% if @user.errors.any? %>
-    <ul class="Signup_Errors">
-      <% for message_error in @user.errors.full_messages %>
-      <li>* <%= message_error %></li>
+      <% if @user.errors.any? %>
+          <ul class="Signup_Errors">
+            <% for message_error in @user.errors.full_messages %>
+                <li>* <%= message_error %></li>
+            <% end %>
+          </ul>
       <% end %>
-    </ul>
-    <% end %>
 
-    <% end %>
+  <% end %>
 
 
-    <%= render 'common/footer' %>
+<%= render 'common/footer' %>

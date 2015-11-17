@@ -6,6 +6,7 @@
 
 
 <p id="notice"><%= notice %></p>
+
 <div class="container">
 
   <p>
@@ -26,7 +27,7 @@
   <% if !@guardario['images'].nil? %>
       <div id="show-form_irr-imgs">
         <div class="row">
-          <% @guardario['images'].each do |img|%>
+          <% @guardario['images'].each do |img| %>
               <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <%= image_tag("#{@img_path}#{img}", :class => 'img-responsive') %>
               </div>

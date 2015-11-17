@@ -4,7 +4,7 @@ class AddFieldsToReport < ActiveRecord::Migration
     add_column :reports, :rio, :string
     add_column :reports, :descricao, :string
     add_column :reports, :categoria, :string
-    add_column :reports, :motivo , :string
+    add_column :reports, :motivo, :string
     add_column :reports, :coordenadas, :string
     add_column :reports, :images, :json
 

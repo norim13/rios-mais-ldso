@@ -4,13 +4,13 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable
 
   has_many :form_irrs, dependent: :destroy
   has_many :reports, dependent: :destroy
 
 
-  validates :telef, length: { is: 9 }
+  validates :telef, length: {is: 9}
 
   acts_as_token_authenticatable
 end

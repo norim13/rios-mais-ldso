@@ -2,7 +2,7 @@
     <%= f.error_notification %>
 
     <div class="form-inputs">
-      <%= f.input :rio, :label => 'Código do rio', :input_html => { :id => 'codigo-rio' } ,:readonly=>true, :placeholder=>"Clique em cima do rio para selecionar" %>
+      <%= f.input :rio, :label => 'Código do rio', :input_html => {:id => 'codigo-rio'}, :readonly => true, :placeholder => "Clique em cima do rio para selecionar" %>
       <%= f.label :local, "Local onde foi observado?" %><br/>
       <%= f.radio_button :local, 'Árvores/Ramo' %>
       <%= label :local_arvores, 'Árvores/Ramo' %>
@@ -12,13 +12,16 @@
       <%= label :local_ninho, 'Ninho' %><br/><br/>
 
       <%= f.label :voar, "Estava a voar?" %><br/>
-      <%= f.select :voar, ['Pairar','Voo picado para mergulhar','Mergulhar','De passagem'],{:include_blank => 'Não estava a voar'} %><br/><br/>
+      <%= f.select :voar, ['Pairar', 'Voo picado para mergulhar', 'Mergulhar', 'De passagem'], {:include_blank => 'Não estava a voar'} %>
+      <br/><br/>
 
       <%= f.label :cantar, "Estava a cantar?" %><br/>
-      <%= f.select :cantar, ['Presença','Alerta e marcação de território'],{:include_blank => 'Não estava a cantar'} %><br/><br/>
+      <%= f.select :cantar, ['Presença', 'Alerta e marcação de território'], {:include_blank => 'Não estava a cantar'} %>
+      <br/><br/>
 
       <%= f.label :alimentar, "Estava a alimentar-se?" %><br/>
-      <%= f.select :alimentar, ['Peixe','Libelinha','Pequenos insectos'],{:include_blank => 'Não estava a alimentar-se'} %><br/><br/>
+      <%= f.select :alimentar, ['Peixe', 'Libelinha', 'Pequenos insectos'], {:include_blank => 'Não estava a alimentar-se'} %>
+      <br/><br/>
 
       <%= label :parado, 'Estava parado?' %>
       <%= f.check_box :parado %> <br/>

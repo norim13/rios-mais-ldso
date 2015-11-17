@@ -4,63 +4,63 @@
 
 <body>
 
-	<%= render 'common/navbar' %>
+<%= render 'common/navbar' %>
 
-	<div class="container">
-		<p>
-			<strong>ID:</strong>
-			<%= @form_irr.id %>
-		</p>
+<div class="container">
+  <p>
+    <strong>ID:</strong>
+    <%= @form_irr.id %>
+  </p>
 
-		<p>
-			<strong>Utilizador:</strong>
-			<%= @form_irr.user_id %> -
-			<%= User.find(@form_irr.user_id).nome %>
-		</p>
+  <p>
+    <strong>Utilizador:</strong>
+    <%= @form_irr.user_id %> -
+    <%= User.find(@form_irr.user_id).nome %>
+  </p>
 
-		<%
-			 t = Time.current
-			 cur_timezone = t.zone
-		%>
+  <%
+     t = Time.current
+     cur_timezone = t.zone
+  %>
 
-		<p>
-			<strong>Criado em:</strong>
-			<%= @form_irr.created_at.in_time_zone(cur_timezone).strftime("%d/%m/%Y - %H:%M") %>
-		</p>
+  <p>
+    <strong>Criado em:</strong>
+    <%= @form_irr.created_at.in_time_zone(cur_timezone).strftime("%d/%m/%Y - %H:%M") %>
+  </p>
 
-		<p>
-			<strong>Última edição em:</strong>
-			<%= @form_irr.updated_at.strftime("%d/%m/%Y - %H:%M") %>
-		</p>
+  <p>
+    <strong>Última edição em:</strong>
+    <%= @form_irr.updated_at.strftime("%d/%m/%Y - %H:%M") %>
+  </p>
 
-		<div class="table-responsive">
-			<table class="table" id="irr">
-				<tr>
-					<th>Hidrogeomorfologia</th>
-					<th>Qualidade da agua</th>
-					<th>Alterações antrópicas</th>
-					<th>Corredor ecológico</th>
-					<th>Participação pública</th>
-					<th>Organização e planeamento</th>
-					<th>IRR total</th>
-				</tr>
-				<tr>
-					<td id="irr_hidrogeomorfologia"></td>
-					<td id="irr_qualidadedaagua"></td>
-					<td id="irr_alteracoesantropicas"></td>
-					<td id="irr_corredorecologico"></td>
-					<td id="irr_participacaopublica"></td>
-					<td id="irr_organizacaoeplaneamento"></td>
-					<td id="irr_total"></td>
-				</tr>
+  <div class="table-responsive">
+    <table class="table" id="irr">
+      <tr>
+        <th>Hidrogeomorfologia</th>
+        <th>Qualidade da agua</th>
+        <th>Alterações antrópicas</th>
+        <th>Corredor ecológico</th>
+        <th>Participação pública</th>
+        <th>Organização e planeamento</th>
+        <th>IRR total</th>
+      </tr>
+      <tr>
+        <td id="irr_hidrogeomorfologia"></td>
+        <td id="irr_qualidadedaagua"></td>
+        <td id="irr_alteracoesantropicas"></td>
+        <td id="irr_corredorecologico"></td>
+        <td id="irr_participacaopublica"></td>
+        <td id="irr_organizacaoeplaneamento"></td>
+        <td id="irr_total"></td>
+      </tr>
 
-			</table>
-		</div>
+    </table>
+  </div>
 
-		<%= render 'form' %>
+  <%= render 'form' %>
 
-		<%= link_to 'Editar este formulário', edit_form_irr_path(@form_irr) %> </br>
-    <%= link_to 'Voltar para os meus formulários', form_irrs_path %>
-	</div>
+  <%= link_to 'Editar este formulário', edit_form_irr_path(@form_irr) %> </br>
+  <%= link_to 'Voltar para os meus formulários', form_irrs_path %>
+</div>
 
-	<%= render 'common/footer' %>
+<%= render 'common/footer' %>
