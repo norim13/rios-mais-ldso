@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115233009) do
+ActiveRecord::Schema.define(version: 20151117000014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -241,11 +241,10 @@ ActiveRecord::Schema.define(version: 20151115233009) do
     t.string   "flora_outro"
     t.string   "vegetacaoInvasora_outro"
     t.integer  "margem"
-    t.integer  "image_id"
     t.json     "images"
+    t.string   "idRio"
   end
 
-  add_index "form_irrs", ["image_id"], name: "index_form_irrs_on_image_id", using: :btree
   add_index "form_irrs", ["user_id"], name: "index_form_irrs_on_user_id", using: :btree
 
   create_table "guardarios", force: :cascade do |t|
@@ -263,15 +262,6 @@ ActiveRecord::Schema.define(version: 20151115233009) do
     t.string   "alimentar"
     t.string   "outro"
     t.json     "images"
-  end
-
-  create_table "images", force: :cascade do |t|
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
   end
 
   create_table "reports", force: :cascade do |t|
@@ -317,7 +307,6 @@ ActiveRecord::Schema.define(version: 20151115233009) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "concelhos", "distritos"
-  add_foreign_key "form_irrs", "images"
   add_foreign_key "form_irrs", "users"
   add_foreign_key "reports", "users"
 end

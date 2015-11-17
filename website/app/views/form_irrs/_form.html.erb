@@ -19,48 +19,10 @@
             </div>
         <% end %>
 
-        <div id="form_irr-imgs">
-          <% if !@form_irr['images'].nil? %>
-              <div id="show-form_irr-imgs">
-                <div class="row">
-                  <% @form_irr['images'].each do |img|%>
-                      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                        <%= image_tag("#{@img_path}#{img}", :class => 'img-responsive') %>
-                      </div>
-                  <% end %>
-                </div>
-              </div>
-          <% end %>
-          <%= f.label :images, 'Adicionar imagens', class: 'control-label' %>
-          <%= f.file_field :images, multiple: true, class: 'file' %>
-        </div>
-
-        <div id="rio-nome" class="rio-info form-inline">
-          <div class="row">
-            <div class="thumbnail">
-              <h2>Rio</h2>
-              <div class="form-group container">
-                <h4>Nome do rio:</h4>
-              </div>
-              <div class="form-group container">
-                <%= f.label :margem, 'Margem' %>:
-                <div class="radio">
-                  <%= f.radio_button :margem, "1", :required => true %>
-                  <%= f.label :margem_1, "Esquerda" %>
-                </div>
-                <div class="radio">
-                  <%= f.radio_button :margem, "2", :required => true %>
-                  <%= f.label :margem_2, "Direita" %>
-                </div>
-              </div>
-              <%= render 'mapa/mapa' %>
-            </div>
-          </div>
-        </div>
-
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a href="#form_irr-hidrogeomorfologia" aria-controls="form_irr-hidrogeomorfologia" role="tab" data-toggle="tab">Hidrogeomorfologia</a></li>
+          <li role="presentation" class="active"><a href="#form_irr-rio" aria-controls="form_irr-rio" role="tab" data-toggle="tab">Rio</a></li>
+          <li role="presentation"><a href="#form_irr-hidrogeomorfologia" aria-controls="form_irr-hidrogeomorfologia" role="tab" data-toggle="tab">Hidrogeomorfologia</a></li>
           <li role="presentation"><a href="#form_irr-qualidadedaagua" aria-controls="form_irr-qualidadedaagua" role="tab" data-toggle="tab">Qualidade da água</a></li>
           <li role="presentation"><a href="#form_irr-alteracoesantropicas" aria-controls="form_irr-alteracoesantropicas" role="tab" data-toggle="tab">Alterações antrópicas</a></li>
           <li role="presentation"><a href="#form_irr-corredorecologico" aria-controls="form_irr-corredorecologico" role="tab" data-toggle="tab">Corredor ecológico</a></li>
@@ -68,7 +30,55 @@
           <li role="presentation"><a href="#form_irr-organizacaoeplaneamento" aria-controls="form_irr-organizacaoeplaneamento" role="tab" data-toggle="tab">Organização e planeamento</a></li>
         </ul>
 
-        <div role="tabpanel" class="tab-pane active" id="form_irr-hidrogeomorfologia">
+        <div role="tabpanel" class="tab-pane active" id="form_irr-rio">
+          <h2> Rio </h2>
+
+          <div id="rio-nome" class="rio-info form-inline">
+            <div class="row">
+              <div class="thumbnail">
+                <div class="form-group container">
+                  <h4>Nome do rio:</h4>
+                </div>
+                <div class="form-group container">
+                  <%= f.label :margem, 'Margem' %>:
+                  <div class="radio">
+                    <%= f.radio_button :margem, "1", :required => true %>
+                    <%= f.label :margem_1, "Esquerda" %>
+                  </div>
+                  <div class="radio">
+                    <%= f.radio_button :margem, "2", :required => true %>
+                    <%= f.label :margem_2, "Direita" %>
+                  </div>
+                </div>
+                <%= render 'mapa/mapa' %>
+                <%= f.text_field :idRio, :label => 'Código do rio', :id => 'codigo-rio', :class => 'text_field form-control input-custom-size',
+                                 :readonly => true, :placeholder => "Clique em cima do rio para selecionar", :required => true %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="thumbnail">
+              <div id="form_irr-imgs">
+                <% if !@form_irr['images'].nil? %>
+                    <div id="show-form_irr-imgs">
+                      <div class="row">
+                        <% @form_irr['images'].each do |img|%>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                              <%= image_tag("#{@img_path}#{img}", :class => 'img-responsive') %>
+                            </div>
+                        <% end %>
+                      </div>
+                    </div>
+                <% end %>
+                <%= f.label :images, 'Adicionar imagens', class: 'control-label' %>
+                <%= f.file_field :images, multiple: true, class: 'file' %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="form_irr-hidrogeomorfologia">
           <h2> Hidrogeomorfologia </h2>
 
           <div class="form-group image-options container">

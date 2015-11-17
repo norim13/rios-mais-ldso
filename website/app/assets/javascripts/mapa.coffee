@@ -98,7 +98,7 @@ window.onload = function () {
 				            //console.log(data);
 
 				            if(data.features[0] != undefined) {
-                        console.log(data.features[0].properties);
+                        //console.log(data.features[0].properties);
 
 						            var designacao = data.features[0].properties.designacao;
                         var codigo = data.features[0].properties.codrios;
@@ -131,7 +131,6 @@ window.onload = function () {
                             $("#codigo-rio").val(codigo);
                         }
                     }
-
 		            },
 		            type: 'GET'
 		        });
