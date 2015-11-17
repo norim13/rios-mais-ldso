@@ -4,7 +4,7 @@
 
   <!-- Tab panes -->
   <div class="container">
-    <%= form_for @form_irr, :html => {:role => 'form', :class => "#{@is_show} tab-content"}  do |f| %>
+    <%= form_for @form_irr, :html => {:role => 'form', :class => "#{@is_show} tab-content form_form_irr"}  do |f| %>
         <% if @form_irr.errors.any? %>
             <div id="error_explanation">
               <h2>
@@ -18,6 +18,36 @@
               </ul>
             </div>
         <% end %>
+
+        <div class="table-responsive">
+          <table class="table" id="irr">
+            <tr>
+              <th>Hidrogeomorfologia</th>
+              <th>Qualidade da agua</th>
+              <th>Alterações antrópicas</th>
+              <th>Corredor ecológico</th>
+              <th>Participação pública</th>
+              <th>Organização e planeamento</th>
+              <th>IRR total</th>
+            </tr>
+            <tr>
+              <td id="irr_hidrogeomorfologia">0</td>
+              <%= f.hidden_field :irr_hidrogeomorfologia %>
+              <td id="irr_qualidadedaagua">0</td>
+              <%= f.hidden_field :irr_qualidadedaagua %>
+              <td id="irr_alteracoesantropicas">0</td>
+              <%= f.hidden_field :irr_alteracoesantropicas %>
+              <td id="irr_corredorecologico">0</td>
+              <%= f.hidden_field :irr_corredorecologico %>
+              <td id="irr_participacaopublica">0</td>
+              <%= f.hidden_field :irr_participacaopublica %>
+              <td id="irr_organizacaoeplaneamento">0</td>
+              <%= f.hidden_field :irr_organizacaoeplaneamento %>
+              <td id="irr_total">0</td>
+              <%= f.hidden_field :irr %>
+            </tr>
+          </table>
+        </div>
 
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">

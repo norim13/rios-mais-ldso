@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117000014) do
+ActiveRecord::Schema.define(version: 20151117180416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -243,6 +243,13 @@ ActiveRecord::Schema.define(version: 20151117000014) do
     t.integer  "margem"
     t.json     "images"
     t.string   "idRio"
+    t.integer  "irr_hidrogeomorfologia"
+    t.integer  "irr_qualidadedaagua"
+    t.integer  "irr_alteracoesantropicas"
+    t.integer  "irr_corredorecologico"
+    t.integer  "irr_participacaopublica"
+    t.integer  "irr_organizacaoeplaneamento"
+    t.integer  "irr"
   end
 
   add_index "form_irrs", ["user_id"], name: "index_form_irrs_on_user_id", using: :btree

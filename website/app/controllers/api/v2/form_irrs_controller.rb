@@ -49,7 +49,7 @@ class Api::V2::FormIrrsController < ApplicationController
                                      :tritaoVentreLaranja,:raIberica,:raVerde,:sapoComum,:lagartoDeAgua,:cobraAguaDeColar,:cagado,:repteis_outro,:guardaRios,:garcaReal,:melroDeAgua,:galinhaDeAgua,:patoReal,:tentilhaoComum,:chapimReal,:aves_outro,:lontras,:morcegosDeAgua,:toupeiraDaAgua,:ratoDeAgua,:ouricoCacheiro,
                                      :armilho,:mamiferos_outro,:enguia,:lampreia,:salmao,:truta,:bogaPortuguesa,:bogaDoNorte,:peixes_outro,:percaSol,:tartarugaDaFlorida,:caranguejoPeludoChines,:gambusia,:mustelaVison,:lagostimVermelho,:trutaArcoIris,:achiga,:fauna_outro,:salgueiral,:amial,:freixal,:choupal,:ulmeiral,
                                      :sanguinos,:ladual,:tramazeiras,:carvalhal,:sobreiral,:azinhal,:flora_outro,:conservacaoBosqueRibeirinho,:silvas,:ervaDaFortuna,:plumas,:lentilhaDaAgua,:pinheirinha,:jacintoDeAgua,:vegetacaoInvasora_outro,:obstrucaoDoLeitoMargens,:disponibilizacaoDeInformacao,:envolvimentoPublico,
-                                     :acao,:legislacao,:estrategia,:gestaoDasIntervencoes, {images: []})
+                                     :acao,:legislacao,:estrategia,:gestaoDasIntervencoes, {images: []}, :irr_hidrogeomorfologia,:irr_qualidadedaagua,:irr_alteracoesantropicas, :irr_corredorecologico, :irr_participacaopublica,:irr_organizacaoeplaneamento, :irr)
   end
 
 end

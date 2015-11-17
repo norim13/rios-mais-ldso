@@ -14,7 +14,7 @@ $ ->
     $('#form_irr_profundidadeMedia').change(calculateSeccao);
 
     $('#form_irr_velocidadeMedia').change(calculateCauldal);
-    $('#form_irr_seccao').change(calculateCauldal); calculateIRR();
+    $('#form_irr_seccao').change(calculateCauldal); displayIRR();
 
 
 `function calculateSeccao() {
@@ -50,11 +50,13 @@ function showImageInModal(){
 
 $('.btnNext').click(function(){
     $('.nav-tabs > .active').next('li').find('a').trigger('click');
+    calculateIRR();
     $('html,body').animate({scrollTop: 0});
 });
 
 $('.btnPrevious').click(function(){
     $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+    calculateIRR();
     $('html,body').animate({scrollTop: 0});
 });
 
@@ -69,6 +71,10 @@ $('.tab-pane input, .tab-pane select, .tab-pane textarea').on('invalid', functio
 
 });
 
+$('.nav-tabs').click(function() {
+    calculateIRR();
+});
+
 Array.min = function(array) {
     return Math.min.apply(Math,array);
 };
@@ -77,7 +83,29 @@ Array.max = function(array) {
     return Math.max.apply(Math,array);
 };
 
-function calculateIRR() {
+$('.form_form_irr').submit(function(){
+    calculateIRR();
+
+    $('#form_irr_irr_hidrogeomorfologia').val($("#irr_hidrogeomorfologia").text());
+    $('#form_irr_irr_qualidadedaagua').val($("#irr_qualidadedaagua").text());
+    $('#form_irr_irr_alteracoesantropicas').val($("#irr_alteracoesantropicas").text());
+    $('#form_irr_irr_corredorecologico').val($("#irr_corredorecologico").text());
+    $('#form_irr_irr_participacaopublica').val($("#irr_participacaopublica").text());
+    $('#form_irr_irr_organizacaoeplaneamento').val($("#irr_organizacaoeplaneamento").text());
+    $('#form_irr_irr').val($("#irr_total").text());
+
+    if($('#form_irr_irr_hidrogeomorfologia').val() != '' &&
+        $('#form_irr_irr_qualidadedaagua').val() != '' &&
+        $('#form_irr_irr_alteracoesantropicas').val() != '' &&
+        $('#form_irr_irr_corredorecologico').val() != '' &&
+        $('#form_irr_irr_participacaopublica').val() != '' &&
+        $('#form_irr_irr_organizacaoeplaneamento').val() != '' &&
+        $('#form_irr_irr').val() != '')
+    return true;
+    else return false;
+});
+
+function calculateHidrogeomorfologia() {
     // hidrogeomorfologia
     value_irr = [];
     $('#form_irr-hidrogeomorfologia input:checked').each(function() {
@@ -85,11 +113,16 @@ function calculateIRR() {
             value_irr.push(parseInt($(this).attr('value_irr')));
     });
 
-    if(value_irr.length > 0)
+    /*if(value_irr.length > 0)
         value_irr_hidrogeomorfologia = Array.max(value_irr);
-    else value_irr_hidrogeomorfologia = 0;
+    else value_irr_hidrogeomorfologia = 0;*/
 
-    // reset ao array
+    if(value_irr.length > 0)
+        return Array.max(value_irr);
+    else return 0;
+}
+
+function calculateQualidadedaagua() {
     value_irr = [];
 
     // qualidade da agua
@@ -117,11 +150,16 @@ function calculateIRR() {
     if(temp_macroinvertebrados.length > 0)
         value_irr.push(Array.min(temp_macroinvertebrados));
 
-    if(value_irr.length > 0)
+    /*if(value_irr.length > 0)
         value_irr_qualidadedaagua = Array.max(value_irr);
-    else value_irr_qualidadedaagua = 0;
+    else value_irr_qualidadedaagua = 0;*/
 
-    // reset ao array
+    if(value_irr.length > 0)
+        return Array.max(value_irr);
+    else return 0;
+}
+
+function calculateAlteracoesAntropicas() {
     value_irr = [];
 
     // alteracoes antropicas
@@ -130,11 +168,16 @@ function calculateIRR() {
             value_irr.push(parseInt($(this).attr('value_irr')));
     });
 
-    if(value_irr.length > 0)
+    /*if(value_irr.length > 0)
         value_irr_alteracoesantropicas = Array.max(value_irr);
-    else value_irr_alteracoesantropicas = 0;
+    else value_irr_alteracoesantropicas = 0;*/
 
-    // reset ao array
+    if(value_irr.length > 0)
+        return Array.max(value_irr);
+    else return 0;
+}
+
+function calculateCorredorEcologico() {
     value_irr = [];
 
     // corredor ecologico
@@ -143,11 +186,16 @@ function calculateIRR() {
             value_irr.push(parseInt($(this).attr('value_irr')));
     });
 
-    if(value_irr.length > 0)
+    /*if(value_irr.length > 0)
         value_irr_corredorecologico = Array.max(value_irr);
-    else value_irr_corredorecologico = 0;
+    else value_irr_corredorecologico = 0;*/
 
-    // reset ao array
+    if(value_irr.length > 0)
+        return Array.max(value_irr);
+    else return 0;
+}
+
+function calculateParticipacaoPublica() {
     value_irr = [];
 
     // participacao publica
@@ -156,11 +204,16 @@ function calculateIRR() {
             value_irr.push(parseInt($(this).attr('value_irr')));
     });
 
-    if(value_irr.length > 0)
+    /*if(value_irr.length > 0)
         value_irr_participacaopublica = Array.max(value_irr);
-    else value_irr_participacaopublica = 0;
+    else value_irr_participacaopublica = 0;*/
 
-    // reset ao array
+    if(value_irr.length > 0)
+        return Array.max(value_irr);
+    else return 0;
+}
+
+function calculateOrganizacaoEPlaneamento() {
     value_irr = [];
 
     // organizacao e planeamento
@@ -169,9 +222,22 @@ function calculateIRR() {
             value_irr.push(parseInt($(this).attr('value_irr')));
     });
 
-    if(value_irr.length > 0)
+    /*if(value_irr.length > 0)
         value_irr_organizacaoeplaneamento = Array.max(value_irr);
-    else value_irr_organizacaoeplaneamento = 0;
+    else value_irr_organizacaoeplaneamento = 0;*/
+
+    if(value_irr.length > 0)
+        return Array.max(value_irr);
+    else return 0;
+}
+
+function calculateIRR() {
+    value_irr_hidrogeomorfologia = calculateHidrogeomorfologia();
+    value_irr_qualidadedaagua = calculateQualidadedaagua();
+    value_irr_alteracoesantropicas = calculateAlteracoesAntropicas();
+    value_irr_corredorecologico = calculateCorredorEcologico();
+    value_irr_participacaopublica = calculateParticipacaoPublica();
+    value_irr_organizacaoeplaneamento = calculateOrganizacaoEPlaneamento();
 
     // irr final
     irr = Math.max(value_irr_hidrogeomorfologia,value_irr_qualidadedaagua,value_irr_alteracoesantropicas,value_irr_corredorecologico,
@@ -180,12 +246,35 @@ function calculateIRR() {
     /////////////////////////////////////////
     // mostrar em divs
 
-    $("#irr_hidrogeomorfologia").html(value_irr_hidrogeomorfologia);
-    $("#irr_qualidadedaagua").html(value_irr_qualidadedaagua);
-    $("#irr_alteracoesantropicas").html(value_irr_alteracoesantropicas);
-    $("#irr_corredorecologico").html(value_irr_corredorecologico);
-    $("#irr_participacaopublica").html(value_irr_participacaopublica);
-    $("#irr_organizacaoeplaneamento").html(value_irr_organizacaoeplaneamento);
-    $("#irr_total").html(irr);
+    $("#irr_hidrogeomorfologia").text(value_irr_hidrogeomorfologia);
+    $("#irr_qualidadedaagua").text(value_irr_qualidadedaagua);
+    $("#irr_alteracoesantropicas").text(value_irr_alteracoesantropicas);
+    $("#irr_corredorecologico").text(value_irr_corredorecologico);
+    $("#irr_participacaopublica").text(value_irr_participacaopublica);
+    $("#irr_organizacaoeplaneamento").text(value_irr_organizacaoeplaneamento);
+    $("#irr_total").text(irr);
 }
+
+function calculateIRRFromValues(vh,vq,va,vc,vp,vo){
+    irr = Math.max(vh,vq,va,vc,vp,vo);
+
+    $("#irr_hidrogeomorfologia").text(vh);
+    $("#irr_qualidadedaagua").text(vq);
+    $("#irr_alteracoesantropicas").text(va);
+    $("#irr_corredorecologico").text(vc);
+    $("#irr_participacaopublica").text(vp);
+    $("#irr_organizacaoeplaneamento").text(vo);
+    $("#irr_total").text(irr);
+}
+
+function displayIRR() {
+    $("#irr_hidrogeomorfologia").text($('#form_irr_irr_hidrogeomorfologia').val());
+    $("#irr_qualidadedaagua").text($('#form_irr_irr_qualidadedaagua').val());
+    $("#irr_alteracoesantropicas").text($('#form_irr_irr_alteracoesantropicas').val());
+    $("#irr_corredorecologico").text($('#form_irr_irr_corredorecologico').val());
+    $("#irr_participacaopublica").text($('#form_irr_irr_participacaopublica').val());
+    $("#irr_organizacaoeplaneamento").text($('#form_irr_irr_organizacaoeplaneamento').val());
+    $("#irr_total").text($('#form_irr_irr').val());
+}
+
 `

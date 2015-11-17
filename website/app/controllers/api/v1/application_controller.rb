@@ -1,4 +1,4 @@
-class Api::V1::ApplicationController < ActionController::API
+class Api::V1::ApplicationController < ActionController::Base
   include ActionController::HttpAuthentication::Basic::ControllerMethods
   include ActionController::ImplicitRender
   before_filter :authenticate
@@ -26,11 +26,9 @@ class Api::V1::ApplicationController < ActionController::API
     else
       render :json => '{"success" : "false"}'
     end
-
   end
 
-
-  def authenticate_user_from_token!
+  def self.authenticate_user_from_token!
 
     user_email = params[:user_email].presence
     user       = user_email && User.find_by_email(user_email)

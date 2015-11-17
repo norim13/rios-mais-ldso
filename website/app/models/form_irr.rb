@@ -11,7 +11,9 @@ class FormIrr < ActiveRecord::Base
 	          :patrimonio_igreja,:patrimonio_solares,:patrimonio_nucleoHabitacional,:patrimonio_edificiosParticulares,
 	          :patrimonio_edificiosPublicos,:patrimonio_ETA,:patrimonio_descarregadoresDeAguasPluviais,:patrimonio_coletoresSaneamento,
 	          :patrimonio_defletoresArtificiais,:patrimonio_motaLateral,:conservacaoBosqueRibeirinho,:obstrucaoDoLeitoMargens,
-	          :disponibilizacaoDeInformacao,:envolvimentoPublico,:acao,:legislacao,:estrategia,:gestaoDasIntervencoes,presence: true
+	          :disponibilizacaoDeInformacao,:envolvimentoPublico,:acao,:legislacao,:estrategia,:gestaoDasIntervencoes,
+	          :irr_hidrogeomorfologia,:irr_qualidadedaagua,:irr_alteracoesantropicas, :irr_corredorecologico, :irr_participacaopublica,
+	          :irr_organizacaoeplaneamento,:irr, presence: true
 
 	validates :pH, :inclusion => 1..14
 	validates :condutividade, :inclusion => 50..1500
@@ -22,5 +24,12 @@ class FormIrr < ActiveRecord::Base
 	validates :nitritos, :inclusion => 0..4
 	validates :transparencia, :inclusion => 1..4
 	validates :margem, :inclusion => 1..2 #1- esquerda, 2- direita
+	validates :irr_hidrogeomorfologia, :inclusion => 0..5
+	validates :irr_qualidadedaagua, :inclusion => 0..5
+	validates :irr_alteracoesantropicas, :inclusion => 0..5
+	validates :irr_corredorecologico, :inclusion => 0..5
+	validates :irr_participacaopublica, :inclusion => 0..5
+	validates :irr_organizacaoeplaneamento, :inclusion => 0..5
+	validates :irr, :inclusion => 0..5
 
 end
