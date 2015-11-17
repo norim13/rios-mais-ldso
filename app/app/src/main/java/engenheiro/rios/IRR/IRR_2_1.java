@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +27,6 @@ public class IRR_2_1 extends AppCompatActivity {
     ArrayList<CheckBox> list;
     EditText ph,condutividade,temperatura,o2,o2_percentagem,nitratos,nitritos,transparencia;
 
-    protected ArrayList<ArrayList<Object>> answers;
     protected HashMap<Integer,Object> answers2;
 
 
@@ -43,10 +41,8 @@ public class IRR_2_1 extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        answers= (ArrayList<ArrayList<Object>>) getIntent().getSerializableExtra("answers");
         answers2= (HashMap<Integer, Object>) getIntent().getSerializableExtra("answers2");
 
-        Log.e("teste", "size:" + answers.size());
         question_num=0;
         question_num= (Integer) getIntent().getSerializableExtra("question_num");
 
@@ -259,34 +255,9 @@ public class IRR_2_1 extends AppCompatActivity {
 
 
 
-
-        ArrayList<Object> aObj=new ArrayList<Object>();
-        if(answers.get(answers.size()-1).get(0)==question_num){
-            answers.get(answers.size()-1).remove(1);
-            answers.get(answers.size()-1).add(array_float);
-        }
-        else {
-            aObj.add(question_num);
-            aObj.add(array_float);
-            answers.add(aObj);
-        }
-        Intent i=new Intent(this, IRR_question.class);
-        i.putExtra("main_title","Qualidade da água");
-        i.putExtra("sub_title", "Indícios na água :))))");
-        i.putExtra("answers", answers);
+        Intent i =new Intent(this, IRR_question.class);
+        Questions.getQuestion(10, i, this);
         i.putExtra("answers2", answers2);
-        i.putExtra("type", 1);
-        i.putExtra("required", true);
-        String[] options= new String[]{"Óleo (reflexos multicolores)",
-                "Espuma",
-                "Esgotos",
-                "Impurezas e lixos orgânicos",
-                "Sacos de plástico e embalagens",
-                "Latas ou material ferroso",
-                "Outros"};
-        i.putExtra("options", options);
-        i.putExtra("question_num", 10);
-        Log.e("teste", "size depois:" + answers.size());
         startActivity(i);
         this.overridePendingTransition(0, 0);
 

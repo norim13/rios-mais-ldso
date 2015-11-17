@@ -99,6 +99,8 @@
     <string name="link_docs_other_7"><a href="http://rios.pt/documentos/Rios_B_Restauracion_tcm7-27570.pdf">Restauración de Rios</a></string>
     <string name="title_activity_guarda_rios_form">GuardaRios_form</string>
     <string name="title_activity_sos_rios">Sos_rios</string>
+    <string name="title_activity_form_irr">FormIRR</string>
+    <string name="title_activity_teste">teste</string>
 
 
 

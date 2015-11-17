@@ -11,12 +11,9 @@ import android.view.View;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import engenheiro.rios.DataBases.DB_functions;
 import engenheiro.rios.DataBases.User;
-import engenheiro.rios.IRR.IRR_question;
 public class Homepage extends AppCompatActivity{
 
     private Bundle savedInstanceState;
@@ -67,6 +64,8 @@ public class Homepage extends AppCompatActivity{
     }
 
     public void fomr_irr(View view) throws IOException, JSONException {
+        startActivity(new Intent(this, FormIRR.class));
+        /*
         HashMap<Integer,Object> answers2=new HashMap<Integer,Object>();
         Intent i=new Intent(this, IRR_question.class);
         i.putExtra("main_title","Hidrogeomorfologia");
@@ -80,8 +79,7 @@ public class Homepage extends AppCompatActivity{
         i.putExtra("options",options);
         i.putExtra("question_num", 1);
         startActivity(i);
-        //startActivity(new Intent(this, IRR_question.class));
-        //DB_functions.saveForm();
+        */
     }
 
 
