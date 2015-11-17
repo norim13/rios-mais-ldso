@@ -20,7 +20,7 @@ $(document).ready(function(){
         });
 
         var  wfsProtocol = new OpenLayers.Protocol.WFS.v1_1_0({
-            url: 'http://localhost:10500/geoserver/rios/wms?SERVICE=WFS',
+            url: 'http://***REMOVED***:10500/geoserver/rios/wms?SERVICE=WFS',
             geometryName: "SHAPE",
             featurePrefix: 'rios',
             featureType: 'AtAgua_Agsup_rios_AAmb_SNIRH_PC',
