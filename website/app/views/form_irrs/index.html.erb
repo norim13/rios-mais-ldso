@@ -5,6 +5,7 @@
 
 <div class="container">
   <h1>Meus formulários <%= link_to "Novo formulário", new_form_irr_path, class: "btn btn-primary" %></h1>
+
   <div class="table-responsive">
     <table class="table">
       <tr>
@@ -25,7 +26,8 @@
           <tr>
             <td><%= form_irr.id %></td>
             <td>Nome do rio</td>
-            <td><% if form_irr.margem == 1 %>
+            <td>
+              <% if form_irr.margem == 1 %>
                   Esquerda
               <% else %>
                   Direita

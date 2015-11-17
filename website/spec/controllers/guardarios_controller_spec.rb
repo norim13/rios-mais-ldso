@@ -23,7 +23,7 @@ describe GuardariosController do
   # This should return the minimal set of attributes required to create a valid
   # Guardario. As you add validations to Guardario, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "rio" => "MyString" } }
+  let(:valid_attributes) { {"rio" => "MyString"} }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -85,14 +85,14 @@ describe GuardariosController do
       it "assigns a newly created but unsaved guardario as @guardario" do
         # Trigger the behavior that occurs when invalid params are submitted
         Guardario.any_instance.stub(:save).and_return(false)
-        post :create, {:guardario => { "rio" => "invalid value" }}, valid_session
+        post :create, {:guardario => {"rio" => "invalid value"}}, valid_session
         assigns(:guardario).should be_a_new(Guardario)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Guardario.any_instance.stub(:save).and_return(false)
-        post :create, {:guardario => { "rio" => "invalid value" }}, valid_session
+        post :create, {:guardario => {"rio" => "invalid value"}}, valid_session
         response.should render_template("new")
       end
     end
@@ -106,8 +106,8 @@ describe GuardariosController do
         # specifies that the Guardario created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Guardario.any_instance.should_receive(:update).with({ "rio" => "MyString" })
-        put :update, {:id => guardario.to_param, :guardario => { "rio" => "MyString" }}, valid_session
+        Guardario.any_instance.should_receive(:update).with({"rio" => "MyString"})
+        put :update, {:id => guardario.to_param, :guardario => {"rio" => "MyString"}}, valid_session
       end
 
       it "assigns the requested guardario as @guardario" do
@@ -128,7 +128,7 @@ describe GuardariosController do
         guardario = Guardario.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Guardario.any_instance.stub(:save).and_return(false)
-        put :update, {:id => guardario.to_param, :guardario => { "rio" => "invalid value" }}, valid_session
+        put :update, {:id => guardario.to_param, :guardario => {"rio" => "invalid value"}}, valid_session
         assigns(:guardario).should eq(guardario)
       end
 
@@ -136,7 +136,7 @@ describe GuardariosController do
         guardario = Guardario.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Guardario.any_instance.stub(:save).and_return(false)
-        put :update, {:id => guardario.to_param, :guardario => { "rio" => "invalid value" }}, valid_session
+        put :update, {:id => guardario.to_param, :guardario => {"rio" => "invalid value"}}, valid_session
         response.should render_template("edit")
       end
     end
