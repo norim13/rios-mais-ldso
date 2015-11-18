@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'rio/:id' => 'rio#show', :id => /.*/
+  get 'rio/:id' => 'rio#show', as: :rio, :id => /.*/
 
   get 'search' => 'searchrios#display'
   get 'profile' => 'profile#display'

@@ -48,7 +48,8 @@ $(document).ready(function(){
                     var info_rio = request.features[i].data;
                     var row = $('<tr></tr>');
                     $(row).append('<td>'+info_rio.codrios+'</td>');
-                    $(row).append('<td>'+info_rio.designacao+'</td>');
+                    var a = '<a href="/rio/'+info_rio.codrios+'">'+info_rio.designacao+'</a>';
+                    $(row).append('<td>'+a+'</td>');
                     $(row).append('<td>'+info_rio.tipo+'</td>');
                     $(row).append('<td>'+info_rio.bacia+'</td>');
                     $("#resultados-pesquisa-rios").append(row);

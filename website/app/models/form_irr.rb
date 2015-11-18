@@ -3,7 +3,7 @@ class FormIrr < ActiveRecord::Base
 
 	mount_uploaders :images, ImageUploader
 
-	validates :idRio,#:nomeRio,:lat,:lon,
+	validates :idRio,:nomeRio,#:lat,:lon,
 	          :margem,:tipoDeVale,:perfilDeMargens,:larguraDaSuperficieDaAgua,:profundidadeMedia,:seccao,:velocidadeMedia,:caudal,
 	          :pH,:condutividade,:temperatura,:nivelDeOxigenio,:percentagemDeOxigenio,:nitratos,:nitritos,:transparencia,
 	          :corDaAgua,:odorDaAgua,:patrimonio_moinho,:patrimonio_acude,:patrimonio_microAcude1,:patrimonio_microAcude2,

@@ -18,14 +18,10 @@
         <th>Editar</th>
         <th>Apagar</th>
       </tr>
-      <%
-         t = Time.current
-         cur_timezone = t.zone
-      %>
       <% @form_irrs.each do |form_irr| %>
           <tr>
             <td><%= form_irr.id %></td>
-            <td>Nome do rio</td>
+            <td><%= link_to form_irr.nomeRio, rio_path(form_irr.idRio) %></td>
             <td>
               <% if form_irr.margem == 1 %>
                   Esquerda
@@ -33,7 +29,7 @@
                   Direita
               <% end %>
             </td>
-            <td><%= form_irr.created_at.in_time_zone(cur_timezone).strftime("%d/%m/%Y - %H:%M") %></td>
+            <td><%= form_irr.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
             <td><%= form_irr.updated_at.strftime("%d/%m/%Y - %H:%M") %></td>
             <td><%= link_to 'Ver', form_irr_path(form_irr) %></td>
             <td><%= link_to 'Editar', edit_form_irr_path(form_irr) %></td>

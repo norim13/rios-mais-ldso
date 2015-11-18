@@ -7,12 +7,8 @@
 <%= render 'common/navbar' %>
 
 <div class="container">
-  <%
-     t = Time.current
-     cur_timezone = t.zone
-  %>
 
-  <h1>Formulário de Índice de Reabilitação de Rios</h1>
+  <h1>Formulário de Índice de Reabilitação de Rios <%= link_to @form_irr.nomeRio, rio_path(@form_irr.idRio), class: "btn btn-primary" %></h1>
 
   <table class="table table-hover table-striped">
     <tr>
@@ -27,7 +23,6 @@
       <td><%= @form_irr.user_id %></td>
       <td><%= User.find(@form_irr.user_id).nome %></td>
       <td><%= @form_irr.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
-      <% #alternativa: <%= @form_irr.created_at.in_time_zone(cur_timezone).strftime("%d/%m/%Y - %H:%M") %>
       <td><%= @form_irr.updated_at.strftime("%d/%m/%Y - %H:%M") %></td>
     </tr>
   </table>
