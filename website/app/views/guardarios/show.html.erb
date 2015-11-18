@@ -4,7 +4,6 @@
 <body>
 <%= render 'common/navbar' %>
 
-
 <p id="notice"><%= notice %></p>
 
 <div class="container">
@@ -21,7 +20,14 @@
 
   <p>
     <strong>Local:</strong>
-    <%= @guardario.local %>
+    <% case @guardario.local %>
+    <% when 'ninho' %>
+        <%= 'Ninho' %>
+    <% when 'arvores' %>
+        <%= 'Árvores/Ramo' %>
+    <% else %>
+        <%= 'Pedra/Rocha' %>
+    <% end %>
   </p>
 
   <% if !@guardario['images'].nil? %>
