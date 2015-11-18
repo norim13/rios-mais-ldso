@@ -7,6 +7,7 @@ FORM IRR:
 - CALCULO IRR
 	- sedimentacao, tds com 5?
 	- qd n e selecionado nada nas categorias, qual o valor a atribuir?
+	- media das categorias do irr fica round ou nao?
 	
 	
 PAPEL MAGICO:
