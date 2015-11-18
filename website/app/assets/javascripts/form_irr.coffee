@@ -2,7 +2,18 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$ ->
+`
+var ctx = null;
+var irr_hidrogeomorfologia = null;
+var irr_qualidadedaagua = null;
+var irr_alteracoesantropicas = null;
+var irr_corredorecologico = null;
+var irr_participacaopublica = null;
+var irr_organizacaoeplaneamento = null;
+var irr_total = null;
+
+
+$(document).ready(function(){
     $('#modal-photo').modal({show: false});
     $(".form-disabled input").prop("disabled", true);
     $(".form-disabled select").prop("disabled", true);
@@ -14,10 +25,21 @@ $ ->
     $('#form_irr_profundidadeMedia').change(calculateSeccao);
 
     $('#form_irr_velocidadeMedia').change(calculateCauldal);
-    $('#form_irr_seccao').change(calculateCauldal); displayIRR();
+    $('#form_irr_seccao').change(calculateCauldal);
+
+    loadIRRs();
+
+    if ($("#chart-irr").length){
+        ctx = $("#chart-irr").get(0).getContext("2d");
+        // This will get the first returned node in the jQuery collection.
+    }
+
+    displayIRR();
+
+});
 
 
-`function calculateSeccao() {
+function calculateSeccao() {
     if(!isNaN($('#form_irr_larguraDaSuperficieDaAgua').val()) &&
         !isNaN($('#form_irr_profundidadeMedia').val())) {
         var newValue = $('#form_irr_profundidadeMedia').val() * $('#form_irr_larguraDaSuperficieDaAgua').val();
@@ -232,27 +254,22 @@ function calculateOrganizacaoEPlaneamento() {
 }
 
 function calculateIRR() {
-    value_irr_hidrogeomorfologia = calculateHidrogeomorfologia();
-    value_irr_qualidadedaagua = calculateQualidadedaagua();
-    value_irr_alteracoesantropicas = calculateAlteracoesAntropicas();
-    value_irr_corredorecologico = calculateCorredorEcologico();
-    value_irr_participacaopublica = calculateParticipacaoPublica();
-    value_irr_organizacaoeplaneamento = calculateOrganizacaoEPlaneamento();
+
+    irr_hidrogeomorfologia = calculateHidrogeomorfologia();
+    irr_qualidadedaagua = calculateQualidadedaagua();
+    irr_alteracoesantropicas = calculateAlteracoesAntropicas();
+    irr_corredorecologico = calculateCorredorEcologico();
+    irr_participacaopublica = calculateParticipacaoPublica();
+    irr_organizacaoeplaneamento = calculateOrganizacaoEPlaneamento();
 
     // irr final
-    irr = Math.max(value_irr_hidrogeomorfologia,value_irr_qualidadedaagua,value_irr_alteracoesantropicas,value_irr_corredorecologico,
-        value_irr_participacaopublica,value_irr_organizacaoeplaneamento);
+    irr_total = Math.max(irr_hidrogeomorfologia,irr_qualidadedaagua,irr_alteracoesantropicas,
+        irr_corredorecologico,irr_participacaopublica,irr_organizacaoeplaneamento);
 
     /////////////////////////////////////////
     // mostrar em divs
 
-    $("#irr_hidrogeomorfologia").text(value_irr_hidrogeomorfologia);
-    $("#irr_qualidadedaagua").text(value_irr_qualidadedaagua);
-    $("#irr_alteracoesantropicas").text(value_irr_alteracoesantropicas);
-    $("#irr_corredorecologico").text(value_irr_corredorecologico);
-    $("#irr_participacaopublica").text(value_irr_participacaopublica);
-    $("#irr_organizacaoeplaneamento").text(value_irr_organizacaoeplaneamento);
-    $("#irr_total").text(irr);
+    displayIRR();
 }
 
 function calculateIRRFromValues(vh,vq,va,vc,vp,vo){
@@ -268,13 +285,89 @@ function calculateIRRFromValues(vh,vq,va,vc,vp,vo){
 }
 
 function displayIRR() {
-    $("#irr_hidrogeomorfologia").text($('#form_irr_irr_hidrogeomorfologia').val());
-    $("#irr_qualidadedaagua").text($('#form_irr_irr_qualidadedaagua').val());
-    $("#irr_alteracoesantropicas").text($('#form_irr_irr_alteracoesantropicas').val());
-    $("#irr_corredorecologico").text($('#form_irr_irr_corredorecologico').val());
-    $("#irr_participacaopublica").text($('#form_irr_irr_participacaopublica').val());
-    $("#irr_organizacaoeplaneamento").text($('#form_irr_irr_organizacaoeplaneamento').val());
-    $("#irr_total").text($('#form_irr_irr').val());
+    $("#irr_hidrogeomorfologia").text(irr_hidrogeomorfologia);
+    $("#irr_qualidadedaagua").text(irr_qualidadedaagua);
+    $("#irr_alteracoesantropicas").text(irr_alteracoesantropicas);
+    $("#irr_corredorecologico").text(irr_corredorecologico);
+    $("#irr_participacaopublica").text(irr_participacaopublica);
+    $("#irr_organizacaoeplaneamento").text(irr_organizacaoeplaneamento);
+    $("#irr_total").text(irr_total);
+
+    if(ctx == null)
+        return;
+
+    var data_array = [irr_hidrogeomorfologia,irr_qualidadedaagua,
+        irr_alteracoesantropicas,irr_corredorecologico,
+        irr_participacaopublica,irr_organizacaoeplaneamento,
+        irr_total]
+
+
+    for(var i in data_array){
+        switch(data_array[i]){
+            case 1: data_array[i] = 5; break;
+            case 2: data_array[i] = 4; break;
+            case 3: data_array[i] = 3; break;
+            case 4: data_array[i] = 2; break;
+            case 5: data_array[i] = 1; break;
+            default: data_array[i] = 0 ; break;
+        }
+    }
+
+    var data = {
+        labels: ["Hidrogeomorfologia", "Alterações Antrópicas", "Corredor Ecológico", "Qualidade da Água", "Participação Pública", "Organização e Planeamento", "Total"],
+        datasets: [
+            {
+                label: "My First dataset",
+                fillColor: "rgba(33,150,243,0.2)",
+                strokeColor: "rgba(33,150,243,1)",
+                pointColor: "rgba(33,150,243,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: data_array
+            }
+        ]
+    };
+
+    var myLineChart = new Chart(ctx).Line(data, {
+        bezierCurve: false,
+        //scaleBeginAtZero : true,
+        scaleOverride:true,
+        scaleSteps:5,
+        scaleStartValue:0,
+        scaleStepWidth:1,
+        scaleLabel: function (valuePayload) {
+            if(Number(valuePayload.value)===0)
+                return '';
+            if(Number(valuePayload.value)===1)
+                return '5';
+            if(Number(valuePayload.value)===2)
+                return '4';
+            if(Number(valuePayload.value)===3)
+                return '3';
+            if(Number(valuePayload.value)===4)
+                return '2';
+            if(Number(valuePayload.value)===5)
+                return '1';
+        }
+    });
 }
 
+function loadIRRs(){
+    irr_hidrogeomorfologia = parseInt($('#form_irr_irr_hidrogeomorfologia').val());
+    irr_qualidadedaagua = parseInt($('#form_irr_irr_qualidadedaagua').val());
+    irr_alteracoesantropicas = parseInt($('#form_irr_irr_alteracoesantropicas').val());
+    irr_corredorecologico = parseInt($('#form_irr_irr_corredorecologico').val());
+    irr_participacaopublica = parseInt($('#form_irr_irr_participacaopublica').val());
+    irr_organizacaoeplaneamento = parseInt($('#form_irr_irr_organizacaoeplaneamento').val());
+    irr_total = parseInt($('#form_irr_irr').val());
+}
+
+
+
+
+
+
+
 `
+

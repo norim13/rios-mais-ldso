@@ -4,6 +4,7 @@
 
   <!-- Tab panes -->
   <div class="container">
+
     <%= form_for @form_irr, :html => {:role => 'form', :class => "#{@is_show} tab-content form_form_irr"}  do |f| %>
         <% if @form_irr.errors.any? %>
             <div id="error_explanation">
@@ -17,6 +18,10 @@
                 <% end %>
               </ul>
             </div>
+        <% end %>
+
+        <% if @is_show == 'form-disabled' %>
+            <canvas id="chart-irr"></canvas>
         <% end %>
 
         <div class="table-responsive">

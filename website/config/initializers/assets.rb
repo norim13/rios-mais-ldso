@@ -22,3 +22,5 @@ Rails.application.config.assets.precompile += %w( mapa.css )
 
 Rails.application.config.assets.precompile += %w( concelho.js )
 Rails.application.config.assets.precompile += %w( footer.js )
+
+Rails.application.config.assets.precompile += %w( external/Chart.min.js )
