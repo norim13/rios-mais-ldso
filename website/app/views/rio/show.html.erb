@@ -1,4 +1,5 @@
 <%= render 'common/header' %>
+<%= stylesheet_link_tag "chart-irr" %>
 </head>
 <body>
 
@@ -52,7 +53,9 @@
         </tr>
       </table>
     </div>
-
+    <canvas id="chart-irr"></canvas>
+  <% else %>
+  <i>Não existem dados relativos ao IRR deste rio...</i>
   <% end %>
   <h2>Imagens</h2>
 
