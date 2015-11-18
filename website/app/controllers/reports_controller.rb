@@ -12,15 +12,13 @@ class ReportsController < ApplicationController
   # GET /reports/1.json
   def show
     @user_reporter = User.find_by_id(@report.user_id)
+    @img_path = "/uploads/report/images/#{params[:id]}/"
   end
 
   # GET /reports/new
   def new
     @report = Report.new
-  end
-
-  # GET /reports/1/edit
-  def edit
+    @img_path = "/uploads/report/images/#{params[:id]}/"
   end
 
   # POST /reports
@@ -35,20 +33,6 @@ class ReportsController < ApplicationController
         format.json { render :show, status: :created, location: @report }
       else
         format.html { render :new }
-        format.json { render json: @report.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /reports/1
-  # PATCH/PUT /reports/1.json
-  def update
-    respond_to do |format|
-      if @report.update(report_params)
-        format.html { redirect_to @report, notice: 'Report was successfully updated.' }
-        format.json { render :show, status: :ok, location: @report }
-      else
-        format.html { render :edit }
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
     end
@@ -73,6 +57,5 @@ class ReportsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def report_params
     params.require(:report).permit(:rio, :categoria, :motivo, :descricao, :local, {images: []})
-
   end
 end

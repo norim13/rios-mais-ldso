@@ -7,6 +7,7 @@ FORM IRR:
 	- perguntar permissoes
 		- quem pode ver os forms?
 		- quem pode editar?
+		- quem pode ver as denuncias?
 	
 - CALCULO IRR
 	- sedimentacao, tds com 5?

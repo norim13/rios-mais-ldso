@@ -3,11 +3,13 @@
 
     <div class="form-inputs">
 
-      <%= f.input :rio, :label => 'Código do rio', :input_html => {:id => 'codigo-rio'}, :readonly => true, :placeholder => "Clique em cima do rio para selecionar" %>
+      <%= f.input :rio, :label => 'Código do rio', :input_html => {:id => 'codigo-rio'}, :readonly => true, :placeholder => 'Clique em cima do rio para selecionar',
+          :required => true %>
 
       <%= f.label :categoria, "Categoria" %><br/>
       <%= f.select :categoria, ['Erosão', 'Poluição', 'Acidente', 'Desflorestação', 'Pesca e caça ilegal',
-                                'Cheia', 'Incêndio', 'Vandalismo', 'Presença de espécies exóticas e invasoras'], {:include_blank => 'Selecione uma categoria'} %>
+                                'Cheia', 'Incêndio', 'Vandalismo', 'Presença de espécies exóticas e invasoras'], {:include_blank => 'Selecione uma categoria'},
+                   :required => true %>
       <br/><br/>
 
       <%= f.label :motivo, "Motivo" %><br/>
@@ -15,17 +17,16 @@
                              'Preocupado com a situação a nível Pessoal',
                              'Má Vizinhança',
                              'Necessida de informação adicional',
-                             'Demora do processo de esclarecimento/resolução'], {:include_blank => 'Selecione o motivo'} %>
+                             'Demora do processo de esclarecimento/resolução'], {:include_blank => 'Selecione o motivo'},
+                   :required => true %>
       <br/><br/>
 
-      <%= f.input :descricao, :label => 'Descrição' %><br/>
+      <%= f.input :descricao, :label => 'Descrição', :required => true %><br/>
 
       <div id="reports-imgs">
         <%= f.label :images, 'Adicionar imagens', class: 'control-label' %>
         <%= f.file_field :images, multiple: true, class: 'file' %>
       </div>
-
-
     </div>
     <br>
 

@@ -26,6 +26,7 @@ public class TabelaMacroinverterbrados extends AppCompatActivity {
     protected LinearLayout linearLayout;
     protected ArrayList<CheckBox> question;
     protected HashMap<Integer, Object> answers2;
+    protected ArrayList<Integer[]> values_irr;
     protected int question_num;
 
     @Override
@@ -39,6 +40,8 @@ public class TabelaMacroinverterbrados extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
        answers2 = (HashMap<Integer, Object>) getIntent().getSerializableExtra("answers2");
+        values_irr= (ArrayList<Integer[]>) getIntent().getSerializableExtra("values_irr");
+
         question_num= (Integer) getIntent().getSerializableExtra("question_num");
 
 
@@ -261,7 +264,7 @@ public class TabelaMacroinverterbrados extends AppCompatActivity {
 
 
         Intent i =new Intent(this, IRR_question.class);
-        Questions.getQuestion(14, i, this);
+        Questions.getQuestion(14, i, this,values_irr);
         i.putExtra("answers2", answers2);
         startActivity(i);
         this.overridePendingTransition(0, 0);
