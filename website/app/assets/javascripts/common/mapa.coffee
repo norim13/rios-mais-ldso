@@ -91,10 +91,10 @@ window.onload = function () {
 				            if(data.features[0] != undefined) {
                         //console.log(data.features[0].properties);
 
-						            var designacao = data.features[0].properties.designacao;
-                        var codigo = data.features[0].properties.codrios;
-                        var bacia = data.features[0].properties.bacia;
-                        var tipo = data.features[0].properties.tipo;
+						            var designacao = decode_utf8(data.features[0].properties.designacao);
+                        var codigo = decode_utf8(data.features[0].properties.codrios);
+                        var bacia = decode_utf8(data.features[0].properties.bacia);
+                        var tipo = decode_utf8(data.features[0].properties.tipo);
 
 												if(!designacao) {
                             $("#rio-nome h4").html("Nome do rio: não encontrado...");

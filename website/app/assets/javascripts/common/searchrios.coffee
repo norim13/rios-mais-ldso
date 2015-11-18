@@ -16,7 +16,7 @@ $(document).ready(function(){
             type: OpenLayers.Filter.Comparison.LIKE,
             matchCase:false,
             property: propriedade_a_procurar,
-            value: "*" + $("#pesquisa-rios-input").val() + "*"
+            value: "*" + encode_utf8($("#pesquisa-rios-input").val()) + "*"
         });
 
         var  wfsProtocol = new OpenLayers.Protocol.WFS.v1_1_0({
@@ -40,18 +40,28 @@ $(document).ready(function(){
             $("#resultados-pesquisa-rios").find("tr:gt(0)").remove();
             if(request.features.length == 0){
                 $("#resultados-pesquisa-rios")
-                    .append("<td></td><td><i>Sem resultados...</i></td><td></td><td></td>");
+                    .append("<tr><td></td><td><i>Sem resultados...</i></td><td></td><td></td></td></tr>");
             }
             else
                 for(var i in request.features){
                     console.log(request.features[i].data);
                     var info_rio = request.features[i].data;
                     var row = $('<tr></tr>');
-                    $(row).append('<td>'+info_rio.codrios+'</td>');
-                    var a = '<a href="/rio/'+info_rio.codrios+'">'+info_rio.designacao+'</a>';
-                    $(row).append('<td>'+a+'</td>');
-                    $(row).append('<td>'+info_rio.tipo+'</td>');
-                    $(row).append('<td>'+info_rio.bacia+'</td>');
+
+                    $(row).append('<td>'+decode_utf8(info_rio.codrios)+'</td>');
+                    //var a = '<a href="/rio/'+info_rio.codrios+'">'+info_rio.designacao+'</a>';
+                    $(row).append('<td>'+decode_utf8(info_rio.designacao)+'</td>');
+                    $(row).append('<td>'+decode_utf8(info_rio.tipo)+'</td>');
+                    $(row).append('<td>'+decode_utf8(info_rio.bacia)+'</td>');
+                    $(row).append('<td><a href="/rio/'+info_rio.codrios+'">'+
+                        '<button class="btn btn-primary">Ver Rio</button>'+'</a></td>');
+
+                    var a = $('<a href="/rio/'+info_rio.codrios+'>Ver</a>');
+                    /*$(row).click(function() {
+                        window.document.location = '/rio/'+info_rio.codrios;
+                    }).hover( function() {
+                        $(this).toggleClass('hover');
+                    });*/
                     $("#resultados-pesquisa-rios").append(row);
                 }
 
