@@ -110,19 +110,28 @@ public class Form_functions {
     public static int getRadioButtonOption(ArrayList<RadioButton> arrayList){
         for (int i=0;i<arrayList.size();i++){
             if (arrayList.get(i).isChecked()){
-                return i;
+                int r=i+1;
+                return r;
             }
         }
-        return -1;
+        return 0;
     }
 
-    public static ArrayList<Boolean> getCheckboxes(ArrayList<CheckBox> arrayList){
-        ArrayList<Boolean> al = new ArrayList<Boolean>();
+    public static ArrayList<Integer> getCheckboxes(ArrayList<CheckBox> arrayList){
+        ArrayList<Integer> al = new ArrayList<Integer>();
         for (int i=0;i<arrayList.size();i++){
             if(arrayList.get(i).isChecked())
-                al.add(true);
+                al.add(1);
             else
-                al.add(false);
+                al.add(0);
+        }
+        return al;
+    }
+
+    public static ArrayList<Integer> getSeekbar(ArrayList<SeekBar> arrayList){
+        ArrayList<Integer> al = new ArrayList<Integer>();
+        for (int i=0;i<arrayList.size();i++){
+            al.add(arrayList.get(i).getProgress());
         }
         return al;
     }

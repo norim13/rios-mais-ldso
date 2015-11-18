@@ -2,6 +2,7 @@ package engenheiro.rios.IRR;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -11,8 +12,7 @@ import java.util.ArrayList;
 public class Questions {
 
 
-    public static void getQuestion(int next_question, Intent intent, Context context)
-    {
+    public static void getQuestion(int next_question, Intent intent, Context context) {
         String[] options = new String[0];
         intent.putExtra("question_num", next_question);
         String main_title = "teste";
@@ -20,37 +20,43 @@ public class Questions {
 
         boolean required = false;
         int type = -1;
-        int max =-1;
+        int max = -1;
+        Log.e("question", next_question + "");
+        ArrayList<Object> arrayList;
 
 
-        if(next_question!=3 && next_question!=9) {
-            ArrayList<Object> arrayList=getOptions(next_question);
-            main_title= (String) arrayList.get(0);
-            sub_title= (String ) arrayList.get(1);
-            type= (int) arrayList.get(2);
-            required= (boolean) arrayList.get(3);
-            options= (String[]) arrayList.get(4);
-            max= (int) arrayList.get(5);
-            intent.putExtra("main_title", main_title);
-            intent.putExtra("sub_title", sub_title);
-            intent.putExtra("type",type);
-            intent.putExtra("required", required);
-            intent.putExtra("options", options);
-            intent.putExtra("max", max);
-        }
-        else if (next_question==3){
-            intent.setClass(context,IRR_1_3.class);
+        if (next_question == 3) {
+            intent.setClass(context, IRR_1_3.class);
             intent.putExtra("question_num", next_question);
-            intent.putExtra("main_title","Hidrogeomorfologia");
+            intent.putExtra("main_title", "Hidrogeomorfologia");
             intent.putExtra("sub_title", "Perfil de margens");
             intent.putExtra("required", true);
-        }
-        else if (next_question==9){
+        } else if (next_question == 9) {
             intent.setClass(context, IRR_2_1.class);
             intent.putExtra("question_num", next_question);
             intent.putExtra("required", true);
-    }
+        } else if (next_question == 13) {
+            Log.e("question", "entrou no vertebrado");
+            intent.setClass(context, TabelaMacroinverterbrados.class);
+            intent.putExtra("question_num", next_question);
+            intent.putExtra("required", true);
+        } else {
+            arrayList = Questions.getOptions(next_question);
+            main_title = (String) arrayList.get(0);
+            sub_title = (String) arrayList.get(1);
+            type = (int) arrayList.get(2);
+            required = (boolean) arrayList.get(3);
+            options = (String[]) arrayList.get(4);
+            max = (int) arrayList.get(5);
+            intent.putExtra("main_title", main_title);
+            intent.putExtra("sub_title", sub_title);
+            intent.putExtra("type", type);
+            intent.putExtra("required", required);
+            intent.putExtra("options", options);
+            intent.putExtra("max", max);
 
+
+        }
     }
 
 
@@ -77,7 +83,7 @@ public class Questions {
             case 2:
                 main_title= "Hidrogeomorfologia";
                 sub_title= "Perfil de margens";
-                type=1;
+                type=0;
                 required= true;
                 options= new String[]{"Vertical escavado",
                         "Vertical cortado",
@@ -121,7 +127,7 @@ public class Questions {
             case 6:
                 main_title= "Hidrogeomorfologia";
                 sub_title= "Estado geral da linha de água";
-                type=1;
+                type=0;
                 required= true;
                 options= new String[]{"Canal sem alterações, estado natural",
                         "Canal ligeiramente perturbado",
@@ -204,31 +210,6 @@ public class Questions {
                 break;
 
             case 13:
-                main_title= "Qualidade da água";
-                sub_title= "Tabela de Macroinvertebrados";
-                type=0;
-                required= true;
-                options= new String[]{"1. Planárias",
-                        "2. Hidudíneros (Sanguessugas)",
-                        "3.1 Simulideos",
-                        "3.2 Quironomideos, Sirfídeos, Culidídeos, Tipulídeos (Larva de mosquitos)",
-                        "4.1 Ancilídeo",
-                        "4.2 Limnídeo; Physa",
-                        "5. Bivalves",
-                        "6.1 Patas Nadadoras (Dystiscidae)",
-                        "6.2 Pata Locomotoras (Hydraena)",
-                        "7.1 Trichóptero (mosca d’água) S/Casulo",
-                        "7.2 Trichóptero (mosca d’água) C/Casulo",
-                        "8. Odonata (Larva de Libelinhas)",
-                        "9. Heterópteros",
-                        "10. Plecópteros (mosca-de-pedra)",
-                        "11.1 Baetídeo",
-                        "11.2 Cabeça Planar (Ecdyonurus)",
-                        "12. Crustáceos",
-                        "13. Ácaros",
-                        "14. Pulga-de-água (Daphnia)",
-                        "15. Insetos – adultos (adultos na forma aérea)",
-                        "16. Mégalopteres"};
                 break;
 
             case 14:
@@ -296,7 +277,15 @@ public class Questions {
                         "Cais",
                         "Igreja, capela, santuário <100m",
                         "Solares ou casas agrícolas <100m",
-                        "Núcleo habitacional <100m"};
+                        "Núcleo habitacional <100m",
+                        "Edifícios particulares (< 100m)",
+                        "Edifícios públicos (estatais) (< 100m)",
+                        "ETA/ETAR/elevatórias",
+                        "Descarregadores de águas pluviais",
+                        "Coletores saneamento",
+                        "Defletores artificiais",
+                        "Mota lateral"
+                };
                 break;
 
             case 17:
@@ -433,7 +422,7 @@ public class Questions {
             case 25:
                 main_title= "Corredor ecológico";
                 sub_title= "Estado de conservação do bosque ribeirinho (10m*10m)";
-                type=1;
+                type=0;
                 required= true;
                 options= new String[]{
                         "Total (>75%) com bosque - continuidade arbórea com total",
@@ -448,7 +437,7 @@ public class Questions {
             case 26:
                 main_title= "Corredor ecológico";
                 sub_title= "Espécies vegetação invasora";
-                type=1;
+                type=0;
                 required= true;
                 options= new String[]{
                         "Silvas",
@@ -463,7 +452,7 @@ public class Questions {
             case 27:
                 main_title= "Corredor ecológico";
                 sub_title= "Obstrução do leito e margens (vegetação)";
-                type=1;
+                type=0;
                 required= true;
                 options= new String[]{
                         "Com pouca ou sem vegetação no leito <5%",

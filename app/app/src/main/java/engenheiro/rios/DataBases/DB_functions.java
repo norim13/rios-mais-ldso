@@ -12,6 +12,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +50,7 @@ public class DB_functions {
                         jsonObject.accumulate("email", email);
                         jsonObject.accumulate("password", password);
                         jsonObject.accumulate("password_confirmation", password_confirmation);
+                        jsonObject.accumulate("telef", "111111111");
                         user.accumulate("user", jsonObject);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -113,12 +116,14 @@ public class DB_functions {
     }
 
 
-    public static void saveForm() throws IOException, JSONException {
+    public static void saveForm(final String token, final HashMap<Integer, Object> answers2) throws IOException, JSONException {
+        Log.e("form","entrou");
 
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String url = "http://riosmais.herokuapp.com/guardarios";
+                    String url = "http://riosmais.herokuapp.com/api/v2/form_irrs?user_email="+"fil.fmiranda@gmail.com"+"&user_token="+token;
+                    Log.e("teste",url);
                     URL object = null;
                     object = new URL(url);
                     HttpURLConnection con = null;
@@ -126,61 +131,324 @@ public class DB_functions {
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.setRequestProperty("Content-Type", "application/json");
-                    con.setRequestProperty("Authorization", "Basic " +"EXbFj1G7O/ZmZPLLhf7X3nJTLjV/8fH2ZlkcTDr26wE4KgcmOqDWgwGj3enKxztBvIMpC6wFbmerJywyD0aYHQ==");
-                    con.addRequestProperty("x-csrf-token", "fetch");
                     con.setRequestMethod("POST");
-                    Log.e("teste", "antes da conexao");
+
                     con.connect();
                     JSONObject jsonObject = new JSONObject();
                     JSONObject user = new JSONObject();
 
                     JSONObject obj_json=new JSONObject();
                     JSONObject response=new JSONObject();
+                    ArrayList<Float> af;
+                    ArrayList<Integer> ai;
+
 
                     try {
-                        obj_json.accumulate("authenticity_token","MNecl7j7YnciuIudGdlotmjuyqLDQ\n" +
-                                "dTQIDyyZej2A5ncMl4u8Atld3mRPjGu2Ln3ZJb5r+ogh1MIAaWKnoYCUg==");
-                        response.accumulate("rio","");
-                        response.accumulate("local","Árvores/Ramo");
-                        response.accumulate("voar","");
-                        response.accumulate("cantar","");
-                        response.accumulate("alimentar","");
-                        response.accumulate("parado","0");
-                        response.accumulate("beber","1");
-                        response.accumulate("cacar","0");
-                        response.accumulate("cuidarcrias","0");
-                        response.accumulate("outro","");
-                        response.accumulate("beber","1");
-                        obj_json.accumulate("guardario",response);
-                        obj_json.accumulate("commit","Reportar avistamento");
+                        response.accumulate("idRio", "201");
+                        response.accumulate("margem", "1");
+                        Log.e("form", "size:" + answers2.size());
+                        response.accumulate("tipoDeVale", (int) answers2.get(1));
+
+                        response.accumulate("perfilDeMargens",(int) answers2.get(2));
+
+                        af = (ArrayList<Float>) answers2.get(3);
+                        response.accumulate("larguraDaSuperficieDaAgua",af.get(0));
+                        response.accumulate("profundidadeMedia",af.get(1));
+                        response.accumulate("velocidadeMedia",af.get(2));
+                        response.accumulate("seccao",af.get(3));
+                        response.accumulate("caudal",af.get(4));
+
+                        ai= (ArrayList<Integer>) answers2.get(4);
+                        response.accumulate("substratoDasMargens_soloArgiloso",ai.get(0));
+                        response.accumulate("substratoDasMargens_arenoso",ai.get(1));
+                        response.accumulate("substratoDasMargens_pedregoso",ai.get(2));
+                        response.accumulate("substratoDasMargens_rochoso",ai.get(3));
+                        response.accumulate("substratoDasMargens_artificialPedra",ai.get(4));
+                        response.accumulate("substratoDasMargens_artificialBetao",ai.get(5));
+
+                        ai= (ArrayList<Integer>) answers2.get(5);
+                        response.accumulate("substratoDoLeito_blocoseRocha",ai.get(0));
+                        response.accumulate("substratoDoLeito_calhaus",ai.get(1));
+                        response.accumulate("substratoDoLeito_cascalho",ai.get(2));
+                        response.accumulate("substratoDoLeito_areia",ai.get(3));
+                        response.accumulate("substratoDoLeito_limo",ai.get(4));
+                        response.accumulate("substratoDoLeito_solo",ai.get(5));
+                        response.accumulate("substratoDoLeito_artificial",ai.get(6));
+                        response.accumulate("substratoDoLeito_naoEVisivel",ai.get(7));
+
+
+                        response.accumulate("estadoGeraldaLinhadeAgua",(int) answers2.get(6));
+
+                        ai= (ArrayList<Integer>) answers2.get(7);
+                        response.accumulate("erosao_semErosao",ai.get(0));
+                        response.accumulate("erosao_formacaomais3",ai.get(1));
+                        response.accumulate("erosao_formacao1a3",ai.get(2));
+                        response.accumulate("erosao_quedamuros",ai.get(3));
+                        response.accumulate("erosao_rombos",ai.get(4));
+
+                        ai= (ArrayList<Integer>) answers2.get(8);
+                        response.accumulate("sedimentacao_ausente",ai.get(0));
+                        response.accumulate("sedimentacao_decomposicao",ai.get(1));
+                        response.accumulate("sedimentacao_mouchoes",ai.get(2));
+                        response.accumulate("sedimentacao_ilhassemveg",ai.get(3));
+                        response.accumulate("sedimentacao_ilhascomveg",ai.get(4));
+                        response.accumulate("sedimentacao_deposicaosemveg",ai.get(5));
+                        response.accumulate("sedimentacao_deposicaocomveg",ai.get(6));
+                        response.accumulate("sedimentacao_rochas",ai.get(7));
+
+                        af= (ArrayList<Float>) answers2.get(9);
+                        response.accumulate("pH",af.get(0));
+                        response.accumulate("condutividade",af.get(1));
+                        response.accumulate("temperatura",af.get(2));
+                        response.accumulate("nivelDeOxigenio",af.get(3));
+                        response.accumulate("percentagemDeOxigenio",af.get(4));
+                        response.accumulate("nitratos",af.get(5));
+                        response.accumulate("nitritos",af.get(6));
+                        response.accumulate("transparencia",af.get(7));
+
+                        ai= (ArrayList<Integer>) answers2.get(10);
+                        response.accumulate("oleo",ai.get(0));
+                        response.accumulate("espuma",ai.get(1));
+                        response.accumulate("esgotos",ai.get(2));
+                        response.accumulate("impurezas",ai.get(3));
+                        response.accumulate("sacosDePlastico",ai.get(4));
+                        response.accumulate("latas",ai.get(5));
+                        response.accumulate("indiciosNaAgua_outros","");
+
+
+                        response.accumulate("corDaAgua",(int) answers2.get(11));
+
+                        response.accumulate("odorDaAgua",(int) answers2.get(12));
+
+                        ai= (ArrayList<Integer>) answers2.get(13);
+                        response.accumulate("planarias",ai.get(0));
+                        response.accumulate("hirudineos",ai.get(1));
+                        response.accumulate("oligoquetas",ai.get(2));
+                        response.accumulate("simulideos",ai.get(3));
+                        response.accumulate("quironomideos",ai.get(4));
+                        response.accumulate("ancilideo",ai.get(5));
+                        response.accumulate("limnideo",ai.get(6));
+                        response.accumulate("bivalves",ai.get(7));
+                        response.accumulate("patasNadadoras",ai.get(8));
+                        response.accumulate("pataLocomotoras",ai.get(9));
+                        response.accumulate("trichopteroS",ai.get(10));
+                        response.accumulate("trichopteroC",ai.get(11));
+                        response.accumulate("odonata",ai.get(12));
+                        response.accumulate("heteropteros",ai.get(13));
+                        response.accumulate("plecopteros",ai.get(14));
+                        response.accumulate("baetideo",ai.get(15));
+                        response.accumulate("cabecaPlanar",ai.get(16));
+                        response.accumulate("crustaceos",ai.get(17));
+                        response.accumulate("acaros",ai.get(18));
+                        response.accumulate("pulgaDeAgua",ai.get(19));
+                        response.accumulate("insetos",ai.get(20));
+                        response.accumulate("megalopteres",ai.get(21));
+
+                        ai= (ArrayList<Integer>) answers2.get(14);
+                        response.accumulate("intervencoes_edificios",ai.get(0));
+                        response.accumulate("intervencoes_pontes",ai.get(1));
+                        response.accumulate("intervencoes_limpezasDasMargens",ai.get(2));
+                        response.accumulate("intervencoes_estabilizacaoDeMargens",ai.get(3));
+                        response.accumulate("intervencoes_estabilizacaoDeMargens",ai.get(4));
+                        response.accumulate("intervencoes_modelacaoDeMargensNatural",ai.get(5));
+                        response.accumulate("intervencoes_modelacaoDeMargensArtificial",ai.get(6));
+                        response.accumulate("intervencoes_barragem",ai.get(7));
+                        response.accumulate("intervencoes_diques",ai.get(8));
+                        response.accumulate("intervencoes_rioCanalizado",ai.get(9));
+                        response.accumulate("intervencoes_rioEntubado",ai.get(10));
+                        response.accumulate("intervencoes_esporoes",ai.get(11));
+                        response.accumulate("intervencoes_paredoes",ai.get(12));
+                        response.accumulate("intervencoes_tecnicasDeEngenhariaNatural",ai.get(13));
+
+                        response.accumulate("intervencoes_outras","");
+
+
+                        ai= (ArrayList<Integer>) answers2.get(15);
+                        response.accumulate("ocupacao_florestaNatural",ai.get(0));
+                        response.accumulate("ocupacao_florestaPlantadas",ai.get(1));
+                        response.accumulate("ocupacao_matoAlto",ai.get(2));
+                        response.accumulate("ocupacao_matoRasteiro",ai.get(3));
+                        response.accumulate("ocupacao_pastagem",ai.get(4));
+                        response.accumulate("ocupacao_agricultura",ai.get(5));
+                        response.accumulate("ocupacao_espacoAbandonado",ai.get(6));
+                        response.accumulate("ocupacao_jardins",ai.get(7));
+                        response.accumulate("ocupacao_zonaEdificada",ai.get(8));
+                        response.accumulate("ocupacao_zonaIndustrial",ai.get(9));
+                        response.accumulate("ocupacao_ruas",ai.get(10));
+                        response.accumulate("ocupacao_entulho",ai.get(11));
+
+                        ai= (ArrayList<Integer>) answers2.get(16);
+                        response.accumulate("patrimonio_moinho",ai.get(0));
+                        response.accumulate("patrimonio_acude",ai.get(1));
+                        response.accumulate("patrimonio_microAcude1",ai.get(2));
+                        response.accumulate("patrimonio_microAcude2",ai.get(3));
+                        response.accumulate("patrimonio_barragem",ai.get(4));
+                        response.accumulate("patrimonio_levadas",ai.get(5));
+                        response.accumulate("patrimonio_pesqueiras",ai.get(6));
+                        response.accumulate("patrimonio_escadasDePeixe",ai.get(7));
+                        response.accumulate("patrimonio_poldras",ai.get(8));
+                        response.accumulate("patrimonio_pontesSemPilar",ai.get(9));
+                        response.accumulate("patrimonio_pontesComPilar",ai.get(10));
+                        response.accumulate("patrimonio_passagemAVau",ai.get(11));
+                        response.accumulate("patrimonio_barcos",ai.get(12));
+                        response.accumulate("patrimonio_cais",ai.get(13));
+                        response.accumulate("patrimonio_igreja",ai.get(14));
+                        response.accumulate("patrimonio_solares",ai.get(15));
+                        response.accumulate("patrimonio_nucleoHabitacional",ai.get(16));
+                        response.accumulate("patrimonio_edificiosParticulares",ai.get(17));
+                        response.accumulate("patrimonio_edificiosPublicos",ai.get(18));
+                        response.accumulate("patrimonio_ETA",ai.get(19));
+                        response.accumulate("patrimonio_descarregadoresDeAguasPluviais",ai.get(20));
+                        response.accumulate("patrimonio_coletoresSaneamento",ai.get(21));
+                        response.accumulate("patrimonio_defletoresArtificiais",ai.get(22));
+                        response.accumulate("patrimonio_motaLateral",ai.get(23));
+
+                        ai= (ArrayList<Integer>) answers2.get(17);
+                        response.accumulate("poluicao_descargasDomesticas",ai.get(0));
+                        response.accumulate("poluicao_descargasETAR",ai.get(1));
+                        response.accumulate("poluicao_descargasIndustriais",ai.get(2));
+                        response.accumulate("poluicao_descargasQuimicas",ai.get(3));
+                        response.accumulate("poluicao_descargasAguasPluviais",ai.get(4));
+                        response.accumulate("poluicao_presencaCriacaoAnimais",ai.get(5));
+                        response.accumulate("poluicao_lixeiras",ai.get(6));
+                        response.accumulate("poluicao_lixoDomestico",ai.get(7));
+                        response.accumulate("poluicao_entulho",ai.get(8));
+                        response.accumulate("poluicao_monstrosDomesticos",ai.get(9));
+                        response.accumulate("poluicao_sacosDePlastico",ai.get(10));
+                        response.accumulate("poluicao_latasMaterialFerroso",ai.get(11));
+                        response.accumulate("poluicao_queimadas",ai.get(12));
+
+                        ai= (ArrayList<Integer>) answers2.get(18);
+                        response.accumulate("salamandraLusitanica",ai.get(0));
+                        response.accumulate("salamandraPintasAmarelas",ai.get(1));
+                        response.accumulate("tritaoVentreLaranja",ai.get(2));
+                        response.accumulate("raIberica",ai.get(3));
+                        response.accumulate("raVerde",ai.get(4));
+                        response.accumulate("sapoComum",ai.get(5));
+
+                        ai= (ArrayList<Integer>) answers2.get(19);
+                        response.accumulate("lagartoDeAgua",ai.get(0));
+                        response.accumulate("cobraAguaDeColar",ai.get(1));
+                        response.accumulate("cagado",ai.get(2));
+
+                        response.accumulate("repteis_outro","");
+
+                        ai= (ArrayList<Integer>) answers2.get(20);
+                        response.accumulate("guardaRios",ai.get(0));
+                        response.accumulate("garcaReal",ai.get(1));
+                        response.accumulate("melroDeAgua",ai.get(2));
+                        response.accumulate("galinhaDeAgua",ai.get(3));
+                        response.accumulate("patoReal",ai.get(4));
+                        response.accumulate("tentilhaoComum",ai.get(5));
+                        response.accumulate("chapimReal",ai.get(6));
+
+                        response.accumulate("aves_outro","");
+
+                        ai= (ArrayList<Integer>) answers2.get(21);
+                        response.accumulate("lontras",ai.get(0));
+                        response.accumulate("morcegosDeAgua",ai.get(1));
+                        response.accumulate("toupeiraDaAgua",ai.get(2));
+                        response.accumulate("ratoDeAgua",ai.get(3));
+                        response.accumulate("ouricoCacheiro",ai.get(4));
+                        response.accumulate("armilho",ai.get(5));
+
+                        response.accumulate("mamiferos_outro","");
+
+                        ai= (ArrayList<Integer>) answers2.get(22);
+                        response.accumulate("enguia",ai.get(0));
+                        response.accumulate("lampreia",ai.get(1));
+                        response.accumulate("salmao",ai.get(2));
+                        response.accumulate("truta",ai.get(3));
+                        response.accumulate("bogaPortuguesa",ai.get(4));
+                        response.accumulate("bogaDoNorte",ai.get(5));
+
+                        response.accumulate("peixes_outro","");
+
+                        ai= (ArrayList<Integer>) answers2.get(23);
+                        response.accumulate("percaSol",ai.get(0));
+                        response.accumulate("tartarugaDaFlorida",ai.get(1));
+                        response.accumulate("caranguejoPeludoChines",ai.get(2));
+                        response.accumulate("gambusia",ai.get(3));
+                        response.accumulate("mustelaVison",ai.get(4));
+                        response.accumulate("lagostimVermelho",ai.get(5));
+                        response.accumulate("trutaArcoIris",ai.get(6));
+                        response.accumulate("achiga",ai.get(7));
+
+                        response.accumulate("fauna_outro","");
+
+                        ai= (ArrayList<Integer>) answers2.get(24);
+                        response.accumulate("salgueiral",ai.get(0));
+                        response.accumulate("amial",ai.get(1));
+                        response.accumulate("freixal",ai.get(2));
+                        response.accumulate("choupal",ai.get(3));
+                        response.accumulate("ulmeiral",ai.get(4));
+                        response.accumulate("sanguinos",ai.get(5));
+                        response.accumulate("ladual",ai.get(6));
+                        response.accumulate("tramazeiras",ai.get(7));
+                        response.accumulate("carvalhal",ai.get(8));
+                        response.accumulate("sobreiral",ai.get(9));
+                        response.accumulate("azinhal",ai.get(10));
+
+                        response.accumulate("flora_outro","");
+
+
+                        response.accumulate("conservacaoBosqueRibeirinho",(int) answers2.get(25));
+
+                        ai= (ArrayList<Integer>) answers2.get(26);
+                        response.accumulate("silvas",ai.get(0));
+                        response.accumulate("ervaDaFortuna",ai.get(1));
+                        response.accumulate("plumas",ai.get(2));
+                        response.accumulate("lentilhaDaAgua",ai.get(3));
+                        response.accumulate("pinheirinha",ai.get(4));
+                        response.accumulate("jacintoDeAgua",ai.get(5));
+
+                        response.accumulate("vegetacaoInvasora_outro","");
+
+
+                        response.accumulate("obstrucaoDoLeitoMargens",(int) answers2.get(27));
+                        response.accumulate("disponibilizacaoDeInformacao",(int) answers2.get(28));
+                        response.accumulate("envolvimentoPublico",(int) answers2.get(29));
+                        response.accumulate("acao",(int) answers2.get(30));
+                        response.accumulate("legislacao",(int) answers2.get(31));
+                        response.accumulate("estrategia",(int) answers2.get(32));
+                        response.accumulate("gestaoDasIntervencoes",(int) answers2.get(33));
+
+                        response.accumulate("irr_hidrogeomorfologia","1");
+                        response.accumulate("irr_qualidadedaagua","1");
+                        response.accumulate("irr_alteracoesantropicas","1");
+                        response.accumulate("irr_corredorecologico","1");
+                        response.accumulate("irr_participacaopublica","1");
+                        response.accumulate("irr_organizacaoeplaneamento","1");
+                        response.accumulate("irr","1");
+
+                        obj_json.accumulate("form_irr",response);
                     } catch (JSONException e) {
                         Log.e("teste","nao criou o json");
                         e.printStackTrace();
                     }
 
-                    try {
-                        jsonObject.accumulate("tipoDeVale", 1);
-                        user.accumulate("form_irr", jsonObject);
-                    } catch (JSONException e) {
-                        Log.e("teste","nao criou o json");
-                        e.printStackTrace();
+                    String veryLongString=obj_json.toString();
+                    int maxLogSize = 1000;
+                    for(int i = 0; i <= veryLongString.length() / maxLogSize; i++) {
+                        int start = i * maxLogSize;
+                        int end = (i+1) * maxLogSize;
+                        end = end > veryLongString.length() ? veryLongString.length() : end;
+                        Log.e("teste", veryLongString.substring(start, end));
                     }
 
-                    Log.e("teste", "depois");
-                    Log.w("teste", user.toString());
 
                     OutputStream os = null;
                     os = con.getOutputStream();
                     OutputStreamWriter osw = null;
                     osw = new OutputStreamWriter(os, "UTF-8");
-                    osw.write(user.toString());
+                    osw.write(obj_json.toString());
                     osw.flush();
                     osw.close();
                     int HttpResult = 0;
                     StringBuilder sb=null;
                     sb= new StringBuilder();
                     HttpResult = con.getResponseCode();
-                    Log.e("teste","antes do if");
+                    Log.e("teste","antes de ver se esta ok: "+HttpResult);
                     if (HttpResult == HttpURLConnection.HTTP_OK) {
                         BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
                         String line = null;
@@ -190,15 +458,33 @@ public class DB_functions {
 
 
                         br.close();
-                        Log.e("teste", "dentro do if");
-                        System.out.println("output:" + sb.toString());
+                        String erro_sb="";
+
+                        try {
+                            JSONObject obj = new JSONObject(sb.toString());
+                            try {
+                                erro_sb = obj.getString("error");
+                            } catch (JSONException ignored) {
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Log.e("teste", "erro_sb:" + erro_sb);
 
                     } else {
                         Log.e("teste","dentro do else");
                         Log.e("teste","nao deu a conection");
-                        Log.e("teste",con.getResponseMessage());
+                        Log.e("teste", con.getResponseMessage());
                         System.out.println("erro:" + con.getResponseMessage());
                         System.out.println("erro:"+con.getErrorStream());
+
+                        BufferedReader br = new BufferedReader(new InputStreamReader(con.getErrorStream(), "utf-8"));
+                        String line = null;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line + "\n");
+                        }
+                        br.close();
+                        Log.e("teste","sb:"+sb.toString());
 
                         Log.e("teste", "fodeu");
 

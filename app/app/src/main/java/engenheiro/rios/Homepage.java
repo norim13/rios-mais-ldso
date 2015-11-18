@@ -1,9 +1,11 @@
 package engenheiro.rios;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,11 +14,12 @@ import org.json.JSONException;
 
 import java.io.IOException;
 
-import engenheiro.rios.DataBases.DB_functions;
 import engenheiro.rios.DataBases.User;
 public class Homepage extends AppCompatActivity{
 
     private Bundle savedInstanceState;
+    public static final String PREFS_NAME = "UserInfo";
+    private String token;
 
 
     @Override
@@ -28,22 +31,15 @@ public class Homepage extends AppCompatActivity{
         toolbar.setTitle("Inicio");
         setSupportActionBar(toolbar);
 
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        token=settings.getString("token","-1");
+        Log.e("token", ": " + token);
 
-        try {
-            DB_functions.saveForm();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
 
     }
 
     User current_user;
-    public static final String PREFS_NAME = "UserInfo";
-    String token;
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

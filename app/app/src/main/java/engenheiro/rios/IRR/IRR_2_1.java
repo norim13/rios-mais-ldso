@@ -177,7 +177,7 @@ public class IRR_2_1 extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (Float.parseFloat(s.toString())<1)
-                    transparencia.setText("0");
+                    transparencia.setText("1");
                 else if (Float.parseFloat(s.toString())>4)
                     transparencia.setText("4");
             }
@@ -239,6 +239,7 @@ public class IRR_2_1 extends AppCompatActivity {
         ArrayList<Float> array_float=new ArrayList<Float>();
         array_float.add(Float.parseFloat(String.valueOf(ph.getText())));
         array_float.add(Float.parseFloat(String.valueOf(condutividade.getText())));
+        array_float.add(Float.parseFloat(String.valueOf(temperatura.getText())));
         array_float.add(Float.parseFloat(String.valueOf(o2.getText())));
         array_float.add(Float.parseFloat(String.valueOf(o2_percentagem.getText())));
         array_float.add(Float.parseFloat(String.valueOf(nitratos.getText())));
@@ -246,11 +247,11 @@ public class IRR_2_1 extends AppCompatActivity {
         array_float.add(Float.parseFloat(String.valueOf(transparencia.getText())));
 
         if(answers2.get(question_num)!=null){
-            answers2.put(question_num,array_float);
+            answers2.put(question_num, array_float);
         }
         else {
             answers2.remove(question_num);
-            answers2.put(question_num,array_float);
+            answers2.put(question_num, array_float);
         }
 
 

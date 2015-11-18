@@ -1,6 +1,7 @@
 package engenheiro.rios.IRR;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,10 +16,15 @@ import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import engenheiro.rios.DataBases.DB_functions;
 import engenheiro.rios.GuardaRios;
+import engenheiro.rios.Homepage;
 import engenheiro.rios.Login;
 import engenheiro.rios.R;
 
@@ -102,7 +108,7 @@ public class IRR_question extends AppCompatActivity {
 
     }
 
-    public void goto_next(View view){
+    public void goto_next(View view) throws IOException, JSONException {
         Intent i=new Intent(this, IRR_question.class);
         ArrayList<Object> al=new ArrayList<Object>();
         al.add(question_num);
@@ -117,10 +123,21 @@ public class IRR_question extends AppCompatActivity {
             case 2:
                 obj = Form_functions.getEditTexts(edit_list);
                 break;
+            case 3:
+                obj=Form_functions.getSeekbar(seek_list);
 
         }
 
         answers2.put(question_num, obj);
+
+        if (question_num==33){
+            SharedPreferences settings = getSharedPreferences(Homepage.PREFS_NAME, 0);
+            String token=settings.getString("token", "-1");
+            Log.e("form","entrar na DB");
+            DB_functions.saveForm(token,answers2);
+            return;
+
+        }
 
         int next_question=question_num+1;
         Log.e("teste", "num pergunta:" + question_num + " next:" + next_question);

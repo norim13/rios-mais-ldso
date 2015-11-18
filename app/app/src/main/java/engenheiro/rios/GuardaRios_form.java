@@ -115,7 +115,7 @@ public class GuardaRios_form extends AppCompatActivity {
         linearLayout.addView(question6);
 
 
-        saveGuardaRios();
+        //saveGuardaRios();
 
 
 
