@@ -10,18 +10,47 @@
   <h1 id="perfil-rio-title">Informações rio</h1>
   <div id="rio-info">
     <table id="" class="table table-hover table-striped">
-      <tr>
-        <th>Cód. Rio</th>
-        <th>Designação</th>
-        <th>Tipo</th>
-        <th>Bacia</th>
-      </tr>
+      <thead>
+        <tr>
+          <th class="col-md-2">Cód. Rio</th>
+          <th class="col-md-6">Designação</th>
+          <th class="col-md-2">Tipo</th>
+          <th class="col-md-2">Bacia</th>
+        </tr>
+      </thead>
       <tr>
         <td id="cod-rio" value=<%=@rio_id%>><%= @rio_id %></td>
         <td id="designacao-rio"></td>
         <td id="tipo-rio"></td>
         <td id="bacia-rio"></td>
       </tr>
+    </table>
+
+    <h3>Afluência do rio:</h3>
+    <table id="rios-pais" class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th class="col-md-2">Cód. Rio</th>
+          <th class="col-md-5">Designação</th>
+          <th class="col-md-2">Tipo</th>
+          <th class="col-md-2">Bacia</th>
+          <th class="col-md-1">Mais info.</th>
+        </tr>
+      </thead>
+    </table>
+
+    <h3>Afluentes deste rio:</h3>
+    <table id="rios-afluentes" class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th class="col-md-2">Cód. Rio</th>
+          <th class="col-md-5">Designação</th>
+          <th class="col-md-2">Tipo</th>
+          <th class="col-md-2">Bacia</th>
+          <th class="col-md-1">Mais info.</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
   </div>
 
@@ -83,4 +112,5 @@
 
 
 <%= render 'common/footer' %>
+<%= javascript_include_tag 'external/PageMe.js' %>
 <%= javascript_include_tag "rio" %>

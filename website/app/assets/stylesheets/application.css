@@ -42,3 +42,6 @@ footer {
     padding-right: 0px;
 }
 
+.table > tbody > tr > td{
+    vertical-align: middle;
+}

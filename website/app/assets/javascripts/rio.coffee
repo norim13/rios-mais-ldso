@@ -4,12 +4,13 @@
 `
 
 $(document).ready(function(){
-	console.log("ready rio");
+    var cod_rio = $("#cod-rio").html();
+
     var filter2 = new OpenLayers.Filter.Comparison({
         type: OpenLayers.Filter.Comparison.LIKE,
         matchCase:false,
         property: "codrios",
-        value: "*" + $("#cod-rio").html() + "*"
+        value: cod_rio
     });
 
     var  wfsProtocol2 = new OpenLayers.Protocol.WFS.v1_1_0({
@@ -39,8 +40,120 @@ $(document).ready(function(){
             $("#tipo-rio").html(decode_utf8(info_rio.tipo));
             $("#bacia-rio").html(decode_utf8(info_rio.bacia));
 
-            $('#perfil-rio-title').html("Informações sobre "+info_rio.designacao);
+            $('#perfil-rio-title').html("Informações sobre "+decode_utf8(info_rio.designacao));
+
+            getRiosPais(cod_rio);
+            getAfluentes(cod_rio);
         }
+    }
+
+    function getRiosPais(codigo){
+        var components = codigo.split(".");
+        if(components.length > 0){
+
+            components.splice(components.length - 1, 1); //remove ultimo elemento (é o próprio rio)
+
+            var id_rio_temp = "";
+            for(var i in components){
+                id_rio_temp = id_rio_temp+components[i];
+                $("#rios-pais").append('<tr id="rios-pais-'+id_rio_temp.replace(/\./g,'-')+'"></tr>');
+                //console.log(id_rio_temp);
+                var filter_pai = new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.LIKE,
+                    matchCase:false,
+                    property: "codrios",
+                    value: id_rio_temp
+                });
+
+                wfsProtocol2.read ({
+                    filter:filter_pai,
+                    callback: function(request){
+                        //console.log(request.features[0]);
+                        var rio = [];
+                        if(request.features[0].length != 0) {//se recebeu dados
+                            var rio_data = request.features[0].data;
+                            rio['cod_rio'] = decode_utf8(rio_data.codrios);
+                            rio['designacao'] = decode_utf8(rio_data.designacao);
+                            rio['bacia'] = decode_utf8(rio_data.bacia);
+                            rio['tipo'] = decode_utf8(rio_data.tipo);
+                        }
+                        else{ //não recebeu dados
+                            rio['cod_rio'] = id_rio_temp;
+                            rio['designacao'] = "Erro ao obter informação...";
+                            rio['bacia'] = "";
+                            rio['tipo'] = "";
+                        }
+                        //adiciona dados à tabela
+                        var selector = "#rios-pais-"+rio['cod_rio'].replace(/\./g,'-');
+                        //console.log(selector);
+                        $(selector).html('<td>'+rio['cod_rio']+'</td>'
+                            +'<td>'+rio['designacao']+'</td>'
+                            +'<td>'+rio['tipo']+'</td>'
+                            +'<td>'+rio['bacia']+'</td>'
+                            +'<td><a href="/rio/'+rio['cod_rio']+'">'+
+                                '<button class="btn btn-primary">Ver Rio</button>'+'</a></td>');
+                    }
+                });
+                id_rio_temp = id_rio_temp+".";
+            }
+        }
+    }
+
+    function getAfluentes(codigo){
+
+        var filter_afluentes = new OpenLayers.Filter.Comparison({
+            type: OpenLayers.Filter.Comparison.LIKE,
+            matchCase:false,
+            property: "codrios",
+            value: codigo+".*"
+        });
+
+        wfsProtocol2.read ({
+            filter:filter_afluentes,
+            callback: function(request){
+                //console.log(request);
+                var rios = [];
+                for(var i in request.features){
+                    var rio = [];
+                    var rio_data = request.features[i].data;
+                    rio['cod_rio'] = decode_utf8(rio_data.codrios);
+                    if (rio['cod_rio'] == codigo)
+                        continue;
+                    rio['designacao'] = decode_utf8(rio_data.designacao);
+                    rio['bacia'] = decode_utf8(rio_data.bacia);
+                    rio['tipo'] = decode_utf8(rio_data.tipo);
+                    rios.push(rio);
+                }
+
+                //ordenar os rios pelo seu código
+                rios.sort(function(a, b){
+                    if(a['cod_rio'] < b['cod_rio']) return -1;
+                    if(a['cod_rio'] > b['cod_rio']) return 1;
+                    return 0;
+                })
+
+                //adiciona dados à tabela
+                for(var i in rios){
+                    $("#rios-afluentes tbody").append('<tr><td>'+rios[i]['cod_rio']+'</td>'
+                        +'<td>'+rios[i]['designacao']+'</td>'
+                        +'<td>'+rios[i]['tipo']+'</td>'
+                        +'<td>'+rios[i]['bacia']+'</td>'
+                        +'<td><a href="/rio/'+rios[i]['cod_rio']+'">'+
+                        '<button class="btn btn-primary">Ver Rio</button>'+'</a></td></tr>');
+                }
+
+                $("#rios-afluentes").after('<div class="col-md-12 text-center">'+
+                    '<ul class="pagination" id="myPager"></ul>'+
+                    '</div>');
+
+                $('#rios-afluentes tbody').pageMe({
+                    pagerSelector:'#myPager',
+                    showPrevNext:true,
+                    hidePageNumbers:false,
+                    perPage:10
+                });
+            }
+        });
     }
 
     if ($("#chart-irr").length){
@@ -119,6 +232,7 @@ $(document).ready(function(){
             }
         });
     }
+
 
 });
 
