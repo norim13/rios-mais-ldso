@@ -6,41 +6,53 @@
 
 <div class="container">
   <div id="rio-info">
-    <div id="rio-nome"><h1>Nome</h1></div>
-    <div id="rio-codigo"><h2>Codigo</h2></div>
-    <div id="rio-bacia"><h2>Bacia</h2></div>
-    <div id="rio-tipo"><h2>Tipo</h2></div>
-  </div>
-
-  <h2> Média das categorias </h2>
-
-  <div class="table-responsive">
-    <table class="table" id="irr">
+    <table id="" class="table table-hover table-striped">
       <tr>
-        <th>Número de formulários respondidos</th>
-        <th>Hidrogeomorfologia</th>
-        <th>Qualidade da agua</th>
-        <th>Alterações antrópicas</th>
-        <th>Corredor ecológico</th>
-        <th>Participação pública</th>
-        <th>Organização e planeamento</th>
-        <th>IRR médio</th>
-        <th>IRR total</th>
+        <th>Cód. Rio</th>
+        <th>Designação</th>
+        <th>Tipo</th>
+        <th>Bacia</th>
       </tr>
       <tr>
-        <td id="irr_nr_forms"><%= @form_irrs.count %></td>
-        <td id="irr_hidrogeomorfologia"><%= @avg_hidrogeomorfologia %></td>
-        <td id="irr_qualidadedaagua"><%= @avg_qualidadedaagua %></td>
-        <td id="irr_alteracoesantropicas"><%= @avg_alteracoesantropicas %></td>
-        <td id="irr_corredorecologico"><%= @avg_corredorecologico %></td>
-        <td id="irr_participacaopublica"><%= @avg_participacaopublica %></td>
-        <td id="irr_organizacaoeplaneamento"><%= @avg_organizacaoeplaneamento %></td>
-        <td id="irr_avg"><%= @avg_irr %></td>
-        <td id="irr_total"><%= @irr_total %></td>
+        <td><%=@rio_id%></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
     </table>
   </div>
 
+  <h2> Média das categorias </h2>
+
+  <% if @has_irr == 'yes' %>
+    <div class="table-responsive">
+      <table class="table" id="irr">
+        <tr>
+          <th>Número de formulários respondidos</th>
+          <th>Hidrogeomorfologia</th>
+          <th>Qualidade da agua</th>
+          <th>Alterações antrópicas</th>
+          <th>Corredor ecológico</th>
+          <th>Participação pública</th>
+          <th>Organização e planeamento</th>
+          <th>IRR médio</th>
+          <th>IRR total</th>
+        </tr>
+        <tr>
+          <td id="irr_nr_forms"><%= @form_irrs.count %></td>
+          <td id="irr_hidrogeomorfologia"><%= @avg_hidrogeomorfologia %></td>
+          <td id="irr_qualidadedaagua"><%= @avg_qualidadedaagua %></td>
+          <td id="irr_alteracoesantropicas"><%= @avg_alteracoesantropicas %></td>
+          <td id="irr_corredorecologico"><%= @avg_corredorecologico %></td>
+          <td id="irr_participacaopublica"><%= @avg_participacaopublica %></td>
+          <td id="irr_organizacaoeplaneamento"><%= @avg_organizacaoeplaneamento %></td>
+          <td id="irr_avg"><%= @avg_irr %></td>
+          <td id="irr_total"><%= @irr_total %></td>
+        </tr>
+      </table>
+    </div>
+
+  <% end %>
   <h2>Imagens</h2>
 
   <div class="row">
