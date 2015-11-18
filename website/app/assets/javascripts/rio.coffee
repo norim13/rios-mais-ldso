@@ -35,9 +35,11 @@ $(document).ready(function(){
         else {
             console.log(request.features[0].data);
             var info_rio = request.features[0].data;
-            $("#designacao-rio").html(info_rio.designacao);
-            $("#tipo-rio").html(info_rio.tipo);
-            $("#bacia-rio").html(info_rio.bacia);
+            $("#designacao-rio").html(decode_utf8(info_rio.designacao));
+            $("#tipo-rio").html(decode_utf8(info_rio.tipo));
+            $("#bacia-rio").html(decode_utf8(info_rio.bacia));
+
+            $('#perfil-rio-title').html("Informações sobre "+info_rio.designacao);
         }
     }
 

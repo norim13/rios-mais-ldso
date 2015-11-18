@@ -28,3 +28,4 @@ Rails.application.config.assets.precompile += %w( form_irr.js )
 Rails.application.config.assets.precompile += %w( rio.js )
 
 Rails.application.config.assets.precompile += %w( chart-irr.css )
+Rails.application.config.assets.precompile += %w( rio.css )
