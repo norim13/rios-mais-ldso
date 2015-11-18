@@ -4,6 +4,10 @@ FORM IRR:
 
 	- na flora e preciso imagem? (se sim tem que enviar)
 	
+	- perguntar permissoes
+		- quem pode ver os forms?
+		- quem pode editar?
+	
 - CALCULO IRR
 	- sedimentacao, tds com 5?
 	- qd n e selecionado nada nas categorias, qual o valor a atribuir?

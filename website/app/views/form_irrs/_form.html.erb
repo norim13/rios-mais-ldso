@@ -72,9 +72,6 @@
             <div class="row">
               <div class="thumbnail">
                 <div class="form-group container">
-                  <h4>Nome do rio:</h4>
-                </div>
-                <div class="form-group container">
                   <%= f.label :margem, 'Margem' %>:
                   <div class="radio">
                     <%= f.radio_button :margem, "1", :required => true %>
@@ -85,9 +82,22 @@
                     <%= f.label :margem_2, "Direita" %>
                   </div>
                 </div>
+
+                <div class="row">
+                  <div class="col-md-6 col-xs-12">
+                    <%= f.label :idRio, "Código do rio:" %>
+                    <%= f.text_field :idRio, :id => 'codigo-rio', :class => 'text_field form-control',
+                                     :readonly => true, :placeholder => "Clique em cima do rio para selecionar", :required => true %>
+                  </div>
+                  <div class="col-md-6 col-xs-12">
+                    <%= f.label :nomeRio, "Nome do rio:" %>
+                    <%= f.text_field :nomeRio, :id => 'nome-rio', :class => 'text_field form-control',
+                                     :readonly => true, :placeholder => "Clique em cima do rio para selecionar", :required => true %>
+                  </div>
+                  <%= f.hidden_field :lat %>
+                  <%= f.hidden_field :lon %>
+                </div>
                 <%= render 'mapa/mapa' %>
-                <%= f.text_field :idRio, :label => 'Código do rio', :id => 'codigo-rio', :class => 'text_field form-control input-custom-size',
-                                 :readonly => true, :placeholder => "Clique em cima do rio para selecionar", :required => true %>
               </div>
             </div>
           </div>
@@ -417,7 +427,7 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                       <div class="checkbox">
                         <%= f.label :indiciosNaAgua_outros, 'Outros' %></br>
-                        <%= f.text_area :indiciosNaAgua_outros %>
+                        <%= f.text_field :indiciosNaAgua_outros, :class => 'text_field form-control' %>
                       </div>
                     </div>
                   </div>
@@ -787,7 +797,7 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                       <div class="checkbox">
                         <%= f.label :intervencoes_outras, 'Outras' %></br>
-                        <%= f.text_area :intervencoes_outras %>
+                        <%= f.text_field :intervencoes_outras, :class => 'text_field form-control' %>
                       </div>
                     </div>
                   </div>
@@ -935,7 +945,7 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                       <div class="checkbox">
                         <%= f.label :repteis_outro, 'Outro' %>
-                        <%= f.text_area :repteis_outro %>
+                        <%= f.text_field :repteis_outro, :class => 'text_field form-control' %>
                       </div>
                     </div>
                   </div>
@@ -970,7 +980,7 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                       <div class="checkbox">
                         <%= f.label :aves_outro, 'Outro' %>
-                        <%= f.text_area :aves_outro %>
+                        <%= f.text_field :aves_outro, :class => 'text_field form-control' %>
                       </div>
                     </div>
                   </div>
@@ -1005,7 +1015,7 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                       <div class="checkbox">
                         <%= f.label :mamiferos_outro, 'Outro' %>
-                        <%= f.text_area :mamiferos_outro %>
+                        <%= f.text_field :mamiferos_outro, :class => 'text_field form-control' %>
                       </div>
                     </div>
                   </div>
@@ -1039,7 +1049,7 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                       <div class="checkbox">
                         <%= f.label :peixes_outro, 'Outro' %>
-                        <%= f.text_area :peixes_outro %>
+                        <%= f.text_field :peixes_outro, :class => 'text_field form-control' %>
                       </div>
                     </div>
                   </div>
@@ -1073,7 +1083,7 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                       <div class="checkbox">
                         <%= f.label :fauna_outro, 'Outro' %>
-                        <%= f.text_area :fauna_outro %>
+                        <%= f.text_field :fauna_outro, :class => 'text_field form-control' %>
                       </div>
                     </div>
                   </div>
@@ -1105,7 +1115,7 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                       <div class="checkbox">
                         <%= f.label :flora_outro, 'Outro' %>
-                        <%= f.text_area :flora_outro %>
+                        <%= f.text_field :flora_outro, :class => 'text_field form-control' %>
                       </div>
                     </div>
                   </div>
@@ -1162,7 +1172,7 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                       <div class="checkbox">
                         <%= f.label :vegetacaoInvasora_outro, 'Outro' %>
-                        <%= f.text_area :vegetacaoInvasora_outro %>
+                        <%= f.text_field :vegetacaoInvasora_outro, :class => 'text_field form-control' %>
                       </div>
                     </div>
                   </div>

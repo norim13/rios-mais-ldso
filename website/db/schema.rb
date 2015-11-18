@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117180416) do
+ActiveRecord::Schema.define(version: 20151118162800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -250,6 +250,9 @@ ActiveRecord::Schema.define(version: 20151117180416) do
     t.integer  "irr_participacaopublica"
     t.integer  "irr_organizacaoeplaneamento"
     t.integer  "irr"
+    t.float    "lat"
+    t.float    "lon"
+    t.string   "nomeRio"
   end
 
   add_index "form_irrs", ["user_id"], name: "index_form_irrs_on_user_id", using: :btree

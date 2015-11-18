@@ -62,7 +62,7 @@ class FormIrrsController < ApplicationController
 
 	private
 	def form_irr_params
-		params.require(:form_irr).permit(:idRio, :margem,:tipoDeVale,:perfilDeMargens,:larguraDaSuperficieDaAgua,:profundidadeMedia,:seccao,:velocidadeMedia,:caudal,:substratoDasMargens_soloArgiloso,:substratoDasMargens_arenoso,:substratoDasMargens_pedregoso,:substratoDasMargens_rochoso,
+		params.require(:form_irr).permit(:idRio,:nomeRio,:lat,:lon,:margem,:tipoDeVale,:perfilDeMargens,:larguraDaSuperficieDaAgua,:profundidadeMedia,:seccao,:velocidadeMedia,:caudal,:substratoDasMargens_soloArgiloso,:substratoDasMargens_arenoso,:substratoDasMargens_pedregoso,:substratoDasMargens_rochoso,
 			:substratoDasMargens_artificialPedra,:substratoDasMargens_artificialBetao,:substratoDoLeito_blocoseRocha,:substratoDoLeito_calhaus,:substratoDoLeito_cascalho,:substratoDoLeito_areia,:substratoDoLeito_limo,:substratoDoLeito_solo,:substratoDoLeito_artificial,:substratoDoLeito_naoEVisivel,:estadoGeraldaLinhadeAgua,
 			:erosao_semErosao,:erosao_formacaomais3,:erosao_formacao1a3,:erosao_quedamuros,:erosao_rombos,:sedimentacao_ausente,:sedimentacao_decomposicao,:sedimentacao_mouchoes,:sedimentacao_ilhassemveg,:sedimentacao_ilhascomveg,:sedimentacao_deposicaosemveg,:sedimentacao_deposicaocomveg,:sedimentacao_rochas,
 			:pH,:condutividade,:temperatura,:nivelDeOxigenio,:percentagemDeOxigenio,:nitratos,:nitritos,:transparencia,:oleo,:espuma,:esgotos,:impurezas,:sacosDePlastico,:latas,:indiciosNaAgua_outros,:corDaAgua,:odorDaAgua,:planarias,:hirudineos,
