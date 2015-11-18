@@ -5,6 +5,7 @@
 <%= render 'common/navbar' %>
 
 <div class="container">
+  <h1>Informações rio</h1>
   <div id="rio-info">
     <table id="" class="table table-hover table-striped">
       <tr>
@@ -14,15 +15,15 @@
         <th>Bacia</th>
       </tr>
       <tr>
-        <td><%=@rio_id%></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td id="cod-rio" value=<%=@rio_id%>><%= @rio_id %></td>
+        <td id="designacao-rio"></td>
+        <td id="tipo-rio"></td>
+        <td id="bacia-rio"></td>
       </tr>
     </table>
   </div>
 
-  <h2> Média das categorias </h2>
+  <h2> Índice de Reabilitação de Rios (IRR) </h2>
 
   <% if @has_irr == 'yes' %>
     <div class="table-responsive">
@@ -78,3 +79,4 @@
 
 
 <%= render 'common/footer' %>
+<%= javascript_include_tag "rio" %>
