@@ -8,33 +8,41 @@
 <p id="notice"><%= notice %></p>
 
 <div class="container">
+  <h1>Relatório SOS Rios+</h1>
+  <table id="" class="table table-hover table-striped">
+    <tr>
+      <th>Código do Rio</th>
+      <td><%= @report.rio %></td>
+    </tr>
+    <tr>
+      <th>Data de denúncia</th>
+      <td><%=@report.created_at.strftime("%d/%m/%Y - %H:%M")%></td>
+    </tr>
+    <tr>
+      <th>Nº utilizador</th>
+      <td><%= @report.user_id %></td>
+    </tr>
+    <tr>
+      <th>Nome do utilizador</th>
+      <td><%=@user_reporter.nome%></td>
+    </tr>
+    <tr>
+      <th>Categoria:</th>
+      <td><%= @report.categoria %></td>
+    </tr>
+    <tr>
+      <th>Motivo</th>
+      <td><%= @report.motivo %></td>
+    </tr>
+    <tr>
+      <th>Descrição</th>
+      <td><%= @report.descricao %></td>
+    </tr>
+  </table>
 
-  <p>
-    <strong>Código do Rio:</strong>
-    <%= @report.rio %>
-  </p>
-
-  <p>
-    <strong>Nº utilizador:</strong>
-    <%= @report.user_id %>
-  </p>
-
-  <p>
-    <strong> Categoria: </strong>
-    <%= @report.categoria %>
-  </p>
-
-  <p>
-    <strong> Motivo: </strong>
-    <%= @report.motivo %>
-  </p>
 
 
-  <p>
-    <strong> Descrição: </strong>
-    <%= @report.descricao %>
-  </p>
-
+  <h3>Fotografias</h3>
   <% if !@report['images'].nil? %>
       <div id="show-form_irr-imgs">
         <div class="row">

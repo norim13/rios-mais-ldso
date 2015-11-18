@@ -11,6 +11,7 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.json
   def show
+    @user_reporter = User.find_by_id(@report.user_id)
   end
 
   # GET /reports/new
