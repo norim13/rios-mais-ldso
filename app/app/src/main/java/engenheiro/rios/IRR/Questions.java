@@ -12,11 +12,13 @@ import java.util.ArrayList;
 public class Questions {
 
 
-    public static void getQuestion(int next_question, Intent intent, Context context) {
+    public static void getQuestion(int next_question, Intent intent, Context context, ArrayList<Integer[]> values_irr) {
         String[] options = new String[0];
         intent.putExtra("question_num", next_question);
         String main_title = "teste";
         String sub_title = "teste";
+        Integer value_irr[];
+        value_irr= new Integer[]{};
 
         boolean required = false;
         int type = -1;
@@ -31,15 +33,22 @@ public class Questions {
             intent.putExtra("main_title", "Hidrogeomorfologia");
             intent.putExtra("sub_title", "Perfil de margens");
             intent.putExtra("required", true);
+            values_irr.add(value_irr);
+            intent.putExtra("values_irr",values_irr);
         } else if (next_question == 9) {
             intent.setClass(context, IRR_2_1.class);
             intent.putExtra("question_num", next_question);
             intent.putExtra("required", true);
+            values_irr.add(value_irr);
+            intent.putExtra("values_irr",values_irr);
         } else if (next_question == 13) {
             Log.e("question", "entrou no vertebrado");
             intent.setClass(context, TabelaMacroinverterbrados.class);
             intent.putExtra("question_num", next_question);
             intent.putExtra("required", true);
+            value_irr= new Integer[]{1,4,5,2,5,2,4,3,3,4,3,2,2,3,1,3,1,3,3,2,null,3};
+            values_irr.add(value_irr);
+            intent.putExtra("values_irr",values_irr);
         } else {
             arrayList = Questions.getOptions(next_question);
             main_title = (String) arrayList.get(0);
@@ -48,6 +57,9 @@ public class Questions {
             required = (boolean) arrayList.get(3);
             options = (String[]) arrayList.get(4);
             max = (int) arrayList.get(5);
+            value_irr= (Integer[]) arrayList.get(6);
+            values_irr.add(value_irr);
+            intent.putExtra("values_irr",values_irr);
             intent.putExtra("main_title", main_title);
             intent.putExtra("sub_title", sub_title);
             intent.putExtra("type", type);
@@ -56,7 +68,10 @@ public class Questions {
             intent.putExtra("max", max);
 
 
+
         }
+
+
     }
 
 
@@ -69,6 +84,7 @@ public class Questions {
         String options[] = new String[0];
         int max = 0;
 
+        Integer value_irr[] = new Integer[]{};
 
 
 
@@ -145,6 +161,7 @@ public class Questions {
                         "Formação de 1-3 regos",
                         "Queda de muros e árvores",
                         "Rombos com mais de 1 metro com queda de muros ou árvores"};
+                value_irr= new Integer[]{1,2,3,3,4};
                 break;
 
             case 8:
@@ -160,6 +177,7 @@ public class Questions {
                         "Deposição nas margens (s/vegetação)",
                         "Deposição nas margens (c/vegetação)",
                         "Rochas expostas no leito"};
+                value_irr= new Integer[]{5,5,5,5,5,5,5,5};
                 break;
 
             case 9:
@@ -177,6 +195,8 @@ public class Questions {
                         "Sacos de plástico e embalagens",
                         "Latas ou material ferroso",
                         "Outros"};
+                value_irr= new Integer[]{5,4,3,2,2,3};
+
                 break;
 
             case 11:
@@ -192,7 +212,7 @@ public class Questions {
                         "Cinzenta",
                         "Preta",
                         "Outra cor"};
-
+                value_irr= new Integer[]{1,4,1,4,5,5,5};
                 break;
 
             case 12:
@@ -207,6 +227,8 @@ public class Questions {
                         "Cheiro químico (cloro)",
                         "Cheiro podre (ovos podres)",
                         "Outro odor"};
+                value_irr= new Integer[]{1,1,4,3,5,4};
+
                 break;
 
             case 13:
@@ -232,6 +254,8 @@ public class Questions {
                         "Paredões",
                         "Técnicas de Engenharia Natural",
                         "Outras"};
+                value_irr= new Integer[]{2,2,2,1,1,4,5,3,5,5,4,3,1,3};
+
                 break;
 
             case 15:
@@ -252,6 +276,8 @@ public class Questions {
                         "Zona Industrial",
                         "Vias de comunicação (ruas)",
                         "Entulho e zona degradada"};
+                value_irr= new Integer[]{1,1,3,2,3,3,3,2,4,5,3,5};
+
                 break;
 
             case 16:
@@ -286,6 +312,8 @@ public class Questions {
                         "Defletores artificiais",
                         "Mota lateral"
                 };
+                value_irr= new Integer[]{1,2,1,1,5,2,3,1,2,2,3,2,1,2,1,1,3,2,3,4,5,4,3,3};
+
                 break;
 
             case 17:
@@ -307,6 +335,8 @@ public class Questions {
                         "Sacos de plástico",
                         "Latas e material ferroso",
                         "Queimadas"};
+                value_irr= new Integer[]{2,3,5,5,2,4,4,3,3,5,3,4,3};
+
                 break;
 
             case 18:
@@ -321,6 +351,7 @@ public class Questions {
                         "Rã-ibérica (Rana ibérica)",
                         "Rã-verde (Rana perezi)",
                         "Sapo-comum (Bufo bufo)"};
+                value_irr= new Integer[]{1,1,1,1,1,1};
                 break;
 
             case 19:
@@ -333,6 +364,7 @@ public class Questions {
                         "Cobra-de-água-de-colar (Natrix natrix)",
                         "Cágado (Mauremys leprosa)",
                         "Outro"};
+                value_irr= new Integer[]{1,1,3};
                 break;
 
             case 20:
@@ -349,6 +381,7 @@ public class Questions {
                         "Tentilhão-comum (Fringilla coelebs)",
                         "Chapim-real (Parus major)",
                         "Outro"};
+                value_irr= new Integer[]{1,1,1,1,2,1,1};
                 break;
 
             case 21:
@@ -364,6 +397,8 @@ public class Questions {
                         "Ouriço cacheiro (Erinaceus europaeus)",
                         "Armilho (Mustela Erminea)",
                         "Outro"};
+                value_irr= new Integer[]{1,1,1,3,1,1};
+
                 break;
 
             case 22:
@@ -379,6 +414,8 @@ public class Questions {
                         "Boga-portuguesa (Iberochondrostoma lusitanicum)",
                         "Boga-do-norte (Chondrostoma duriense)",
                         "Outro"};
+                value_irr= new Integer[]{1,1,1,1,1,1};
+
                 break;
 
             case 23:
@@ -397,6 +434,8 @@ public class Questions {
                         "Achigã (Micropterus salmoides)",
                         "Perca-sol (Lepomis gibbosus)",
                         "Outro"};
+                value_irr= new Integer[]{5,5,5,5,5,5,5,5,5};
+
                 break;
 
             case 24:
@@ -417,6 +456,8 @@ public class Questions {
                         "Sobreiral",
                         "Azinhal",
                         "Outro"};
+                value_irr= new Integer[]{1,1,1,1,1,1,1,1,1,1,1};
+
                 break;
 
             case 25:
@@ -432,12 +473,13 @@ public class Questions {
                         "(5 a 10%) Interrompida – com manchas de árvores",
                         "(<5%) Esparsa - Só árvores isoladas ou Urbanizações ou infra-estruturas"
                 };
+                value_irr= new Integer[]{1,2,3,4,5,5};
                 break;
 
             case 26:
                 main_title= "Corredor ecológico";
                 sub_title= "Espécies vegetação invasora";
-                type=0;
+                type=1;
                 required= true;
                 options= new String[]{
                         "Silvas",
@@ -447,6 +489,8 @@ public class Questions {
                         "Pinheirinha",
                         "Jacinto de água",
                         "Outro"};
+                value_irr= new Integer[]{1,3,4,3,3,4,3};
+
                 break;
 
             case 27:
@@ -461,6 +505,7 @@ public class Questions {
                         "Com obstrução de 50 a 75% com ramos e troncos",
                         "Com obstrução quase total >75% do leito e margens"
                 };
+                value_irr= new Integer[]{1,2,3,4,5};
                 break;
 
 
@@ -476,6 +521,7 @@ public class Questions {
                         "Disponibilidade de informação de qualidade deficiente para os objetivos de reabilitação.",
                         "Ausência de locais de informação acessível."
                 };
+                value_irr= new Integer[]{1,2,3,4,5};
                 break;
 
             case 29:
@@ -490,6 +536,7 @@ public class Questions {
                         "Atividades pontuais e com deficiente envolvimento publico local ou de fraca qualidade.",
                         "Ausência de envolvimento."
                 };
+                value_irr= new Integer[]{1,2,3,4,5};
                 break;
 
             case 30:
@@ -504,6 +551,7 @@ public class Questions {
                         "Sem integração nem feedback das decisões finais.",
                         "Ausência total de atividades."
                 };
+                value_irr= new Integer[]{1,2,3,4,5};
                 break;
 
             case 31:
@@ -518,6 +566,7 @@ public class Questions {
                         "Não cumpre requisitos legais ao nível de pessoas singulares e de pessoas coletivas.",
                         "Não se observa nenhuma aplicação legal."
                 };
+                value_irr= new Integer[]{1,2,3,4,5};
                 break;
 
             case 32:
@@ -532,6 +581,7 @@ public class Questions {
                         "Existem planos de ordenamento e de gestão de bacia hidrográfica sem implementação.",
                         "Não existe nenhum documento estratégica, planeamento de ordenamento e de gestão a nível de recursos hídricos."
                 };
+                value_irr= new Integer[]{1,2,3,4,5};
                 break;
 
             case 33:
@@ -546,6 +596,7 @@ public class Questions {
                         "Definição de objetivos claros de intervenção de melhoria, mas sem qualquer intervenção.",
                         "Não existe nenhuma evidência de gestão das intervenções de melhoria."
                 };
+                value_irr= new Integer[]{1,2,3,4,5};
                 break;
 
 
@@ -557,6 +608,7 @@ public class Questions {
         response.add(required);
         response.add(options);
         response.add(max);
+        response.add(value_irr);
 
         return response;
 

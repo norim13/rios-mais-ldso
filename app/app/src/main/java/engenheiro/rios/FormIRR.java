@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import engenheiro.rios.IRR.IRR_question;
@@ -28,7 +29,10 @@ public class FormIRR extends AppCompatActivity {
     public void new_form(View view){
         HashMap<Integer,Object> answers2=new HashMap<Integer,Object>();
         Intent i =new Intent(this, IRR_question.class);
-        Questions.getQuestion(1,i,this);
+        ArrayList<Integer[]> arrayList=new ArrayList<Integer[]>();
+        Integer[] integers = new Integer[0];
+        arrayList.add(integers);
+        Questions.getQuestion(1,i,this,arrayList);
         i.putExtra("answers2", answers2);
         this.startActivity(i);
     }
