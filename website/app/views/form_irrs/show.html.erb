@@ -7,31 +7,30 @@
 <%= render 'common/navbar' %>
 
 <div class="container">
-  <p>
-    <strong>ID:</strong>
-    <%= @form_irr.id %>
-  </p>
-
-  <p>
-    <strong>Utilizador:</strong>
-    <%= @form_irr.user_id %> -
-    <%= User.find(@form_irr.user_id).nome %>
-  </p>
-
   <%
      t = Time.current
      cur_timezone = t.zone
   %>
 
-  <p>
-    <strong>Criado em:</strong>
-    <%= @form_irr.created_at.in_time_zone(cur_timezone).strftime("%d/%m/%Y - %H:%M") %>
-  </p>
+  <h1>Formulário de Índice de Reabilitação de Rios</h1>
 
-  <p>
-    <strong>Última edição em:</strong>
-    <%= @form_irr.updated_at.strftime("%d/%m/%Y - %H:%M") %>
-  </p>
+  <table class="table table-hover table-striped">
+    <tr>
+      <th>ID formulário</th>
+      <th>Código utilizador</th>
+      <th>Nome Utilizador</th>
+      <th>Criado em</th>
+      <th>Última edição em</th>
+    </tr>
+    <tr>
+      <td><%= @form_irr.id %></td>
+      <td><%= @form_irr.user_id %></td>
+      <td><%= User.find(@form_irr.user_id).nome %></td>
+      <td><%= @form_irr.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
+      <% #alternativa: <%= @form_irr.created_at.in_time_zone(cur_timezone).strftime("%d/%m/%Y - %H:%M") %>
+      <td><%= @form_irr.updated_at.strftime("%d/%m/%Y - %H:%M") %></td>
+    </tr>
+  </table>
 
   <%= render 'form' %>
 

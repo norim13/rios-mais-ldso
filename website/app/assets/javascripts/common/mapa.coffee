@@ -55,15 +55,6 @@ window.onload = function () {
 			queryVisible: true,
 			eventListeners: {
 				getfeatureinfo: function(event) {
-					/*map.addPopup(new OpenLayers.Popup.FramedCloud(
-						"chicken",
-						map.getLonLatFromPixel(event.xy),
-						null,
-						event.text,
-						null,
-						true
-					));*/
-
 					var x = Math.round(event.xy.x);
 					var y = Math.round(event.xy.y);
 
@@ -113,6 +104,14 @@ window.onload = function () {
                             $("#rio-nome h4").html("Nome do rio: " + designacao);
                             $("#codigo-rio").val(codigo);
                             $("#nome-rio").val(designacao);
+                            map.addPopup(new OpenLayers.Popup.FramedCloud(
+                                "chicken",
+                                map.getLonLatFromPixel(event.xy),
+                                null,
+                                designacao,
+                                null,
+                                true
+                            ));
                         }
                     }
 		            },
