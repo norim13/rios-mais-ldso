@@ -73,6 +73,6 @@ class GuardariosController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def guardario_params
-    params.require(:guardario).permit(:rio, :local, :voar, :cantar, :parado, :beber, :cacar, :cuidarcrias, :alimentar, :outro, {images: []})
+    params.require(:guardario).permit(:rio, :nomeRio, :lat, :lon, :local, :voar, :cantar, :parado, :beber, :cacar, :cuidarcrias, :alimentar, :outro, {images: []})
   end
 end
