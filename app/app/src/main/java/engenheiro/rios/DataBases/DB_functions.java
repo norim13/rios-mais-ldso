@@ -2,6 +2,7 @@ package engenheiro.rios.DataBases;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,6 +12,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import engenheiro.rios.FormIRR;
 import engenheiro.rios.IRR.Form_functions;
 import engenheiro.rios.Login;
 import engenheiro.rios.Register;
@@ -710,6 +714,98 @@ public class DB_functions {
                     Log.e("teste","stacktrace");
                     e.printStackTrace();
                 }
+            }
+        }).start();
+
+    }
+
+    public static void getForms(final String token, final FormIRR formIRR) throws IOException, JSONException {
+
+
+        new Thread(new Runnable() {
+            public void run() {
+
+
+                String url = "http://riosmais.herokuapp.com/api/v2/form_irrs?user_email="+"fil.fmiranda@gmail.com"+"&user_token="+token;
+
+                URL obj = null;
+                try {
+                    obj = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                HttpURLConnection con = null;
+                try {
+                    con = (HttpURLConnection) obj.openConnection();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // optional default is GET
+                try {
+                    con.setRequestMethod("GET");
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                }
+
+                //add request header
+                con.setRequestProperty("Content-Type", "application/json");
+
+                int responseCode = 0;
+                try {
+                    responseCode = con.getResponseCode();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("\nSending 'GET' request to URL : " + url);
+                System.out.println("Response Code : " + responseCode);
+
+                BufferedReader in = null;
+                try {
+                    in = new BufferedReader(
+                            new InputStreamReader(con.getInputStream()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                try {
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //print result
+                System.out.println(response.toString());
+                Log.e("teste", response.toString());
+
+                formIRR.formsFromUser(response.toString());
+                try {
+                    JSONArray jsonarray  = new JSONArray(response.toString());
+
+                    Log.e("teste","tamanh:"+jsonarray.length());
+                    for(int i=0; i<jsonarray.length(); i++){
+                        JSONObject form_irr_json = jsonarray.getJSONObject(i);
+
+                        String name = form_irr_json.getString("name");
+
+                        System.out.println(name);
+                        System.out.println(url);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
             }
         }).start();
 
