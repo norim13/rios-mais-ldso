@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   get 'home' => 'home#homepage'
   get 'contactos' => 'about#about'
   get 'documentos' => 'documentos_relacionados#documentos'
-
   get 'concelhos' => 'concelho#getConcelhosFromDistrito'
+  get 'limpeza' => 'limpeza#show'
+
 
   resources :guardarios, only: [:index, :show, :new, :create, :destroy]
   resources :reports, only: [:index, :show, :new, :create, :destroy]
