@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import engenheiro.rios.FormIRR;
+import engenheiro.rios.GuardaRios_form;
 import engenheiro.rios.IRR.Form_functions;
 import engenheiro.rios.Login;
 import engenheiro.rios.Register;
@@ -812,7 +813,92 @@ public class DB_functions {
     }
 
 
+    public static void saveGuardaRios(final GuardaRios_form guardaRios_form,final String token, final String q1, final String q2, final String q3, final String q4, final ArrayList<Integer> q5, final String q6) {
 
+
+        new Thread(new Runnable() {
+            public void run() {
+
+                try {
+                    String url = "http://riosmais.herokuapp.com/api/v2/guardarios?user_email="+"fil.fmiranda@gmail.com"+"&user_token="+token;
+                    Log.e("teste",url);
+                    URL object = null;
+                    object = new URL(url);
+                    HttpURLConnection con = null;
+                    con = (HttpURLConnection) object.openConnection();
+                    con.setDoOutput(true);
+                    con.setDoInput(true);
+                    con.setRequestProperty("Content-Type", "application/json");
+                    con.setRequestMethod("POST");
+                    con.connect();
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.accumulate("rio","201.02");
+                    jsonObject.accumulate("local",q1);
+                    jsonObject.accumulate("voar",q2);
+                    jsonObject.accumulate("cantar",q3);
+                    jsonObject.accumulate("alimentar",q4);
+                    jsonObject.accumulate("parado",q5.get(0));
+                    jsonObject.accumulate("beber",q5.get(1));
+                    jsonObject.accumulate("cacar",q5.get(2));
+                    jsonObject.accumulate("cuidarcrias",q5.get(3));
+                    jsonObject.accumulate("outro",q6);
+                    jsonObject.accumulate("lat","");
+                    jsonObject.accumulate("lon","");
+                    jsonObject.accumulate("nomeRio","");
+                    JSONObject guardarios= new JSONObject();
+                    guardarios.accumulate("guardario",jsonObject);
+
+
+
+                    Log.w("teste", jsonObject.toString());
+                    Log.e("teste",guardarios.toString());
+
+                    OutputStream os = null;
+                    os = con.getOutputStream();
+                    OutputStreamWriter osw = null;
+                    osw = new OutputStreamWriter(os, "UTF-8");
+                    osw.write(guardarios.toString());
+                    osw.flush();
+                    osw.close();
+                    int HttpResult = 0;
+                    StringBuilder sb=null;
+                    sb= new StringBuilder();
+                    HttpResult = con.getResponseCode();
+                    if (HttpResult == HttpURLConnection.HTTP_OK) {
+                        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
+                        String line = null;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line).append("\n");
+                        }
+
+                        br.close();
+
+                       // Log.e("resposta:","a meio     error:"+ error_txt[0] +" autenticacao:"+ authentication_token[0]);
+                        //login.login_response(error[0],error_txt[0],authentication_token[0],name,email);
+
+
+
+
+                        System.out.println("errozinho:" + sb.toString());
+                        guardaRios_form.saveGuardaRiosDB();
+
+                    } else {
+                        Log.e("teste","error: "+con.getResponseMessage());
+                        System.out.println(con.getResponseMessage());
+                    }
+
+
+                } catch (IOException e) {
+                    Log.e("teste","stacktrace");
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
+    }
 }
 
 
