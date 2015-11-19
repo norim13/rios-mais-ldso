@@ -28,4 +28,9 @@ class Api::V2::GuardariosController < ApplicationController
 			render :json => '{"success" : "false", "error" : "authentication problem"}'
 		end
 	end
+
+	private
+	def report_params
+		params.require(:report).permit(:rio, :categoria, :motivo, :descricao, :local, {images: []})
+	end
 end

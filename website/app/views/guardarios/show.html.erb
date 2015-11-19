@@ -7,32 +7,111 @@
 <p id="notice"><%= notice %></p>
 
 <div class="container">
+  <h1>Avistamento de Guarda-Rios</h1>
+  <table class="table table-hover table-striped">
+    <tr>
+      <th>Código do Rio</th>
+      <td><%= @guardario.rio %></td>
+    </tr>
 
-  <p>
-    <strong>Código do rio:</strong>
-    <%= @guardario.rio %>
-  </p>
+    <tr>
+      <th>Nº de utilizador</th>
+      <td><%= @guardario.user_id %></td>
+    </tr>
 
-  <p>
-    <strong>Nº de utilizador:</strong>
-    <%= @guardario.user_id %>
-  </p>
+    <tr>
+      <th>Código do Rio</th>
+      <td><%= @guardario.rio %></td>
+    </tr>
 
-  <p>
-    <strong>Local:</strong>
-    <% case @guardario.local %>
-    <% when 'ninho' %>
-        <%= 'Ninho' %>
-    <% when 'arvores' %>
-        <%= 'Árvores/Ramo' %>
-    <% when 'solo' %>
-        <%= 'Solo/Margem' %>
-    <% when 'mergulhar' %>
-        <%= 'A mergulhar' %>
-    <% else %>
-        <%= 'Pedra/Rocha' %>
-    <% end %>
-  </p>
+    <tr>
+      <th>Local</th>
+      <td>
+        <% case @guardario.local %>
+        <% when 'ninho' %>
+            <%= 'Ninho' %>
+        <% when 'arvores' %>
+            <%= 'Árvores/Ramo' %>
+        <% when 'solo' %>
+            <%= 'Solo/Margem' %>
+        <% when 'mergulhar' %>
+            <%= 'A mergulhar' %>
+        <% else %>
+            <%= 'Pedra/Rocha' %>
+        <% end %></td>
+    </tr>
+
+
+    <tr>
+      <th>Estava a voar?</th>
+      <td>
+        <% if @guardario.voar != '' %>
+            <%= @guardario.voar %>
+        <% else %> Não
+        <% end %>
+      </td>
+    </tr>
+
+
+    <tr>
+      <th>Estava a cantar?</th>
+      <td>
+        <% if @guardario.cantar != '' %>
+            <%= @guardario.cantar %>
+        <% else %> Não
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Estava-se a alimentar?</th>
+      <td>
+        <% if @guardario.alimentar != '' %>
+            <%= @guardario.alimentar %>
+        <% else %> Não
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Estava parado?</th>
+      <td>
+        <% if @guardario.parado %> Sim
+        <% else %> Não
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Estava a beber?</th>
+      <td>
+        <% if @guardario.beber %> Sim
+        <% else %> Não
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Estava a caçar?</th>
+      <td>
+        <% if @guardario.cacar %> Sim
+        <% else %> Não
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Estava a cuidar de crias?</th>
+      <td>
+        <% if @guardario.cuidarcrias %> Sim
+        <% else %> Não
+        <% end %>
+      </td>
+    </tr>
+
+
+  </table>
+
 
   <% if !@guardario['images'].nil? %>
       <div id="show-form_irr-imgs">
@@ -45,51 +124,6 @@
         </div>
       </div>
   <% end %>
-
-  <p>
-    <strong>Estava a voar? </strong>
-    <%= @guardario.voar %>
-  </p>
-
-  <p>
-    <strong>Estava a cantar? </strong>
-    <%= @guardario.cantar %>
-  </p>
-
-  <p>
-    <strong>Estava parado? </strong>
-    <% if @guardario.parado %> Sim
-    <% else %> Não
-    <% end %>
-  </p>
-
-  <p>
-    <strong>Estava a beber? </strong>
-    <% if @guardario.beber %> Sim
-    <% else %> Não
-    <% end %>
-  </p>
-
-  <p>
-    <strong>Estava a caçar? </strong>
-    <% if @guardario.cacar %> Sim
-    <% else %> Não
-    <% end %>
-  </p>
-
-  <p>
-    <strong>Estava a cuidar de crias? </strong>
-    <% if @guardario.cuidarcrias %> Sim
-    <% else %> Não
-    <% end %>
-  </p>
-
-  <p>
-    <strong>Estava-se a alimentar? </strong>
-    <% if @guardario.alimentar %> Sim
-    <% else %> Não
-    <% end %>
-  </p>
 
 
   <%= link_to 'Voltar atrás', guardarios_path %>
