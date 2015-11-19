@@ -27,6 +27,7 @@ import engenheiro.rios.GuardaRios_form;
 import engenheiro.rios.IRR.Form_functions;
 import engenheiro.rios.Login;
 import engenheiro.rios.Register;
+import engenheiro.rios.Sos_rios;
 
 /**
  * Created by filipe on 02/11/2015.
@@ -899,6 +900,80 @@ public class DB_functions {
 
 
     }
+
+    public static void saveSOSRios(final Sos_rios sos_rios,final String token,final String q1,final String q2,final String q3) {
+
+
+        new Thread(new Runnable() {
+            public void run() {
+
+                try {
+                    String url = "http://riosmais.herokuapp.com/api/v2/reports?user_email="+"fil.fmiranda@gmail.com"+"&user_token="+token;
+                    Log.e("teste",url);
+                    URL object = null;
+                    object = new URL(url);
+                    HttpURLConnection con = null;
+                    con = (HttpURLConnection) object.openConnection();
+                    con.setDoOutput(true);
+                    con.setDoInput(true);
+                    con.setRequestProperty("Content-Type", "application/json");
+                    con.setRequestMethod("POST");
+                    con.connect();
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.accumulate("rio","201.02");
+                    jsonObject.accumulate("categoria",q1);
+                    jsonObject.accumulate("motivo",q2);
+                    jsonObject.accumulate("descricao",q3);
+
+                    JSONObject guardarios= new JSONObject();
+                    guardarios.accumulate("report",jsonObject);
+
+
+
+                    Log.w("teste", jsonObject.toString());
+                    Log.e("teste",guardarios.toString());
+
+                    OutputStream os = null;
+                    os = con.getOutputStream();
+                    OutputStreamWriter osw = null;
+                    osw = new OutputStreamWriter(os, "UTF-8");
+                    osw.write(guardarios.toString());
+                    osw.flush();
+                    osw.close();
+                    int HttpResult = 0;
+                    StringBuilder sb=null;
+                    sb= new StringBuilder();
+                    HttpResult = con.getResponseCode();
+                    if (HttpResult == HttpURLConnection.HTTP_OK) {
+                        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
+                        String line = null;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line).append("\n");
+                        }
+
+                        br.close();
+
+                        System.out.println("errozinho:" + sb.toString());
+                        sos_rios.saveSOSDB();
+
+                    } else {
+                        Log.e("teste","error: "+con.getResponseMessage());
+                        System.out.println(con.getResponseMessage());
+                    }
+
+
+                } catch (IOException e) {
+                    Log.e("teste","stacktrace");
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
+    }
+
 }
 
 
