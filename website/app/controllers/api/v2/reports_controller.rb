@@ -1,15 +1,13 @@
 class Api::V2::GuardariosController < ApplicationController
+	before_filter authenticate_user_from_token!
 
-	before_filter :authenticate_user_from_token!
-
+	# POST /reports
+	# POST /reports.json
 	def create
-		user_email = params[:user_email].presence
-		user       = user_email && User.find_by_email(user_email)
+		@report = Report.new(report_params)
+		@report.user_id = current_user.id
 
-		@guardario = Guardario.new(guardario_params)
-		@guardario.user_id = user.id
-
-		if @guardario.save
+		if @report.save
 			render :json => '{"success" : "true"}'
 		else
 			render :json => '{"success" : "false", "error" : "problem saving guardario"}'
@@ -29,10 +27,5 @@ class Api::V2::GuardariosController < ApplicationController
 		else
 			render :json => '{"success" : "false", "error" : "authentication problem"}'
 		end
-	end
-
-	private
-	def guardario_params
-		params.require(:guardario).permit(:rio, :local, :voar, :cantar, :parado, :beber, :cacar, :cuidarcrias, :alimentar, :outro, {images: []})
 	end
 end

@@ -2,6 +2,7 @@ class RioController < ApplicationController
   def show
     @rio_id = params[:id]
     @form_irrs = FormIrr.where(idRio: @rio_id)
+    @nr_denuncias = Report.where(rio: @rio_id).count
 
     if @form_irrs.count == 0
       @has_irr = 'no'
