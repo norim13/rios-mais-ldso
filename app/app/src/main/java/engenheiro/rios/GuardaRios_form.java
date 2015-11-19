@@ -1,26 +1,27 @@
 package engenheiro.rios;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Calendar;
 
-import engenheiro.rios.DataBases.DB;
+import engenheiro.rios.DataBases.DB_functions;
+import engenheiro.rios.DataBases.User;
 import engenheiro.rios.IRR.Form_functions;
 
 public class GuardaRios_form extends AppCompatActivity {
@@ -32,6 +33,7 @@ public class GuardaRios_form extends AppCompatActivity {
     protected ArrayList<RadioButton> question4;
     protected ArrayList<CheckBox> question5;
     protected EditText question6;
+    protected ProgressBar progressbar;
 
 
 
@@ -41,19 +43,14 @@ public class GuardaRios_form extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guarda_rios_form);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Avistamento");
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         linearLayout = (LinearLayout) this.findViewById(R.id.irr_linear);
+        progressbar= (ProgressBar) this.findViewById(R.id.progressBar);
 
         Resources r = getResources();
         float px_float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, r.getDisplayMetrics());
@@ -122,21 +119,60 @@ public class GuardaRios_form extends AppCompatActivity {
     }
 
 
-    public void saveGuardaRios(){
-            String command="";
-        Calendar c = Calendar.getInstance();
-        String curr_time = ""+c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-"+c.get(Calendar.DAY_OF_MONTH)+" "+
-                c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":"+c.get(Calendar.SECOND)+".0";
-                command=String.format("INSERT INTO guardarios (created_at,updated_at,user_id,rio,descricao,categoria,motivo,coordenadas) VALUES ('%s','%s','%s','%d','%s','%s');",
-                        curr_time,curr_time,0,"Douro","desc","categoria","motivo","coordenadas");
-                Log.w("teste", "insert:" + command);
-                Log.w("teste","calendario:"+curr_time);
+    public void saveGuardaRios(View view){
+        progressbar.setVisibility(View.VISIBLE);
+        String q1=Form_functions.getRadioButtonOption_string(question1);
+        String q2=Form_functions.getRadioButtonOption_string(question2);
+        String q3=Form_functions.getRadioButtonOption_string(question3);
+        String q4=Form_functions.getRadioButtonOption_string(question4);
+        ArrayList<Integer> q5=Form_functions.getCheckboxes(question5);
+        String q6= String.valueOf(question6.getText());
 
-            DB db=new DB();
-            ResultSet rs=db.execute(command);
+        DB_functions.saveGuardaRios(this,User.getToken(this),q1,q2,q3,q4,q5,q6);
 
-            Log.w("teste", "mensagem: "+db.is_status());
-            Log.w("teste","status: "+db.get_message());
+
+
+    }
+
+    public void saveGuardaRiosDB() {
+        new Thread()
+        {
+            public void run()
+            {
+                GuardaRios_form.this.runOnUiThread(new Runnable()
+                {
+                    public void run() {
+                        progressbar.setVisibility(View.INVISIBLE);
+                        Toast toast = Toast.makeText(GuardaRios_form.this, "Avistamento submetido", Toast.LENGTH_LONG);
+                        toast.show();
+                        GuardaRios_form.this.finish();
+
+                    }
+                });
+            }
+        }.start();
+
+
+
+    }
+
+
+
+
+    //menu action bar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_homepage, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.navigate_guardarios)
+            startActivity(new Intent(this,GuardaRios.class));
+        if(id==R.id.navigate_account)
+            startActivity(new Intent(this,Login.class));
+        return super.onOptionsItemSelected(item);
     }
 
 }

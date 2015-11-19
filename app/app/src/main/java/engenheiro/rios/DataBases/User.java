@@ -1,10 +1,14 @@
 package engenheiro.rios.DataBases;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import engenheiro.rios.Homepage;
 
 /**
  * Created by filipe on 26/10/2015.
@@ -129,4 +133,9 @@ public class User extends _Default {
     }
 
 
+    public static String getToken(Context c){
+        SharedPreferences settings = c.getSharedPreferences(Homepage.PREFS_NAME, 0);
+        String token=settings.getString("token", "-1");
+        return token;
+    }
 }

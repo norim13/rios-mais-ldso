@@ -119,6 +119,16 @@ public class Form_functions {
         return 0;
     }
 
+    public static String getRadioButtonOption_string(ArrayList<RadioButton> arrayList){
+        for (int i=0;i<arrayList.size();i++){
+            if (arrayList.get(i).isChecked()){
+                int r=i+1;
+                return arrayList.get(i).getText().toString();
+            }
+        }
+        return "";
+    }
+
     public static ArrayList<Integer> getCheckboxes(ArrayList<CheckBox> arrayList){
         ArrayList<Integer> al = new ArrayList<Integer>();
         for (int i=0;i<arrayList.size();i++){
