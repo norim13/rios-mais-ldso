@@ -3,8 +3,6 @@ package engenheiro.rios;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -13,12 +11,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import engenheiro.rios.DataBases.DB_functions;
+import engenheiro.rios.DataBases.User;
 import engenheiro.rios.IRR.Form_functions;
 
 public class Sos_rios extends AppCompatActivity {
@@ -27,6 +29,7 @@ public class Sos_rios extends AppCompatActivity {
     protected ArrayList<RadioButton> question1;
     protected ArrayList<RadioButton> question2;
     protected EditText question3;
+    protected ProgressBar progressbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +39,10 @@ public class Sos_rios extends AppCompatActivity {
         toolbar.setTitle("SOS Rios+");
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         linearLayout = (LinearLayout) this.findViewById(R.id.irr_linear);
+        progressbar= (ProgressBar) this.findViewById(R.id.progressBar);
 
         Resources r = getResources();
         float px_float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, r.getDisplayMetrics());
@@ -116,6 +112,32 @@ public class Sos_rios extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void saveSOSRios(View view) {
+        String q1=Form_functions.getRadioButtonOption_string(question1);
+        String q2=Form_functions.getRadioButtonOption_string(question2);
+        String q3=question3.getText().toString();
 
+        DB_functions.saveSOSRios(this, User.getToken(this),q1,q2,q3);
 
+    }
+
+    public void saveSOSDB(){
+        new Thread()
+        {
+            public void run()
+            {
+                Sos_rios.this.runOnUiThread(new Runnable()
+                {
+                    public void run() {
+                        progressbar.setVisibility(View.INVISIBLE);
+                        Toast toast = Toast.makeText(Sos_rios.this, "Denuncia submetida", Toast.LENGTH_LONG);
+                        toast.show();
+                        Sos_rios.this.finish();
+
+                    }
+                });
+            }
+        }.start();
+
+    }
 }
