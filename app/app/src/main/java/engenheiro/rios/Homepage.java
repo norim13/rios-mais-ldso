@@ -81,7 +81,7 @@ public class Homepage extends AppCompatActivity{
 
 
     public void about(View view)  {
-        startActivity(new Intent(this, Information.class));
+        startActivity(new Intent(this, TesteChart.class));
     }
 
 
