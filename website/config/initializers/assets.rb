@@ -24,6 +24,7 @@ Rails.application.config.assets.precompile += %w( concelho.js )
 Rails.application.config.assets.precompile += %w( footer.js )
 
 Rails.application.config.assets.precompile += %w( external/Chart.min.js )
+Rails.application.config.assets.precompile += %w( external/PageMe.js )
 Rails.application.config.assets.precompile += %w( form_irr.js )
 Rails.application.config.assets.precompile += %w( rio.js )
 

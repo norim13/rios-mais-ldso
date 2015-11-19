@@ -29,6 +29,7 @@ public class IRR_1_3 extends AppCompatActivity {
     protected EditText mC;
     protected HashMap<Integer,Object> answers2;
     protected Integer question_num;
+    protected ArrayList<Integer[]> values_irr;
 
 
 
@@ -43,6 +44,7 @@ public class IRR_1_3 extends AppCompatActivity {
 
 
         answers2= (HashMap<Integer, Object>) getIntent().getSerializableExtra("answers2");
+        values_irr= (ArrayList<Integer[]>) getIntent().getSerializableExtra("values_irr");
         Log.e("teste", "size2:" + answers2.size());
 
         setContentView(R.layout.activity_irr_1_3);
@@ -163,7 +165,7 @@ public class IRR_1_3 extends AppCompatActivity {
         }
 
         Intent i =new Intent(this, IRR_question.class);
-        Questions.getQuestion(4, i, this);
+        Questions.getQuestion(4, i, this,values_irr);
         i.putExtra("answers2", answers2);
         startActivity(i);
         this.overridePendingTransition(0, 0);

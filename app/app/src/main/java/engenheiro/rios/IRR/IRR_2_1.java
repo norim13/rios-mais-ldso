@@ -28,6 +28,8 @@ public class IRR_2_1 extends AppCompatActivity {
     EditText ph,condutividade,temperatura,o2,o2_percentagem,nitratos,nitritos,transparencia;
 
     protected HashMap<Integer,Object> answers2;
+    protected ArrayList<Integer[]> values_irr;
+
 
 
     protected Integer question_num;
@@ -42,6 +44,8 @@ public class IRR_2_1 extends AppCompatActivity {
 
 
         answers2= (HashMap<Integer, Object>) getIntent().getSerializableExtra("answers2");
+        values_irr= (ArrayList<Integer[]>) getIntent().getSerializableExtra("values_irr");
+
 
         question_num=0;
         question_num= (Integer) getIntent().getSerializableExtra("question_num");
@@ -257,7 +261,7 @@ public class IRR_2_1 extends AppCompatActivity {
 
 
         Intent i =new Intent(this, IRR_question.class);
-        Questions.getQuestion(10, i, this);
+        Questions.getQuestion(10, i, this,values_irr);
         i.putExtra("answers2", answers2);
         startActivity(i);
         this.overridePendingTransition(0, 0);
