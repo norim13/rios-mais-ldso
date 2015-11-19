@@ -41,6 +41,7 @@ public class IRR_question extends AppCompatActivity {
     protected Integer type;                     //type=0 RadioButton, type=1 CheckBox, type=2 EditText, type=3 SeekBar
     protected Boolean required;
     Integer question_num;
+    protected ArrayList<Integer[]> values_irr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,9 @@ public class IRR_question extends AppCompatActivity {
 
 //        answers= (ArrayList<ArrayList<Object>>) getIntent().getSerializableExtra("answers");
         answers2= (HashMap<Integer, Object>) getIntent().getSerializableExtra("answers2");
+
+        values_irr= (ArrayList<Integer[]>) getIntent().getSerializableExtra("values_irr");
+
         Log.e("teste", "size2:" + answers2.size());
 //        Log.e("teste", "size:" + answers.size());
         type= (Integer) getIntent().getSerializableExtra("type");
@@ -134,7 +138,7 @@ public class IRR_question extends AppCompatActivity {
             SharedPreferences settings = getSharedPreferences(Homepage.PREFS_NAME, 0);
             String token=settings.getString("token", "-1");
             Log.e("form","entrar na DB");
-            DB_functions.saveForm(token,answers2);
+            DB_functions.saveForm(token,answers2,values_irr);
             return;
 
         }
@@ -142,7 +146,7 @@ public class IRR_question extends AppCompatActivity {
         int next_question=question_num+1;
         Log.e("teste", "num pergunta:" + question_num + " next:" + next_question);
 
-        Questions.getQuestion(next_question, i, this);
+        Questions.getQuestion(next_question, i, this,values_irr);
         i.putExtra("answers2", answers2);
         this.startActivity(i);
 

@@ -1,6 +1,7 @@
 package engenheiro.rios.IRR;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by filipe on 04/11/2015.
@@ -145,4 +147,23 @@ public class Form_functions {
 
     }
 
+
+
+    public static int getmax(ArrayList<Integer> arrayList_questions, Integer[] values_irr ){
+        ArrayList<Integer> final_options = new ArrayList<Integer>();
+        for(int i=0;i<arrayList_questions.size();i++)
+            if(arrayList_questions.get(i)==1 && values_irr[i]!=null ) {
+                final_options.add(values_irr[i]);
+                Log.e("form","value: "+values_irr[i]);
+            }
+        if(final_options.size()==0)
+            return 0;
+        return Collections.max(final_options);
+    }
+
+    public static int getmax(int question, Integer[] values_irr ){
+        if (question==0)
+            return 0;
+        return values_irr[question-1];
+    }
 }
