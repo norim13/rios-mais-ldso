@@ -957,6 +957,7 @@ public class DB_functions {
                         sos_rios.saveSOSDB();
 
                     } else {
+                        sos_rios.errorSOSDB(con.getResponseMessage());
                         Log.e("teste","error: "+con.getResponseMessage());
                         System.out.println(con.getResponseMessage());
                     }

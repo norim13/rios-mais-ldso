@@ -113,6 +113,7 @@ public class Sos_rios extends AppCompatActivity {
     }
 
     public void saveSOSRios(View view) {
+        progressbar.setVisibility(View.VISIBLE);
         String q1=Form_functions.getRadioButtonOption_string(question1);
         String q2=Form_functions.getRadioButtonOption_string(question2);
         String q3=question3.getText().toString();
@@ -134,6 +135,24 @@ public class Sos_rios extends AppCompatActivity {
                         toast.show();
                         Sos_rios.this.finish();
 
+                    }
+                });
+            }
+        }.start();
+
+    }
+
+    public void errorSOSDB(final String responseMessage){
+        new Thread()
+        {
+            public void run()
+            {
+                Sos_rios.this.runOnUiThread(new Runnable()
+                {
+                    public void run() {
+                        progressbar.setVisibility(View.INVISIBLE);
+                        Toast toast = Toast.makeText(Sos_rios.this, "Erro na submissão: "+responseMessage, Toast.LENGTH_LONG);
+                        toast.show();
                     }
                 });
             }

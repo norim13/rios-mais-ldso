@@ -11,13 +11,19 @@
     tools:context="engenheiro.rios.GuardaRios_form"
     android:background="@color/white">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:id="@+id/frameLayout"></FrameLayout>
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/scrollView3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/frameLayout">
 
         <LinearLayout
             android:orientation="vertical"
