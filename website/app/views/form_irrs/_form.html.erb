@@ -37,19 +37,19 @@
               <th>IRR total</th>
             </tr>
             <tr>
-              <td id="irr_hidrogeomorfologia">0</td>
+              <td id="irr_hidrogeomorfologia">-</td>
               <%= f.hidden_field :irr_hidrogeomorfologia %>
-              <td id="irr_qualidadedaagua">0</td>
+              <td id="irr_qualidadedaagua">-</td>
               <%= f.hidden_field :irr_qualidadedaagua %>
-              <td id="irr_alteracoesantropicas">0</td>
+              <td id="irr_alteracoesantropicas">-</td>
               <%= f.hidden_field :irr_alteracoesantropicas %>
-              <td id="irr_corredorecologico">0</td>
+              <td id="irr_corredorecologico">-</td>
               <%= f.hidden_field :irr_corredorecologico %>
-              <td id="irr_participacaopublica">0</td>
+              <td id="irr_participacaopublica">-</td>
               <%= f.hidden_field :irr_participacaopublica %>
-              <td id="irr_organizacaoeplaneamento">0</td>
+              <td id="irr_organizacaoeplaneamento">-</td>
               <%= f.hidden_field :irr_organizacaoeplaneamento %>
-              <td id="irr_total">0</td>
+              <td id="irr_total">-</td>
               <%= f.hidden_field :irr %>
             </tr>
           </table>
@@ -290,7 +290,7 @@
 
               <% labels = ['Sem erosão','Formação de >3 regos','Formação de 1-3 regos','Queda de muros e árvores','Rombos com mais de 1 metro com queda de muros ou árvores'] %>
               <% var_erosao = ['semErosao','formacaomais3','formacao1a3','quedamuros','rombos'] %>
-              <% value_irr = [1,2,3,3,4] %>
+              <% value_irr = [1,2,3,4,5] %>
 
               <div class="row">
                 <div class="col-md-12 col-xs-12">
@@ -316,7 +316,7 @@
 
               <% labels = ['Ausente','Demposição na margem em curva','Mouchões (deposição de areia no leito)','Ilhas sem vegetação','Ilhas com vegetação','Deposição nas margens (s/vegetação)','Deposição nas margens (c/vegetação)','Rochas expostas no leito'] %>
               <% var_sedimentacao = ['ausente','decomposicao','mouchoes','ilhassemveg','ilhascomveg','deposicaosemveg','deposicaocomveg','rochas'] %>
-              <% value_irr = [5,5,5,5,5,5,5,5] %>
+              <% value_irr = [1,2,4,4,3,4,3,2] %>
 
               <div class="row">
                 <div class="col-md-12 col-xs-12">
@@ -834,7 +834,6 @@
             </div>
           </div>
 
-
           <div class="form-group">
             <h3>Património edificado Leito/margem [estado de conservação: 1 - Bom a 5- Mau]</h3>
 
@@ -847,9 +846,9 @@
                   <div class="row">
                     <% for i in 1..24 %>
                         <div class="col-md-4 col-sm-6 col-xs-12">
-                          <%label = "patrimonio_#{var_patrimonio[i-1]}"; %>
+                          <%label = "patrimonio_#{var_patrimonio[i-1]}" %>
                           <div>
-                            <%= f.select label, ['Nao',1,2,3,4,5], :required => true, :value_irr => value_irr[i-1] %>
+                            <%= f.select label, ['Nao',1,2,3,4,5], {}, {:value_irr => value_irr[i-1]} %>
                             <%= f.label label, labels[i-1] %>
                           </div>
                         </div>

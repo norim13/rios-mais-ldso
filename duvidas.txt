@@ -1,9 +1,5 @@
 
 FORM IRR:
-	- ainda n percebi como se calcula o IRR
-
-	- na flora e preciso imagem? (se sim tem que enviar)
-	
 	- perguntar permissoes
 		- quem pode ver os forms?
 		- quem pode editar?
@@ -11,20 +7,18 @@ FORM IRR:
 	
 - CALCULO IRR
 	- sedimentacao, tds com 5?
+		- mudar sedimentacao e erosao
 	- qd n e selecionado nada nas categorias, qual o valor a atribuir? => inconclusivo, fica 0
+		- fica 1
 	- media das categorias do irr fica round ou nao?
-	
+		- fica round => n existe media, fica sempre o pior
 	
 PAPEL MAGICO:
-	(done) patrimonio edificado: adicionar opcao "NAO"
-	(done) guardar info sobre a margem
-	(done) por titulo em cada grupo na tabela de invertebrados
-	(done) bivalves dentro do mullusca
-	(done) macroinvertebrados: os que n tem categoria tem o mm titulo
 	
 	- validacao do formulario antes do seu resultado : influenciar dados dos rios.
 	Admin valia e so depois e que conta
 	
 	- adicionar formulario id do user que editou por ultimo
 	
-	- incluir fotos no IRR (optativa, max 7)
+	- nos selects onde tem "NAO", no form irr, n ta a calcular bem
+		- como e o valor dos selects? e como a option influencia o IRR?
