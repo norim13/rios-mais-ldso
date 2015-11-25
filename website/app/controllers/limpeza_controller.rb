@@ -27,7 +27,7 @@ class LimpezaController < ApplicationController
         format.html { redirect_to :back }
         format.json { render :show, status: :created, location: @limpeza }
       else
-        format.html { redirect_to :back }
+        format.html { redirect_to :back}
         format.json { render json: @limpeza.errors, status: :unprocessable_entity }
       end
     end
