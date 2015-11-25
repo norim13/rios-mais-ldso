@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151119105749) do
+ActiveRecord::Schema.define(version: 20151124234818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -275,6 +275,15 @@ ActiveRecord::Schema.define(version: 20151119105749) do
     t.string   "nomeRio"
     t.float    "lat"
     t.float    "lon"
+  end
+
+  create_table "limpezas", force: :cascade do |t|
+    t.string   "opcao"
+    t.string   "resposta"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "categoria"
+    t.integer  "categoria_id"
   end
 
   create_table "reports", force: :cascade do |t|

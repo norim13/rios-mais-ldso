@@ -9,8 +9,43 @@
 <div class="container">
   <h1> Limpeza de Rios+</h1>
 
+  <div class="row">
+    <div class="panel-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <h3> Problemas </h3>
+    </div>
 
+    <div class="panel-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <h3> Soluções </h3>
+    </div>
+  </div>
 
+  <div class="panel-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 0; padding-bottom:5%" id="accordion" role="tablist" aria-multiselectable="true">
+    <% @limpeza.each_with_index  do |limpeza, index| %>
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="heading-<%=index%>">
+            <h4 class="panel-title">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-<%=index%>" aria-expanded="false" aria-controls="collapse-<%=index%>">
+                <%= limpeza.categoria %>
+              </a>
+            </h4>
+          </div>
+          <div id= "collapse-<%=index%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%=index%>">
+            <div id=pergunta-<%=index%> class="panel-body">
+              <% @allOptions[index].each_with_index do |opcao, index2| %>
+                  <%= radio_button_tag(index, "child", false, {"id" => "opcao-#{index}-#{index2}", "data-resposta" => "pergunta-#{opcao.id}"}) %>
+                  <%= label_tag(index2, opcao.opcao) %> <br/>
+              <% end %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+
+  <div class="panel-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+    <div id="solucoes"> </div>
+  </div>
+
+  <br/>
 
 </div>
 

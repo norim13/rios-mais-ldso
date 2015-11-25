@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'documentos' => 'documentos_relacionados#documentos'
   get 'concelhos' => 'concelho#getConcelhosFromDistrito'
   get 'limpeza' => 'limpeza#show'
+  get 'respostas' => 'limpeza#getRespostas'
 
 
   resources :guardarios, only: [:index, :show, :new, :create, :destroy]
