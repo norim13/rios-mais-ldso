@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :form_irrs, dependent: :destroy
   has_many :guardarios, dependent: :destroy
   has_many :reports, dependent: :destroy
+  has_many :log_limpezas, dependent: :destroy
 
 
   validates :telef, length: {is: 9}

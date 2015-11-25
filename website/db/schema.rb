@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124234818) do
+ActiveRecord::Schema.define(version: 20151125015400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -286,6 +286,31 @@ ActiveRecord::Schema.define(version: 20151124234818) do
     t.integer  "categoria_id"
   end
 
+  create_table "log_limpezas", force: :cascade do |t|
+    t.string   "problema1"
+    t.string   "problema2"
+    t.string   "problema3"
+    t.string   "problema4"
+    t.string   "problema5"
+    t.string   "problema6"
+    t.string   "problema7"
+    t.string   "problema8"
+    t.string   "problema9"
+    t.string   "problema10"
+    t.string   "problema11"
+    t.string   "problema12"
+    t.string   "problema13"
+    t.date     "cheia_data"
+    t.string   "cheia_origem"
+    t.integer  "cheia_perdas_monetarias"
+    t.string   "cheia_destruicao"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "user_id"
+  end
+
+  add_index "log_limpezas", ["user_id"], name: "index_log_limpezas_on_user_id", using: :btree
+
   create_table "reports", force: :cascade do |t|
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -330,5 +355,6 @@ ActiveRecord::Schema.define(version: 20151124234818) do
 
   add_foreign_key "concelhos", "distritos"
   add_foreign_key "form_irrs", "users"
+  add_foreign_key "log_limpezas", "users"
   add_foreign_key "reports", "users"
 end
