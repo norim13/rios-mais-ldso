@@ -19,7 +19,11 @@
     </div>
   </div>
 
+
   <div class="panel-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 0; padding-bottom:5%" id="accordion" role="tablist" aria-multiselectable="true">
+
+    <%= form_for LogLimpeza.new, url: {action: "submitProblemas"} do |f| %>
+
     <% @limpeza.each_with_index  do |limpeza, index| %>
         <div class="panel panel-default">
           <div class="panel-heading" role="tab" id="heading-<%=index%>">
@@ -32,14 +36,22 @@
           <div id= "collapse-<%=index%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%=index%>">
             <div id=pergunta-<%=index%> class="panel-body">
               <% @allOptions[index].each_with_index do |opcao, index2| %>
-                  <%= radio_button_tag(index, "child", false, {"id" => "opcao-#{index}-#{index2}", "data-resposta" => "pergunta-#{opcao.id}"}) %>
+                  <%= radio_button_tag("problema#{index+1}", "child", false, {"id" => "opcao-#{index}-#{index2}", "data-resposta" => "pergunta-#{opcao.id}"}) %>
                   <%= label_tag(index2, opcao.opcao) %> <br/>
               <% end %>
             </div>
           </div>
         </div>
     <% end %>
-  </div>
+    <br/>
+
+    <%= f.submit "Create" %>
+    <% end %>
+
+        </div>
+
+
+  </form>
 
   <div class="panel-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
     <div id="solucoes"> </div>

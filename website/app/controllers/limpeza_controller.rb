@@ -11,12 +11,33 @@ class LimpezaController < ApplicationController
       @size = @optionsOfCategory.count
       @allOptions << @optionsOfCategory
     end
+  end
 
-    def getRespostas
+  def getRespostas
       @resposta = Limpeza.find(params[:id])
       render :json => @resposta
-    end
-
   end
+
+  def submitProblemas
+    @loglimpeza = LogLimpeza.new(limpeza_params)
+    @loglimpeza.user_id = current_user.id
+
+    respond_to do |format|
+      if @loglimpeza.save
+        format.html { redirect_to @limpeza, notice: 'Problema de limpeza registado' }
+        format.json { render :show, status: :created, location: @limpeza }
+      else
+        format.html { render :new }
+        format.json { render json: @limpeza.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def limpeza_params
+    params.permit(:problema1,:problema2,:problema3 , :problema4, :problema5, :problema6, :problema7,
+                                       :problema8, :problema9, :problema10, :problema11, :problema12, :problema13,
+                                       :cheia_data, :cheia_origem, :cheia_perdas_monetarias, :cheia_destruicao)
+  end
+
 
 end
