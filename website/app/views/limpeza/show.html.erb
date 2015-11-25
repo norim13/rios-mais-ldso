@@ -24,31 +24,87 @@
 
     <%= form_for LogLimpeza.new, url: {action: "submitProblemas"} do |f| %>
 
-    <% @limpeza.each_with_index  do |limpeza, index| %>
+        <% @limpeza.each_with_index  do |limpeza, index| %>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="heading-<%=index%>">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-<%=index%>" aria-expanded="false" aria-controls="collapse-<%=index%>">
+                    <%= limpeza.categoria %>
+                  </a>
+                </h4>
+              </div>
+              <div id= "collapse-<%=index%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%=index%>">
+                <div id=pergunta-<%=index%> class="panel-body">
+                  <% @allOptions[index].each_with_index do |opcao, index2| %>
+                      <div> <%= radio_button_tag("problema#{index+1}",  opcao.opcao , false, {"id" => "opcao-#{index}-#{index2}", "data-resposta" => "pergunta-#{opcao.id}"}) %>
+                      <%= label_tag("opcao-#{index}-#{index2}", opcao.opcao) %> </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+        <% end %>
+
         <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="heading-<%=index%>">
+          <div class="panel-heading" role="tab" id="heading-cheias">
             <h4 class="panel-title">
-              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-<%=index%>" aria-expanded="false" aria-controls="collapse-<%=index%>">
-                <%= limpeza.categoria %>
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-cheias" aria-expanded="false" aria-controls="collapse-cheias">
+                Cheias
               </a>
             </h4>
           </div>
-          <div id= "collapse-<%=index%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%=index%>">
-            <div id=pergunta-<%=index%> class="panel-body">
-              <% @allOptions[index].each_with_index do |opcao, index2| %>
-                  <%= radio_button_tag("problema#{index+1}", "child", false, {"id" => "opcao-#{index}-#{index2}", "data-resposta" => "pergunta-#{opcao.id}"}) %>
-                  <%= label_tag(index2, opcao.opcao) %> <br/>
-              <% end %>
+          <div id= "collapse-cheias" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-cheias">
+            <div id=pergunta-cheias class="panel-body">
+
+              <div class="form-group container">
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <%= label_tag(:cheia_origem, "Origem da cheia:") %>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <%= text_field_tag(:cheia_origem) %>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <%= label_tag(:cheia_destruicao, "Destruição:") %>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <%= text_field_tag(:cheia_destruicao) %>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <%= label_tag(:cheia_perdas_monetarias, "Perdas monetárias:") %>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <%= number_field_tag 'cheia_perdas_monetarias', nil %>
+                  </div>
+                </div>
+
+
+              </div>
+
             </div>
           </div>
         </div>
-    <% end %>
-    <br/>
 
-    <%= f.submit "Create" %>
+        <br/>
+        <%= f.submit "Submeter problemas", { 'class' => 'btn btn-primary'} %>
     <% end %>
 
-        </div>
+  </div>
 
 
   </form>

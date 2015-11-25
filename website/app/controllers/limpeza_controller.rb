@@ -24,10 +24,10 @@ class LimpezaController < ApplicationController
 
     respond_to do |format|
       if @loglimpeza.save
-        format.html { redirect_to @limpeza, notice: 'Problema de limpeza registado' }
+        format.html { redirect_to :back }
         format.json { render :show, status: :created, location: @limpeza }
       else
-        format.html { render :new }
+        format.html { redirect_to :back }
         format.json { render json: @limpeza.errors, status: :unprocessable_entity }
       end
     end
