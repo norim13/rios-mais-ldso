@@ -35,19 +35,47 @@ window.onload = function () {
 
 		map.addLayer(osm);
 
+
+		// TESTE MARKER
+		var lonLat = new OpenLayers.LonLat(-8.495595,41.111715)
+		          .transform(geographic,map.getProjectionObject());
+	 
+	    var markers = new OpenLayers.Layer.Markers( "Markers" );
+	    map.addLayer(markers);
+	 
+	    markers.addMarker(new OpenLayers.Marker(lonLat));
+	    ////////////////////////////////////
+
+
+
 		//List of layers
 		var lund = new OpenLayers.Layer.WMS(
 				"Rios",
 			  base_url+"/wms?",
 				{
-					layers: "rios:AtAgua_Agsup_rios_AAmb_SNIRH_PC",
+					//layers: "rios:AtAgua_Agsup_rios_AAmb_SNIRH_PC",
 					//layers: "rios:AtAgua_Agsup_zhidnetord5km2_PC",
-					//layers: "rios:netElementL",
+					layers: "rios:netElementL",
+					//layers: "rios:BaciasMA",
 					transparent: "true",
 					format: "image/png"
 				}
 		);
 		map.addLayer(lund);
+
+    var lund2 = new OpenLayers.Layer.WMS(
+        "Bacias",
+        base_url+"/wms?",
+        {
+            //layers: "rios:AtAgua_Agsup_rios_AAmb_SNIRH_PC",
+            //layers: "rios:AtAgua_Agsup_zhidnetord5km2_PC",
+            layers: "rios:BaciasMA",
+            //layers: "rios:BaciasMA",
+            transparent: "true",
+            format: "image/png"
+        }
+    );
+    map.addLayer(lund2);
 
 		info = new OpenLayers.Control.WMSGetFeatureInfo({
 			url: base_url+'/wms?',
@@ -61,8 +89,10 @@ window.onload = function () {
 					var bbox = map.getExtent();
 		      //OpenLayers.LonLat(-8.495595,41.111715).transform(geographic, mercator);
 		      var url =  base_url+"/wms?"+
-		        "LAYERS=rios%3AAtAgua_Agsup_rios_AAmb_SNIRH_PC"+
-		        "&QUERY_LAYERS=rios%3AAtAgua_Agsup_rios_AAmb_SNIRH_PC"+
+		        //"LAYERS=rios%3AAtAgua_Agsup_rios_AAmb_SNIRH_PC"+
+              "LAYERS=rios%3ABaciasMA"+
+		        //"&QUERY_LAYERS=rios%3AAtAgua_Agsup_rios_AAmb_SNIRH_PC"+
+              "&QUERY_LAYERS=rios%3ABaciasMA"+
 		        "&STYLES="+
 		        "&SERVICE=WMS"+
 		        "&VERSION=1.1.1"+
@@ -89,12 +119,17 @@ window.onload = function () {
 				            //console.log(data);
 
 				            if(data.features[0] != undefined) {
-                        //console.log(data.features[0].properties);
+                        //console.log(data);
+												//MAPAS NOVOS
+												var designacao = data.features[0].properties.RIVER_NAME;
+                        var codigo = data.features[0].properties.EU_CD;
 
-						            var designacao = decode_utf8(data.features[0].properties.designacao);
+						            //MAPAS ANTIGOS
+												/*var designacao = decode_utf8(data.features[0].properties.designacao);
                         var codigo = decode_utf8(data.features[0].properties.codrios);
                         var bacia = decode_utf8(data.features[0].properties.bacia);
-                        var tipo = decode_utf8(data.features[0].properties.tipo);
+                        var tipo = decode_utf8(data.features[0].properties.tipo);*/
+
 
 												if(!designacao) {
                             $("#rio-nome h4").html("Nome do rio: não encontrado...");
