@@ -11,6 +11,7 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.scss.js )
 
 Rails.application.config.assets.precompile += %w( navbar.css )
+Rails.application.config.assets.precompile += %w( footer.css )
 
 Rails.application.config.assets.precompile += %w( searchrios.css )
 
@@ -26,6 +27,8 @@ Rails.application.config.assets.precompile += %w( footer.js )
 Rails.application.config.assets.precompile += %w( external/Chart.min.js )
 Rails.application.config.assets.precompile += %w( external/PageMe.js )
 Rails.application.config.assets.precompile += %w( form_irr.js )
+Rails.application.config.assets.precompile += %w( form_irr_image.js )
+Rails.application.config.assets.precompile += %w( limpeza.js )
 Rails.application.config.assets.precompile += %w( rio.js )
 
 Rails.application.config.assets.precompile += %w( chart-irr.css )

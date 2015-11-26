@@ -343,18 +343,47 @@ Concelho.create!(:distrito_id => 28, :nome => 'LAJES DAS FLORES')
 Concelho.create!(:distrito_id => 28, :nome => 'SANTA CRUZ DAS FLORES')
 Concelho.create!(:distrito_id => 29, :nome => 'CORVO')
 
-
-
-
-
-
-
-
-
-
-
-
-
+Limpeza.create!(:categoria_id => 1, :categoria => 'Vegetação', :opcao => 'Com ramos sobre o leito', :resposta => 'Com ramos sobre o leito resposta 1')
+Limpeza.create!(:categoria_id => 1, :categoria => 'Vegetação', :opcao => 'Com ramos e arbustos no leito', :resposta => 'resposta 2')
+Limpeza.create!(:categoria_id => 1, :categoria => 'Vegetação', :opcao => 'Com obstrução parcial do leito(<25%)', :resposta => 'resposta 3')
+Limpeza.create!(:categoria_id => 1, :categoria => 'Vegetação', :opcao => 'Com obstrução (entre 25 e 50% do leite)', :resposta => 'resposta 4')
+Limpeza.create!(:categoria_id => 1, :categoria => 'Vegetação', :opcao => 'Com obstrução do leito (> 50%)', :resposta => 'resposta 5')
+Limpeza.create!(:categoria_id => 2, :categoria => 'Árvores caídas no leito do rio', :opcao => '1 tronco', :resposta => 'resposta 6')
+Limpeza.create!(:categoria_id => 2, :categoria => 'Árvores caídas no leito do rio', :opcao => 'Mais de 2 troncos', :resposta => 'reposta 7')
+Limpeza.create!(:categoria_id => 2, :categoria => 'Árvores caídas no leito do rio', :opcao => 'formação de barreira (< 50%)', :resposta => 'resposta 8')
+Limpeza.create!(:categoria_id => 2, :categoria => 'Árvores caídas no leito do rio', :opcao => 'formação de barreira (> 50%)', :resposta => 'resposta 9')
+Limpeza.create!(:categoria_id => 3,:categoria => 'Silvados', :opcao => '1 metro', :resposta => 'resposta 10')
+Limpeza.create!(:categoria_id => 3,:categoria => 'Silvados', :opcao => '2 metros ', :resposta => 'resposta 11')
+Limpeza.create!(:categoria_id => 3,:categoria => 'Silvados', :opcao => 'Mais de 3 metros', :resposta => 'resposta 12')
+Limpeza.create!(:categoria_id => 4,:categoria => 'Invasoras exóticas', :opcao => 'Canas', :resposta => 'resposta 13')
+Limpeza.create!(:categoria_id => 4,:categoria => 'Invasoras exóticas', :opcao => 'Acácias', :resposta => 'resposta 14')
+Limpeza.create!(:categoria_id => 4,:categoria => 'Invasoras exóticas', :opcao => 'Penachos', :resposta => 'resposta 15')
+Limpeza.create!(:categoria_id => 5,:categoria => 'Espécies aquáticas autoctones', :opcao => 'Tabúal', :resposta => 'resposta 16')
+Limpeza.create!(:categoria_id => 5,:categoria => 'Espécies aquáticas autoctones', :opcao => 'Lírios Amarelos', :resposta => 'resposta 17')
+Limpeza.create!(:categoria_id => 6,:categoria => 'Espécies aquáticas exóticas', :opcao => 'Jacinto', :resposta => 'resposta 18')
+Limpeza.create!(:categoria_id => 6,:categoria => 'Espécies aquáticas exóticas', :opcao => 'Azola', :resposta => 'resposta 19')
+Limpeza.create!(:categoria_id => 6,:categoria => 'Espécies aquáticas exóticas', :opcao => 'Pinheirinha', :resposta => 'resposta 20')
+Limpeza.create!(:categoria_id => 7,:categoria => 'Lixo doméstico', :opcao => 'Lixo (resíduos domésticos)', :resposta => 'resposta 21')
+Limpeza.create!(:categoria_id => 8,:categoria => 'Lixo industrial', :opcao => 'Algumas sobras de Produção industrial', :resposta => 'resposta 22')
+Limpeza.create!(:categoria_id => 8,:categoria => 'Lixo industrial', :opcao => 'Libertação de Quimicos e residuos não tratados', :resposta => 'resposta 23')
+Limpeza.create!(:categoria_id => 8,:categoria => 'Lixo industrial', :opcao => 'Descargas ou acidentes de quimicos perigosos ', :resposta => 'resposta 24')
+Limpeza.create!(:categoria_id => 8,:categoria => 'Lixo industrial', :opcao => 'Residuos Hospitalares e quimicos perigosos', :resposta => 'resposta 25')
+Limpeza.create!(:categoria_id => 9,:categoria => 'Entulhos e restos de obras', :opcao => 'Barros e cerámicas', :resposta => 'resposta 26')
+Limpeza.create!(:categoria_id => 9,:categoria => 'Entulhos e restos de obras', :opcao => 'Metais e vidros', :resposta => 'resposta 27')
+Limpeza.create!(:categoria_id => 9,:categoria => 'Entulhos e restos de obras', :opcao => 'Plásticos', :resposta => 'resposta 28')
+Limpeza.create!(:categoria_id => 9,:categoria => 'Entulhos e restos de obras', :opcao => 'Químicos', :resposta => 'resposta 29')
+Limpeza.create!(:categoria_id => 10,:categoria => 'Sedimentação', :opcao => 'Muita', :resposta => 'resposta 30')
+Limpeza.create!(:categoria_id => 10,:categoria => 'Sedimentação', :opcao => 'Normal', :resposta => 'resposta 31')
+Limpeza.create!(:categoria_id => 10,:categoria => 'Sedimentação', :opcao => 'Pouca', :resposta => 'resposta 32')
+Limpeza.create!(:categoria_id => 11,:categoria => 'Erosão', :opcao => 'Erosão', :resposta => 'resposta 33')
+Limpeza.create!(:categoria_id => 12,:categoria => 'Descargas de poluição', :opcao => 'Domésticas excepcional', :resposta => 'resposta 34')
+Limpeza.create!(:categoria_id => 12,:categoria => 'Descargas de poluição', :opcao => 'Doméstica Pontual', :resposta => 'resposta 35')
+Limpeza.create!(:categoria_id => 12,:categoria => 'Descargas de poluição', :opcao => 'Doméstica Continua', :resposta => 'resposta 36')
+Limpeza.create!(:categoria_id => 12,:categoria => 'Descargas de poluição', :opcao => 'Industrial excepcional', :resposta => 'resposta 37')
+Limpeza.create!(:categoria_id => 12,:categoria => 'Descargas de poluição', :opcao => 'Industrial Pontual', :resposta => 'resposta 38')
+Limpeza.create!(:categoria_id => 12,:categoria => 'Descargas de poluição', :opcao => 'Industrial Continua', :resposta => 'resposta 39')
+Limpeza.create!(:categoria_id => 13,:categoria => 'Falta de água', :opcao => 'Natural', :resposta => 'resposta 40')
+Limpeza.create!(:categoria_id => 13,:categoria => 'Falta de água', :opcao => 'Antrópica', :resposta => 'resposta 41')
 
 
 

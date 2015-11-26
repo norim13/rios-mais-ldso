@@ -24,8 +24,8 @@
       <%= f.input :descricao, :label => 'Descrição', :required => true %><br/>
 
       <div id="reports-imgs">
-        <%= f.label :images, 'Adicionar imagens', class: 'control-label' %>
-        <%= f.file_field :images, multiple: true, class: 'file' %>
+        <button id="btn-add-img-report" class="btn btn-primary" type="button"> Adicionar imagens </button>
+        <%= file_field_tag "images[]", type: :file, multiple: true, accept: 'image/png,image/gif,image/jpeg', style: 'display:none', id: "report-img-input" %>
       </div>
     </div>
     <br>

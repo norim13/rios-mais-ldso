@@ -1,0 +1,22 @@
+$mainblue: #2196F3;
+
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 30px;
+  width: 100%;
+  background-color: $mainblue;
+  color: white;
+  a{
+    color: white;
+  }
+}
+
+#footer-content{
+  display: table;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: middle;
+}

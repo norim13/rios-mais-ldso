@@ -141,7 +141,7 @@ function calculateHidrogeomorfologia() {
 
     if(value_irr.length > 0)
         return Array.max(value_irr);
-    else return 0;
+    else return 1;
 }
 
 function calculateQualidadedaagua() {
@@ -178,7 +178,7 @@ function calculateQualidadedaagua() {
 
     if(value_irr.length > 0)
         return Array.max(value_irr);
-    else return 0;
+    else return 1;
 }
 
 function calculateAlteracoesAntropicas() {
@@ -190,13 +190,18 @@ function calculateAlteracoesAntropicas() {
             value_irr.push(parseInt($(this).attr('value_irr')));
     });
 
+    $('#form_irr-alteracoesantropicas select').each(function() {
+        if(!!$(this).attr('value_irr') && $(this).children("option").filter(":selected").val() != 'Nao')
+          value_irr.push(parseInt($(this).attr('value_irr')));
+    });
+
     /*if(value_irr.length > 0)
         value_irr_alteracoesantropicas = Array.max(value_irr);
     else value_irr_alteracoesantropicas = 0;*/
 
     if(value_irr.length > 0)
         return Array.max(value_irr);
-    else return 0;
+    else return 1;
 }
 
 function calculateCorredorEcologico() {
@@ -214,7 +219,7 @@ function calculateCorredorEcologico() {
 
     if(value_irr.length > 0)
         return Array.max(value_irr);
-    else return 0;
+    else return 1;
 }
 
 function calculateParticipacaoPublica() {
@@ -232,7 +237,7 @@ function calculateParticipacaoPublica() {
 
     if(value_irr.length > 0)
         return Array.max(value_irr);
-    else return 0;
+    else return 1;
 }
 
 function calculateOrganizacaoEPlaneamento() {
@@ -250,7 +255,7 @@ function calculateOrganizacaoEPlaneamento() {
 
     if(value_irr.length > 0)
         return Array.max(value_irr);
-    else return 0;
+    else return 1;
 }
 
 function calculateIRR() {
@@ -363,11 +368,4 @@ function loadIRRs(){
     irr_total = parseInt($('#form_irr_irr').val());
 }
 
-
-
-
-
-
-
 `
-

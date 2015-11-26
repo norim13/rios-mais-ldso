@@ -165,7 +165,7 @@
         <activity
             android:name=".Sos_rios"
             android:label="@string/title_activity_sos_rios"
-            android:parentActivityName=".Homepage"
+            android:parentActivityName=".GuardaRios"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -188,6 +188,11 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="engenheiro.rios.Homepage" />
+        </activity>
+        <activity
+            android:name=".TesteChart"
+            android:label="@string/title_activity_teste_chart"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

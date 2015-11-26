@@ -2,51 +2,138 @@
     <%= f.error_notification %>
 
     <div class="form-inputs">
-      <%= f.input :rio, :label => 'Código do rio', :input_html => {:id => 'codigo-rio'}, :readonly => true, :placeholder => "Clique em cima do rio para selecionar",
-                  :required => true %>
+      <% #= f.input :rio, :label => 'Código do rio', :input_html => {:id => 'codigo-rio'}, :readonly => true, :placeholder => "Clique em cima do rio para selecionar", :required => true %>
 
-      <%= f.label :local, "Local onde foi observado?" %><br/>
-      <%= f.radio_button :local, 'arvores', :required => true %>
-      <%= f.label :local_arvores, 'Árvores/Ramo' %>
-      <%= f.radio_button :local, 'pedra', :required => true %>
-      <%= f.label :local_pedra, 'Pedra/Rocha' %>
-      <%= f.radio_button :local, 'solo', :required => true %>
-      <%= f.label :local_solo, 'Solo/Margem' %>
-      <%= f.radio_button :local, 'mergulhar', :required => true %>
-      <%= f.label :local_mergulhar, 'A mergulhar' %>
-      <%= f.radio_button :local, 'ninho', :required => true %>
-      <%= f.label :local_ninho, 'Ninho' %><br/><br/>
+      <div id="rio-nome" class="rio-info form-inline">
+        <div class="row">
+          <div class="thumbnail">
 
-      <%= f.label :voar, 'Estava a voar?' %><br/>
-      <%= f.select :voar, ['Pairar', 'Voo picado para mergulhar', 'Mergulhar', 'De passagem'], {:include_blank => 'Não estava a voar'} %>
-      <br/><br/>
-
-      <%= f.label :cantar, 'Estava a cantar?' %><br/>
-      <%= f.select :cantar, ['Presença', 'Alerta e marcação de território'], {:include_blank => 'Não estava a cantar'}%>
-      <br/><br/>
-
-      <%= f.label :alimentar, 'Estava a alimentar-se?' %><br/>
-      <%= f.select :alimentar, ['Peixe', 'Libelinha', 'Pequenos insectos'], {:include_blank => 'Não estava a alimentar-se'} %>
-      <br/><br/>
-
-      <%= f.label :parado, 'Estava parado?' %>
-      <%= f.check_box :parado %> <br/>
-
-      <%= f.label :beber, 'Estava a beber?' %>
-      <%= f.check_box :beber %><br/>
-
-      <%= f.label :cacar, 'Estava a caçar?' %>
-      <%= f.check_box :cacar %><br/>
-
-      <%= f.label :cuidarcrias, 'Estava a cuidar das crias?' %>
-      <%= f.check_box :cuidarcrias %><br/><br/>
-
-      <%= f.input :outro, :label => 'Outro comportamento?' %><br/>
-
-      <div id="guarda-rios-imgs">
-        <%= f.label :images, 'Adicionar imagens', class: 'control-label' %>
-        <%= f.file_field :images, multiple: true, class: 'file' %>
+            <div class="row">
+              <div class="col-md-6 col-xs-12">
+                <%= f.label :rio, "Código do rio:" %>
+                <%= f.text_field :rio, :id => 'codigo-rio', :class => 'text_field form-control',
+                                 :readonly => true, :placeholder => "Clique em cima do rio para selecionar", :required => true %>
+              </div>
+              <div class="col-md-6 col-xs-12">
+                <%= f.label :nomeRio, "Nome do rio:" %>
+                <%= f.text_field :nomeRio, :id => 'nome-rio', :class => 'text_field form-control',
+                                 :readonly => true, :placeholder => "Clique em cima do rio para selecionar", :required => true %>
+              </div>
+              <%= f.hidden_field :lat %>
+              <%= f.hidden_field :lon %>
+            </div>
+            <%= render 'mapa/mapa' %>
+          </div>
+        </div>
       </div>
+
+
+      <div class="form-group container">
+
+        <%= f.label :local, "Local onde foi observado?" %><br/>
+        <div class="row">
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="radio">
+              <%= f.radio_button :local, 'arvores', :required => true %>
+              <%= f.label :local_arvores, 'Árvores/Ramo' %>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="radio">
+              <%= f.radio_button :local, 'pedra', :required => true %>
+              <%= f.label :local_pedra, 'Pedra/Rocha' %>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="radio">
+              <%= f.radio_button :local, 'solo', :required => true %>
+              <%= f.label :local_solo, 'Solo/Margem' %>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="radio">
+              <%= f.radio_button :local, 'mergulhar', :required => true %>
+              <%= f.label :local_mergulhar, 'A mergulhar' %>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="radio">
+              <%= f.radio_button :local, 'ninho', :required => true %>
+              <%= f.label :local_ninho, 'Ninho' %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="form-group container">
+        <div class="row">
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <%= f.label :voar, 'Estava a voar?' %><br/>
+            <%= f.select :voar, ['Pairar', 'Voo picado para mergulhar', 'Mergulhar', 'De passagem'],
+                         {:include_blank => 'Não estava a voar'}, :class => 'form-control' %>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <%= f.label :cantar, 'Estava a cantar?' %><br/>
+            <%= f.select :cantar, ['Presença', 'Alerta e marcação de território'],
+                         {:include_blank => 'Não estava a cantar'}, :class => 'form-control'%>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <%= f.label :alimentar, 'Estava a alimentar-se?' %>
+            <%= f.select :alimentar, ['Peixe', 'Libelinha', 'Pequenos insectos'],
+                         {:include_blank => 'Não estava a alimentar-se'}, :class => 'form-control' %>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="form-group container">
+        <div class="row">
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="checkbox">
+              <%= f.check_box :parado %>
+              <%= f.label :parado, 'Estava parado?' %>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="checkbox">
+              <%= f.check_box :beber %>
+              <%= f.label :beber, 'Estava a beber?' %>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="checkbox">
+              <%= f.check_box :cacar %>
+              <%= f.label :cacar, 'Estava a caçar?' %>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="checkbox">
+              <%= f.check_box :cuidarcrias %>
+              <%= f.label :cuidarcrias, 'Estava a cuidar das crias?' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <%= f.input :outro, :label => 'Outro comportamento?' %>
+          </div>
+        </div>
+
+      </div>
+
+      <hr>
+
+      <div class="form-group container">
+        <div id="guarda-rios-imgs">
+          <button id="btn-add-img-guardarios" class="btn btn-primary" type="button"> Adicionar imagens </button>
+          <%= file_field_tag "images[]", type: :file, multiple: true, accept: 'image/png,image/gif,image/jpeg', style: 'display:none', id: "guardarios-img-input" %>
+        </div>
+      </div>
+
     </div>
     <br>
     <div class="form-actions">

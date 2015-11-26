@@ -11,7 +11,7 @@ class GuardariosController < ApplicationController
   # GET /guardarios/1
   # GET /guardarios/1.json
   def show
-    @img_path = "/uploads/guardario/images/#{params[:id]}/"
+    @imgs = guardario.guardario_images
   end
 
   # GET /guardarios/new
@@ -31,6 +31,11 @@ class GuardariosController < ApplicationController
 
     respond_to do |format|
       if @guardario.save
+        if params[:images]
+          params[:images].each { |image|
+            GuardarioImage.create(image: image, guardario: @guardario.id)
+          }
+        end
         format.html { redirect_to @guardario, notice: 'Guardario was successfully created.' }
         format.json { render :show, status: :created, location: @guardario }
       else
@@ -45,6 +50,11 @@ class GuardariosController < ApplicationController
   def update
     respond_to do |format|
       if @guardario.update(guardario_params)
+        if params[:images]
+          params[:images].each { |image|
+            GuardarioImage.create(image: image, guardario: @guardario.id)
+          }
+        end
         format.html { redirect_to @guardario, notice: 'Guardario was successfully updated.' }
         format.json { render :show, status: :ok, location: @guardario }
       else
@@ -73,6 +83,6 @@ class GuardariosController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def guardario_params
-    params.require(:guardario).permit(:rio, :local, :voar, :cantar, :parado, :beber, :cacar, :cuidarcrias, :alimentar, :outro, {images: []})
+    params.require(:guardario).permit(:rio, :nomeRio, :lat, :lon, :local, :voar, :cantar, :parado, :beber, :cacar, :cuidarcrias, :alimentar, :outro, {images: []})
   end
 end

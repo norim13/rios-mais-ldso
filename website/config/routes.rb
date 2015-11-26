@@ -7,8 +7,12 @@ Rails.application.routes.draw do
   get 'home' => 'home#homepage'
   get 'contactos' => 'about#about'
   get 'documentos' => 'documentos_relacionados#documentos'
-
   get 'concelhos' => 'concelho#getConcelhosFromDistrito'
+  get 'limpeza' => 'limpeza#show'
+  get 'respostas' => 'limpeza#getRespostas'
+  post 'submitProblemasAction' => 'limpeza#submitProblemas'
+
+  resources :form_irr_image
 
   resources :guardarios, only: [:index, :show, :new, :create, :destroy]
   resources :reports, only: [:index, :show, :new, :create, :destroy]
@@ -34,15 +38,12 @@ Rails.application.routes.draw do
         delete "/sign_out", :to => 'sessions#destroy'
       end
     end
-  end
-
-  namespace :api do
     namespace :v2 do
       post "/form_irrs", :to => 'form_irrs#create'
       get "/form_irrs", :to => 'form_irrs#getMyForms'
 
       post "/guardarios", :to => 'guardarios#create'
+      post "/reports", :to => 'reports#create'
     end
   end
-
 end

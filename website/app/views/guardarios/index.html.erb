@@ -6,7 +6,7 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
-  <h1> Lista de avistamentos guarda-rios</h1>
+  <h1> Lista de avistamentos guarda-rios <%= link_to "Novo avistamento", new_guardario_path, class: "btn btn-primary" %></h1>
 
   <div class="table-responsive">
     <table class="table">
@@ -28,8 +28,6 @@
     </table>
   </div>
 
-  <br>
-  <%= link_to 'Novo avistamento', new_guardario_path %>
 </div>
 
 <%= render 'common/footer' %>

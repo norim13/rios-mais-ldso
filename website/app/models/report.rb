@@ -1,6 +1,8 @@
 class Report < ActiveRecord::Base
   belongs_to :user
-  mount_uploaders :images, ImageUploader
+
+  has_many :report_images, dependent: :destroy
+  accepts_nested_attributes_for :report_images
 
   validates :rio, :categoria, :motivo, :descricao, :presence => true
 
