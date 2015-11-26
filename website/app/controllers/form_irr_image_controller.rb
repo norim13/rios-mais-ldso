@@ -19,7 +19,7 @@ class FormIrrImageController < ApplicationController
 
 		render :json => @img
 	end
-	
+
 	private
 	def img_params
 		params.require(:form_irr_image).permit(:image,:form_irr_id)

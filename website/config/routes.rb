@@ -12,10 +12,7 @@ Rails.application.routes.draw do
   get 'respostas' => 'limpeza#getRespostas'
   post 'submitProblemasAction' => 'limpeza#submitProblemas'
 
-  #put 'form_irr_image' => 'form_irr_image#create'
-  #patch 'form_irr_image' => 'form_irr_image#update'
-  #delete 'form_irr_image' => 'form_irr_image#destroy'
-  resources :form_irr_images
+  resources :form_irr_image
 
   resources :guardarios, only: [:index, :show, :new, :create, :destroy]
   resources :reports, only: [:index, :show, :new, :create, :destroy]

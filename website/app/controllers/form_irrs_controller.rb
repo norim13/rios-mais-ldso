@@ -23,6 +23,8 @@ class FormIrrsController < ApplicationController
 
 	def edit
 		@form_irr = FormIrr.find(params[:id])
+		@images = @form_irr.form_irr_images
+
 		if @form_irr.user_id != current_user.id
 			render 'noaccess'
 		else
@@ -37,7 +39,7 @@ class FormIrrsController < ApplicationController
 		if @form_irr.save
 			if params[:images]
 				params[:images].each { |image|
-					@form_irr.form_irr_images.create(image: image)
+					FormIrrImage.create(image: image, form_irr_id: @form_irr.id)
 				}
 			end
 
@@ -51,10 +53,9 @@ class FormIrrsController < ApplicationController
 		@form_irr = FormIrr.find(params[:id])
 
 		if @form_irr.update(form_irr_params)
-			# to handle multiple images upload on update when user add more picture
 			if params[:images]
 				params[:images].each { |image|
-					@form_irr.form_irr_images.create(image: image)
+					FormIrrImage.create(image: image, form_irr_id: @form_irr.id)
 				}
 			end
 
@@ -88,8 +89,5 @@ class FormIrrsController < ApplicationController
 			:armilho,:mamiferos_outro,:enguia,:lampreia,:salmao,:truta,:bogaPortuguesa,:bogaDoNorte,:peixes_outro,:percaSol,:tartarugaDaFlorida,:caranguejoPeludoChines,:gambusia,:mustelaVison,:lagostimVermelho,:trutaArcoIris,:achiga,:fauna_outro,:salgueiral,:amial,:freixal,:choupal,:ulmeiral,
 			:sanguinos,:ladual,:tramazeiras,:carvalhal,:sobreiral,:azinhal,:flora_outro,:conservacaoBosqueRibeirinho,:silvas,:ervaDaFortuna,:plumas,:lentilhaDaAgua,:pinheirinha,:jacintoDeAgua,:vegetacaoInvasora_outro,:obstrucaoDoLeitoMargens,:disponibilizacaoDeInformacao,:envolvimentoPublico,
 			:acao,:legislacao,:estrategia,:gestaoDasIntervencoes, :irr_hidrogeomorfologia,:irr_qualidadedaagua,:irr_alteracoesantropicas, :irr_corredorecologico, :irr_participacaopublica,:irr_organizacaoeplaneamento, :irr)
-	end
-	def form_irr_img_params
-		params.require(:image).permit(:img)
 	end
 end
