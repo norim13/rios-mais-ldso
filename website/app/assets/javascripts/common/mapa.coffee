@@ -139,9 +139,17 @@ window.onload = function () {
                             $("#rio-nome h4").html("Nome do rio: " + designacao);
                             $("#codigo-rio").val(codigo);
                             $("#nome-rio").val(designacao);
+														var latLon = map.getLonLatFromPixel(event.xy);
+														console.log(latLon);
+														//convert to regular latitude and longitude
+														var latLon_r = new OpenLayers.LonLat(latLon.lon, latLon.lat).transform(mercator,geographic);
+														//fill lat and lon hidden fields
+														$("#form_irr_lat").val(latLon_r.lat);
+                            $("#form_irr_lon").val(latLon_r.lon);
+
                             map.addPopup(new OpenLayers.Popup.FramedCloud(
                                 "chicken",
-                                map.getLonLatFromPixel(event.xy),
+                                latLon,
                                 null,
                                 designacao,
                                 null,
