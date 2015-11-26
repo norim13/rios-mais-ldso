@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125184441) do
+ActiveRecord::Schema.define(version: 20151126115922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -265,6 +265,15 @@ ActiveRecord::Schema.define(version: 20151125184441) do
 
   add_index "form_irrs", ["user_id"], name: "index_form_irrs_on_user_id", using: :btree
 
+  create_table "guardario_images", force: :cascade do |t|
+    t.string   "image"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "guardario_id"
+  end
+
+  add_index "guardario_images", ["guardario_id"], name: "index_guardario_images_on_guardario_id", using: :btree
+
   create_table "guardarios", force: :cascade do |t|
     t.string   "rio"
     t.integer  "user_id"
@@ -279,7 +288,6 @@ ActiveRecord::Schema.define(version: 20151125184441) do
     t.boolean  "cuidarcrias"
     t.string   "alimentar"
     t.string   "outro"
-    t.json     "images"
     t.string   "nomeRio"
     t.float    "lat"
     t.float    "lon"
@@ -319,6 +327,15 @@ ActiveRecord::Schema.define(version: 20151125184441) do
 
   add_index "log_limpezas", ["user_id"], name: "index_log_limpezas_on_user_id", using: :btree
 
+  create_table "report_images", force: :cascade do |t|
+    t.string   "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "report_id"
+  end
+
+  add_index "report_images", ["report_id"], name: "index_report_images_on_report_id", using: :btree
+
   create_table "reports", force: :cascade do |t|
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -328,7 +345,6 @@ ActiveRecord::Schema.define(version: 20151125184441) do
     t.string   "categoria"
     t.string   "motivo"
     t.string   "coordenadas"
-    t.json     "images"
   end
 
   add_index "reports", ["user_id"], name: "index_reports_on_user_id", using: :btree
@@ -364,6 +380,8 @@ ActiveRecord::Schema.define(version: 20151125184441) do
   add_foreign_key "concelhos", "distritos"
   add_foreign_key "form_irr_images", "form_irrs"
   add_foreign_key "form_irrs", "users"
+  add_foreign_key "guardario_images", "guardarios"
   add_foreign_key "log_limpezas", "users"
+  add_foreign_key "report_images", "reports"
   add_foreign_key "reports", "users"
 end

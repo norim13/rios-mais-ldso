@@ -122,13 +122,13 @@
                     </div>
                 <% end %>
 
-                <div id="img-btns">
-                  <% if @is_show != 'form-disabled' %>
+                <% if @is_show != 'form-disabled' %>
+                  <div id="img-btns">
                       <button id="btn-add-img-form-irr" class="btn btn-primary" type="button"> Adicionar imagens </button>
                       <button id="form-irr-del-img" class="btn btn-danger" name="img" type="button"> Apagar imagens selecionadas </button>
                       <%= file_field_tag "images[]", type: :file, multiple: true, accept: 'image/png,image/gif,image/jpeg', style: 'display:none', id: "form-irr-img-input" %>
-                  <% end %>
-                </div>
+                  </div>
+                <% end %>
               </div>
             </div>
           </div>

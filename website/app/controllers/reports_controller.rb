@@ -12,13 +12,12 @@ class ReportsController < ApplicationController
   # GET /reports/1.json
   def show
     @user_reporter = User.find_by_id(@report.user_id)
-    @img_path = "/uploads/report/images/#{params[:id]}/"
+    @imgs = report.report_images
   end
 
   # GET /reports/new
   def new
     @report = Report.new
-    @img_path = "/uploads/report/images/#{params[:id]}/"
   end
 
   # POST /reports
@@ -29,6 +28,11 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       if @report.save
+        if params[:images]
+          params[:images].each { |image|
+            ReportImage.create(image: image, report: @report.id)
+          }
+        end
         format.html { redirect_to @report, notice: 'Report was successfully created.' }
         format.json { render :show, status: :created, location: @report }
       else

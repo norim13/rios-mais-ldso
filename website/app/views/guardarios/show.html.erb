@@ -113,12 +113,12 @@
   </table>
 
 
-  <% if !@guardario['images'].nil? %>
+  <% if !@imgs.nil? %>
       <div id="show-form_irr-imgs">
         <div class="row">
-          <% @guardario['images'].each do |img| %>
+          <% @imgs.each do |img| %>
               <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                <%= image_tag("#{@img_path}#{img}", :class => 'img-responsive') %>
+                <%= image_tag(img.image, :class => 'img-responsive') %>
               </div>
           <% end %>
         </div>
