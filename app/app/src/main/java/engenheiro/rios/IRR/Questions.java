@@ -35,6 +35,14 @@ public class Questions {
             intent.putExtra("required", true);
             values_irr.add(value_irr);
             intent.putExtra("values_irr",values_irr);
+            type=3;
+            required= true;
+            options= new String[]{"Vertical escavado",
+                    "Vertical cortado",
+                    "Declive >45%",
+                    "Declive <45%",
+                    "Suave comport <45%",
+                    "Artificial"};
         } else if (next_question == 9) {
             intent.setClass(context, IRR_2_1.class);
             intent.putExtra("question_num", next_question);
@@ -110,6 +118,13 @@ public class Questions {
                 break;
 
             case 3:
+                main_title= "Hidrogeomorfologia";
+                sub_title= "Perfil de margens";
+                type=2;
+                required= true;
+                options= new String[]{"Largura da superfície da água (L) (m):",
+                       "Profundidade média (P) (m):",
+                        "Velocidade média (V) (m/s):"};
                 break;
 
             case 4:
@@ -181,6 +196,19 @@ public class Questions {
                 break;
 
             case 9:
+                main_title= "Hidrogeomorfologia";
+                sub_title= "Sedimentação";
+                type=2;
+                required= true;
+                options= new String[]{"pH",
+                "Condutividade",
+                "Temperatura (ºC)",
+                "Nível de Oxigénio (mg/L)",
+                "O2 %",
+                "Nitratos",
+                "Nitritos",
+                "Transparência"};
+                //value_irr= new Integer[]{5,5,5,5,5,5,5,5};
                 break;
 
             case 10:

@@ -1,7 +1,9 @@
 package engenheiro.rios.IRR;
 
 import android.content.Context;
+import android.text.InputType;
 import android.util.Log;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -91,6 +93,45 @@ public class Form_functions {
             EditText et = new EditText(context);
             TextView tv=new TextView(context);
             tv.setText(array[i]);
+            LinearLayout ll=new LinearLayout(context);
+            ll.setOrientation(LinearLayout.VERTICAL);
+            ll.addView(tv);
+            ll.addView(et);
+            list.add(et);
+            linearLayout.addView(ll);
+        }
+        return list;
+
+    };
+
+    public static ArrayList<EditText> createEditText(String[] array, LinearLayout linearLayout, Context context, final ArrayList<Float[]> minmax) {
+        ArrayList<EditText> list = new ArrayList<EditText>();
+        for(int i=0;i<array.length;i++)
+        {
+
+            final EditText et = new EditText(context);
+            final int finalI = i;
+            et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(et.getText().toString().equals(""))
+                        return;
+                    try {
+                        Float.parseFloat(et.getText().toString());
+                    }catch (Exception e)
+                    {
+                        et.setText(""+minmax.get(finalI)[0]);
+                        return;
+                    }
+                    if (Float.parseFloat(et.getText().toString())<minmax.get(finalI)[0])
+                        et.setText(""+minmax.get(finalI)[0]);
+                    else if (Float.parseFloat(et.getText().toString())>minmax.get(finalI)[1])
+                        et.setText(""+minmax.get(finalI)[1]);
+
+                }
+            });
+            TextView tv=new TextView(context);
+            tv.setText(array[i] +" ("+minmax.get(finalI)[0]+"-"+minmax.get(finalI)[1]+"):");
             LinearLayout ll=new LinearLayout(context);
             ll.setOrientation(LinearLayout.VERTICAL);
             ll.addView(tv);

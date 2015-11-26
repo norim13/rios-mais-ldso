@@ -15,6 +15,8 @@ import org.json.JSONException;
 import java.io.IOException;
 
 import engenheiro.rios.DataBases.User;
+import engenheiro.rios.Form.FormIRRSwipe;
+
 public class Homepage extends AppCompatActivity{
 
     private Bundle savedInstanceState;
@@ -60,7 +62,7 @@ public class Homepage extends AppCompatActivity{
     }
 
     public void fomr_irr(View view) throws IOException, JSONException {
-        startActivity(new Intent(this, FormIRR.class));
+        startActivity(new Intent(this, FormIRRSwipe.class));
         /*
         HashMap<Integer,Object> answers2=new HashMap<Integer,Object>();
         Intent i=new Intent(this, IRR_question.class);
@@ -81,7 +83,9 @@ public class Homepage extends AppCompatActivity{
 
 
     public void about(View view)  {
-        startActivity(new Intent(this, TesteChart.class));
+        //startActivity(new Intent(this, TesteChart.class));
+        startActivity(new Intent(this, Information.class));
+
     }
 
 

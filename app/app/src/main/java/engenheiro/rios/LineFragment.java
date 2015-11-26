@@ -199,7 +199,7 @@ public class LineFragment extends Fragment {
         gridPaint.setStrokeWidth(Tools.fromDpToPx(1f));
 
         chart.setBorderSpacing(1)
-                .setAxisBorderValues(1, 5, 1)
+                .setAxisBorderValues(1, 5, -1)
                 .setXLabels(AxisController.LabelPosition.OUTSIDE)
                 .setYLabels(AxisController.LabelPosition.OUTSIDE)
                 .setLabelsColor(Color.parseColor("#FF8E9196"))

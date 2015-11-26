@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import engenheiro.rios.DataBases.DB_functions;
-import engenheiro.rios.IRR.IRR_question;
+import engenheiro.rios.Form.FormIRRSwipe;
 import engenheiro.rios.IRR.Questions;
 
 public class FormIRR extends AppCompatActivity {
@@ -64,7 +64,7 @@ public class FormIRR extends AppCompatActivity {
 
     public void new_form(View view){
         HashMap<Integer,Object> answers2=new HashMap<Integer,Object>();
-        Intent i =new Intent(this, IRR_question.class);
+        Intent i =new Intent(this, FormIRRSwipe.class);
         ArrayList<Integer[]> arrayList=new ArrayList<Integer[]>();
         Integer[] integers = new Integer[0];
         arrayList.add(integers);
