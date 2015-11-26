@@ -3,7 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 `
 		$(document).ready(function () {
-        $('#btn-add-img-guardarios').click(function(){
+        $('#btn-add-img-guardarios').click(function () {
             $('#guardarios-img-input').click();
         });
+    });
 `

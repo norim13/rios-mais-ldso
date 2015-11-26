@@ -6,4 +6,5 @@
         $('#btn-add-img-report').click(function(){
             $('#report-img-input').click();
         });
+    });
 `
