@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125015400) do
+ActiveRecord::Schema.define(version: 20151125184441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,15 @@ ActiveRecord::Schema.define(version: 20151125015400) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "form_irr_images", force: :cascade do |t|
+    t.string   "image"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "form_irr_id"
+  end
+
+  add_index "form_irr_images", ["form_irr_id"], name: "index_form_irr_images_on_form_irr_id", using: :btree
 
   create_table "form_irrs", force: :cascade do |t|
     t.integer  "tipoDeVale"
@@ -241,7 +250,6 @@ ActiveRecord::Schema.define(version: 20151125015400) do
     t.string   "flora_outro"
     t.string   "vegetacaoInvasora_outro"
     t.integer  "margem"
-    t.json     "images"
     t.string   "idRio"
     t.integer  "irr_hidrogeomorfologia"
     t.integer  "irr_qualidadedaagua"
@@ -354,6 +362,7 @@ ActiveRecord::Schema.define(version: 20151125015400) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "concelhos", "distritos"
+  add_foreign_key "form_irr_images", "form_irrs"
   add_foreign_key "form_irrs", "users"
   add_foreign_key "log_limpezas", "users"
   add_foreign_key "reports", "users"

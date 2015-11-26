@@ -28,10 +28,14 @@ LDSO
 	- no chart, dar fix ao numero que aparece
 	- no perfil dum rio se nao tiver afluencia/afluentes, dizer que n tem e esconder a tabela
 	
+	- por imagens como sinf
+	
 	
 SINF
 	- cart view
 	- admin
-		- view para inserir img nos produtos
+		
+	- ja insere imgs nos produtos
+		- esconder botao do user normal
 
 

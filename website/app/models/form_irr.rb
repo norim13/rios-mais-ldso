@@ -1,7 +1,8 @@
 class FormIrr < ActiveRecord::Base
 	belongs_to :user
 
-	mount_uploaders :images, ImageUploader
+	has_many :form_irr_images, dependent: :destroy
+	accepts_nested_attributes_for :form_irr_images
 
 	validates :idRio,:nomeRio,#:lat,:lon,
 	          :margem,:tipoDeVale,:perfilDeMargens,:larguraDaSuperficieDaAgua,:profundidadeMedia,:seccao,:velocidadeMedia,:caudal,
