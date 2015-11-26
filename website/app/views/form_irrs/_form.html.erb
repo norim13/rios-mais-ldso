@@ -6,7 +6,7 @@
   <!-- Tab panes -->
   <div class="container">
 
-    <%= form_for @form_irr, :html => {:role => 'form', :class => "#{@is_show} tab-content form_form_irr"}  do |f| %>
+    <%= form_for @form_irr, :html => {:role => 'form', :multipart => true, :class => "#{@is_show} tab-content form_form_irr"}  do |f| %>
         <% if @form_irr.errors.any? %>
             <div id="error_explanation">
               <h2>
@@ -110,10 +110,12 @@
                     <div id="show-form_irr-imgs">
                       <div class="row">
                         <% @images.each do |img|%>
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                              <%= image_tag(img.image, :class => 'img-responsive') %>
-                              <%#= check_box_tag(image_tag(img, :class => 'img-responsive'), value = "1", checked = false,
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" id="div-<%=img.id%>" >
+                              <% if @is_show != 'form-disabled' %>
+                              <%= check_box_tag("image_#{img.id}", value = "1", checked = false,
                                                 {class: "img-checkbox", "data-img-id" => img.id}) %>
+                              <% end %>
+                              <%= label_tag "image_#{img.id}", image_tag(img.image, :class => 'img-responsive'), :class => 'img-label' %>
                             </div>
                         <% end %>
                       </div>
@@ -121,11 +123,11 @@
                 <% end %>
 
                 <div id="img-btns">
-                  <button id="btn-add-img-form-irr" class="btn btn-primary" type="button"> Adicionar imagens </button>
-                  <!--<input type="file" id="form-irr-img-input" name="img" style="display:none" accept='image/png,image/gif,image/jpeg'>-->
-                  <button id="form-irr-del-img" class="btn btn-danger" name="img" type="button"> Apagar imagens selecionadas </button>
-                  <%#= file_field(img, :image, accept: 'image/png,image/gif,image/jpeg', style: 'display:none', id: "form-irr-img-input") %>
-                  <%= file_field_tag "images[]", type: :file, multiple: true, accept: 'image/png,image/gif,image/jpeg', style: 'display:none', id: "form-irr-img-input" %>
+                  <% if @is_show != 'form-disabled' %>
+                      <button id="btn-add-img-form-irr" class="btn btn-primary" type="button"> Adicionar imagens </button>
+                      <button id="form-irr-del-img" class="btn btn-danger" name="img" type="button"> Apagar imagens selecionadas </button>
+                      <%= file_field_tag "images[]", type: :file, multiple: true, accept: 'image/png,image/gif,image/jpeg', style: 'display:none', id: "form-irr-img-input" %>
+                  <% end %>
                 </div>
               </div>
             </div>
@@ -1369,7 +1371,9 @@
           <p>
             <a class="btn btn-primary btnPrevious" >Anterior</a>
             <a class="btn btn-primary btnNext" >Seguinte</a>
-            <%= f.submit 'Submeter formulario', class: "btn btn-primary" %>
+            <% if @is_show != 'form-disabled' %>
+              <%= f.submit 'Submeter formulario', class: "btn btn-primary" %>
+            <% end %>
           </p>
         </div>
 
