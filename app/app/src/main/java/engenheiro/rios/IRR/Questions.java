@@ -35,6 +35,14 @@ public class Questions {
             intent.putExtra("required", true);
             values_irr.add(value_irr);
             intent.putExtra("values_irr",values_irr);
+            type=3;
+            required= true;
+            options= new String[]{"Vertical escavado",
+                    "Vertical cortado",
+                    "Declive >45%",
+                    "Declive <45%",
+                    "Suave comport <45%",
+                    "Artificial"};
         } else if (next_question == 9) {
             intent.setClass(context, IRR_2_1.class);
             intent.putExtra("question_num", next_question);
@@ -82,6 +90,7 @@ public class Questions {
         int type=0;
         Boolean required=false;
         String options[] = new String[0];
+        ArrayList<Float[]> maxmin= new ArrayList<Float[]>();
         int max = 0;
 
         Integer value_irr[] = new Integer[]{};
@@ -110,6 +119,13 @@ public class Questions {
                 break;
 
             case 3:
+                main_title= "Hidrogeomorfologia";
+                sub_title= "Perfil de margens";
+                type=2;
+                required= true;
+                options= new String[]{"Largura da superfície da água (L) (m):",
+                       "Profundidade média (P) (m):",
+                        "Velocidade média (V) (m/s):"};
                 break;
 
             case 4:
@@ -181,6 +197,28 @@ public class Questions {
                 break;
 
             case 9:
+                main_title= "Hidrogeomorfologia";
+                sub_title= "Sedimentação";
+                type=2;
+                required= true;
+                options= new String[]{"pH",
+                "Condutividade",
+                "Temperatura (ºC)",
+                "Nível de Oxigénio (mg/L)",
+                "O2 %",
+                "Nitratos",
+                "Nitritos",
+                "Transparência"};
+                maxmin.add(new Float[]{1f,14f});
+                maxmin.add(new Float[]{50f,1500f});
+                maxmin.add(new Float[]{0f,40f});
+                maxmin.add(new Float[]{0f,15f});
+                maxmin.add(new Float[]{0f,200f});
+                maxmin.add(new Float[]{0f,80f});
+                maxmin.add(new Float[]{0f,4f});
+                maxmin.add(new Float[]{1f,4f});
+
+                value_irr= new Integer[]{5,5,5,5,5,5,5,5};
                 break;
 
             case 10:
@@ -232,6 +270,26 @@ public class Questions {
                 break;
 
             case 13:
+                main_title= "Corredor ecológico";
+                sub_title= "O odor (cheiro) da água";
+                type=1;
+                required= true;
+                options= new String[]{"-","Fauna","Não tem odor",
+                        "Cheiro a fresco",
+                        "Cheiro a Lama (Vasa)",
+                        "Cheiro a esgoto",
+                        "Cheiro químico (cloro)",
+                        "Cheiro podre (ovos podres)",
+                        "Outro odor",
+                        "-","Fauna","Não tem odor",
+                        "Cheiro a fresco",
+                        "Cheiro a Lama (Vasa)",
+                        "Cheiro a esgoto",
+                        "Cheiro químico (cloro)",
+                        "Cheiro podre (ovos podres)",
+                        "Outro odor"
+                };
+                value_irr= new Integer[]{1,1,4,3,5,4};
                 break;
 
             case 14:
@@ -609,6 +667,7 @@ public class Questions {
         response.add(options);
         response.add(max);
         response.add(value_irr);
+        response.add(maxmin);
 
         return response;
 

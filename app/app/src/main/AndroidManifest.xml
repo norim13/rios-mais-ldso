@@ -194,6 +194,15 @@
             android:label="@string/title_activity_teste_chart"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".Form.FormIRRSwipe"
+            android:label="@string/title_activity_form_irrswipe"
+            android:parentActivityName=".Homepage"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="engenheiro.rios.Homepage" />
+        </activity>
     </application>
 
 </manifest>
