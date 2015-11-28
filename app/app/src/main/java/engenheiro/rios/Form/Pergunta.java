@@ -1,11 +1,8 @@
 package engenheiro.rios.Form;
 
 import android.content.Context;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-
-import java.util.ArrayList;
 
 /**
  * Created by filipe on 24/11/2015.
@@ -39,6 +36,10 @@ public abstract class Pergunta {
     public Object getResponse(){
         this.getAnswer();
         return this.response;
+    }
+
+    public String[] getOptions(){
+        return this.options;
     }
 
 

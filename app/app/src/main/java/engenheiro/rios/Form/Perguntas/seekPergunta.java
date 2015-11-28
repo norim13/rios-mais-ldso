@@ -33,10 +33,37 @@ public class seekPergunta extends Pergunta {
         ArrayList<ArrayList> arrayList=Form_functions.createSeekbar(this.options,this.linearLayout,this.context, max);
         this.seekList=arrayList.get(0);
         this.seekListText=arrayList.get(1);
+        for (int i=0;i<this.seekList.size();i++) {
+            final int finalI = i;
+            this.seekList.get(i).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    // TODO Auto-generated method stub
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                    // TODO Auto-generated method stub
+                }
+
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    // TODO Auto-generated method stub
+                    if (seekBar.getProgress()!=0)
+                    seekListText.get(finalI).setText(options[finalI]+" "+seekBar.getProgress()+":");
+                    else
+                        seekListText.get(finalI).setText(options[finalI]+" N/A:");
+
+
+                }
+            });
+        }
     }
 
     @Override
     public void getAnswer() {
+        if (this.seekList==null)return;
         this.response=Form_functions.getSeekbar(this.seekList);
 
     }
@@ -48,6 +75,13 @@ public class seekPergunta extends Pergunta {
 
     @Override
     public void setAnswer() {
+        ArrayList<Integer> numbers= (ArrayList<Integer>) this.response;
+
+        if(numbers==null)
+            return;
+        for (int i=0;i<this.seekList.size();i++)
+            this.seekList.get(i).setProgress(numbers.get(i));
+
 
     }
 

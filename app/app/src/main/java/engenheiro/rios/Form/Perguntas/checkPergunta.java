@@ -31,6 +31,7 @@ public class checkPergunta extends Pergunta {
 
     @Override
     public void getAnswer() {
+        if (check_list==null)return;
         this.response=Form_functions.getCheckboxes(check_list);
     }
 

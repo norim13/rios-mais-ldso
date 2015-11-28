@@ -90,6 +90,7 @@ public class Questions {
         int type=0;
         Boolean required=false;
         String options[] = new String[0];
+        ArrayList<Float[]> maxmin= new ArrayList<Float[]>();
         int max = 0;
 
         Integer value_irr[] = new Integer[]{};
@@ -208,7 +209,16 @@ public class Questions {
                 "Nitratos",
                 "Nitritos",
                 "Transparência"};
-                //value_irr= new Integer[]{5,5,5,5,5,5,5,5};
+                maxmin.add(new Float[]{1f,14f});
+                maxmin.add(new Float[]{50f,1500f});
+                maxmin.add(new Float[]{0f,40f});
+                maxmin.add(new Float[]{0f,15f});
+                maxmin.add(new Float[]{0f,200f});
+                maxmin.add(new Float[]{0f,80f});
+                maxmin.add(new Float[]{0f,4f});
+                maxmin.add(new Float[]{1f,4f});
+
+                value_irr= new Integer[]{5,5,5,5,5,5,5,5};
                 break;
 
             case 10:
@@ -260,6 +270,26 @@ public class Questions {
                 break;
 
             case 13:
+                main_title= "Corredor ecológico";
+                sub_title= "O odor (cheiro) da água";
+                type=1;
+                required= true;
+                options= new String[]{"-","Fauna","Não tem odor",
+                        "Cheiro a fresco",
+                        "Cheiro a Lama (Vasa)",
+                        "Cheiro a esgoto",
+                        "Cheiro químico (cloro)",
+                        "Cheiro podre (ovos podres)",
+                        "Outro odor",
+                        "-","Fauna","Não tem odor",
+                        "Cheiro a fresco",
+                        "Cheiro a Lama (Vasa)",
+                        "Cheiro a esgoto",
+                        "Cheiro químico (cloro)",
+                        "Cheiro podre (ovos podres)",
+                        "Outro odor"
+                };
+                value_irr= new Integer[]{1,1,4,3,5,4};
                 break;
 
             case 14:
@@ -637,6 +667,7 @@ public class Questions {
         response.add(options);
         response.add(max);
         response.add(value_irr);
+        response.add(maxmin);
 
         return response;
 

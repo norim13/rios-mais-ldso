@@ -24,6 +24,7 @@ public class radioPergunta extends Pergunta {
     public void generate(LinearLayout linearLayout, Context context) {
         this.linearLayout=linearLayout;
         this.context=context;
+
         this.radio_list= Form_functions.createRadioButtons(this.options,this.linearLayout,this.context);
 
     }
@@ -31,6 +32,7 @@ public class radioPergunta extends Pergunta {
 
     @Override
     public void getAnswer() {
+        if (this.radio_list==null)return;
         this.response=Form_functions.getRadioButtonOption(this.radio_list);
     }
 

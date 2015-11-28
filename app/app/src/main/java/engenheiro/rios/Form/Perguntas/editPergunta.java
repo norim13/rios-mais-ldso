@@ -31,14 +31,22 @@ public class editPergunta extends Pergunta {
         range=false;
     }
 
+    public editPergunta(String[] options, String title, String subtitle, Boolean obly, ArrayList<Float[]> minmax, boolean other_option) {
+        super(options, title, subtitle, obly, other_option);
+        range=true;
+        this.minmax=minmax;
+    }
+
     @Override
     public void generate(LinearLayout linearLayout, Context context) {
         this.linearLayout=linearLayout;
         this.context=context;
-        ArrayList<Float[]> al=new ArrayList<Float[]>();
-        for(int i=0;i<this.options.length;i++)
-            al.add(new Float[]{1f,5f});
-        this.edit_list= Form_functions.createEditText(this.options,this.linearLayout,this.context);
+
+        if(range)
+            this.edit_list= Form_functions.createEditText(this.options,this.linearLayout,this.context,this.minmax);
+        else
+            this.edit_list= Form_functions.createEditText(this.options,this.linearLayout,this.context);
+
 
         if(this.options[0].equals("Largura da superfície da água (L) (m):"))
         {
@@ -124,6 +132,7 @@ public class editPergunta extends Pergunta {
 
     @Override
     public void getAnswer() {
+        if (this.edit_list==null)return;
         this.response=Form_functions.getEditTexts(this.edit_list);
 
     }

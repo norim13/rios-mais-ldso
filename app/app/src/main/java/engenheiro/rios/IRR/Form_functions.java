@@ -36,6 +36,7 @@ public class Form_functions {
     };
 
     public static ArrayList<RadioButton> createRadioButtons(String[] array, LinearLayout linearLayout, Context context){
+
         ArrayList<RadioButton> list = new ArrayList<RadioButton>();
         RelativeLayout.LayoutParams radioParams;
         radioParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -69,7 +70,7 @@ public class Form_functions {
             sb.setMax(max);
             sb.setProgress(0);
             TextView tv=new TextView(context);
-            tv.setText(array[i]+" Valor:"+1);
+            tv.setText(array[i]+ " N/A:");
             LinearLayout ll=new LinearLayout(context);
             ll.setOrientation(LinearLayout.VERTICAL);
             ll.addView(tv);

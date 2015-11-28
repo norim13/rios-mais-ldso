@@ -26,27 +26,33 @@ public class Form {
 
 
     public void fillAnswer(int number){
+        if(this.perguntas==null)return;
         this.perguntas.get(number).getAnswer();
         if(this.perguntas.get(number).getResponse()!=null && this.respostas!=null) {
             int novo_num=number+1;
             this.respostas.put((Integer) novo_num,this.perguntas.get(number).getResponse());
 
         }
-        else
-            Log.e("form","error no fillAnswer");
+      //  else
+          //  Log.e("form","error no fillAnswer");
 
-        for (int i=1;i<10;i++)
-        {
+
+    }
+
+    public void fillAnswers()
+    {
+        Log.e("Entrou aqui","entrou");
+        for (int i=1;i<=this.getPerguntas().size();i++)
             try {
-                Log.e("resposta",i+"-"+this.respostas.get(i).toString());
+                fillAnswer(i-1);
+                Log.e("resposta", i + "-" + this.respostas.get(i).toString());
+
+            } catch (Exception e) {
+                Log.e("resposta", i + "-");
 
             }
-            catch (Exception e){
-                Log.e("resposta",i+"-");
-
-            }
-        }
         Log.e("resposta","--------");
+
     }
 
 

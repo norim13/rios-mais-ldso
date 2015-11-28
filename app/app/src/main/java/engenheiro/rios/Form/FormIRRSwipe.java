@@ -1,5 +1,6 @@
 package engenheiro.rios.Form;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,9 +17,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
+import engenheiro.rios.GuardaRios;
+import engenheiro.rios.Login;
 import engenheiro.rios.R;
 
 public class FormIRRSwipe extends AppCompatActivity {
@@ -49,9 +53,10 @@ public class FormIRRSwipe extends AppCompatActivity {
 
         this.form= new Form_IRR();
         this.form.generate();
-        Log.e("form","form criado e gerado");
+        Log.e("form", "form criado e gerado");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Novo Form");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Create the adapter that will return a fragment for each of the three
@@ -67,35 +72,35 @@ public class FormIRRSwipe extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Validating your action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                form.fillAnswers();
             }
         });
 
     }
 
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_form_irrswipe, menu);
+        getMenuInflater().inflate(R.menu.menu_homepage, menu);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
+        if(id==R.id.navigate_guardarios)
+            startActivity(new Intent(this,GuardaRios.class));
+        if(id==R.id.navigate_account)
+            startActivity(new Intent(this,Login.class));
         return super.onOptionsItemSelected(item);
     }
+
 
 
     /**
@@ -105,9 +110,12 @@ public class FormIRRSwipe extends AppCompatActivity {
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         Form_IRR form;
+        ProgressBar progessbar;
+
         public SectionsPagerAdapter(FragmentManager fm, Form_IRR form) {
             super(fm);
             this.form=form;
+            progessbar= (ProgressBar) findViewById(R.id.progressBar2);
             Log.e("form","novo SectionsPageAdapter");
         }
 
@@ -115,8 +123,9 @@ public class FormIRRSwipe extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            Log.e("form","getItem no Sections");
-            return PlaceholderFragment.newInstance(position,form);
+            Log.e("form", "getItem no Sections");
+
+            return PlaceholderFragment.newInstance(position,form, progessbar);
         }
 
         @Override
@@ -150,14 +159,15 @@ public class FormIRRSwipe extends AppCompatActivity {
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
         Form_IRR form;
+        ProgressBar progessbar;
 
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber, Form_IRR form) {
+        public static PlaceholderFragment newInstance(int sectionNumber, Form_IRR form, ProgressBar progessbar) {
 
-                    PlaceholderFragment fragment = new PlaceholderFragment(form);
+                    PlaceholderFragment fragment = new PlaceholderFragment(form,progessbar);
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
@@ -165,8 +175,9 @@ public class FormIRRSwipe extends AppCompatActivity {
             return fragment;
         }
 
-        public PlaceholderFragment(Form_IRR form) {
+        public PlaceholderFragment(Form_IRR form, ProgressBar progessbar) {
             this.form=form;
+            this.progessbar=progessbar;
         }
 
         @Override
@@ -177,6 +188,7 @@ public class FormIRRSwipe extends AppCompatActivity {
 
 
             int number= getArguments().getInt(ARG_SECTION_NUMBER);
+            progessbar.setProgress(number);
 
             this.form.getPerguntas().get(number).generate(linearLayout,this.getContext());
             this.form.getPerguntas().get(number).setAnswer();
@@ -187,8 +199,8 @@ public class FormIRRSwipe extends AppCompatActivity {
         @Override
         public void onPause() {
             super.onPause();
-            this.form.fillAnswer(getArguments().getInt(ARG_SECTION_NUMBER));
-            Log.e("vai sair", "" + getArguments().getInt(ARG_SECTION_NUMBER));
+            this.form.fillAnswers();
+            //Log.e("vai sair", "" + getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
 }
