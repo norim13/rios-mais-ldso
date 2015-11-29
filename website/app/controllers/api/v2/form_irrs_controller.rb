@@ -16,6 +16,22 @@ class Api::V2::FormIrrsController < ApplicationController
     end
   end
 
+  def update
+    form_irr = FormIrr.find(params[:id])
+
+    if form_irr.update(form_irr_params)
+      if params[:images]
+        params[:images].each { |image|
+          FormIrrImage.create(image: image, form_irr_id: @form_irr.id)
+        }
+      end
+
+      render :json => '{"success" : "true"}'
+    else
+      render :json => '{"success" : "false", "error" : "problem updating form"}'
+    end
+  end
+
   def getMyForms
     user_email = params[:user_email].presence
     user       = user_email && User.find_by_email(user_email)
