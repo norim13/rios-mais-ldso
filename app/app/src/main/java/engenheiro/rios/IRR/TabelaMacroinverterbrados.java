@@ -62,14 +62,14 @@ public class TabelaMacroinverterbrados extends AppCompatActivity {
 
     LinearLayout ll=new LinearLayout(this);
     ll.setLayoutParams(radioParams);
-    TextView tv0=new TextView(this);
-    tv0.setText("Planárias");
+        TextView tv0=new TextView(this);
+        tv0.setText("Planárias");
 
-    tv0.setLayoutParams(radioParams);
-    ll.addView(tv0);
-    linearLayout.addView(ll);
-    String[] options= { "Planárias"};
-    question=Form_functions.createCheckboxes(options,linearLayout,this);
+        tv0.setLayoutParams(radioParams);
+        ll.addView(tv0);
+        linearLayout.addView(ll);
+        String[] options= { "Planárias"};
+        question=Form_functions.createCheckboxes(options,linearLayout,this);
 
         ll=new LinearLayout(this);
         ll.setLayoutParams(radioParams);

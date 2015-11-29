@@ -218,4 +218,16 @@ public class Form_functions {
             return 0;
         return values_irr[question-1];
     }
+
+    public static Integer getmax2(ArrayList<ArrayList<Integer>> arrayListArrayList, Integer[] integers) {
+        ArrayList<Integer> flatArrayList=new ArrayList<Integer>();
+        for (ArrayList<Integer> al : arrayListArrayList)
+            for (Integer i: al)
+            flatArrayList.add(i);
+
+
+
+
+        return getmax(flatArrayList,integers);
+    }
 }

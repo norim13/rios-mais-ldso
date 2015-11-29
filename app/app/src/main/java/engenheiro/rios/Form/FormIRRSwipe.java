@@ -1,6 +1,7 @@
 package engenheiro.rios.Form;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,9 +20,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
+import engenheiro.rios.DataBases.DB_functions;
 import engenheiro.rios.GuardaRios;
+import engenheiro.rios.Homepage;
 import engenheiro.rios.Login;
 import engenheiro.rios.R;
 
@@ -75,6 +81,17 @@ public class FormIRRSwipe extends AppCompatActivity {
                 Snackbar.make(view, "Validating your action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 form.fillAnswers();
+                SharedPreferences settings = getSharedPreferences(Homepage.PREFS_NAME, 0);
+                String token=settings.getString("token", "-1");
+                Log.e("form", "entrar na DB");
+                try {
+                    DB_functions.saveForm2(token, form);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
 

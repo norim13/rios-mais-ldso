@@ -55,6 +55,7 @@ public class Form {
 
     }
 
-
-
+    public HashMap<Integer, Object> getRespostas() {
+        return respostas;
+    }
 }

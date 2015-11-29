@@ -12,6 +12,8 @@ import java.util.ArrayList;
 public class Questions {
 
 
+    private static ArrayList<Integer[]> valuesIRR;
+
     public static void getQuestion(int next_question, Intent intent, Context context, ArrayList<Integer[]> values_irr) {
         String[] options = new String[0];
         intent.putExtra("question_num", next_question);
@@ -166,6 +168,7 @@ public class Questions {
                         "Início de uma importante alteração do canal",
                         "Grande alteração do canal",
                         "Canal completamente alterado (canalizado, regularizado)"};
+                value_irr= new Integer[]{5,5,5,5,5};
                 break;
             case 7:
                 main_title= "Hidrogeomorfologia";
@@ -274,22 +277,23 @@ public class Questions {
                 sub_title= "O odor (cheiro) da água";
                 type=1;
                 required= true;
-                options= new String[]{"-","Fauna","Não tem odor",
-                        "Cheiro a fresco",
-                        "Cheiro a Lama (Vasa)",
-                        "Cheiro a esgoto",
-                        "Cheiro químico (cloro)",
-                        "Cheiro podre (ovos podres)",
-                        "Outro odor",
-                        "-","Fauna","Não tem odor",
-                        "Cheiro a fresco",
-                        "Cheiro a Lama (Vasa)",
-                        "Cheiro a esgoto",
-                        "Cheiro químico (cloro)",
-                        "Cheiro podre (ovos podres)",
-                        "Outro odor"
+                options= new String[]{"-","Planárias","Planárias",
+                        "-","Hirudíneos","Hirudíneos (Sanguessugas)",
+                        "-","Dípteros","Oligoquetas (minhocas)","Simulideos","Quironomideos, Sirfídeos, Culidídeos, Tipulídeos (Larva de mosquitos)",
+                        "-","Gastrópodes (Mullusca)","Ancilídeo","Limnídeo; Physa","Bivalves",
+                        "-","Coleóptero (escaravelho)","Patas Nadadoras (Dystiscidae)","Pata Locomotoras (Hydraena)",
+                        "-","Trichóptero (mosca d’água)","Trichóptero (mosca d’água) S/Casulo","Trichóptero (mosca d’água) C/Casul",
+                        "-","Odonata","Odonata (Larva de Libelinhas)",
+                        "-","Heterópteros","Heterópteros",
+                        "-","Plecópteros","Plecópteros (mosca-de-pedra)",
+                        "-","Efemerópteros (efémera)","Efemerópteros (efémera)","Cabeça Planar (Ecdyonurus) ",
+                        "-","Crustáceos","Crustáceos",
+                        "-","Ácaros","Ácaros",
+                        "-","Pulga-de-água","Pulga-de-água (Daphnia)",
+                        "-","Insetos","Insetos – adultos (adultos na forma aérea)",
+                        "-","Mégalopteres","Mégalopteres",
                 };
-                value_irr= new Integer[]{1,1,4,3,5,4};
+                value_irr= new Integer[]{1,4,5,2,5,2,4,3,3,4,3,2,2,3,1,3,1,3,3,2,null,3};
                 break;
 
             case 14:
@@ -674,7 +678,16 @@ public class Questions {
 
     }
 
+    public static ArrayList<Integer[]> getValuesIRR() {
+        ArrayList<Integer[]> valuesIRR = new ArrayList<Integer[]>();
+        Integer[] iii = new Integer[0];
+        valuesIRR.add(iii);
+        for (int i=1;i<=33;i++){
+            valuesIRR.add((Integer[]) getOptions(i).get(6));
+        }
+        return valuesIRR;
     }
+}
 
 
 
