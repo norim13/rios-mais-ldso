@@ -1,8 +1,8 @@
-<%= simple_form_for(@guardario) do |f| %>
+<%= simple_form_for @guardario, html: { multipart: true } do |f| %>
     <%= f.error_notification %>
 
     <div class="form-inputs">
-      <% #= f.input :rio, :label => 'Código do rio', :input_html => {:id => 'codigo-rio'}, :readonly => true, :placeholder => "Clique em cima do rio para selecionar", :required => true %>
+      <%#= f.input :rio, :label => 'Código do rio', :input_html => {:id => 'codigo-rio'}, :readonly => true, :placeholder => "Clique em cima do rio para selecionar", :required => true %>
 
       <div id="rio-nome" class="rio-info form-inline">
         <div class="row">

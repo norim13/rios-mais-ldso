@@ -11,7 +11,7 @@ class GuardariosController < ApplicationController
   # GET /guardarios/1
   # GET /guardarios/1.json
   def show
-    @imgs = guardario.guardario_images
+    @imgs = @guardario.guardario_images
   end
 
   # GET /guardarios/new
@@ -33,7 +33,7 @@ class GuardariosController < ApplicationController
       if @guardario.save
         if params[:images]
           params[:images].each { |image|
-            GuardarioImage.create(image: image, guardario: @guardario.id)
+            GuardarioImage.create(image: image, guardario_id: @guardario.id)
           }
         end
         format.html { redirect_to @guardario, notice: 'Guardario was successfully created.' }
@@ -52,7 +52,7 @@ class GuardariosController < ApplicationController
       if @guardario.update(guardario_params)
         if params[:images]
           params[:images].each { |image|
-            GuardarioImage.create(image: image, guardario: @guardario.id)
+            GuardarioImage.create(image: image, guardario_id: @guardario.id)
           }
         end
         format.html { redirect_to @guardario, notice: 'Guardario was successfully updated.' }

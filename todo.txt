@@ -30,6 +30,8 @@ LDSO
 	
 	- por imagens como sinf
 	
+	- por cursor a aparecer como link no "?" das imagens do form irr
+	
 	
 SINF
 	- cart view
