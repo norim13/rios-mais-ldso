@@ -14,10 +14,10 @@ class FormIrrImageController < ApplicationController
 	end
 
 	def destroy
-		@img = FormIrrImage.find(params[:id])
-		@img.destroy
+		img = FormIrrImage.find(params[:id])
+		img.destroy
 
-		render :json => @img
+		render :json => img
 	end
 
 	private

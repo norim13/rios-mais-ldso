@@ -32,6 +32,15 @@ class Api::V2::FormIrrsController < ApplicationController
     end
   end
 
+  def destroy
+    form_irr = FormIrr.find(params[:id])
+    if form_irr.destroy
+      render :json => '{"success" : "true"}'
+    else
+      render :json => '{"success" : "false", "error" : "problem deleting form"}'
+    end
+  end
+
   def getMyForms
     user_email = params[:user_email].presence
     user       = user_email && User.find_by_email(user_email)

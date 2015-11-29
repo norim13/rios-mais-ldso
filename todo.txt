@@ -1,10 +1,6 @@
 LDSO
 	- acabar os webservices
 	- permissoes
-	- dar fix as imagens
-		+ apagar qd se apaga um post
-		- qd se edita ou fazer append ou apagar as anteriores
-		- dar fix visual
 	- dar fix aos forms do fil
 		- por labels nos forms do fil
 		- por required nos forms do fil
@@ -20,7 +16,6 @@ LDSO
 	- perfil dum rio
 		- por mapa ja selecionado
 	- ordenar search	
-	
 		
 	!!!!!!!!
 	nao calcular o IRR no show!!
@@ -29,15 +24,9 @@ LDSO
 	- no perfil dum rio se nao tiver afluencia/afluentes, dizer que n tem e esconder a tabela
 	
 	- por imagens como sinf
+		- mostrar filename
 	
-	- por cursor a aparecer como link no "?" das imagens do form irr
+	+ por cursor a aparecer como link no "?" das imagens do form irr
 	
+	- fazer refresh do access token
 	
-SINF
-	- cart view
-	- admin
-		
-	- ja insere imgs nos produtos
-		- esconder botao do user normal
-
-

@@ -14,10 +14,10 @@ class GuardarioImageController < ApplicationController
 	end
 
 	def destroy
-		@img = GuardarioImage.find(params[:id])
-		@img.destroy
+		img = GuardarioImage.find(params[:id])
+		img.destroy
 
-		render :json => @img
+		render :json => img
 	end
 
 	private
