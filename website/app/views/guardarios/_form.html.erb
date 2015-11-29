@@ -129,13 +129,10 @@
 
       <div class="form-group container">
         <div id="guarda-rios-imgs">
-          <%= f.label :images, 'Adicionar imagens', class: 'control-label' %>
-          <%= f.file_field :images, multiple: true, class: 'file' %>
+          <button id="btn-add-img-guardarios" class="btn btn-primary" type="button"> Adicionar imagens </button>
+          <%= file_field_tag "images[]", type: :file, multiple: true, accept: 'image/png,image/gif,image/jpeg', style: 'display:none', id: "guardarios-img-input" %>
         </div>
       </div>
-
-
-
 
     </div>
     <br>

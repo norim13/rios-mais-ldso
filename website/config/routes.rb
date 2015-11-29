@@ -9,7 +9,10 @@ Rails.application.routes.draw do
   get 'documentos' => 'documentos_relacionados#documentos'
   get 'concelhos' => 'concelho#getConcelhosFromDistrito'
   get 'limpeza' => 'limpeza#show'
+  get 'respostas' => 'limpeza#getRespostas'
+  post 'submitProblemasAction' => 'limpeza#submitProblemas'
 
+  resources :form_irr_image
 
   resources :guardarios, only: [:index, :show, :new, :create, :destroy]
   resources :reports, only: [:index, :show, :new, :create, :destroy]

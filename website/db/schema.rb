@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151119105749) do
+ActiveRecord::Schema.define(version: 20151126115922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,15 @@ ActiveRecord::Schema.define(version: 20151119105749) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "form_irr_images", force: :cascade do |t|
+    t.string   "image"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "form_irr_id"
+  end
+
+  add_index "form_irr_images", ["form_irr_id"], name: "index_form_irr_images_on_form_irr_id", using: :btree
 
   create_table "form_irrs", force: :cascade do |t|
     t.integer  "tipoDeVale"
@@ -241,7 +250,6 @@ ActiveRecord::Schema.define(version: 20151119105749) do
     t.string   "flora_outro"
     t.string   "vegetacaoInvasora_outro"
     t.integer  "margem"
-    t.json     "images"
     t.string   "idRio"
     t.integer  "irr_hidrogeomorfologia"
     t.integer  "irr_qualidadedaagua"
@@ -257,6 +265,15 @@ ActiveRecord::Schema.define(version: 20151119105749) do
 
   add_index "form_irrs", ["user_id"], name: "index_form_irrs_on_user_id", using: :btree
 
+  create_table "guardario_images", force: :cascade do |t|
+    t.string   "image"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "guardario_id"
+  end
+
+  add_index "guardario_images", ["guardario_id"], name: "index_guardario_images_on_guardario_id", using: :btree
+
   create_table "guardarios", force: :cascade do |t|
     t.string   "rio"
     t.integer  "user_id"
@@ -271,11 +288,53 @@ ActiveRecord::Schema.define(version: 20151119105749) do
     t.boolean  "cuidarcrias"
     t.string   "alimentar"
     t.string   "outro"
-    t.json     "images"
     t.string   "nomeRio"
     t.float    "lat"
     t.float    "lon"
   end
+
+  create_table "limpezas", force: :cascade do |t|
+    t.string   "opcao"
+    t.string   "resposta"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "categoria"
+    t.integer  "categoria_id"
+  end
+
+  create_table "log_limpezas", force: :cascade do |t|
+    t.string   "problema1"
+    t.string   "problema2"
+    t.string   "problema3"
+    t.string   "problema4"
+    t.string   "problema5"
+    t.string   "problema6"
+    t.string   "problema7"
+    t.string   "problema8"
+    t.string   "problema9"
+    t.string   "problema10"
+    t.string   "problema11"
+    t.string   "problema12"
+    t.string   "problema13"
+    t.date     "cheia_data"
+    t.string   "cheia_origem"
+    t.integer  "cheia_perdas_monetarias"
+    t.string   "cheia_destruicao"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "user_id"
+  end
+
+  add_index "log_limpezas", ["user_id"], name: "index_log_limpezas_on_user_id", using: :btree
+
+  create_table "report_images", force: :cascade do |t|
+    t.string   "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "report_id"
+  end
+
+  add_index "report_images", ["report_id"], name: "index_report_images_on_report_id", using: :btree
 
   create_table "reports", force: :cascade do |t|
     t.datetime "created_at",  null: false
@@ -286,7 +345,6 @@ ActiveRecord::Schema.define(version: 20151119105749) do
     t.string   "categoria"
     t.string   "motivo"
     t.string   "coordenadas"
-    t.json     "images"
   end
 
   add_index "reports", ["user_id"], name: "index_reports_on_user_id", using: :btree
@@ -320,6 +378,10 @@ ActiveRecord::Schema.define(version: 20151119105749) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "concelhos", "distritos"
+  add_foreign_key "form_irr_images", "form_irrs"
   add_foreign_key "form_irrs", "users"
+  add_foreign_key "guardario_images", "guardarios"
+  add_foreign_key "log_limpezas", "users"
+  add_foreign_key "report_images", "reports"
   add_foreign_key "reports", "users"
 end

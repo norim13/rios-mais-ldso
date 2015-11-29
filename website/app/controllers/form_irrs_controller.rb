@@ -8,26 +8,26 @@ class FormIrrsController < ApplicationController
 	def new
 		@form_irr = FormIrr.new
 		@is_show = ''
-		@img_path = "/uploads/form_irr/images/#{params[:id]}/"
 	end
 
 	def show
 		@form_irr = FormIrr.find(params[:id])
+		@images = @form_irr.form_irr_images
 
 		if @form_irr.user_id != current_user.id
 			render 'noaccess'
 		else
 			@is_show = 'form-disabled'
-			@img_path = "/uploads/form_irr/images/#{params[:id]}/"
 		end
 	end
 
 	def edit
 		@form_irr = FormIrr.find(params[:id])
+		@images = @form_irr.form_irr_images
+
 		if @form_irr.user_id != current_user.id
 			render 'noaccess'
 		else
-			@img_path = "/uploads/form_irr/images/#{params[:id]}/"
 			@is_show = ''
 		end
 	end
@@ -37,6 +37,12 @@ class FormIrrsController < ApplicationController
 		@form_irr.user_id = current_user.id
 
 		if @form_irr.save
+			if params[:images]
+				params[:images].each { |image|
+					FormIrrImage.create(image: image, form_irr_id: @form_irr.id)
+				}
+			end
+
 			redirect_to @form_irr
 		else
 			render 'new'
@@ -47,6 +53,12 @@ class FormIrrsController < ApplicationController
 		@form_irr = FormIrr.find(params[:id])
 
 		if @form_irr.update(form_irr_params)
+			if params[:images]
+				params[:images].each { |image|
+					FormIrrImage.create(image: image, form_irr_id: @form_irr.id)
+				}
+			end
+
 			redirect_to @form_irr
 		else
 			render 'edit'
@@ -76,6 +88,6 @@ class FormIrrsController < ApplicationController
 			:tritaoVentreLaranja,:raIberica,:raVerde,:sapoComum,:lagartoDeAgua,:cobraAguaDeColar,:cagado,:repteis_outro,:guardaRios,:garcaReal,:melroDeAgua,:galinhaDeAgua,:patoReal,:tentilhaoComum,:chapimReal,:aves_outro,:lontras,:morcegosDeAgua,:toupeiraDaAgua,:ratoDeAgua,:ouricoCacheiro,
 			:armilho,:mamiferos_outro,:enguia,:lampreia,:salmao,:truta,:bogaPortuguesa,:bogaDoNorte,:peixes_outro,:percaSol,:tartarugaDaFlorida,:caranguejoPeludoChines,:gambusia,:mustelaVison,:lagostimVermelho,:trutaArcoIris,:achiga,:fauna_outro,:salgueiral,:amial,:freixal,:choupal,:ulmeiral,
 			:sanguinos,:ladual,:tramazeiras,:carvalhal,:sobreiral,:azinhal,:flora_outro,:conservacaoBosqueRibeirinho,:silvas,:ervaDaFortuna,:plumas,:lentilhaDaAgua,:pinheirinha,:jacintoDeAgua,:vegetacaoInvasora_outro,:obstrucaoDoLeitoMargens,:disponibilizacaoDeInformacao,:envolvimentoPublico,
-			:acao,:legislacao,:estrategia,:gestaoDasIntervencoes, {images: []}, :irr_hidrogeomorfologia,:irr_qualidadedaagua,:irr_alteracoesantropicas, :irr_corredorecologico, :irr_participacaopublica,:irr_organizacaoeplaneamento, :irr)
+			:acao,:legislacao,:estrategia,:gestaoDasIntervencoes, :irr_hidrogeomorfologia,:irr_qualidadedaagua,:irr_alteracoesantropicas, :irr_corredorecologico, :irr_participacaopublica,:irr_organizacaoeplaneamento, :irr)
 	end
 end
