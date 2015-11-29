@@ -1,8 +1,12 @@
 package engenheiro.rios.Form.Perguntas;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -29,6 +33,24 @@ public class radioPergunta extends Pergunta {
 
     }
 
+    @Override
+    public void generateView(LinearLayout linearLayout, Context context) {
+
+        LinearLayout.LayoutParams radioParams;
+        radioParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        radioParams.setMargins(0, 100, 0, 20);
+        TextView textView=new TextView(context);
+        textView.setText(this.title + " - " + this.subtitle);
+        textView.setTextColor(Color.BLACK);
+        textView.setTextSize(20);
+        textView.setLayoutParams(radioParams);
+
+        linearLayout.addView(textView);
+        generate(linearLayout,context);
+        for (RadioButton r:this.radio_list)
+            r.setEnabled(false);
+    }
+
 
     @Override
     public void getAnswer() {
@@ -45,6 +67,7 @@ public class radioPergunta extends Pergunta {
     public void setAnswer() {
         if(this.response!=null)
         {
+            Log.e("fomr","nao é nula");
             if((int)this.response!=0)
             {
                 int num=(int)this.response -1;

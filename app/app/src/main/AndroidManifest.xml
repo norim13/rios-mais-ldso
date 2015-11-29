@@ -104,36 +104,6 @@
                 android:value="engenheiro.rios.Login" />
         </activity>
         <activity
-            android:name=".IRR.IRR_1_3"
-            android:label="@string/title_activity_irr_1_2"
-            android:parentActivityName=".Homepage"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="engenheiro.rios.Homepage" />
-        </activity>
-        <activity
-            android:name=".IRR.IRR_2_1"
-            android:label="@string/title_activity_irr_2_1"
-            android:parentActivityName=".Homepage"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="engenheiro.rios.Homepage" />
-        </activity>
-        <activity
-            android:name=".IRR.IRR_question"
-            android:label="@string/title_activity_irr_question"
-            android:parentActivityName=".Homepage"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="engenheiro.rios.Homepage" />
-        </activity>
-        <activity
             android:name=".Login"
             android:label="@string/title_activity_login_2"
             android:parentActivityName=".Homepage"
@@ -181,15 +151,6 @@
                 android:value="engenheiro.rios.Homepage" />
         </activity>
         <activity
-            android:name=".IRR.TabelaMacroinverterbrados"
-            android:label="@string/title_activity_tabela_macroinverterbrados"
-            android:parentActivityName=".Homepage"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="engenheiro.rios.Homepage" />
-        </activity>
-        <activity
             android:name=".TesteChart"
             android:label="@string/title_activity_teste_chart"
             android:theme="@style/AppTheme.NoActionBar" >
@@ -197,6 +158,15 @@
         <activity
             android:name=".Form.FormIRRSwipe"
             android:label="@string/title_activity_form_irrswipe"
+            android:parentActivityName=".Homepage"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="engenheiro.rios.Homepage" />
+        </activity>
+        <activity
+            android:name=".Form.ViewFormIRR"
+            android:label="@string/title_activity_view_form_irr"
             android:parentActivityName=".Homepage"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data

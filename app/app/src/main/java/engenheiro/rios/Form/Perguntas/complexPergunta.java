@@ -1,8 +1,11 @@
 package engenheiro.rios.Form.Perguntas;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -46,28 +49,22 @@ public class complexPergunta extends Pergunta {
             if(options[i].equals("-")&&single_options.size()!=0){
                 String[] stringArray= new String[single_options.size()];
                 stringArray=single_options.toArray(stringArray);
-                Log.e("formirr", stringArray[0]);
                 this.perguntas.add(new checkPergunta(stringArray,"",single_subtitle,this.obly,single_other_option));
                 single_options=new ArrayList<String>();
                 i++;
                 single_subtitle=options[i];
                 single_other_option=false;
-                Log.e("formirr","i"+i+" Option:"+options[i]+" 0");
             }
             else if (options[i].equals("-")){
-                Log.e("formirr","i"+i+" Option:"+options[i]+" 1 antes");
                 i++;
                 single_subtitle=options[i];
-                Log.e("formirr","i"+i+" Option:"+options[i]+" 1 depois");
             }
             else if (options[i].equals("|"))
             {
                 other_option=true;
-                Log.e("formirr","i"+i+" Option:"+options[i]+" 2");
             }
             else {
                 single_options.add(options[i]);
-                Log.e("formirr", "i" + i + " Option:" + options[i] + " 3");
             }
 
         }
@@ -87,9 +84,27 @@ public class complexPergunta extends Pergunta {
 
     @Override
     public void generate(LinearLayout linearLayout, Context context) {
-        Log.e("formirr","Entrou no generate");
         for(int i =0;i<perguntas.size();i++){
             perguntas.get(i).generate(linearLayout,context);
+        }
+
+    }
+
+    @Override
+    public void generateView(LinearLayout linearLayout, Context context) {
+
+        LinearLayout.LayoutParams radioParams;
+        radioParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        radioParams.setMargins(0, 100, 0, 20);
+        TextView textView=new TextView(context);
+        textView.setText(this.title);
+        textView.setTextColor(Color.BLACK);
+        textView.setTextSize(20);
+        textView.setLayoutParams(radioParams);
+        linearLayout.addView(textView);
+
+        for(int i =0;i<perguntas.size();i++){
+            perguntas.get(i).generateView(linearLayout, context);
         }
 
     }

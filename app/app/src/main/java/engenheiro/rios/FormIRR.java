@@ -21,11 +21,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import engenheiro.rios.DataBases.DB_functions;
 import engenheiro.rios.Form.FormIRRSwipe;
-import engenheiro.rios.IRR.Questions;
+import engenheiro.rios.Form.Form_IRR;
+import engenheiro.rios.Form.ViewFormIRR;
 
 public class FormIRR extends AppCompatActivity {
 
@@ -49,8 +49,10 @@ public class FormIRR extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         SharedPreferences settings = getSharedPreferences(Homepage.PREFS_NAME, 0);
         String token=settings.getString("token", "-1");
+        String email=settings.getString("email", "-1");
+
         try {
-            DB_functions.getForms(token,this);
+            DB_functions.getForms(token,email,this);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -63,13 +65,12 @@ public class FormIRR extends AppCompatActivity {
 
 
     public void new_form(View view){
-        HashMap<Integer,Object> answers2=new HashMap<Integer,Object>();
+
         Intent i =new Intent(this, FormIRRSwipe.class);
         ArrayList<Integer[]> arrayList=new ArrayList<Integer[]>();
         Integer[] integers = new Integer[0];
         arrayList.add(integers);
-        Questions.getQuestion(1, i, this, arrayList);
-        i.putExtra("answers2", answers2);
+
         this.startActivity(i);
     }
 
@@ -87,7 +88,7 @@ public class FormIRR extends AppCompatActivity {
 
                             Log.e("teste", "tamanh:" + jsonarray.length());
                             for (int i = 0; i < jsonarray.length(); i++) {
-                                JSONObject form_irr_json = jsonarray.getJSONObject(i);
+                                final JSONObject form_irr_json = jsonarray.getJSONObject(i);
 
                                 String idRio = form_irr_json.getString("idRio");
                                 String irr = form_irr_json.getString("irr");
@@ -97,6 +98,8 @@ public class FormIRR extends AppCompatActivity {
 
                                 LayoutInflater l = getLayoutInflater();
                                 View v = l.inflate(R.layout.form_irr_cardview, null);
+                                CardView c= (CardView) v.findViewById(R.id.card_view);
+
                                 TextView tv = (TextView) v.findViewById(R.id.name_irr_cardview);
                                 tv.setText("Rio: "+idRio);
                                 tv= (TextView) v.findViewById(R.id.irr_cardview);
@@ -105,8 +108,27 @@ public class FormIRR extends AppCompatActivity {
                                 tv.setText("ID: "+id);
                                 tv= (TextView) v.findViewById(R.id.margem_cardview);
                                 if(new String("0").equals(margem))
-                                tv.setText("Margem: Direita");
+                                    tv.setText("Margem: Direita");
                                 else tv.setText("Margem: Esquerda");
+
+                                c.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Log.e("form","clicou");
+                                        Form_IRR form_irr= new Form_IRR();
+                                        try {
+                                            form_irr.readResponseJson(form_irr_json);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        Intent i;
+                                        i = new Intent(v.getContext(), ViewFormIRR.class);
+                                        i.putExtra("form_irr",form_irr.getRespostas());
+                                        startActivity(i);
+
+
+                                    }
+                                });
 
                                 linearLayout.addView(v);
                             }

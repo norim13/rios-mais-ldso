@@ -49,7 +49,7 @@ public class Login extends AppCompatActivity {
         startActivity(new Intent(this, Register.class));
     }
 
-    public void login_response(final Boolean error, final String error_txt, final String authentication, final String nome, String email) {
+    public void login_response(final Boolean error, final String error_txt, final String authentication, final String nome, final String email) {
 
 
         new Thread()
@@ -79,6 +79,7 @@ public class Login extends AppCompatActivity {
                             SharedPreferences.Editor editor = settings.edit();
                             editor.putString("token",authentication);
                             editor.putString("name",nome);
+                            editor.putString("email",email);
 
                             // Commit the edits!
                             editor.commit();

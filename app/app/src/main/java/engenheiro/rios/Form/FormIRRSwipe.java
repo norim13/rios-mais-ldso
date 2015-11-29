@@ -24,6 +24,7 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import engenheiro.rios.DataBases.DB_functions;
 import engenheiro.rios.GuardaRios;
@@ -57,8 +58,15 @@ public class FormIRRSwipe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_irrswipe);
 
-        this.form= new Form_IRR();
+        this.form = new Form_IRR();
         this.form.generate();
+
+        if(getIntent().getSerializableExtra("form_irr")!= null) {
+            Log.e("form","entrou");
+            this.form.setRespostas((HashMap<Integer, Object>) getIntent().getSerializableExtra("form_irr"));
+        }
+
+
         Log.e("form", "form criado e gerado");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

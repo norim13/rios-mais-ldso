@@ -1,9 +1,5 @@
 package engenheiro.rios.IRR;
 
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-
 import java.util.ArrayList;
 
 /**
@@ -13,76 +9,6 @@ public class Questions {
 
 
     private static ArrayList<Integer[]> valuesIRR;
-
-    public static void getQuestion(int next_question, Intent intent, Context context, ArrayList<Integer[]> values_irr) {
-        String[] options = new String[0];
-        intent.putExtra("question_num", next_question);
-        String main_title = "teste";
-        String sub_title = "teste";
-        Integer value_irr[];
-        value_irr= new Integer[]{};
-
-        boolean required = false;
-        int type = -1;
-        int max = -1;
-        Log.e("question", next_question + "");
-        ArrayList<Object> arrayList;
-
-
-        if (next_question == 3) {
-            intent.setClass(context, IRR_1_3.class);
-            intent.putExtra("question_num", next_question);
-            intent.putExtra("main_title", "Hidrogeomorfologia");
-            intent.putExtra("sub_title", "Perfil de margens");
-            intent.putExtra("required", true);
-            values_irr.add(value_irr);
-            intent.putExtra("values_irr",values_irr);
-            type=3;
-            required= true;
-            options= new String[]{"Vertical escavado",
-                    "Vertical cortado",
-                    "Declive >45%",
-                    "Declive <45%",
-                    "Suave comport <45%",
-                    "Artificial"};
-        } else if (next_question == 9) {
-            intent.setClass(context, IRR_2_1.class);
-            intent.putExtra("question_num", next_question);
-            intent.putExtra("required", true);
-            values_irr.add(value_irr);
-            intent.putExtra("values_irr",values_irr);
-        } else if (next_question == 13) {
-            Log.e("question", "entrou no vertebrado");
-            intent.setClass(context, TabelaMacroinverterbrados.class);
-            intent.putExtra("question_num", next_question);
-            intent.putExtra("required", true);
-            value_irr= new Integer[]{1,4,5,2,5,2,4,3,3,4,3,2,2,3,1,3,1,3,3,2,null,3};
-            values_irr.add(value_irr);
-            intent.putExtra("values_irr",values_irr);
-        } else {
-            arrayList = Questions.getOptions(next_question);
-            main_title = (String) arrayList.get(0);
-            sub_title = (String) arrayList.get(1);
-            type = (int) arrayList.get(2);
-            required = (boolean) arrayList.get(3);
-            options = (String[]) arrayList.get(4);
-            max = (int) arrayList.get(5);
-            value_irr= (Integer[]) arrayList.get(6);
-            values_irr.add(value_irr);
-            intent.putExtra("values_irr",values_irr);
-            intent.putExtra("main_title", main_title);
-            intent.putExtra("sub_title", sub_title);
-            intent.putExtra("type", type);
-            intent.putExtra("required", required);
-            intent.putExtra("options", options);
-            intent.putExtra("max", max);
-
-
-
-        }
-
-
-    }
 
 
     public static ArrayList<Object> getOptions(int next_question){
@@ -201,7 +127,7 @@ public class Questions {
 
             case 9:
                 main_title= "Hidrogeomorfologia";
-                sub_title= "Sedimentação";
+                sub_title= "Qualidade da água";
                 type=2;
                 required= true;
                 options= new String[]{"pH",

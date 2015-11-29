@@ -1,8 +1,11 @@
 package engenheiro.rios.Form.Perguntas;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -27,6 +30,23 @@ public class checkPergunta extends Pergunta {
         this.linearLayout=linearLayout;
         this.context=context;
         this.check_list= Form_functions.createCheckboxes(this.options,this.linearLayout,this.context);
+    }
+
+    @Override
+    public void generateView(LinearLayout linearLayout, Context context) {
+        LinearLayout.LayoutParams radioParams;
+        radioParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        radioParams.setMargins(0, 100, 0, 20);
+        TextView textView=new TextView(context);
+        textView.setText(this.title + " - " + this.subtitle);
+        textView.setTextColor(Color.BLACK);
+        textView.setTextSize(20);
+        textView.setLayoutParams(radioParams);
+        linearLayout.addView(textView);
+        generate(linearLayout, context);
+        for(CheckBox cb:this.check_list)
+            cb.setEnabled(false);
+
     }
 
     @Override

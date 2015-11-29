@@ -28,6 +28,8 @@ public abstract class Pergunta {
     }
 
     public abstract void generate(LinearLayout linearLayout,Context context);          //generates the activity and questions
+    public abstract void generateView(LinearLayout linearLayout,Context context);          //generates the activity and questions
+
     public abstract void getAnswer();         //gets the answers
     public abstract void forceresponse();       //forces the answers
     public abstract void setAnswer();
@@ -43,6 +45,8 @@ public abstract class Pergunta {
     }
 
 
+    public void setAnswer(Object o){
+        this.response=o;
 
-
+    };
 }

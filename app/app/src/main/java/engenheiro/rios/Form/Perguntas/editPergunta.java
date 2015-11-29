@@ -1,11 +1,13 @@
 package engenheiro.rios.Form.Perguntas;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -119,6 +121,23 @@ public class editPergunta extends Pergunta {
 
         }
 
+    }
+
+    @Override
+    public void generateView(LinearLayout linearLayout, Context context) {
+        LinearLayout.LayoutParams radioParams;
+        radioParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        radioParams.setMargins(0, 100, 0, 20);
+        TextView textView=new TextView(context);
+        textView.setText(this.title + " - " + this.subtitle);
+        textView.setTextColor(Color.BLACK);
+        textView.setTextSize(20);
+        textView.setLayoutParams(radioParams);
+        linearLayout.addView(textView);
+
+        generate(linearLayout,context);
+        for(EditText edit: this.edit_list)
+            edit.setEnabled(false);
     }
 
     public editPergunta(String[] options, String title, String subtitle, Boolean obly, Boolean other_option, ArrayList<Float[]> minmax) {

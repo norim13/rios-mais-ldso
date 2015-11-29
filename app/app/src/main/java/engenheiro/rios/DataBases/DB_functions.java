@@ -1229,14 +1229,14 @@ public class DB_functions {
 
     }
 
-    public static void getForms(final String token, final FormIRR formIRR) throws IOException, JSONException {
+    public static void getForms(final String token,final String email, final FormIRR formIRR) throws IOException, JSONException {
 
 
         new Thread(new Runnable() {
             public void run() {
 
 
-                String url = "http://riosmais.herokuapp.com/api/v2/form_irrs?user_email="+"fil.fmiranda@gmail.com"+"&user_token="+token;
+                String url = "http://riosmais.herokuapp.com/api/v2/form_irrs?user_email="+email+"&user_token="+token;
 
                 URL obj = null;
                 try {

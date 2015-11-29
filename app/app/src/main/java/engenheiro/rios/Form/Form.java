@@ -39,6 +39,12 @@ public class Form {
 
     }
 
+    public void setRespostas(HashMap<Integer, Object> respostas) {
+        this.respostas = respostas;
+        for(int i=0;i<32;i++)
+            perguntas.get(i).setAnswer(respostas.get(i+1));
+    }
+
     public void fillAnswers()
     {
         Log.e("Entrou aqui","entrou");

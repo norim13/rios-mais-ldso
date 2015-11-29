@@ -15,7 +15,6 @@ import org.json.JSONException;
 import java.io.IOException;
 
 import engenheiro.rios.DataBases.User;
-import engenheiro.rios.Form.FormIRRSwipe;
 
 public class Homepage extends AppCompatActivity{
 
@@ -62,10 +61,10 @@ public class Homepage extends AppCompatActivity{
     }
 
     public void fomr_irr(View view) throws IOException, JSONException {
-        startActivity(new Intent(this, FormIRRSwipe.class));
+        startActivity(new Intent(this, FormIRR.class));
         /*
         HashMap<Integer,Object> answers2=new HashMap<Integer,Object>();
-        Intent i=new Intent(this, IRR_question.class);
+        Intent i=new Intent(this, R_question.class);
         i.putExtra("main_title","Hidrogeomorfologia");
         i.putExtra("sub_title", "Tipo de Vale");
         ArrayList<ArrayList<Object>> al= new ArrayList<>();
