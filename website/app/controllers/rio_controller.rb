@@ -19,7 +19,7 @@ class RioController < ApplicationController
 
       @imgs = []
       @form_irrs.each do |f|
-        f.images.each do |img|
+        f.form_irr_images.each do |img|
           @imgs.push(img)
         end
       end
