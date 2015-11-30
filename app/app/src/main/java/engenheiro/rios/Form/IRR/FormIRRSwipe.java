@@ -22,14 +22,15 @@ import android.widget.ProgressBar;
 
 import org.json.JSONException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import engenheiro.rios.Autenticacao.Login;
 import engenheiro.rios.DataBases.DB_functions;
 import engenheiro.rios.MainActivities.GuardaRios;
 import engenheiro.rios.MainActivities.Homepage;
-import engenheiro.rios.Autenticacao.Login;
 import engenheiro.rios.R;
 
 /*
@@ -69,8 +70,28 @@ public class FormIRRSwipe extends AppCompatActivity {
             novo = false;
         }
 
+        Log.e("form", this.form.toString());
 
-        Log.e("form", "form criado e gerado");
+        Form_IRR.saveHighscores(this.form,this.getApplicationContext());
+
+        this.form=null;
+
+        this.form=Form_IRR.loadHighscores(this);
+
+
+        Log.e("teste",this.form.toString());
+
+        File file = new File("form.dat");
+        if(file.exists())
+            Log.e("form","existe");
+        else
+            Log.e("form","nao existe");
+
+// Do something else.
+
+        Log.e("form",this.form.toString());
+        Log.e("form", "teste" + this.form.getTeste());
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Novo Form");

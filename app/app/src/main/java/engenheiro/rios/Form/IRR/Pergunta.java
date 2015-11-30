@@ -4,11 +4,14 @@ import android.content.Context;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import java.io.Serializable;
+
 /**
  * Created by filipe on 24/11/2015.
  */
-public abstract class Pergunta {
+public abstract class Pergunta implements Serializable {
 
+    private static final long serialVersionUID = -1519284721455962759L;
     protected String[] options;                     //opcoes de resposta
     protected String title;
     protected String subtitle;

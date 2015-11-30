@@ -66,6 +66,7 @@ public class Sos_rios extends AppCompatActivity {
         tv1.setLayoutParams(radioParams);
         ll.addView(tv1);
         linearLayout.addView(ll);
+
         String[] options= { "Erosão",
         "Poluição",
         "Acidente",

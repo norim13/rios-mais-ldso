@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import engenheiro.rios.Form.IRR.Pergunta;
@@ -15,8 +16,9 @@ import engenheiro.rios.Form.Form_functions;
 /**
  * Created by filipe on 24/11/2015.
  */
-public class seekPergunta extends Pergunta {
+public class seekPergunta extends Pergunta implements Serializable {
 
+    private static final long serialVersionUID = -531160956609753528L;
     int min;
     int max;
     protected ArrayList<SeekBar> seekList;
