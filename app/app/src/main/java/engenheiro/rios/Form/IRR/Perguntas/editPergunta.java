@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import engenheiro.rios.Form.IRR.Pergunta;
@@ -18,8 +19,9 @@ import engenheiro.rios.Form.Form_functions;
 /**
  * Created by filipe on 24/11/2015.
  */
-public class editPergunta extends Pergunta {
+public class editPergunta extends Pergunta implements Serializable {
 
+    private static final long serialVersionUID = -6544844231796807804L;
     ArrayList<Float[]> minmax;
     ArrayList<EditText> edit_list;
     Boolean range;

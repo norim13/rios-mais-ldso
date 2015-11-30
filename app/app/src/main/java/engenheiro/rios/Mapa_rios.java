@@ -31,6 +31,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import engenheiro.rios.Autenticacao.Login;
+import engenheiro.rios.Form.IRR.FormIRRSwipe;
 import engenheiro.rios.MainActivities.GuardaRios;
 
 public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -41,6 +42,7 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
     TextView tvLatlong;
     Marker current_loc;
     Marker select_loc;
+    Integer type;
 
 
     private boolean isPotentialLongPress;
@@ -48,6 +50,9 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(this.getIntent().getSerializableExtra("type")!=null)
+            type= (Integer) this.getIntent().getSerializableExtra("type");
         setContentView(R.layout.activity_mapa_rios);
         mLastLocation = null;
         mGoogleApiClient = null;
@@ -261,6 +266,21 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
 
 
 
+    public void goto_next(View view)  {
+        //startActivity(new Intent(this, TesteChart.class));
+        Intent i= new Intent(this, FormIRRSwipe.class);
+        if(type==null)
+            return;
+
+        i.putExtra("latlan_current",current_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
+        i.putExtra("latlan_picked",select_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
+        startActivity(new Intent(this, FormIRRSwipe.class));
+
+    }
+
+
+
+
     //menu action bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -276,6 +296,8 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
             startActivity(new Intent(this,Login.class));
         return super.onOptionsItemSelected(item);
     }
+
+
 
 
 

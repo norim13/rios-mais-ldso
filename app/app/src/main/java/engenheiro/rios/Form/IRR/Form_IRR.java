@@ -1,10 +1,20 @@
 package engenheiro.rios.Form.IRR;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,8 +27,25 @@ import engenheiro.rios.Form.IRR.Perguntas.seekPergunta;
 /**
  * Created by filipe on 25/11/2015.
  */
-public class Form_IRR extends Form {
+public class Form_IRR extends Form implements Serializable {
 
+    private static final long serialVersionUID = 1782494883305838971L;
+
+    Float lat_curr,lon_curr;
+    Float lat_sel,lon_sel;
+
+
+    @Override
+    public String toString() {
+        String s="";
+        s+="Perguntas:";
+        if(this.perguntas==null)
+            return s;
+        for(Pergunta p: this.perguntas)
+            s+=" "+p.getOptions()[0].toString()+",";
+        s+="\n";
+        return s;
+    }
 
     public void generate(){
         this.perguntas= new ArrayList<Pergunta>();
@@ -410,5 +437,148 @@ public class Form_IRR extends Form {
 
     }
 
+    public  static  byte[] serialize(Object obj) throws IOException {
+        ByteArrayOutputStream b= new ByteArrayOutputStream();
+        ObjectOutputStream o = new ObjectOutputStream(b);
+        o.writeObject(o);
+        return b.toByteArray();
+    }
+
+    public static Object deserialize (byte[] bytes) throws IOException, ClassNotFoundException {
+        ByteArrayInputStream b = new ByteArrayInputStream(bytes);
+        ObjectInputStream o= new ObjectInputStream(b);
+        return o.readObject();
+    }
+
+
+    public static void saveHeroi(Form_IRR form_irr, Context context) throws IOException {
+        //FileOutputStream fos = null;
+
+        File file = new File(context.getFilesDir(), "form.dat");
+        ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
+        //Select where you wish to save the file...
+        os.writeObject(form_irr);
+        // write the class as an 'object'
+        os.flush();
+        // flush the stream to insure all of the information was written to 'save_object.bin'
+        os.close();
+
+
+
+        /*
+        try {
+            fos = context.openFileOutput("form.dat", Context.MODE_PRIVATE);
+        } catch (FileNotFoundException e1) {
+            Log.e("save", "FileNotFoundException");
+            e1.printStackTrace();
+        }
+        ObjectOutputStream os = null;
+        try{
+            os = new ObjectOutputStream (fos);
+
+        }
+        catch (IOException e){
+            Log.e("save", "IOException while new ObjectOutputStream");
+            e.printStackTrace();
+        }
+
+        try {
+            os.writeObject(form_irr);
+        } catch (IOException e) {
+            Log.e("save", "IOException while os.writeObject");
+            e.printStackTrace();
+        }
+
+        finally{
+            if (os != null)
+                try{
+                    os.close();
+                }
+                catch (IOException e){
+                    Log.e("save", "IOException while writing (closing file)");
+                }
+        }
+        */
+        Log.e("save", "deve tger guardado o heroi");
+    }
+
+    public static Form_IRR loadHeroi(Context context) throws IOException, ClassNotFoundException {
+        File file = new File(context.getFilesDir(), "form.dat");
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+        Form_IRR o = (Form_IRR) ois.readObject();
+        return o;
+
+        /*
+        FileInputStream fis = null;
+
+        try {
+            fis = context.openFileInput("form.dat");
+        } catch (FileNotFoundException e1) {
+            Log.e("load", "FileNotFoundException");
+            e1.printStackTrace();
+            return null;
+        }
+        ObjectInputStream is = null;
+        Form_IRR heroi = null;
+        try {
+            is = new ObjectInputStream(fis);
+            heroi = (Form_IRR) is.readObject();
+        }
+        catch (ClassNotFoundException c){
+            Log.e("load", "ClassNotFoundException");
+            return null;
+        }
+        catch (IOException e) {
+            Log.e("load", "IOException");
+            e.printStackTrace();
+            return null;
+        }
+        finally {
+            if (is != null){
+                try {
+                    is.close();
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+                }
+                return heroi;
+            }
+        }
+        return null;*/
+    }
+
+
+
+    public static Form_IRR loadHighscores(Context c) {
+        File file = c.getFileStreamPath("form.dat");
+        Form_IRR form_irr = null;
+
+        if (!file.exists()) {
+        }
+
+        try {
+            FileInputStream fis = c.openFileInput("form.dat");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            form_irr = (Form_IRR) ois.readObject();
+            ois.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return form_irr;
+    }
+
+
+
+    public static void saveHighscores(Form_IRR form_irr, Context c) {
+        try {
+            FileOutputStream fos = c.openFileOutput("form.dat",
+                    c.MODE_WORLD_READABLE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(form_irr);
+            oos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

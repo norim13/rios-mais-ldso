@@ -2,11 +2,11 @@ package engenheiro.rios.Form.IRR.Perguntas;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import engenheiro.rios.Form.IRR.Pergunta;
@@ -14,8 +14,9 @@ import engenheiro.rios.Form.IRR.Pergunta;
 /**
  * Created by filipe on 27/11/2015.
  */
-public class complexPergunta extends Pergunta {
+public class complexPergunta extends Pergunta implements Serializable {
 
+    private static final long serialVersionUID = 1902853229771784321L;
     ArrayList<Pergunta> perguntas;
 
     /**
@@ -72,14 +73,7 @@ public class complexPergunta extends Pergunta {
         stringArray=single_options.toArray(stringArray);
         this.perguntas.add(new checkPergunta(stringArray, "", single_subtitle, this.obly, single_other_option));
 
-        Log.e("formirr", "size:" + this.perguntas.size());
-        for(Pergunta p :this.perguntas)
-        {
-            String s="";
-            for(String op : p.getOptions())
-                s+=op+" ";
-            Log.e("formirr",s);
-        }
+
     }
 
     @Override
