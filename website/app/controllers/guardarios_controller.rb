@@ -1,11 +1,17 @@
 class GuardariosController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, only: [:new, :destroy, :getMine]
   before_action :set_guardario, only: [:show, :destroy]
 
   # GET /guardarios
   # GET /guardarios.json
+  # display last
   def index
+    @guardarios_img = GuardarioImage.last(9)
+  end
+
+  def getMine
     @guardarios = current_user.guardarios
+    render 'myguardarios'
   end
 
   # GET /guardarios/1

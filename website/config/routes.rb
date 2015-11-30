@@ -11,10 +11,12 @@ Rails.application.routes.draw do
   get 'limpeza' => 'limpeza#show'
   get 'respostas' => 'limpeza#getRespostas'
   post 'submitProblemasAction' => 'limpeza#submitProblemas'
+  get 'reabilitacao/info' => 'reabilitacaos#info'
 
   resources :form_irr_image
-
+  resources :reabilitacaos
   resources :guardarios, only: [:index, :show, :new, :create, :destroy]
+  get 'meusguardarios' => 'guardarios#getMine'
   resources :reports, only: [:index, :show, :new, :create, :destroy]
   resources :form_irrs
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,0 +1,33 @@
+<%= render 'common/header' %>
+
+</head>
+<body>
+<%= render 'common/navbar' %>
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <h1> Lista de avistamentos guarda-rios <%= link_to "Novo avistamento", new_guardario_path, class: "btn btn-primary" %></h1>
+
+  <div class="table-responsive">
+    <table class="table">
+      <tr>
+        <th>Código rio</th>
+        <th>Data de criação</th>
+        <th>Mostrar</th>
+        <th>Apagar</th>
+      </tr>
+
+      <% @guardarios.each do |guardario| %>
+          <tr>
+            <td><%= guardario.rio %></td>
+            <td><%= guardario.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
+            <td><%= link_to 'Mostrar', guardario %></td>
+            <td><%= link_to 'Apagar', guardario, method: :delete, data: {confirm: 'Tem a certeza que pretende apagar?'} %></td>
+          </tr>
+      <% end %>
+    </table>
+  </div>
+
+</div>
+
+<%= render 'common/footer' %>
