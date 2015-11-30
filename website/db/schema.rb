@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151130004359) do
+ActiveRecord::Schema.define(version: 20151130013058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -329,9 +329,35 @@ ActiveRecord::Schema.define(version: 20151130004359) do
   add_index "log_limpezas", ["user_id"], name: "index_log_limpezas_on_user_id", using: :btree
 
   create_table "reabilitacaos", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.boolean  "definicao"
+    t.boolean  "diagnostico"
+    t.boolean  "prioritizacao"
+    t.boolean  "objectivos"
+    t.boolean  "solucoes"
+    t.boolean  "elaboracao"
+    t.boolean  "implementacao"
+    t.boolean  "monitorizacao"
+    t.boolean  "avaliacao"
+    t.boolean  "correcao"
+    t.boolean  "ppublica"
+    t.boolean  "parcerias"
+    t.boolean  "legislacao"
+    t.boolean  "lei_agua"
+    t.boolean  "directiva_agua"
+    t.boolean  "directiva_inundacoes"
+    t.boolean  "custo"
+    t.json     "cronograma"
+    t.boolean  "formacao"
+    t.boolean  "emergencia"
+    t.boolean  "reabilitacao"
+    t.boolean  "revisao"
+    t.integer  "user_id"
+    t.string   "rio"
   end
+
+  add_index "reabilitacaos", ["user_id"], name: "index_reabilitacaos_on_user_id", using: :btree
 
   create_table "report_images", force: :cascade do |t|
     t.string   "image"
@@ -388,6 +414,7 @@ ActiveRecord::Schema.define(version: 20151130004359) do
   add_foreign_key "form_irrs", "users"
   add_foreign_key "guardario_images", "guardarios"
   add_foreign_key "log_limpezas", "users"
+  add_foreign_key "reabilitacaos", "users"
   add_foreign_key "report_images", "reports"
   add_foreign_key "reports", "users"
 end

@@ -62,7 +62,9 @@ public class Homepage extends AppCompatActivity{
         startActivity(new Intent(this, Form_IRR_mainActivity.class));
     }
 
-
+    public void limpeza(View view){
+        startActivity(new Intent(this, Limpeza.class));
+    }
 
     public void about(View view)  {
         //startActivity(new Intent(this, TesteChart.class));
