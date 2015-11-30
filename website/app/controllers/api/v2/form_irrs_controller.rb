@@ -8,6 +8,7 @@ class Api::V2::FormIrrsController < ApplicationController
 
     @form_irr = FormIrr.new(form_irr_params)
     @form_irr.user_id = user.id
+    @form_irr.edit_user_id = user.id
 
     if @form_irr.save
       render :json => '{"success" : "true"}'
@@ -17,7 +18,11 @@ class Api::V2::FormIrrsController < ApplicationController
   end
 
   def update
+    user_email = params[:user_email].presence
+    user       = user_email && User.find_by_email(user_email)
+
     form_irr = FormIrr.find(params[:id])
+    @form_irr.edit_user_id = user.id
 
     if form_irr.update(form_irr_params)
       if params[:images]
