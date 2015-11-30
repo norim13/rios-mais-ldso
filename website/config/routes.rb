@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'respostas' => 'limpeza#getRespostas'
   post 'submitProblemasAction' => 'limpeza#submitProblemas'
   get 'reabilitacao/info' => 'reabilitacaos#info'
+  get 'form_irr/info' => 'form_irrs#info'
 
   resources :form_irr_image
   resources :reabilitacaos

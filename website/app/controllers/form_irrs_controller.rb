@@ -1,5 +1,9 @@
 class FormIrrsController < ApplicationController
-	before_filter :authenticate_user!
+	before_filter :authenticate_user!, :except => [:info]
+
+	def info
+		render 'info'
+	end
 
 	def index
 		@form_irrs = current_user.form_irrs
