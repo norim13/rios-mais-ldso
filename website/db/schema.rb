@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151126115922) do
+ActiveRecord::Schema.define(version: 20151130004359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,6 +261,7 @@ ActiveRecord::Schema.define(version: 20151126115922) do
     t.float    "lat"
     t.float    "lon"
     t.string   "nomeRio"
+    t.integer  "edit_user_id"
   end
 
   add_index "form_irrs", ["user_id"], name: "index_form_irrs_on_user_id", using: :btree
@@ -326,6 +327,11 @@ ActiveRecord::Schema.define(version: 20151126115922) do
   end
 
   add_index "log_limpezas", ["user_id"], name: "index_log_limpezas_on_user_id", using: :btree
+
+  create_table "reabilitacaos", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "report_images", force: :cascade do |t|
     t.string   "image"

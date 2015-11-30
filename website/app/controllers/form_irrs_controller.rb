@@ -38,6 +38,7 @@ class FormIrrsController < ApplicationController
 	def create
 		@form_irr = FormIrr.new(form_irr_params)
 		@form_irr.user_id = current_user.id
+		@form_irr.edit_user_id = current_user.id
 
 		if @form_irr.save
 			if params[:images]
@@ -54,6 +55,7 @@ class FormIrrsController < ApplicationController
 
 	def update
 		@form_irr = FormIrr.find(params[:id])
+		@form_irr.edit_user_id = current_user.id
 
 		if @form_irr.update(form_irr_params)
 			if params[:images]
