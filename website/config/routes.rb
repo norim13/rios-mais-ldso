@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :form_irr_image
   resources :reabilitacaos
   resources :guardarios, only: [:index, :show, :new, :create, :destroy]
+  get 'meusguardarios' => 'guardarios#getMine'
   resources :reports, only: [:index, :show, :new, :create, :destroy]
   resources :form_irrs
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,5 +1,6 @@
 LDSO
 	- acabar os webservices
+		- DEIXARAM DE FUNCIONAR => "cant verify csrf authenticity"
 	- permissoes
 	- dar fix aos forms do fil
 		- por labels nos forms do fil
