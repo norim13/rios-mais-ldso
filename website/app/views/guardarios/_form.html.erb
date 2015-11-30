@@ -128,6 +128,7 @@
       <hr>
 
       <div class="form-group container">
+        <div id="img-filenames"></div>
         <div id="guarda-rios-imgs">
           <button id="btn-add-img-guardarios" class="btn btn-primary" type="button"> Adicionar imagens </button>
           <%= file_field_tag "images[]", type: :file, multiple: true, accept: 'image/png,image/gif,image/jpeg', style: 'display:none', id: "guardarios-img-input" %>

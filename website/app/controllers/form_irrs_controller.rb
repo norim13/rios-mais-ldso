@@ -8,6 +8,7 @@ class FormIrrsController < ApplicationController
 	def new
 		@form_irr = FormIrr.new
 		@is_show = ''
+		@is_edit = false
 	end
 
 	def show
@@ -18,6 +19,7 @@ class FormIrrsController < ApplicationController
 			render 'noaccess'
 		else
 			@is_show = 'form-disabled'
+			@is_edit = false
 		end
 	end
 
@@ -29,6 +31,7 @@ class FormIrrsController < ApplicationController
 			render 'noaccess'
 		else
 			@is_show = ''
+			@is_edit = true
 		end
 	end
 
