@@ -6,11 +6,11 @@ class Api::V2::FormIrrsController < ApplicationController
     user_email = params[:user_email].presence
     user       = user_email && User.find_by_email(user_email)
 
-    @form_irr = FormIrr.new(form_irr_params)
-    @form_irr.user_id = user.id
-    @form_irr.edit_user_id = user.id
+    form_irr = FormIrr.new(form_irr_params)
+    form_irr.user_id = user.id
+    form_irr.edit_user_id = user.id
 
-    if @form_irr.save
+    if form_irr.save
       render :json => '{"success" : "true"}'
     else
       render :json => '{"success" : "false", "error" : "problem saving form"}'
@@ -22,15 +22,9 @@ class Api::V2::FormIrrsController < ApplicationController
     user       = user_email && User.find_by_email(user_email)
 
     form_irr = FormIrr.find(params[:id])
-    @form_irr.edit_user_id = user.id
+    form_irr.edit_user_id = user.id
 
     if form_irr.update(form_irr_params)
-      if params[:images]
-        params[:images].each { |image|
-          FormIrrImage.create(image: image, form_irr_id: @form_irr.id)
-        }
-      end
-
       render :json => '{"success" : "true"}'
     else
       render :json => '{"success" : "false", "error" : "problem updating form"}'
