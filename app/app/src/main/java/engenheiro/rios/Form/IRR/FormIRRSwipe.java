@@ -1,4 +1,4 @@
-package engenheiro.rios.Form;
+package engenheiro.rios.Form.IRR;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,11 +27,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import engenheiro.rios.DataBases.DB_functions;
-import engenheiro.rios.GuardaRios;
-import engenheiro.rios.Homepage;
-import engenheiro.rios.Login;
+import engenheiro.rios.MainActivities.GuardaRios;
+import engenheiro.rios.MainActivities.Homepage;
+import engenheiro.rios.Autenticacao.Login;
 import engenheiro.rios.R;
 
+/*
+Class para mostrar um formulario irr (novo ou editar)
+ */
 public class FormIRRSwipe extends AppCompatActivity {
 
     /**
@@ -44,9 +47,7 @@ public class FormIRRSwipe extends AppCompatActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private Form_IRR form;
-
-
-
+    private Boolean novo;                               //se true é um novo formulairo, se é falso, é um edit
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -58,12 +59,14 @@ public class FormIRRSwipe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_irrswipe);
 
+        novo = true;
+        //criar um Form IRR e verificar se ha respostas anteriores
         this.form = new Form_IRR();
         this.form.generate();
-
-        if(getIntent().getSerializableExtra("form_irr")!= null) {
-            Log.e("form","entrou");
+        //ha respostas, logo é um edit
+        if (getIntent().getSerializableExtra("form_irr") != null) {
             this.form.setRespostas((HashMap<Integer, Object>) getIntent().getSerializableExtra("form_irr"));
+            novo = false;
         }
 
 
@@ -75,13 +78,14 @@ public class FormIRRSwipe extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),this.form);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this.form);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
+        //se clicar no ok
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,10 +94,14 @@ public class FormIRRSwipe extends AppCompatActivity {
                         .setAction("Action", null).show();
                 form.fillAnswers();
                 SharedPreferences settings = getSharedPreferences(Homepage.PREFS_NAME, 0);
-                String token=settings.getString("token", "-1");
+                String token = settings.getString("token", "-1");
+                String email = settings.getString("email", "-1");
                 Log.e("form", "entrar na DB");
                 try {
-                    DB_functions.saveForm2(token, form);
+                    if (novo)
+                        DB_functions.saveForm(token, email, form);
+                    else
+                        DB_functions.update(token, email, form);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
@@ -104,9 +112,6 @@ public class FormIRRSwipe extends AppCompatActivity {
         });
 
     }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -119,14 +124,12 @@ public class FormIRRSwipe extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id==R.id.navigate_guardarios)
-            startActivity(new Intent(this,GuardaRios.class));
-        if(id==R.id.navigate_account)
-            startActivity(new Intent(this,Login.class));
+        if (id == R.id.navigate_guardarios)
+            startActivity(new Intent(this, GuardaRios.class));
+        if (id == R.id.navigate_account)
+            startActivity(new Intent(this, Login.class));
         return super.onOptionsItemSelected(item);
     }
-
-
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -139,9 +142,9 @@ public class FormIRRSwipe extends AppCompatActivity {
 
         public SectionsPagerAdapter(FragmentManager fm, Form_IRR form) {
             super(fm);
-            this.form=form;
-            progessbar= (ProgressBar) findViewById(R.id.progressBar2);
-            Log.e("form","novo SectionsPageAdapter");
+            this.form = form;
+            progessbar = (ProgressBar) findViewById(R.id.progressBar2);
+            Log.e("form", "novo SectionsPageAdapter");
         }
 
         @Override
@@ -150,18 +153,18 @@ public class FormIRRSwipe extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             Log.e("form", "getItem no Sections");
 
-            return PlaceholderFragment.newInstance(position,form, progessbar);
+            return PlaceholderFragment.newInstance(position, form, progessbar);
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return  33;
+            return 33;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            ArrayList<Object> options=null;
+            ArrayList<Object> options = null;
             switch (position) {
                 case 0:
                     return "SECTION 1";
@@ -192,7 +195,7 @@ public class FormIRRSwipe extends AppCompatActivity {
          */
         public static PlaceholderFragment newInstance(int sectionNumber, Form_IRR form, ProgressBar progessbar) {
 
-                    PlaceholderFragment fragment = new PlaceholderFragment(form,progessbar);
+            PlaceholderFragment fragment = new PlaceholderFragment(form, progessbar);
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
@@ -201,21 +204,21 @@ public class FormIRRSwipe extends AppCompatActivity {
         }
 
         public PlaceholderFragment(Form_IRR form, ProgressBar progessbar) {
-            this.form=form;
-            this.progessbar=progessbar;
+            this.form = form;
+            this.progessbar = progessbar;
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_form_irrswipe, container, false);
-            LinearLayout linearLayout= (LinearLayout) rootView.findViewById(R.id.irr_linear);
+            LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.irr_linear);
 
 
-            int number= getArguments().getInt(ARG_SECTION_NUMBER);
+            int number = getArguments().getInt(ARG_SECTION_NUMBER);
             progessbar.setProgress(number);
 
-            this.form.getPerguntas().get(number).generate(linearLayout,this.getContext());
+            this.form.getPerguntas().get(number).generate(linearLayout, this.getContext());
             this.form.getPerguntas().get(number).setAnswer();
 
             return rootView;

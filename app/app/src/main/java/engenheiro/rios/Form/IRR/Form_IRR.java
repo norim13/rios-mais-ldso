@@ -1,4 +1,4 @@
-package engenheiro.rios.Form;
+package engenheiro.rios.Form.IRR;
 
 import android.util.Log;
 
@@ -8,12 +8,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import engenheiro.rios.Form.Perguntas.checkPergunta;
-import engenheiro.rios.Form.Perguntas.complexPergunta;
-import engenheiro.rios.Form.Perguntas.editPergunta;
-import engenheiro.rios.Form.Perguntas.radioPergunta;
-import engenheiro.rios.Form.Perguntas.seekPergunta;
-import engenheiro.rios.IRR.Questions;
+import engenheiro.rios.Form.IRR.Perguntas.checkPergunta;
+import engenheiro.rios.Form.IRR.Perguntas.complexPergunta;
+import engenheiro.rios.Form.IRR.Perguntas.editPergunta;
+import engenheiro.rios.Form.IRR.Perguntas.radioPergunta;
+import engenheiro.rios.Form.IRR.Perguntas.seekPergunta;
 
 /**
  * Created by filipe on 25/11/2015.

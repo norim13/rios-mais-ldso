@@ -1,4 +1,4 @@
-package engenheiro.rios;
+package engenheiro.rios.MainActivities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,12 +22,17 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import engenheiro.rios.Autenticacao.Login;
 import engenheiro.rios.DataBases.DB_functions;
-import engenheiro.rios.Form.FormIRRSwipe;
-import engenheiro.rios.Form.Form_IRR;
-import engenheiro.rios.Form.ViewFormIRR;
+import engenheiro.rios.Form.IRR.FormIRRSwipe;
+import engenheiro.rios.Form.IRR.Form_IRR;
+import engenheiro.rios.Form.IRR.ViewFormIRR;
+import engenheiro.rios.R;
 
-public class FormIRR extends AppCompatActivity {
+/*
+Mostra os formulários de um user
+ */
+public class Form_IRR_mainActivity extends AppCompatActivity {
 
     LinearLayout linearLayout;
     CardView cardView;
@@ -46,11 +51,13 @@ public class FormIRR extends AppCompatActivity {
         progressBar= (ProgressBar) findViewById(R.id.progressBar);
 
 
+        //vai buscar o token e email da sessão
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         SharedPreferences settings = getSharedPreferences(Homepage.PREFS_NAME, 0);
         String token=settings.getString("token", "-1");
         String email=settings.getString("email", "-1");
 
+        //vai buscar os forms de um user
         try {
             DB_functions.getForms(token,email,this);
         } catch (IOException e) {
@@ -64,6 +71,9 @@ public class FormIRR extends AppCompatActivity {
     }
 
 
+    /*
+    se clicar no botão "+"
+     */
     public void new_form(View view){
 
         Intent i =new Intent(this, FormIRRSwipe.class);
@@ -74,12 +84,15 @@ public class FormIRR extends AppCompatActivity {
         this.startActivity(i);
     }
 
+    /*
+    desenha uma caixa com a informação de um formulário
+     */
     public void formsFromUser(final String s) {
         new Thread()
         {
             public void run()
             {
-                FormIRR.this.runOnUiThread(new Runnable()
+                Form_IRR_mainActivity.this.runOnUiThread(new Runnable()
                 {
                     public void run() {
                         try {
@@ -145,6 +158,7 @@ public class FormIRR extends AppCompatActivity {
 
 
     }
+
 
 
     //menu action bar

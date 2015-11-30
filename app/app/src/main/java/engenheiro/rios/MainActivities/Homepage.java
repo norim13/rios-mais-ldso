@@ -1,4 +1,4 @@
-package engenheiro.rios;
+package engenheiro.rios.MainActivities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,7 +14,11 @@ import org.json.JSONException;
 
 import java.io.IOException;
 
+import engenheiro.rios.Autenticacao.Login;
 import engenheiro.rios.DataBases.User;
+import engenheiro.rios.Form.Sos_rios;
+import engenheiro.rios.Mapa_rios;
+import engenheiro.rios.R;
 
 public class Homepage extends AppCompatActivity{
 
@@ -42,12 +46,6 @@ public class Homepage extends AppCompatActivity{
 
     User current_user;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_homepage, menu);
-        return true;
-    }
 
     public void mapas_init(View view){
         startActivity(new Intent(this, Mapa_rios.class));
@@ -61,22 +59,7 @@ public class Homepage extends AppCompatActivity{
     }
 
     public void fomr_irr(View view) throws IOException, JSONException {
-        startActivity(new Intent(this, FormIRR.class));
-        /*
-        HashMap<Integer,Object> answers2=new HashMap<Integer,Object>();
-        Intent i=new Intent(this, R_question.class);
-        i.putExtra("main_title","Hidrogeomorfologia");
-        i.putExtra("sub_title", "Tipo de Vale");
-        ArrayList<ArrayList<Object>> al= new ArrayList<>();
-        i.putExtra("answers",al);
-        i.putExtra("answers2",answers2);
-        i.putExtra("type",0);
-        i.putExtra("required", true);
-        String[] options={"1","2","3","4","5","6","7"};
-        i.putExtra("options",options);
-        i.putExtra("question_num", 1);
-        startActivity(i);
-        */
+        startActivity(new Intent(this, Form_IRR_mainActivity.class));
     }
 
 
@@ -90,32 +73,24 @@ public class Homepage extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        /*
-        if (id == R.id.action_settings) {
-            return true;
-        }
-*/
-
-
-        if(id==R.id.navigate_guardarios){
+        if(id==R.id.navigate_guardarios)
             startActivity(new Intent(this,GuardaRios.class));
-        }
 
-        if(id==R.id.navigate_account){
+        if(id==R.id.navigate_account)
             startActivity(new Intent(this,Login.class));
-
-        }
-
 
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_homepage, menu);
+        return true;
+    }
 
 
 

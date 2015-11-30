@@ -1,4 +1,4 @@
-package engenheiro.rios;
+package engenheiro.rios.MainActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import engenheiro.rios.Autenticacao.Login;
+import engenheiro.rios.PlaceHolder_AboutDocs;
+import engenheiro.rios.R;
 
 public class Information extends AppCompatActivity {
 

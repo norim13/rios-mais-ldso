@@ -1,4 +1,4 @@
-package engenheiro.rios.Form;
+package engenheiro.rios.Form.IRR;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,9 @@ import java.util.HashMap;
 
 import engenheiro.rios.R;
 
+/*
+View para mostrar um form irr já preenchido
+ */
 public class ViewFormIRR extends AppCompatActivity {
 
     LinearLayout linearLayout;
@@ -56,6 +59,9 @@ public class ViewFormIRR extends AppCompatActivity {
 
 
 
+    /*
+    se clicar no botão de edit, inicia um FormIRRSwipe para editar o formulário
+     */
     public void edit_form(View view){
         Intent i;
         i = new Intent(this, FormIRRSwipe.class);

@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import engenheiro.rios.Homepage;
+import engenheiro.rios.MainActivities.Homepage;
 
 /**
  * Created by filipe on 26/10/2015.

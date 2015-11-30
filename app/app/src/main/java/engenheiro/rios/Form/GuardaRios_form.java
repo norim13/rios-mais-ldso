@@ -1,4 +1,4 @@
-package engenheiro.rios;
+package engenheiro.rios.Form;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -35,9 +35,12 @@ import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
 
+import engenheiro.rios.Autenticacao.Login;
 import engenheiro.rios.DataBases.DB_functions;
 import engenheiro.rios.DataBases.User;
-import engenheiro.rios.IRR.Form_functions;
+import engenheiro.rios.MainActivities.GuardaRios;
+import engenheiro.rios.MapFfrag;
+import engenheiro.rios.R;
 
 public class GuardaRios_form extends AppCompatActivity {
 

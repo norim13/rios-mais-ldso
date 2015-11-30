@@ -1,4 +1,4 @@
-package engenheiro.rios.IRR;
+package engenheiro.rios.Form;
 
 import android.content.Context;
 import android.text.InputType;
@@ -18,9 +18,11 @@ import java.util.Collections;
 
 /**
  * Created by filipe on 04/11/2015.
+ * Class para guardar todas as funcoes relativas a criar e ler um formulário
  */
 public class Form_functions {
 
+    //CREATE
 
     public static ArrayList<CheckBox> createCheckboxes(String[] array, LinearLayout linearLayout, Context context){
         ArrayList<CheckBox> list = new ArrayList<CheckBox>();
@@ -146,10 +148,7 @@ public class Form_functions {
 
 
 
-
-
-
-
+    //READ
 
     public static int getRadioButtonOption(ArrayList<RadioButton> arrayList){
         for (int i=0;i<arrayList.size();i++){
@@ -200,6 +199,8 @@ public class Form_functions {
     }
 
 
+
+    //CALCULAR IRR
 
     public static int getmax(ArrayList<Integer> arrayList_questions, Integer[] values_irr ){
         ArrayList<Integer> final_options = new ArrayList<Integer>();

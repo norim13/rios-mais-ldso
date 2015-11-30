@@ -1,4 +1,4 @@
-package engenheiro.rios;
+package engenheiro.rios.Autenticacao;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +21,9 @@ import java.io.IOException;
 
 import engenheiro.rios.DataBases.DB_functions;
 import engenheiro.rios.DataBases.User;
+import engenheiro.rios.MainActivities.GuardaRios;
+import engenheiro.rios.MainActivities.Homepage;
+import engenheiro.rios.R;
 
 public class Register extends AppCompatActivity {
 

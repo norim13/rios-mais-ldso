@@ -1,4 +1,4 @@
-package engenheiro.rios.IRR;
+package engenheiro.rios.Form.IRR;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,11 @@ public class Questions {
     private static ArrayList<Integer[]> valuesIRR;
 
 
+    /**
+     * Retorna a informação de uma pergunta
+     * @param next_question
+     * @return ArrayList<Object> =main_title,sub_title,type,required,options,max,value_irr,maxmin;
+     */
     public static ArrayList<Object> getOptions(int next_question){
         ArrayList<Object> response = new ArrayList<Object>() ;
         String main_title="teste";
@@ -240,8 +245,7 @@ public class Questions {
                         "Esporões",
                         "Pardões",
                         "Paredões",
-                        "Técnicas de Engenharia Natural",
-                        "Outras"};
+                        "Técnicas de Engenharia Natural"};
                 value_irr= new Integer[]{2,2,2,1,1,4,5,3,5,5,4,3,1,3};
 
                 break;
@@ -604,6 +608,11 @@ public class Questions {
 
     }
 
+
+    /**
+     * retorna um arraylist com todos os valores de cada questão no form IRR
+     * @return
+     */
     public static ArrayList<Integer[]> getValuesIRR() {
         ArrayList<Integer[]> valuesIRR = new ArrayList<Integer[]>();
         Integer[] iii = new Integer[0];

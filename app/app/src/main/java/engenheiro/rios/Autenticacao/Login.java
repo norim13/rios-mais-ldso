@@ -1,4 +1,4 @@
-package engenheiro.rios;
+package engenheiro.rios.Autenticacao;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,8 +16,10 @@ import org.json.JSONException;
 import java.io.IOException;
 
 import engenheiro.rios.DataBases.DB_functions;
+import engenheiro.rios.MainActivities.Homepage;
+import engenheiro.rios.R;
 
-import static engenheiro.rios.Homepage.PREFS_NAME;
+import static engenheiro.rios.MainActivities.Homepage.PREFS_NAME;
 
 public class Login extends AppCompatActivity {
 
@@ -27,7 +29,8 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        SharedPreferences settings = getSharedPreferences(Homepage.PREFS_NAME, 0);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Autenticação");
         setSupportActionBar(toolbar);

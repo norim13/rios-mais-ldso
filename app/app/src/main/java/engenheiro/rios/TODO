@@ -1,0 +1,25 @@
+Pagina de perfil
+    -Mostrar info
+    -edit info
+    -delete account
+    -Logout
+
+Register
+    -adicionar campos do trabalho e assim
+Login
+    -Forgot password
+    -por a dar erro especifico de password errada por exemplo
+
+Nos formulários do guardarios e irr, por no incio, a activity dos maps para escolher sitio
+
+Form IRR:
+    Verificar IRR valores e resultado
+    Guardar Offline um formulário
+    Ao clicar no submeter, preencher autometicamente todas as opcoes para nao dar erro
+    Por um EditText com "outros" onde é preciso e entegrar isso no json submetdio
+    Grafico com o valor do irr
+
+Adicionar "tirar foto" e "foto de galeria" a todos os formularios
+
+Limpeza de Rios
+

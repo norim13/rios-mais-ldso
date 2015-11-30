@@ -1,4 +1,4 @@
-package engenheiro.rios.Form.Perguntas;
+package engenheiro.rios.Form.IRR.Perguntas;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import engenheiro.rios.Form.Pergunta;
+import engenheiro.rios.Form.IRR.Pergunta;
 
 /**
  * Created by filipe on 27/11/2015.

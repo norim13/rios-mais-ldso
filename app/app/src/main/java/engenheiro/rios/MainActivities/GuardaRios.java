@@ -1,4 +1,4 @@
-package engenheiro.rios;
+package engenheiro.rios.MainActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import engenheiro.rios.Form.GuardaRios_form;
+import engenheiro.rios.R;
 
 public class GuardaRios extends AppCompatActivity {
 

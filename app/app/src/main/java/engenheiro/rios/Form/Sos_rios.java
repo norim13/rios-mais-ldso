@@ -1,4 +1,4 @@
-package engenheiro.rios;
+package engenheiro.rios.Form;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -19,9 +19,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import engenheiro.rios.Autenticacao.Login;
 import engenheiro.rios.DataBases.DB_functions;
 import engenheiro.rios.DataBases.User;
-import engenheiro.rios.IRR.Form_functions;
+import engenheiro.rios.MainActivities.GuardaRios;
+import engenheiro.rios.R;
 
 public class Sos_rios extends AppCompatActivity {
 

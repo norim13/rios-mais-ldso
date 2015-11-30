@@ -17,19 +17,18 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import engenheiro.rios.Form.Form_IRR;
-import engenheiro.rios.FormIRR;
-import engenheiro.rios.GuardaRios_form;
-import engenheiro.rios.IRR.Form_functions;
-import engenheiro.rios.IRR.Questions;
-import engenheiro.rios.Login;
-import engenheiro.rios.Register;
-import engenheiro.rios.Sos_rios;
+import engenheiro.rios.Form.IRR.Form_IRR;
+import engenheiro.rios.MainActivities.Form_IRR_mainActivity;
+import engenheiro.rios.Form.GuardaRios_form;
+import engenheiro.rios.Form.Form_functions;
+import engenheiro.rios.Form.IRR.Questions;
+import engenheiro.rios.Autenticacao.Login;
+import engenheiro.rios.Autenticacao.Register;
+import engenheiro.rios.Form.Sos_rios;
 
 /**
  * Created by filipe on 02/11/2015.
@@ -126,7 +125,11 @@ public class DB_functions {
     }
 
 
-    public static void saveForm(final String token, final HashMap<Integer, Object> answers2, final ArrayList<Integer[]> values_irr) throws IOException, JSONException {
+
+
+    public static void saveForm(final String token, final String email, final Form_IRR form_irr) throws IOException, JSONException {
+
+        final ArrayList<Integer[]> values_irr= Questions.getValuesIRR();
         Log.e("form","entrou");
         Log.e("form","values_irr_size:"+values_irr.size());
         String values="";
@@ -141,7 +144,7 @@ public class DB_functions {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String url = "http://riosmais.herokuapp.com/api/v2/form_irrs?user_email="+"fil.fmiranda@gmail.com"+"&user_token="+token;
+                    String url = "http://riosmais.herokuapp.com/api/v2/form_irrs?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
                     URL object = null;
                     object = new URL(url);
@@ -173,21 +176,28 @@ public class DB_functions {
 
 
                     try {
-                        response.accumulate("idRio", "201");
+                        response.accumulate("idRio", "201.04");
                         response.accumulate("margem", "1");
-                        Log.e("form", "size:" + answers2.size());
-                        response.accumulate("tipoDeVale", (int) answers2.get(1));
+                        response.accumulate("lat", "");
+                        response.accumulate("lon", "");
+                        response.accumulate("nomeRio", "Rio Tinto");
 
-                        response.accumulate("perfilDeMargens", (int) answers2.get(2));
+                        response.accumulate("tipoDeVale", (int) form_irr.getRespostas().get(1));
 
-                        af = (ArrayList<Float>) answers2.get(3);
-                        response.accumulate("larguraDaSuperficieDaAgua",af.get(0));
-                        response.accumulate("profundidadeMedia",af.get(1));
-                        response.accumulate("velocidadeMedia",af.get(2));
-                        response.accumulate("seccao",af.get(3));
-                        response.accumulate("caudal",af.get(4));
+                        response.accumulate("perfilDeMargens", (int) form_irr.getRespostas().get(2));
 
-                        ai= (ArrayList<Integer>) answers2.get(4);
+
+                        ArrayList<String> as= (ArrayList<String>) form_irr.getRespostas().get(3);
+                        response.accumulate("larguraDaSuperficieDaAgua",Float.parseFloat(as.get(0)));
+                        response.accumulate("profundidadeMedia",Float.parseFloat(as.get(1)));
+                        response.accumulate("velocidadeMedia",Float.parseFloat(as.get(2)));
+                        Log.e("formirr", response.toString());
+                        Float seccao=Float.parseFloat(as.get(0))*Float.parseFloat(as.get(1));
+                        Float caudal=seccao*Float.parseFloat(as.get(2));
+                        response.accumulate("seccao",seccao);
+                        response.accumulate("caudal",caudal);
+
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(4);
                         response.accumulate("substratoDasMargens_soloArgiloso",ai.get(0));
                         response.accumulate("substratoDasMargens_arenoso",ai.get(1));
                         response.accumulate("substratoDasMargens_pedregoso",ai.get(2));
@@ -195,7 +205,7 @@ public class DB_functions {
                         response.accumulate("substratoDasMargens_artificialPedra",ai.get(4));
                         response.accumulate("substratoDasMargens_artificialBetao",ai.get(5));
 
-                        ai= (ArrayList<Integer>) answers2.get(5);
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(5);
                         response.accumulate("substratoDoLeito_blocoseRocha",ai.get(0));
                         response.accumulate("substratoDoLeito_calhaus",ai.get(1));
                         response.accumulate("substratoDoLeito_cascalho",ai.get(2));
@@ -206,9 +216,9 @@ public class DB_functions {
                         response.accumulate("substratoDoLeito_naoEVisivel",ai.get(7));
 
 
-                        response.accumulate("estadoGeraldaLinhadeAgua",(int) answers2.get(6));
+                        response.accumulate("estadoGeraldaLinhadeAgua",(int) form_irr.getRespostas().get(6));
 
-                        ai= (ArrayList<Integer>) answers2.get(7);
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(7);
                         response.accumulate("erosao_semErosao",ai.get(0));
                         response.accumulate("erosao_formacaomais3",ai.get(1));
                         response.accumulate("erosao_formacao1a3",ai.get(2));
@@ -216,7 +226,7 @@ public class DB_functions {
                         response.accumulate("erosao_rombos", ai.get(4));
                         arrayList_Hidrogeomorfologia.add(Form_functions.getmax(ai, values_irr.get(7)));
 
-                        ai= (ArrayList<Integer>) answers2.get(8);
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(8);
                         response.accumulate("sedimentacao_ausente", ai.get(0));
                         response.accumulate("sedimentacao_decomposicao",ai.get(1));
                         response.accumulate("sedimentacao_mouchoes",ai.get(2));
@@ -229,17 +239,18 @@ public class DB_functions {
 
                         Log.e("form", "Hidrogeomorfologia" + arrayList_Hidrogeomorfologia.get(0) + "," + arrayList_Hidrogeomorfologia.get(1));
 
-                        af= (ArrayList<Float>) answers2.get(9);
-                        response.accumulate("pH",af.get(0));
-                        response.accumulate("condutividade",af.get(1));
-                        response.accumulate("temperatura",af.get(2));
-                        response.accumulate("nivelDeOxigenio",af.get(3));
-                        response.accumulate("percentagemDeOxigenio",af.get(4));
-                        response.accumulate("nitratos",af.get(5));
-                        response.accumulate("nitritos",af.get(6));
-                        response.accumulate("transparencia",af.get(7));
+                        af= (ArrayList<Float>) form_irr.getRespostas().get(9);
 
-                        ai= (ArrayList<Integer>) answers2.get(10);
+                        response.accumulate("pH",Float.parseFloat(String.valueOf(af.get(0))));
+                        response.accumulate("condutividade",Float.parseFloat(String.valueOf(af.get(1))));
+                        response.accumulate("temperatura",Float.parseFloat(String.valueOf(af.get(2))));
+                        response.accumulate("nivelDeOxigenio",Float.parseFloat(String.valueOf(af.get(3))));
+                        response.accumulate("percentagemDeOxigenio",Float.parseFloat(String.valueOf(af.get(4))));
+                        response.accumulate("nitratos",Float.parseFloat(String.valueOf(af.get(5))));
+                        response.accumulate("nitritos",Float.parseFloat(String.valueOf(af.get(6))));
+                        response.accumulate("transparencia",Float.parseFloat(String.valueOf(af.get(7))));
+
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(10);
                         response.accumulate("oleo",ai.get(0));
                         response.accumulate("espuma",ai.get(1));
                         response.accumulate("esgotos",ai.get(2));
@@ -252,41 +263,41 @@ public class DB_functions {
 
 
 
-                        response.accumulate("corDaAgua", (int) answers2.get(11));
+                        response.accumulate("corDaAgua", (int) form_irr.getRespostas().get(11));
                         Log.e("form", "a ler:" + 11);
-                        arrayList_QualidadeDaAgua.add(Form_functions.getmax((int) answers2.get(11), values_irr.get(11)));
+                        arrayList_QualidadeDaAgua.add(Form_functions.getmax((int) form_irr.getRespostas().get(11), values_irr.get(11)));
 
 
-                        response.accumulate("odorDaAgua", (int) answers2.get(12));
+                        response.accumulate("odorDaAgua", (int) form_irr.getRespostas().get(12));
                         Log.e("form", "a ler:" + 12);
-                        arrayList_QualidadeDaAgua.add(Form_functions.getmax((int) answers2.get(12), values_irr.get(12)));
+                        arrayList_QualidadeDaAgua.add(Form_functions.getmax((int) form_irr.getRespostas().get(12), values_irr.get(12)));
 
 
-                        ai= (ArrayList<Integer>) answers2.get(13);
-                        response.accumulate("planarias",ai.get(0));
-                        response.accumulate("hirudineos",ai.get(1));
-                        response.accumulate("oligoquetas",ai.get(2));
-                        response.accumulate("simulideos",ai.get(3));
-                        response.accumulate("quironomideos",ai.get(4));
-                        response.accumulate("ancilideo",ai.get(5));
-                        response.accumulate("limnideo",ai.get(6));
-                        response.accumulate("bivalves",ai.get(7));
-                        response.accumulate("patasNadadoras",ai.get(8));
-                        response.accumulate("pataLocomotoras",ai.get(9));
-                        response.accumulate("trichopteroS",ai.get(10));
-                        response.accumulate("trichopteroC",ai.get(11));
-                        response.accumulate("odonata",ai.get(12));
-                        response.accumulate("heteropteros",ai.get(13));
-                        response.accumulate("plecopteros",ai.get(14));
-                        response.accumulate("baetideo",ai.get(15));
-                        response.accumulate("cabecaPlanar",ai.get(16));
-                        response.accumulate("crustaceos",ai.get(17));
-                        response.accumulate("acaros",ai.get(18));
-                        response.accumulate("pulgaDeAgua",ai.get(19));
-                        response.accumulate("insetos",ai.get(20));
-                        response.accumulate("megalopteres", ai.get(21));
+                        ArrayList<ArrayList<Integer>> arrayListArrayList= (ArrayList<ArrayList<Integer>>) form_irr.getRespostas().get(13);
+                        response.accumulate("planarias",arrayListArrayList.get(0).get(0));
+                        response.accumulate("hirudineos",arrayListArrayList.get(1).get(0) );
+                        response.accumulate("oligoquetas",arrayListArrayList.get(2).get(0) );
+                        response.accumulate("simulideos",arrayListArrayList.get(2).get(1) );
+                        response.accumulate("quironomideos",arrayListArrayList.get(2).get(2) );
+                        response.accumulate("ancilideo",arrayListArrayList.get(3).get(0) );
+                        response.accumulate("limnideo",arrayListArrayList.get(3).get(1) );
+                        response.accumulate("bivalves",arrayListArrayList.get(3).get(2) );
+                        response.accumulate("patasNadadoras",arrayListArrayList.get(4).get(0) );
+                        response.accumulate("pataLocomotoras",arrayListArrayList.get(4).get(1) );
+                        response.accumulate("trichopteroS",arrayListArrayList.get(5).get(0) );
+                        response.accumulate("trichopteroC",arrayListArrayList.get(5).get(1) );
+                        response.accumulate("odonata",arrayListArrayList.get(6).get(0) );
+                        response.accumulate("heteropteros", arrayListArrayList.get(7).get(0) );
+                        response.accumulate("plecopteros",arrayListArrayList.get(8).get(0) );
+                        response.accumulate("baetideo",arrayListArrayList.get(9).get(0) );
+                        response.accumulate("cabecaPlanar",arrayListArrayList.get(9).get(1) );
+                        response.accumulate("crustaceos",arrayListArrayList.get(10).get(0));
+                        response.accumulate("acaros",arrayListArrayList.get(11).get(0) );
+                        response.accumulate("pulgaDeAgua",arrayListArrayList.get(12).get(0) );
+                        response.accumulate("insetos",arrayListArrayList.get(13).get(0) );
+                        response.accumulate("megalopteres", arrayListArrayList.get(14).get(0));
                         Log.e("form", "a ler:" + 13);
-                        arrayList_QualidadeDaAgua.add(Form_functions.getmax(ai, values_irr.get(13)));
+                        arrayList_QualidadeDaAgua.add(Form_functions.getmax2(arrayListArrayList, values_irr.get(13)));
 
                         Log.e("form", "QualidadeDaAgua" + arrayList_QualidadeDaAgua.get(0)
                                 + "," + arrayList_QualidadeDaAgua.get(1)
@@ -295,7 +306,7 @@ public class DB_functions {
 
 
 
-                        ai= (ArrayList<Integer>) answers2.get(14);
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(14);
                         response.accumulate("intervencoes_edificios",ai.get(0));
                         response.accumulate("intervencoes_pontes",ai.get(1));
                         response.accumulate("intervencoes_limpezasDasMargens",ai.get(2));
@@ -306,10 +317,10 @@ public class DB_functions {
                         response.accumulate("intervencoes_diques",ai.get(7));
                         response.accumulate("intervencoes_rioCanalizado",ai.get(8));
                         response.accumulate("intervencoes_rioEntubado",ai.get(9));
-                        response.accumulate("intervencoes_esporoes",ai.get(10));
+                        response.accumulate("intervencoes_esporoes", ai.get(10));
                         response.accumulate("intervencoes_paredoes",ai.get(11));
                         response.accumulate("intervencoes_tecnicasDeEngenhariaNatural",ai.get(12));
-                        response.accumulate("intervencoes_tecnicasDeEngenhariaNatural", ai.get(13));
+
                         arrayList_AlteracoesAntropicas.add(Form_functions.getmax(ai, values_irr.get(14)));
 
 
@@ -318,7 +329,7 @@ public class DB_functions {
 
 
 
-                        ai= (ArrayList<Integer>) answers2.get(15);
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(15);
                         response.accumulate("ocupacao_florestaNatural",ai.get(0));
                         response.accumulate("ocupacao_florestaPlantadas",ai.get(1));
                         response.accumulate("ocupacao_matoAlto",ai.get(2));
@@ -333,7 +344,7 @@ public class DB_functions {
                         response.accumulate("ocupacao_entulho", ai.get(11));
                         arrayList_AlteracoesAntropicas.add(Form_functions.getmax(ai, values_irr.get(15)));
 
-                        ai= (ArrayList<Integer>) answers2.get(16);
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(16);
                         response.accumulate("patrimonio_moinho",ai.get(0));
                         response.accumulate("patrimonio_acude",ai.get(1));
                         response.accumulate("patrimonio_microAcude1",ai.get(2));
@@ -360,7 +371,7 @@ public class DB_functions {
                         response.accumulate("patrimonio_motaLateral", ai.get(23));
                         arrayList_AlteracoesAntropicas.add(Form_functions.getmax(ai, values_irr.get(16)));
 
-                        ai= (ArrayList<Integer>) answers2.get(17);
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(17);
                         response.accumulate("poluicao_descargasDomesticas",ai.get(0));
                         response.accumulate("poluicao_descargasETAR",ai.get(1));
                         response.accumulate("poluicao_descargasIndustriais",ai.get(2));
@@ -382,7 +393,7 @@ public class DB_functions {
                         }
                         Log.e("form","_AlteraçõesAntropicas: "+st);
 
-                        ai= (ArrayList<Integer>) answers2.get(18);
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(18);
                         response.accumulate("salamandraLusitanica",ai.get(0));
                         response.accumulate("salamandraPintasAmarelas",ai.get(1));
                         response.accumulate("tritaoVentreLaranja", ai.get(2));
@@ -392,7 +403,7 @@ public class DB_functions {
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(18)));
 
 
-                        ai= (ArrayList<Integer>) answers2.get(19);
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(19);
                         response.accumulate("lagartoDeAgua",ai.get(0));
                         response.accumulate("cobraAguaDeColar", ai.get(1));
                         response.accumulate("cagado", ai.get(2));
@@ -400,7 +411,7 @@ public class DB_functions {
 
                         response.accumulate("repteis_outro", "");
 
-                        ai= (ArrayList<Integer>) answers2.get(20);
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(20);
                         response.accumulate("guardaRios",ai.get(0));
                         response.accumulate("garcaReal",ai.get(1));
                         response.accumulate("melroDeAgua",ai.get(2));
@@ -412,7 +423,7 @@ public class DB_functions {
 
                         response.accumulate("aves_outro", "");
 
-                        ai= (ArrayList<Integer>) answers2.get(21);
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(21);
                         response.accumulate("lontras",ai.get(0));
                         response.accumulate("morcegosDeAgua",ai.get(1));
                         response.accumulate("toupeiraDaAgua", ai.get(2));
@@ -423,7 +434,7 @@ public class DB_functions {
 
                         response.accumulate("mamiferos_outro", "");
 
-                        ai= (ArrayList<Integer>) answers2.get(22);
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(22);
                         response.accumulate("enguia",ai.get(0));
                         response.accumulate("lampreia",ai.get(1));
                         response.accumulate("salmao", ai.get(2));
@@ -434,7 +445,7 @@ public class DB_functions {
 
                         response.accumulate("peixes_outro", "");
 
-                        ai= (ArrayList<Integer>) answers2.get(23);
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(23);
                         response.accumulate("percaSol",ai.get(0));
                         response.accumulate("tartarugaDaFlorida",ai.get(1));
                         response.accumulate("caranguejoPeludoChines",ai.get(2));
@@ -447,7 +458,7 @@ public class DB_functions {
 
                         response.accumulate("fauna_outro", "");
 
-                        ai= (ArrayList<Integer>) answers2.get(24);
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(24);
                         response.accumulate("salgueiral",ai.get(0));
                         response.accumulate("amial",ai.get(1));
                         response.accumulate("freixal",ai.get(2));
@@ -463,9 +474,9 @@ public class DB_functions {
                         response.accumulate("flora_outro", "");
 
 
-                        response.accumulate("conservacaoBosqueRibeirinho",(int) answers2.get(25));
+                        response.accumulate("conservacaoBosqueRibeirinho",(int) form_irr.getRespostas().get(25));
 
-                        ai= (ArrayList<Integer>) answers2.get(26);
+                        ai= (ArrayList<Integer>) form_irr.getRespostas().get(26);
                         response.accumulate("silvas",ai.get(0));
                         response.accumulate("ervaDaFortuna",ai.get(1));
                         response.accumulate("plumas", ai.get(2));
@@ -476,24 +487,24 @@ public class DB_functions {
                         response.accumulate("vegetacaoInvasora_outro", "");
 
 
-                        response.accumulate("obstrucaoDoLeitoMargens", (int) answers2.get(27));
-                        arrayList_CorredorEcologico.add(Form_functions.getmax((int) answers2.get(27), values_irr.get(27)));
+                        response.accumulate("obstrucaoDoLeitoMargens", (int) form_irr.getRespostas().get(27));
+                        arrayList_CorredorEcologico.add(Form_functions.getmax((int) form_irr.getRespostas().get(27), values_irr.get(27)));
 
 
-                        response.accumulate("disponibilizacaoDeInformacao", (int) answers2.get(28));
-                        arrayList_ParticipacaoPublica.add(Form_functions.getmax((int) answers2.get(28), values_irr.get(28)));
-                        response.accumulate("envolvimentoPublico", (int) answers2.get(29));
-                        arrayList_ParticipacaoPublica.add(Form_functions.getmax((int) answers2.get(29), values_irr.get(29)));
-                        response.accumulate("acao", (int) answers2.get(30));
-                        arrayList_ParticipacaoPublica.add(Form_functions.getmax((int) answers2.get(30), values_irr.get(30)));
+                        response.accumulate("disponibilizacaoDeInformacao", (int) form_irr.getRespostas().get(28));
+                        arrayList_ParticipacaoPublica.add(Form_functions.getmax((int) form_irr.getRespostas().get(28), values_irr.get(28)));
+                        response.accumulate("envolvimentoPublico", (int) form_irr.getRespostas().get(29));
+                        arrayList_ParticipacaoPublica.add(Form_functions.getmax((int) form_irr.getRespostas().get(29), values_irr.get(29)));
+                        response.accumulate("acao", (int) form_irr.getRespostas().get(30));
+                        arrayList_ParticipacaoPublica.add(Form_functions.getmax((int) form_irr.getRespostas().get(30), values_irr.get(30)));
 
 
-                        response.accumulate("legislacao", (int) answers2.get(31));
-                        arrayList_OrganizacaoPlaneamento.add(Form_functions.getmax((int) answers2.get(31), values_irr.get(31)));
-                        response.accumulate("estrategia", (int) answers2.get(32));
-                        arrayList_OrganizacaoPlaneamento.add(Form_functions.getmax((int) answers2.get(32), values_irr.get(32)));
-                        response.accumulate("gestaoDasIntervencoes", (int) answers2.get(33));
-                        arrayList_OrganizacaoPlaneamento.add(Form_functions.getmax((int) answers2.get(33), values_irr.get(33)));
+                        response.accumulate("legislacao", (int) form_irr.getRespostas().get(31));
+                        arrayList_OrganizacaoPlaneamento.add(Form_functions.getmax((int) form_irr.getRespostas().get(31), values_irr.get(31)));
+                        response.accumulate("estrategia", (int) form_irr.getRespostas().get(32));
+                        arrayList_OrganizacaoPlaneamento.add(Form_functions.getmax((int) form_irr.getRespostas().get(32), values_irr.get(32)));
+                        response.accumulate("gestaoDasIntervencoes", (int) form_irr.getRespostas().get(33));
+                        arrayList_OrganizacaoPlaneamento.add(Form_functions.getmax((int) form_irr.getRespostas().get(33), values_irr.get(33)));
 
                         response.accumulate("irr_hidrogeomorfologia", Collections.max(arrayList_Hidrogeomorfologia));
                         response.accumulate("irr_qualidadedaagua",Collections.max(arrayList_QualidadeDaAgua));
@@ -619,10 +630,7 @@ public class DB_functions {
 
     }
 
-
-
-
-    public static void saveForm2(final String token, final Form_IRR form_irr) throws IOException, JSONException {
+    public static void update(final String token, final String email, final Form_IRR form_irr) throws IOException, JSONException {
 
         final ArrayList<Integer[]> values_irr= Questions.getValuesIRR();
         Log.e("form","entrou");
@@ -639,7 +647,7 @@ public class DB_functions {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String url = "http://riosmais.herokuapp.com/api/v2/form_irrs?user_email="+"filipedgb@gmail.com"+"&user_token="+token;
+                    String url = "http://riosmais.herokuapp.com/api/v2/form_irrs/4?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
                     URL object = null;
                     object = new URL(url);
@@ -648,7 +656,7 @@ public class DB_functions {
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.setRequestProperty("Content-Type", "application/json");
-                    con.setRequestMethod("GET");
+                    con.setRequestMethod("PATCH");
 
                     con.connect();
                     JSONObject jsonObject = new JSONObject();
@@ -790,7 +798,7 @@ public class DB_functions {
                         response.accumulate("acaros",arrayListArrayList.get(11).get(0) );
                         response.accumulate("pulgaDeAgua",arrayListArrayList.get(12).get(0) );
                         response.accumulate("insetos",arrayListArrayList.get(13).get(0) );
-                        response.accumulate("megalopteres", arrayListArrayList.get(14).get(0) );
+                        response.accumulate("megalopteres", arrayListArrayList.get(14).get(0));
                         Log.e("form", "a ler:" + 13);
                         arrayList_QualidadeDaAgua.add(Form_functions.getmax2(arrayListArrayList, values_irr.get(13)));
 
@@ -806,16 +814,15 @@ public class DB_functions {
                         response.accumulate("intervencoes_pontes",ai.get(1));
                         response.accumulate("intervencoes_limpezasDasMargens",ai.get(2));
                         response.accumulate("intervencoes_estabilizacaoDeMargens",ai.get(3));
-                        response.accumulate("intervencoes_estabilizacaoDeMargens",ai.get(4));
-                        response.accumulate("intervencoes_modelacaoDeMargensNatural",ai.get(5));
-                        response.accumulate("intervencoes_modelacaoDeMargensArtificial",ai.get(6));
-                        response.accumulate("intervencoes_barragem",ai.get(7));
-                        response.accumulate("intervencoes_diques",ai.get(8));
-                        response.accumulate("intervencoes_rioCanalizado",ai.get(9));
-                        response.accumulate("intervencoes_rioEntubado",ai.get(10));
-                        response.accumulate("intervencoes_esporoes",ai.get(11));
-                        response.accumulate("intervencoes_paredoes",ai.get(12));
-                        response.accumulate("intervencoes_tecnicasDeEngenhariaNatural", ai.get(13));
+                        response.accumulate("intervencoes_modelacaoDeMargensNatural",ai.get(4));
+                        response.accumulate("intervencoes_modelacaoDeMargensArtificial",ai.get(5));
+                        response.accumulate("intervencoes_barragem",ai.get(6));
+                        response.accumulate("intervencoes_diques",ai.get(7));
+                        response.accumulate("intervencoes_rioCanalizado",ai.get(8));
+                        response.accumulate("intervencoes_rioEntubado",ai.get(9));
+                        response.accumulate("intervencoes_esporoes",ai.get(10));
+                        response.accumulate("intervencoes_paredoes",ai.get(11));
+                        response.accumulate("intervencoes_tecnicasDeEngenhariaNatural",ai.get(12));
                         arrayList_AlteracoesAntropicas.add(Form_functions.getmax(ai, values_irr.get(14)));
 
 
@@ -1127,6 +1134,7 @@ public class DB_functions {
 
 
 
+
     public static void login(final String email, final String password, final Login login) throws IOException, JSONException {
 
 
@@ -1229,7 +1237,7 @@ public class DB_functions {
 
     }
 
-    public static void getForms(final String token,final String email, final FormIRR formIRR) throws IOException, JSONException {
+    public static void getForms(final String token,final String email, final Form_IRR_mainActivity formIRR) throws IOException, JSONException {
 
 
         new Thread(new Runnable() {
