@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'home' => 'home#homepage'
   get 'contactos' => 'about#about'
   get 'documentos' => 'documentos_relacionados#documentos'
+  get 'distritos' => 'concelho#getDistritos'
   get 'concelhos' => 'concelho#getConcelhosFromDistrito'
   get 'limpeza' => 'limpeza#show'
   get 'respostas' => 'limpeza#getRespostas'
