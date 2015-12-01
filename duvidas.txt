@@ -16,7 +16,7 @@ FORM IRR:
 PAPEL MAGICO:
 	
 	- validacao do formulario antes do seu resultado : influenciar dados dos rios.
-	Admin valia e so depois e que conta
+	Admin valida e so depois e que conta
 		
 	+ nos selects onde tem "NAO", no form irr, n ta a calcular bem
 		-+ como e o valor dos selects? e como a option influencia o IRR?

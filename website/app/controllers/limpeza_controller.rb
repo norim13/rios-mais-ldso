@@ -1,5 +1,5 @@
 class LimpezaController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: :info
 
   def show
     @limpeza = Limpeza.select(:categoria,:categoria_id).group(:categoria,:categoria_id).order(:categoria_id)

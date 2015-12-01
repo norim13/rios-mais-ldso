@@ -1,6 +1,5 @@
 LDSO
 	- acabar os webservices
-		- DEIXARAM DE FUNCIONAR => "cant verify csrf authenticity"
 	- permissoes
 	- dar fix aos forms do fil
 		- por labels nos forms do fil
@@ -27,7 +26,7 @@ LDSO
 	+ por imagens como sinf
 		+ mostrar filename
 		
-	- adicionar formulario id do user que editou por ultimo
+	+ adicionar formulario id do user que editou por ultimo
 	
 	+ por cursor a aparecer como link no "?" das imagens do form irr
 	
