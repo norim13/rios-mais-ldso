@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import engenheiro.rios.Form.IRR.Pergunta;
@@ -15,9 +16,10 @@ import engenheiro.rios.Form.Form_functions;
 /**
  * Created by filipe on 24/11/2015.
  */
-public class checkPergunta extends Pergunta {
+public class checkPergunta extends Pergunta implements Serializable {
 
 
+    private static final long serialVersionUID = -3522050436780683216L;
     protected ArrayList<CheckBox> check_list;
 
     public checkPergunta(String[] options, String title, String subtitle, Boolean obly, Boolean other_option) {

@@ -2,18 +2,28 @@ package engenheiro.rios.Form.IRR;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by filipe on 24/11/2015.
  */
-public class Form {
+public class Form implements Serializable {
+
+    private static final long serialVersionUID = 3308672663234178858L;
 
     public ArrayList<Pergunta> getPerguntas() {
 
         return perguntas;
     }
+
+
+    public String getTeste() {
+        return teste;
+    }
+
+    String teste;
 
     public ArrayList<Pergunta> perguntas;
 
@@ -22,6 +32,7 @@ public class Form {
     public void Form(){
         perguntas=new ArrayList<Pergunta>();
         respostas=new HashMap<Integer, Object>();
+        teste="mira";
     }
 
 

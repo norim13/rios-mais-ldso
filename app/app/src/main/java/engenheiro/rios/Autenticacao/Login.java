@@ -30,6 +30,7 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences settings = getSharedPreferences(Homepage.PREFS_NAME, 0);
+        setContentView(R.layout.activity_login);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Autenticação");
@@ -86,7 +87,7 @@ public class Login extends AppCompatActivity {
 
                             // Commit the edits!
                             editor.commit();
-                           finish();
+                            finish();
                         }
                     }
                 });
