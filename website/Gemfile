@@ -74,4 +74,6 @@ gem 'simple_token_authentication', '~> 1.0'
 
 #imagens
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+#gem "rmagick", :require => 'RMagick'
+gem "mini_magick"
 
