@@ -7,11 +7,6 @@ class ReabilitacaosController < ApplicationController
     @reabilitacaos = Reabilitacao.all
   end
 
-  # GET /reabilitacaos/1
-  # GET /reabilitacaos/1.json
-  def show
-  end
-
   def info
     render 'info'
   end
