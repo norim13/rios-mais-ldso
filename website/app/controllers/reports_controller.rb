@@ -1,6 +1,10 @@
 class ReportsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:info]
   before_action :set_report, only: [:show, :destroy]
+
+  def info
+    render 'info'
+  end
 
   # GET /reports
   # GET /reports.json
