@@ -28,7 +28,7 @@ class ReabilitacaosController < ApplicationController
 
     respond_to do |format|
       if @reabilitacao.save
-        format.html { redirect_to @reabilitacao, notice: 'Reabilitacao was successfully created.' }
+        format.html { redirect_to action: "index", notice: 'Reabilitacao was successfully created.' }
         format.json { render :show, status: :created, location: @reabilitacao }
       else
         format.html { render :new }
