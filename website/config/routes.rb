@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   post 'submitProblemasAction' => 'limpeza#submitProblemas'
 
   #info pages
+  get 'limpeza/info' => 'limpeza#info'
   get 'reabilitacao/info' => 'reabilitacaos#info'
   get 'form_irr/info' => 'form_irrs#info'
   get 'report/info' => 'reports#info'

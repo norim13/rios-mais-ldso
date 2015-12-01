@@ -13,6 +13,10 @@ class LimpezaController < ApplicationController
     end
   end
 
+  def info
+    render 'info'
+  end
+
   def getRespostas
       @resposta = Limpeza.find(params[:id])
       render :json => @resposta
