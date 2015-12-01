@@ -16,7 +16,6 @@
         android:ems="10"
         android:id="@+id/UserNameRegisterEditText"
         android:hint="Nome"
-        android:layout_below="@+id/imageView12"
         android:layout_centerHorizontal="true" />
 
     <AutoCompleteTextView
@@ -67,21 +66,56 @@
         android:text="Registar"
         android:id="@+id/RegisterButton"
         android:onClick="register"
-        android:layout_marginTop="30dp"
+        android:background="@null"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/PasswordConfirmRegisterEditText"
+        android:layout_alignStart="@+id/PasswordConfirmRegisterEditText"
+        android:layout_alignRight="@+id/PasswordConfirmRegisterEditText"
+        android:layout_alignEnd="@+id/PasswordConfirmRegisterEditText" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:hint="Telefone"
+        android:id="@+id/TelefoneRegisterEditText"
         android:layout_below="@+id/PasswordConfirmRegisterEditText"
         android:layout_alignLeft="@+id/PasswordConfirmRegisterEditText"
         android:layout_alignStart="@+id/PasswordConfirmRegisterEditText"
         android:layout_alignRight="@+id/PasswordConfirmRegisterEditText"
-        android:layout_alignEnd="@+id/PasswordConfirmRegisterEditText"
-        android:background="@null"
-        android:textColor="@color/colorPrimaryDark" />
+        android:layout_alignEnd="@+id/PasswordConfirmRegisterEditText" />
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/imageView12"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@mipmap/logo" />
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fez formação na app?"
+        android:id="@+id/FormacaoRegisterSwitch"
+        android:checked="false"
+        android:layout_above="@+id/RegisterButton"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Profissão"
+        android:id="@+id/ProfissaoRegisterEditText"
+        android:layout_below="@+id/TelefoneRegisterEditText"
+        android:layout_alignLeft="@+id/TelefoneRegisterEditText"
+        android:layout_alignStart="@+id/TelefoneRegisterEditText"
+        android:layout_alignRight="@+id/TelefoneRegisterEditText"
+        android:layout_alignEnd="@+id/TelefoneRegisterEditText" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Habilitações"
+        android:id="@+id/HabilitacoesRegisterEditText"
+        android:layout_below="@+id/ProfissaoRegisterEditText"
+        android:layout_alignLeft="@+id/ProfissaoRegisterEditText"
+        android:layout_alignStart="@+id/ProfissaoRegisterEditText"
+        android:layout_alignRight="@+id/ProfissaoRegisterEditText"
+        android:layout_alignEnd="@+id/ProfissaoRegisterEditText" />
 
 </RelativeLayout>

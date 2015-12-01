@@ -50,17 +50,13 @@ public class Form_functions {
         rg.setLayoutParams(radioParams);
         for(int i=0;i<array.length;i++)
         {
-
-
             RadioButton cb = new RadioButton(context);
             cb.setText(array[i]);
             list.add(cb);
             rg.addView(cb);
-
         }
         linearLayout.addView(rg);
         return list;
-
     };
 
     public static ArrayList<ArrayList> createSeekbar(String[] array, LinearLayout linearLayout, Context context,int max){

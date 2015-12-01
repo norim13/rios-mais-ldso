@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -32,6 +33,12 @@ public class Register extends AppCompatActivity {
     protected EditText mEmail;
     protected EditText mPassword;
     protected EditText mPasswordConfirm;
+
+    protected EditText mTelefone;
+    protected EditText mProfissao;
+    protected EditText mHabilitacoes;
+    protected Switch mFormacao;
+
     protected Button mRegisterButton;
     protected User user;
     private static final int REQUEST_READ_CONTACTS = 0;
@@ -56,22 +63,23 @@ public class Register extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-
         //init
         mUsername=(EditText)findViewById(R.id.UserNameRegisterEditText);
         mEmail=(EditText)findViewById(R.id.EmailRegisterEditText);
         mPassword=(EditText)findViewById(R.id.PasswordRegisterEditText);
         mPasswordConfirm=(EditText)findViewById(R.id.PasswordConfirmRegisterEditText);
+
+        mTelefone=(EditText)findViewById(R.id.TelefoneRegisterEditText);
+        mHabilitacoes=(EditText)findViewById(R.id.HabilitacoesRegisterEditText);
+        mProfissao=(EditText)findViewById(R.id.ProfissaoRegisterEditText);
+        mFormacao=(Switch) findViewById(R.id.FormacaoRegisterSwitch);
+
         mRegisterButton=(Button)findViewById(R.id.RegisterButton);
         user=new User();
         user.setId(-1);
         user.setName("teste");
         user.setEmail("teste@email.com");
         user.setPassword("teste");
-
-
-
     }
 
     public void register(View view){
@@ -83,6 +91,12 @@ public class Register extends AppCompatActivity {
         String password=mPassword.getText().toString().trim();
         String password_confirm=mPasswordConfirm.getText().toString().trim();
         String email=mEmail.getText().toString().trim();
+
+        String telef=mTelefone.getText().toString().trim();
+        String profissao=mProfissao.getText().toString().trim();
+        String habilitacoes=mHabilitacoes.getText().toString().trim();
+        Boolean formacao=mFormacao.isChecked();
+
         boolean erro=false;
         if(username.length()==0){
             mUsername.setError("Preencha o campo");
@@ -97,24 +111,15 @@ public class Register extends AppCompatActivity {
             erro=true;
         }
         if(!password_confirm.equals(password )){
-            mPassword.setError("Password nao cooresponde");
+            mPassword.setError("Password nao corresponde");
             erro=true;
         }
         if (erro)return;
 
-        Log.v("teste","registo"+password_confirm+"!"+password);
-
-/*
-        user.setName(username);
-        user.setEmail(password);
-        user.setPassword(email);
-        user.save();
-
-        user.getList();
-        */
+        Log.e("teste","registo"+password_confirm+"!"+password);
 
         try {
-            DB_functions.saveUser(username,email,password,password_confirm,this);
+            DB_functions.saveUser(username,email,password,password_confirm,telef,profissao,habilitacoes,formacao,this);
         } catch (IOException e) {
             Toast.makeText(Register.this, "Erro ao registar utilizador", Toast.LENGTH_LONG).show();
             e.printStackTrace();
@@ -127,17 +132,8 @@ public class Register extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
 
-        //Toast.makeText(RegisterActivity.this,username, Toast.LENGTH_LONG).show();
-
-        // Toast.makeText(RegisterActivity.this, ""+user.getList(this).size(),Toast.LENGTH_LONG).show();
-
-
-
         //set user
-
     }
-
-
 
     //menu action bar
     @Override
@@ -154,7 +150,6 @@ public class Register extends AppCompatActivity {
             startActivity(new Intent(this,Login.class));
         return super.onOptionsItemSelected(item);
     }
-
 
     public void register_response(final Boolean error, final String error_txt) {
 
