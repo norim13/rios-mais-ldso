@@ -9,25 +9,26 @@
 
 <h1> Os meus planos de reabilitação </h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @reabilitacaos.each do |reabilitacao| %>
+  <div class="table-responsive">
+    <table class="table">
       <tr>
-        <td><%= link_to 'Show', reabilitacao %></td>
-        <td><%= link_to 'Edit', edit_reabilitacao_path(reabilitacao) %></td>
-        <td><%= link_to 'Destroy', reabilitacao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Data de criação</th>
+        <th>Editar</th>
+        <th>Apagar</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+
+      <% @reabilitacaos.each do |reabilitacao| %>
+          <tr>
+            <td><%= reabilitacao.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
+            <td><%= link_to 'Editar', edit_reabilitacao_path(reabilitacao) %></td>
+            <td><%= link_to 'Apagar', reabilitacao, method: :delete, data: {confirm: 'Tem a certeza que pretende apagar?'} %></td>
+          </tr>
+      <% end %>
+    </table>
+  </div>
+
 
 <br>
 
-<%= link_to 'New Reabilitacao', new_reabilitacao_path %>
+<%= link_to 'Novo plano de reabilitação', new_reabilitacao_path %>
 <%= render 'common/footer' %>

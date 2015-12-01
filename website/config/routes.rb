@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'lab_rios/info'
+
   get 'rio/:id' => 'rio#show', as: :rio, :id => /.*/
 
   get 'search' => 'searchrios#display'
@@ -11,7 +13,13 @@ Rails.application.routes.draw do
   get 'limpeza' => 'limpeza#show'
   get 'respostas' => 'limpeza#getRespostas'
   post 'submitProblemasAction' => 'limpeza#submitProblemas'
+
+  #info pages
+  get 'limpeza/info' => 'limpeza#info'
   get 'reabilitacao/info' => 'reabilitacaos#info'
+  get 'form_irr/info' => 'form_irrs#info'
+  get 'report/info' => 'reports#info'
+  get 'lab_rios/info' => 'lab_rios#info'
 
   resources :form_irr_image
   resources :reabilitacaos
