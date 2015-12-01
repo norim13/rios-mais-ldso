@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="engenheiro.rios" >
+    package="ldso.rios" >
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -28,7 +28,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivities.Homepage"
+            android:name="ldso.rios.MainActivities.Homepage"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
@@ -51,32 +51,32 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Mapa_rios"
+            android:name="ldso.rios.Mapa_rios"
             android:label="@string/title_activity_mapa_rios"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivities.Homepage" />
+                android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
         <activity
-            android:name=".MainActivities.GuardaRios"
+            android:name="ldso.rios.MainActivities.GuardaRios"
             android:label="@string/title_activity_guarda_rios"
-            android:parentActivityName=".MainActivities.Homepage"
+            android:parentActivityName="ldso.rios.MainActivities.Homepage"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivities.Homepage" />
+                android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
         <activity
             android:name=".Forms.IRR_Form"
             android:label="@string/title_activity_irr__form"
-            android:parentActivityName=".MainActivities.Homepage"
+            android:parentActivityName="ldso.rios.MainActivities.Homepage"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivities.Homepage" />
+                android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
         <activity android:name=".teste_act" >
         </activity>
@@ -87,101 +87,101 @@
         <activity
             android:name=".Forms.IRR_Form2"
             android:label="@string/title_activity_irr__form2"
-            android:parentActivityName=".MainActivities.Homepage"
+            android:parentActivityName="ldso.rios.MainActivities.Homepage"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:screenOrientation="portrait"
-                android:value=".MainActivities.Homepage" />
+                android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
         <activity
-            android:name=".Autenticacao.Register"
+            android:name="ldso.rios.Autenticacao.Register"
             android:label="@string/title_activity_blank"
-            android:parentActivityName=".Autenticacao.Login"
+            android:parentActivityName="ldso.rios.Autenticacao.Login"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:screenOrientation="portrait"
-                android:value=".Autenticacao.Login" />
+                android:value="ldso.rios.Autenticacao.Login" />
         </activity>
         <activity
-            android:name=".Autenticacao.Login"
+            android:name="ldso.rios.Autenticacao.Login"
             android:label="@string/title_activity_login_2"
-            android:parentActivityName=".MainActivities.Homepage"
+            android:parentActivityName="ldso.rios.MainActivities.Homepage"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivities.Homepage" />
+                android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
         <activity
-            android:name=".MainActivities.Information"
+            android:name="ldso.rios.MainActivities.Information"
             android:label="@string/title_activity_info__docs"
-            android:parentActivityName=".MainActivities.Homepage"
+            android:parentActivityName="ldso.rios.MainActivities.Homepage"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivities.Homepage" />
+                android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
         <activity
-            android:name=".Form.GuardaRios_form"
+            android:name="ldso.rios.Form.GuardaRios_form"
             android:label="@string/title_activity_guarda_rios_form"
-            android:parentActivityName=".MainActivities.GuardaRios"
+            android:parentActivityName="ldso.rios.MainActivities.GuardaRios"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivities.GuardaRios" />
+                android:value="ldso.rios.MainActivities.GuardaRios" />
         </activity>
         <activity
-            android:name=".Form.Sos_rios"
+            android:name="ldso.rios.Form.Sos_rios"
             android:label="@string/title_activity_sos_rios"
-            android:parentActivityName=".MainActivities.GuardaRios"
+            android:parentActivityName="ldso.rios.MainActivities.GuardaRios"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivities.Homepage" />
+                android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
         <activity
-            android:name=".MainActivities.Form_IRR_mainActivity"
+            android:name="ldso.rios.MainActivities.Form_IRR_mainActivity"
             android:label="@string/title_activity_form_irr"
-            android:parentActivityName=".MainActivities.Homepage"
+            android:parentActivityName="ldso.rios.MainActivities.Homepage"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivities.Homepage" />
+                android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
         <activity
-            android:name=".TesteChart"
+            android:name="ldso.rios.TesteChart"
             android:label="@string/title_activity_teste_chart"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".Form.IRR.FormIRRSwipe"
+            android:name="ldso.rios.Form.IRR.FormIRRSwipe"
             android:label="@string/title_activity_form_irrswipe"
-            android:parentActivityName=".MainActivities.Homepage"
+            android:parentActivityName="ldso.rios.MainActivities.Homepage"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivities.Homepage" />
+                android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
         <activity
-            android:name=".Form.IRR.ViewFormIRR"
+            android:name="ldso.rios.Form.IRR.ViewFormIRR"
             android:label="@string/title_activity_view_form_irr"
-            android:parentActivityName=".MainActivities.Homepage"
+            android:parentActivityName="ldso.rios.MainActivities.Homepage"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivities.Homepage" />
+                android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
         <activity
-            android:name=".MainActivities.Limpeza"
+            android:name="ldso.rios.MainActivities.Limpeza"
             android:label="@string/title_activity_limpeza"
-            android:parentActivityName=".MainActivities.Homepage"
+            android:parentActivityName="ldso.rios.MainActivities.Homepage"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="engenheiro.rios.MainActivities.Homepage" />
+                android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
     </application>
 

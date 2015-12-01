@@ -1,4 +1,4 @@
-package engenheiro.rios;
+package ldso.rios;
 
 import org.junit.Test;
 

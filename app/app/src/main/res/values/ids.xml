@@ -3,5 +3,10 @@
     <item name="navigate_back" type="id">backkk</item>
     <item name="navigate_guardarios" type="id">guardarios_icon</item>
     <item name="navigate_account" type="id">account</item>
+    <item name="navigate_save" type="id">save</item>
+    <item name="navigate_upload" type="id">upload</item>
+
+
+
     <item name="irr_1_6_1" type="id" />
 </resources>
