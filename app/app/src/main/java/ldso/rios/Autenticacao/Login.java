@@ -77,6 +77,7 @@ public class Login extends AppCompatActivity {
                             // All objects are from android.context.Context
                             SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
                             SharedPreferences.Editor editor = settings.edit();
+                            editor.putString("id",String.valueOf(u.getId()));
                             editor.putString("token",u.getAuthentication_token());
                             editor.putString("name",u.getName());
                             editor.putString("email",u.getEmail());

@@ -30,6 +30,10 @@ public class User extends _Default {
 
     private User(){
         super();
+        resetUser();
+    }
+
+    public void resetUser() {
         this.id=-1;
         this.name="";
         this.email="";

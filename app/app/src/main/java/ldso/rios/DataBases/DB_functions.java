@@ -1213,8 +1213,6 @@ public class DB_functions {
                         String authentication_token = "";
                         String error_txt = "";
                         Boolean error = false;
-                        String name="";
-                        String email="";
 
                         /*{"id":2,"nome":"Filipe Miranda","access":null,"created_at":"2015-11-11T19:21:13.255Z",
                         "updated_at":"2015-11-11T19:21:13.255Z","email":"fil.fmiranda@gmail.com",
@@ -1224,15 +1222,14 @@ public class DB_functions {
 
                         try {
                             JSONObject user_json = new JSONObject(sb.toString());
-                            error_txt = user_json.getString("error");
+                            if(user_json.has("error"))
+                                error_txt = user_json.getString("error");
 
                             if(!error_txt.equals(""))
                                 error = true;
 
                             if(!error) {
                                 authentication_token = user_json.getString("authentication_token");
-                                name=user_json.getString("nome");
-                                email=user_json.getString("email");
 
                                 User user = User.getInstance();
                                 user.setId(Integer.parseInt(user_json.getString("id")));

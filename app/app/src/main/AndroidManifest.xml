@@ -69,29 +69,13 @@
                 android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
         <activity
-            android:name=".Forms.IRR_Form"
-            android:label="@string/title_activity_irr__form"
+            android:name=".MainActivities.Profile"
+            android:label="@string/title_activity_profile"
             android:parentActivityName=".MainActivities.Homepage"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ldso.rios.MainActivities.Homepage" />
-        </activity>
-        <activity android:name=".teste_act" >
-        </activity>
-        <activity
-            android:name=".Forms.IRR_form_2"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".Forms.IRR_Form2"
-            android:label="@string/title_activity_irr__form2"
-            android:parentActivityName=".MainActivities.Homepage"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:screenOrientation="portrait"
                 android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
         <activity

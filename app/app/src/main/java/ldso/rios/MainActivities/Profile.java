@@ -1,5 +1,7 @@
 package ldso.rios.MainActivities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,11 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
 import ldso.rios.R;
+
+import static ldso.rios.MainActivities.Homepage.PREFS_NAME;
 
 public class Profile extends AppCompatActivity {
 
@@ -44,6 +50,16 @@ public class Profile extends AppCompatActivity {
         putOldDataOnContent();
 
         DB_functions.getUserData(this, User.getInstance().getEmail(),User.getInstance().getAuthentication_token());
+    }
+
+    public void logout(View view) {
+        this.getApplicationContext().getSharedPreferences(PREFS_NAME, 0).edit().clear().commit();
+        User.getInstance().resetUser();
+        this.finish();
+
+        Context context = getApplicationContext();
+        Toast toast = Toast.makeText(context, "Até mais logo!", Toast.LENGTH_LONG);
+        toast.show();
     }
 
     private void putOldDataOnContent() {
