@@ -30,6 +30,7 @@ import ldso.rios.Autenticacao.Login;
 import ldso.rios.Autenticacao.Register;
 import ldso.rios.Form.Sos_rios;
 import ldso.rios.MainActivities.Limpeza;
+import ldso.rios.MainActivities.Profile;
 
 /**
  * Created by filipe on 02/11/2015.
@@ -113,6 +114,99 @@ public class DB_functions {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        }).start();
+    }
+
+    public static void getUserData(final Profile profile, final String email, final String token) {
+
+        new Thread(new Runnable() {
+            public void run() {
+
+                String url = "http://riosmais.herokuapp.com/api/v2/users?user_email="+email+"&user_token="+token;
+
+                URL obj = null;
+                try {
+                    obj = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                HttpURLConnection con = null;
+                try {
+                    con = (HttpURLConnection) obj.openConnection();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // optional default is GET
+                try {
+                    con.setRequestMethod("GET");
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                }
+
+                //add request header
+                con.setRequestProperty("Content-Type", "application/json");
+
+                int responseCode = 0;
+                try {
+                    responseCode = con.getResponseCode();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Log.i("user","getting user");
+                Log.i("user","sending GET request to URL: " + url);
+                Log.i("user","response code: " + responseCode);
+
+                BufferedReader in = null;
+                try {
+                    in = new BufferedReader(
+                            new InputStreamReader(con.getInputStream()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                try {
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //print result
+                System.out.println(response.toString());
+                Log.e("teste", response.toString());
+
+                try {
+                    JSONObject user_json = new JSONObject(response.toString());
+
+                    User user = User.getInstance();
+                    user.setId(Integer.parseInt(user_json.getString("id")));
+                    user.setName(user_json.getString("nome"));
+                    user.setEmail(user_json.getString("email"));
+                    user.setAuthentication_token(user_json.getString("authentication_token"));
+                    user.setTelef(user_json.getString("telef"));
+
+                    String distrito_id = user_json.getString("distrito_id");
+                    String concelho_id = user_json.getString("concelho_id");
+                    user.setDistrito(distrito_id);
+                    user.setConcelho(concelho_id);
+
+                    user.setProfissao(user_json.getString("profissao"));
+                    user.setHabilitacoes(user_json.getString("habilitacoes"));
+                    user.setFormacao(Boolean.valueOf(user_json.getString("formacao")));
+
+                    Log.e("profile","a seguir ao set user todo");
+
+                    profile.afterGetUserData();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         }).start();
     }
@@ -1116,11 +1210,9 @@ public class DB_functions {
 
                         br.close();
 
-                        final String[] authentication_token = {""};
-                        final String[] error_txt = {""};
-                        final Boolean[] error = {false};
-                        String name="";
-                        String email="";
+                        String authentication_token = "";
+                        String error_txt = "";
+                        Boolean error = false;
 
                         /*{"id":2,"nome":"Filipe Miranda","access":null,"created_at":"2015-11-11T19:21:13.255Z",
                         "updated_at":"2015-11-11T19:21:13.255Z","email":"fil.fmiranda@gmail.com",
@@ -1129,26 +1221,39 @@ public class DB_functions {
                          */
 
                         try {
-                            JSONObject obj = new JSONObject(sb.toString());
-                            try {
-                                error_txt[0] = obj.getString("error");
-                                error[0] =true;
-                            } catch (JSONException ignored) {
-                            }
-                            try {
-                                if(!error[0]) {
-                                    authentication_token[0] = obj.getString("authentication_token");
-                                    name=obj.getString("nome");
-                                    email=obj.getString("email");
-                                }
-                            }
-                            catch (JSONException ignored){
+                            JSONObject user_json = new JSONObject(sb.toString());
+                            if(user_json.has("error"))
+                                error_txt = user_json.getString("error");
+
+                            if(!error_txt.equals(""))
+                                error = true;
+
+                            if(!error) {
+                                authentication_token = user_json.getString("authentication_token");
+
+                                User user = User.getInstance();
+                                user.setId(Integer.parseInt(user_json.getString("id")));
+                                user.setName(user_json.getString("nome"));
+                                user.setEmail(user_json.getString("email"));
+                                user.setAuthentication_token(user_json.getString("authentication_token"));
+                                user.setTelef(user_json.getString("telef"));
+
+                                String distrito_id = user_json.getString("distrito_id");
+                                String concelho_id = user_json.getString("concelho_id");
+                                user.setDistrito(distrito_id);
+                                user.setConcelho(concelho_id);
+
+                                user.setProfissao(user_json.getString("profissao"));
+                                user.setHabilitacoes(user_json.getString("habilitacoes"));
+                                user.setFormacao(Boolean.valueOf(user_json.getString("formacao")));
+
+                                Log.e("profile","a seguir ao set user todo");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Log.e("resposta:","a meio     error:"+ error_txt[0] +" autenticacao:"+ authentication_token[0]);
-                        login.login_response(error[0],error_txt[0],authentication_token[0],name,email);
+                        Log.e("resposta:","a meio error:"+ error_txt +" autenticacao:"+ authentication_token);
+                        login.login_response(error,error_txt);
 
                         System.out.println("errozinho:" + sb.toString());
 
@@ -1381,13 +1486,14 @@ public class DB_functions {
         }).start();
     }
 
-    public static void saveLimpeza(final Limpeza limpeza, final String token, final String email, final String q1, String q2, final String q3, String q4,
-                                   String q5, String q6, String q7, String q8, String q9, String q10, String q11, String q12, String q13) {
+    public static void saveLimpeza(final Limpeza limpeza, final String token, final String email, final String q1, final String q2, final String q3, final String q4,
+                                   final String q5, final String q6,final String q7,final String q8,final String q9,final String q10, final String q11, final String q12, final String q13,
+                                   final String q14, final String q15, final Integer q16, final String q17) {
 
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String url = "http://riosmais.herokuapp.com/api/v2/limpeza?user_email="+email+"&user_token="+token;
+                    String url = "http://riosmais.herokuapp.com/api/v2/limpezas?user_email="+email+"&user_token="+token;
                     Log.e("teste limpeza", url);
                     URL object = null;
                     object = new URL(url);
@@ -1400,19 +1506,35 @@ public class DB_functions {
                     con.connect();
                     JSONObject jsonObject = new JSONObject();
 
-                    //jsonObject.accumulate("descricao",q3);
-
-                    JSONObject guardarios= new JSONObject();
-                    guardarios.accumulate("report", jsonObject);
-
-                    Log.w("teste", jsonObject.toString());
-                    Log.e("teste",guardarios.toString());
+                    jsonObject.accumulate("cheia_destruicao",q17);
+                    jsonObject.accumulate("cheia_perdas_monetarias",q16);
+                    jsonObject.accumulate("cheia_origem",q15);
+                    jsonObject.accumulate("cheia_data",q14);
+                    jsonObject.accumulate("problema13",q13);
+                    jsonObject.accumulate("problema12",q12);
+                    jsonObject.accumulate("problema11",q11);
+                    jsonObject.accumulate("problema10",q10);
+                    jsonObject.accumulate("problema9",q9);
+                    jsonObject.accumulate("problema8",q8);
+                    jsonObject.accumulate("problema7",q7);
+                    jsonObject.accumulate("problema6",q6);
+                    jsonObject.accumulate("problema5",q5);
+                    jsonObject.accumulate("problema4",q4);
+                    jsonObject.accumulate("problema3",q3);
+                    jsonObject.accumulate("problema2",q2);
+                    jsonObject.accumulate("problema1",q1);
+/*
+                    JSONObject limpezaObj = new JSONObject();
+                    limpezaObj.accumulate("limpeza", jsonObject);
+*/
+                   Log.w("teste", jsonObject.toString());
+//                    Log.e("teste",limpezaObj.toString());
 
                     OutputStream os = null;
                     os = con.getOutputStream();
                     OutputStreamWriter osw = null;
                     osw = new OutputStreamWriter(os, "UTF-8");
-                    osw.write(guardarios.toString());
+                    osw.write(jsonObject.toString());
                     osw.flush();
                     osw.close();
                     int HttpResult = 0;
@@ -1429,7 +1551,7 @@ public class DB_functions {
                         br.close();
 
                         System.out.println("errozinho:" + sb.toString());
-                        limpeza.saveLimpezaDB();
+                        limpeza.saveLimpezaDB(jsonObject);
 
                     } else {
                         limpeza.errorLimpezaDB(con.getResponseMessage());
