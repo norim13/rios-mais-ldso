@@ -1,0 +1,2 @@
+class RotaPointController < ApplicationController
+end

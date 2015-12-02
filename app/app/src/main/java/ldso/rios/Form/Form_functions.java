@@ -65,7 +65,6 @@ public class Form_functions {
     };
 
     public static ArrayList<RadioButton> createRadioButtons(String[] array,String[] images, LinearLayout linearLayout, Context context) throws IOException {
-
         if(images==null)
             createRadioButtons(array,linearLayout,context);
 
@@ -78,7 +77,6 @@ public class Form_functions {
 
         for(int i=0;i<array.length;i++)
         {
-
             RadioButton cb = new RadioButton(context);
             cb.setText(array[i]);
 
@@ -94,11 +92,9 @@ public class Form_functions {
             cb.setCompoundDrawablesWithIntrinsicBounds(null, null, myDrawable, null);
             list.add(cb);
             rg.addView(cb);
-
         }
         linearLayout.addView(rg);
         return list;
-
     };
 
     public static Bitmap getResizedBitmap(int targetW, int targetH,  String imagePath) {

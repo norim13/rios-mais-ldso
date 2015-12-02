@@ -1,0 +1,35 @@
+<%= render 'common/header' %>
+
+<%= stylesheet_link_tag "routes" %>
+
+</head>
+
+<body>
+
+<%= render 'common/navbar' %>
+
+<div class="container">
+  <h1><%= @route.nome %></h1>
+
+    <div class="thumbnail">
+      <div class="row">
+        <div class="col-xs-12">
+          <strong>Zona: </strong><%= @route.zona %>
+        </div>
+        <div class="col-xs-12">
+          <div><strong>Descrição:</strong></div>
+          <%= @route.descricao %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div id="view-route-points-map" class="col-xs-12 route-points-map"></div>
+    </div>
+
+  <%= link_to 'Editar', edit_route_path(@route) %>
+  <%= link_to 'Voltar atrás', routes_path %>
+</div>
+
+<%= render 'common/footer' %>
+<%= javascript_include_tag 'routes-view' %>

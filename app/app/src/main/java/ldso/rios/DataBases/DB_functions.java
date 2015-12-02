@@ -36,96 +36,85 @@ import ldso.rios.Form.Sos_rios;
 
 public class DB_functions {
 
-    public static void saveUser(final String nome, final String email, final String password, final String password_confirmation, final Register register_class) throws IOException, JSONException {
+    public static void saveUser(final String nome, final String email, final String password, final String password_confirmation, final String telef, final String profissao, final String habilitacoes, final Boolean formacao, final Register register_class) throws IOException, JSONException {
 
         new Thread(new Runnable() {
             public void run() {
                 try {
-
-                String url = "http://riosmais.herokuapp.com/api/v1/sign_up";
-                URL object = null;
-                object = new URL(url);
-                HttpURLConnection con = null;
-                con = (HttpURLConnection) object.openConnection();
-                con.setDoOutput(true);
-                con.setDoInput(true);
-                con.setRequestProperty("Content-Type", "application/json");
-                con.setRequestMethod("POST");
-                con.connect();
-                JSONObject jsonObject = new JSONObject();
-                JSONObject user = new JSONObject();
+                    String url = "http://riosmais.herokuapp.com/api/v1/sign_up";
+                    URL object = new URL(url);
+                    HttpURLConnection con = (HttpURLConnection) object.openConnection();
+                    con.setDoOutput(true);
+                    con.setDoInput(true);
+                    con.setRequestProperty("Content-Type", "application/json");
+                    con.setRequestMethod("POST");
+                    con.connect();
+                    JSONObject jsonObject = new JSONObject();
+                    JSONObject user = new JSONObject();
                     try {
                         jsonObject.accumulate("nome", nome);
                         jsonObject.accumulate("email", email);
                         jsonObject.accumulate("password", password);
                         jsonObject.accumulate("password_confirmation", password_confirmation);
-                        jsonObject.accumulate("telef", "111111111");
+                        jsonObject.accumulate("telef", telef);
+                        jsonObject.accumulate("habilitacoes", habilitacoes);
+                        jsonObject.accumulate("profissao", profissao);
+                        jsonObject.accumulate("formacao", formacao.toString());
+                        jsonObject.accumulate("distrito_id", "");
+                        jsonObject.accumulate("concelho_id", "");
+
                         user.accumulate("user", jsonObject);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
+                    Log.e("user todo: ", user.toString());
 
-                Log.w("teste", user.toString());
-
-                OutputStream os = null;
-                os = con.getOutputStream();
-                OutputStreamWriter osw = null;
-                osw = new OutputStreamWriter(os, "UTF-8");
-                osw.write(user.toString());
-                osw.flush();
-                osw.close();
-                int HttpResult = 0;
-                StringBuilder sb=null;
-                sb= new StringBuilder();
-                HttpResult = con.getResponseCode();
-                if (HttpResult == HttpURLConnection.HTTP_OK) {
-                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
-                    String line = null;
-                    while ((line = br.readLine()) != null) {
-                        sb.append(line + "\n");
-                    }
-
-                    final String[] error_txt = {""};
-                    final Boolean[] error = {false};
-
-                    try {
-                        JSONObject obj = new JSONObject(sb.toString());
-                        try {
-                            error_txt[0] = obj.getString("error");
-                            error[0] =true;
-                        } catch (JSONException ignored) {
+                    OutputStream os = con.getOutputStream();
+                    OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+                    osw.write(user.toString());
+                    osw.flush();
+                    osw.close();
+                    StringBuilder sb = new StringBuilder();
+                    int HttpResult = con.getResponseCode();
+                    if (HttpResult == HttpURLConnection.HTTP_CREATED) {
+                        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
+                        String line = null;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line + "\n");
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+
+                        Log.e("register","resposta da api:" + sb.toString());
+
+                        final String[] error_txt = {""};
+                        final Boolean[] error = {false};
+
+                        JSONObject obj = null;
+                        try {
+                            obj = new JSONObject(sb.toString());
+                            error_txt[0] = obj.getString("error");
+                            error[0] = true;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("JSON Exception", "exception getting response on register");
+                        }
+
+                        register_class.register_response(error[0], error_txt[0], register_class,obj);
+
+                        br.close();
+
+                        System.out.println(sb.toString());
+
+                    } else {
+                        Log.e("register","Resposta da api n foi OK");
+                        System.out.println(con.getResponseMessage());
                     }
-
-                    Log.e("resposta:","a meio     error:"+ error_txt[0]);
-                    register_class.register_response(error[0], error_txt[0]);
-
-                    br.close();
-
-
-                    System.out.println("" + sb.toString());
-
-                } else {
-
-
-                    System.out.println(con.getResponseMessage());
-                }
-
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
-
-
     }
-
-
-
 
     public static void saveForm(final String token, final String email, final Form_IRR form_irr) throws IOException, JSONException {
 
@@ -137,7 +126,6 @@ public class DB_functions {
             values=values+" |"+i+":";
             for (int j=0;j<values_irr.get(i).length;j++)
                 values=values+" "+values_irr.get(i)[j]+",";
-
         }
         Log.e("form",values);
         form_irr.fillAnswers();
@@ -147,10 +135,8 @@ public class DB_functions {
                 try {
                     String url = "http://riosmais.herokuapp.com/api/v2/form_irrs?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
-                    URL object = null;
-                    object = new URL(url);
-                    HttpURLConnection con = null;
-                    con = (HttpURLConnection) object.openConnection();
+                    URL object = new URL(url);
+                    HttpURLConnection con = (HttpURLConnection) object.openConnection();
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.setRequestProperty("Content-Type", "application/json");
@@ -173,10 +159,6 @@ public class DB_functions {
                     ArrayList<Integer> arrayList_ParticipacaoPublica = new ArrayList<Integer>();
                     ArrayList<Integer> arrayList_OrganizacaoPlaneamento = new ArrayList<Integer>();
 
-
-
-
-
                     try {
                         response.accumulate("idRio", "201.04");
                         response.accumulate("margem", "1");
@@ -187,7 +169,6 @@ public class DB_functions {
                         response.accumulate("tipoDeVale", (int) form_irr.getRespostas().get(1));
 
                         response.accumulate("perfilDeMargens", (int) form_irr.getRespostas().get(2));
-
 
                         af= (ArrayList<Float>) form_irr.getRespostas().get(3);
                         response.accumulate("larguraDaSuperficieDaAgua",af.get(0));
@@ -216,7 +197,6 @@ public class DB_functions {
                         response.accumulate("substratoDoLeito_solo",ai.get(5));
                         response.accumulate("substratoDoLeito_artificial",ai.get(6));
                         response.accumulate("substratoDoLeito_naoEVisivel",ai.get(7));
-
 
                         response.accumulate("estadoGeraldaLinhadeAgua",(int) form_irr.getRespostas().get(6));
 
@@ -263,17 +243,13 @@ public class DB_functions {
                         Log.e("form", "a ler:" + 10);
                         arrayList_QualidadeDaAgua.add(Form_functions.getmax(ai, values_irr.get(10)));
 
-
-
                         response.accumulate("corDaAgua", (int) form_irr.getRespostas().get(11));
                         Log.e("form", "a ler:" + 11);
                         arrayList_QualidadeDaAgua.add(Form_functions.getmax((int) form_irr.getRespostas().get(11), values_irr.get(11)));
 
-
                         response.accumulate("odorDaAgua", (int) form_irr.getRespostas().get(12));
                         Log.e("form", "a ler:" + 12);
                         arrayList_QualidadeDaAgua.add(Form_functions.getmax((int) form_irr.getRespostas().get(12), values_irr.get(12)));
-
 
                         ArrayList<ArrayList<Integer>> arrayListArrayList= (ArrayList<ArrayList<Integer>>) form_irr.getRespostas().get(13);
                         response.accumulate("planarias",arrayListArrayList.get(0).get(0));
@@ -306,8 +282,6 @@ public class DB_functions {
                                 + "," + arrayList_QualidadeDaAgua.get(2)
                                 + "," + arrayList_QualidadeDaAgua.get(3));
 
-
-
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(14);
                         response.accumulate("intervencoes_edificios",ai.get(0));
                         response.accumulate("intervencoes_pontes",ai.get(1));
@@ -325,11 +299,7 @@ public class DB_functions {
 
                         arrayList_AlteracoesAntropicas.add(Form_functions.getmax(ai, values_irr.get(14)));
 
-
-
                         response.accumulate("intervencoes_outras", "");
-
-
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(15);
                         response.accumulate("ocupacao_florestaNatural",ai.get(0));
@@ -475,7 +445,6 @@ public class DB_functions {
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(24)));
                         response.accumulate("flora_outro", "");
 
-
                         response.accumulate("conservacaoBosqueRibeirinho",(int) form_irr.getRespostas().get(25));
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(26);
@@ -488,10 +457,8 @@ public class DB_functions {
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(26)));
                         response.accumulate("vegetacaoInvasora_outro", "");
 
-
                         response.accumulate("obstrucaoDoLeitoMargens", (int) form_irr.getRespostas().get(27));
                         arrayList_CorredorEcologico.add(Form_functions.getmax((int) form_irr.getRespostas().get(27), values_irr.get(27)));
-
 
                         response.accumulate("disponibilizacaoDeInformacao", (int) form_irr.getRespostas().get(28));
                         arrayList_ParticipacaoPublica.add(Form_functions.getmax((int) form_irr.getRespostas().get(28), values_irr.get(28)));
@@ -499,7 +466,6 @@ public class DB_functions {
                         arrayList_ParticipacaoPublica.add(Form_functions.getmax((int) form_irr.getRespostas().get(29), values_irr.get(29)));
                         response.accumulate("acao", (int) form_irr.getRespostas().get(30));
                         arrayList_ParticipacaoPublica.add(Form_functions.getmax((int) form_irr.getRespostas().get(30), values_irr.get(30)));
-
 
                         response.accumulate("legislacao", (int) form_irr.getRespostas().get(31));
                         arrayList_OrganizacaoPlaneamento.add(Form_functions.getmax((int) form_irr.getRespostas().get(31), values_irr.get(31)));
@@ -538,7 +504,6 @@ public class DB_functions {
                         Log.e("teste", veryLongString.substring(start, end));
                     }
 
-
                     OutputStream os = null;
                     os = con.getOutputStream();
                     OutputStreamWriter osw = null;
@@ -557,7 +522,6 @@ public class DB_functions {
                         while ((line = br.readLine()) != null) {
                             sb.append(line + "\n");
                         }
-
 
                         br.close();
                         String erro_sb="";
@@ -619,17 +583,12 @@ public class DB_functions {
                         }
                         Log.e("teste","fodeu");
                         System.out.println(builder);
-
                     }
-
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
-
-
     }
 
     public static void update(final String token, final String email, final Form_IRR form_irr) throws IOException, JSONException {
@@ -677,10 +636,6 @@ public class DB_functions {
                     ArrayList<Integer> arrayList_ParticipacaoPublica = new ArrayList<Integer>();
                     ArrayList<Integer> arrayList_OrganizacaoPlaneamento = new ArrayList<Integer>();
 
-
-
-
-
                     try {
                         response.accumulate("idRio", "201.04");
                         response.accumulate("margem", "1");
@@ -691,7 +646,6 @@ public class DB_functions {
                         response.accumulate("tipoDeVale", (int) form_irr.getRespostas().get(1));
 
                         response.accumulate("perfilDeMargens", (int) form_irr.getRespostas().get(2));
-
 
                         af= (ArrayList<Float>) form_irr.getRespostas().get(3);
                         response.accumulate("larguraDaSuperficieDaAgua",af.get(0));
@@ -723,7 +677,6 @@ public class DB_functions {
                         response.accumulate("substratoDoLeito_solo",ai.get(5));
                         response.accumulate("substratoDoLeito_artificial",ai.get(6));
                         response.accumulate("substratoDoLeito_naoEVisivel",ai.get(7));
-
 
                         response.accumulate("estadoGeraldaLinhadeAgua",(int) form_irr.getRespostas().get(6));
 
@@ -770,17 +723,13 @@ public class DB_functions {
                         Log.e("form", "a ler:" + 10);
                         arrayList_QualidadeDaAgua.add(Form_functions.getmax(ai, values_irr.get(10)));
 
-
-
                         response.accumulate("corDaAgua", (int) form_irr.getRespostas().get(11));
                         Log.e("form", "a ler:" + 11);
                         arrayList_QualidadeDaAgua.add(Form_functions.getmax((int) form_irr.getRespostas().get(11), values_irr.get(11)));
 
-
                         response.accumulate("odorDaAgua", (int) form_irr.getRespostas().get(12));
                         Log.e("form", "a ler:" + 12);
                         arrayList_QualidadeDaAgua.add(Form_functions.getmax((int) form_irr.getRespostas().get(12), values_irr.get(12)));
-
 
                         ArrayList<ArrayList<Integer>> arrayListArrayList= (ArrayList<ArrayList<Integer>>) form_irr.getRespostas().get(13);
                         response.accumulate("planarias",arrayListArrayList.get(0).get(0));
@@ -813,8 +762,6 @@ public class DB_functions {
                                 + "," + arrayList_QualidadeDaAgua.get(2)
                                 + "," + arrayList_QualidadeDaAgua.get(3));
 
-
-
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(14);
                         response.accumulate("intervencoes_edificios",ai.get(0));
                         response.accumulate("intervencoes_pontes",ai.get(1));
@@ -831,11 +778,7 @@ public class DB_functions {
                         response.accumulate("intervencoes_tecnicasDeEngenhariaNatural",ai.get(12));
                         arrayList_AlteracoesAntropicas.add(Form_functions.getmax(ai, values_irr.get(14)));
 
-
-
                         response.accumulate("intervencoes_outras", "");
-
-
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(15);
                         response.accumulate("ocupacao_florestaNatural",ai.get(0));
@@ -909,7 +852,6 @@ public class DB_functions {
                         response.accumulate("raVerde", ai.get(4));
                         response.accumulate("sapoComum", ai.get(5));
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(18)));
-
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(19);
                         response.accumulate("lagartoDeAgua",ai.get(0));
@@ -993,10 +935,8 @@ public class DB_functions {
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(26)));
                         response.accumulate("vegetacaoInvasora_outro", "");
 
-
                         response.accumulate("obstrucaoDoLeitoMargens", (int) form_irr.getRespostas().get(27));
                         arrayList_CorredorEcologico.add(Form_functions.getmax((int) form_irr.getRespostas().get(27), values_irr.get(27)));
-
 
                         response.accumulate("disponibilizacaoDeInformacao", (int) form_irr.getRespostas().get(28));
                         arrayList_ParticipacaoPublica.add(Form_functions.getmax((int) form_irr.getRespostas().get(28), values_irr.get(28)));
@@ -1004,7 +944,6 @@ public class DB_functions {
                         arrayList_ParticipacaoPublica.add(Form_functions.getmax((int) form_irr.getRespostas().get(29), values_irr.get(29)));
                         response.accumulate("acao", (int) form_irr.getRespostas().get(30));
                         arrayList_ParticipacaoPublica.add(Form_functions.getmax((int) form_irr.getRespostas().get(30), values_irr.get(30)));
-
 
                         response.accumulate("legislacao", (int) form_irr.getRespostas().get(31));
                         arrayList_OrganizacaoPlaneamento.add(Form_functions.getmax((int) form_irr.getRespostas().get(31), values_irr.get(31)));
@@ -1043,7 +982,6 @@ public class DB_functions {
                         Log.e("teste", veryLongString.substring(start, end));
                     }
 
-
                     OutputStream os = null;
                     os = con.getOutputStream();
                     OutputStreamWriter osw = null;
@@ -1062,7 +1000,6 @@ public class DB_functions {
                         while ((line = br.readLine()) != null) {
                             sb.append(line + "\n");
                         }
-
 
                         br.close();
                         String erro_sb="";
@@ -1124,24 +1061,15 @@ public class DB_functions {
                         }
                         Log.e("teste","fodeu");
                         System.out.println(builder);
-
                     }
-
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
-
-
     }
 
-
-
-
     public static void login(final String email, final String password, final Login login) throws IOException, JSONException {
-
 
         new Thread(new Runnable() {
             public void run() {
@@ -1164,7 +1092,6 @@ public class DB_functions {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
 
                     Log.w("teste", jsonObject.toString());
 
@@ -1222,32 +1149,24 @@ public class DB_functions {
                         Log.e("resposta:","a meio     error:"+ error_txt[0] +" autenticacao:"+ authentication_token[0]);
                         login.login_response(error[0],error_txt[0],authentication_token[0],name,email);
 
-
-
-
                         System.out.println("errozinho:" + sb.toString());
 
                     } else {
                         Log.e("teste","error: "+con.getResponseMessage());
                         System.out.println(con.getResponseMessage());
                     }
-
-
                 } catch (IOException e) {
                     Log.e("teste","stacktrace");
                     e.printStackTrace();
                 }
             }
         }).start();
-
     }
 
     public static void getForms(final String token,final String email, final Form_IRR_mainActivity formIRR) throws IOException, JSONException {
 
-
         new Thread(new Runnable() {
             public void run() {
-
 
                 String url = "http://riosmais.herokuapp.com/api/v2/form_irrs?user_email="+email+"&user_token="+token;
 
@@ -1323,31 +1242,23 @@ public class DB_functions {
                         System.out.println(name);
                         System.out.println(url);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-
             }
         }).start();
-
     }
 
-
     public static void saveGuardaRios(final GuardaRios_form guardaRios_form,final String token, final String q1, final String q2, final String q3, final String q4, final ArrayList<Integer> q5, final String q6) {
-
-
         new Thread(new Runnable() {
             public void run() {
 
                 try {
                     String url = "http://riosmais.herokuapp.com/api/v2/guardarios?user_email="+"fil.fmiranda@gmail.com"+"&user_token="+token;
                     Log.e("teste",url);
-                    URL object = null;
-                    object = new URL(url);
-                    HttpURLConnection con = null;
-                    con = (HttpURLConnection) object.openConnection();
+                    URL object = new URL(url);
+                    HttpURLConnection con = (HttpURLConnection) object.openConnection();
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.setRequestProperty("Content-Type", "application/json");
@@ -1370,22 +1281,16 @@ public class DB_functions {
                     JSONObject guardarios= new JSONObject();
                     guardarios.accumulate("guardario",jsonObject);
 
-
-
                     Log.w("teste", jsonObject.toString());
                     Log.e("teste",guardarios.toString());
 
-                    OutputStream os = null;
-                    os = con.getOutputStream();
-                    OutputStreamWriter osw = null;
-                    osw = new OutputStreamWriter(os, "UTF-8");
+                    OutputStream os = con.getOutputStream();
+                    OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
                     osw.write(guardarios.toString());
                     osw.flush();
                     osw.close();
-                    int HttpResult = 0;
-                    StringBuilder sb=null;
-                    sb= new StringBuilder();
-                    HttpResult = con.getResponseCode();
+                    StringBuilder sb = new StringBuilder();
+                    int HttpResult = con.getResponseCode();
                     if (HttpResult == HttpURLConnection.HTTP_OK) {
                         BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
                         String line = null;
@@ -1395,11 +1300,8 @@ public class DB_functions {
 
                         br.close();
 
-                       // Log.e("resposta:","a meio     error:"+ error_txt[0] +" autenticacao:"+ authentication_token[0]);
+                        // Log.e("resposta:","a meio     error:"+ error_txt[0] +" autenticacao:"+ authentication_token[0]);
                         //login.login_response(error[0],error_txt[0],authentication_token[0],name,email);
-
-
-
 
                         System.out.println("errozinho:" + sb.toString());
                         guardaRios_form.saveGuardaRiosDB();
@@ -1408,8 +1310,6 @@ public class DB_functions {
                         Log.e("teste","error: "+con.getResponseMessage());
                         System.out.println(con.getResponseMessage());
                     }
-
-
                 } catch (IOException e) {
                     Log.e("teste","stacktrace");
                     e.printStackTrace();
@@ -1418,23 +1318,17 @@ public class DB_functions {
                 }
             }
         }).start();
-
-
     }
 
     public static void saveSOSRios(final Sos_rios sos_rios,final String token,final String q1,final String q2,final String q3) {
 
-
         new Thread(new Runnable() {
             public void run() {
-
                 try {
                     String url = "http://riosmais.herokuapp.com/api/v2/reports?user_email="+"fil.fmiranda@gmail.com"+"&user_token="+token;
                     Log.e("teste",url);
-                    URL object = null;
-                    object = new URL(url);
-                    HttpURLConnection con = null;
-                    con = (HttpURLConnection) object.openConnection();
+                    URL object = new URL(url);
+                    HttpURLConnection con = (HttpURLConnection) object.openConnection();
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.setRequestProperty("Content-Type", "application/json");
@@ -1449,22 +1343,16 @@ public class DB_functions {
                     JSONObject guardarios= new JSONObject();
                     guardarios.accumulate("report",jsonObject);
 
-
-
                     Log.w("teste", jsonObject.toString());
                     Log.e("teste",guardarios.toString());
 
-                    OutputStream os = null;
-                    os = con.getOutputStream();
-                    OutputStreamWriter osw = null;
-                    osw = new OutputStreamWriter(os, "UTF-8");
+                    OutputStream os = con.getOutputStream();
+                    OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
                     osw.write(guardarios.toString());
                     osw.flush();
                     osw.close();
-                    int HttpResult = 0;
-                    StringBuilder sb=null;
-                    sb= new StringBuilder();
-                    HttpResult = con.getResponseCode();
+                    StringBuilder sb = new StringBuilder();
+                    int HttpResult = con.getResponseCode();
                     if (HttpResult == HttpURLConnection.HTTP_OK) {
                         BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
                         String line = null;
@@ -1482,8 +1370,6 @@ public class DB_functions {
                         Log.e("teste","error: "+con.getResponseMessage());
                         System.out.println(con.getResponseMessage());
                     }
-
-
                 } catch (IOException e) {
                     Log.e("teste","stacktrace");
                     e.printStackTrace();
@@ -1492,11 +1378,5 @@ public class DB_functions {
                 }
             }
         }).start();
-
-
     }
-
 }
-
-
-

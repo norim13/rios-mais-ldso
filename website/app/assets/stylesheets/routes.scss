@@ -1,0 +1,36 @@
+// Place all the styles related to the routes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.route-points-map{
+  height: 500px;
+
+}
+
+#route-points-sortable li{
+  list-style-type: none;
+}
+
+#route-points-sortable {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+#route-points-sortable li {
+  margin: 0 5px 5px 5px;
+  padding: 5px;
+  font-size: 1.2em;
+  height: 2em;
+}
+
+html>body #route-points-sortable li {
+  height: 2.5em;
+  line-height: 1.2em;
+}
+
+.ui-state-highlight {
+  height: 2em;
+  line-height: 1.2em;
+}

@@ -1,0 +1,34 @@
+<%= simple_form_for @route, html: { multipart: true } do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+
+      <div class="form-group container">
+
+        <div class="row">
+          <div class="col-xs-12">
+            <%= f.label :nome, "Nome da rota:" %>
+            <%= f.text_field :nome, :id => 'nome-rota', :class => 'text_field form-control', :required => true %>
+          </div>
+          <div class="col-xs-12">
+            <%= f.label :descricao, "Descrição da rota:" %>
+            <%= f.text_area :descricao, :id => 'descricao-rota', :class => 'text_field form-control', :required => true, :rows => 10%>
+          </div>
+          <div class="col-xs-12">
+            <%= f.label :zona, "Zona onde se encontra a rota:" %>
+            <%= f.text_field :zona, :id => 'zona-rota', :class => 'text_field form-control', :required => true %>
+          </div>
+          <div class="col-xs-12">
+            <%= f.check_box :publicada %>
+            <%= f.label :publicada, "Publicar rota" %>
+            <p><strong>Nota:</strong> Selecionar <strong>"Publicar Rota"</strong> se a rota estiver já completa, sendo que ficará visível para o público. Se ainda estiver em edição, deixar desmarcada.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, 'Adicionar Rota' %>
+      </div>
+    </div>
+<% end %>

@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
 
-  get 'participacao_publica/info'
-
-  get 'lab_rios/info'
+  resources :routes
+  resources :rotas
 
   get 'rio/:id' => 'rio#show', as: :rio, :id => /.*/
 
@@ -11,6 +10,7 @@ Rails.application.routes.draw do
   get 'home' => 'home#homepage'
   get 'contactos' => 'about#about'
   get 'documentos' => 'documentos_relacionados#documentos'
+  get 'distritos' => 'concelho#getDistritos'
   get 'concelhos' => 'concelho#getConcelhosFromDistrito'
   get 'limpeza' => 'limpeza#show'
   get 'respostas' => 'limpeza#getRespostas'
@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get 'report/info' => 'reports#info'
   get 'lab_rios/info' => 'lab_rios#info'
   get 'participacao_publica/info' => 'participacao_publica#info'
+  get 'projetos/info' => 'projetos#info'
 
   resources :form_irr_image
   resources :reabilitacaos
