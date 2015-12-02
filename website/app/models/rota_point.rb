@@ -1,3 +1,3 @@
 class RotaPoint < ActiveRecord::Base
-  belongs_to :rota
+  belongs_to :route
 end

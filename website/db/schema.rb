@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151201230721) do
+ActiveRecord::Schema.define(version: 20151202152511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -381,6 +381,15 @@ ActiveRecord::Schema.define(version: 20151201230721) do
 
   add_index "reports", ["user_id"], name: "index_reports_on_user_id", using: :btree
 
+  create_table "rota_points", force: :cascade do |t|
+    t.string  "nome"
+    t.string  "descricao"
+    t.float   "lat"
+    t.float   "lon"
+    t.integer "ordem"
+    t.integer "route_id"
+  end
+
   create_table "routes", force: :cascade do |t|
     t.string   "nome"
     t.string   "descricao"
@@ -426,4 +435,5 @@ ActiveRecord::Schema.define(version: 20151201230721) do
   add_foreign_key "reabilitacaos", "users"
   add_foreign_key "report_images", "reports"
   add_foreign_key "reports", "users"
+  add_foreign_key "rota_points", "routes"
 end

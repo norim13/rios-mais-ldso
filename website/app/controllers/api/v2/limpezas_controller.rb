@@ -3,6 +3,9 @@ class Api::V2::LimpezasController < ApplicationController
 	before_filter :authenticate_user_from_token!, except: :getRespostas
 
 	def submitProblemas
+		user_email = params[:user_email].presence
+		user = user_email && User.find_by_email(user_email)
+
 	    loglimpeza = LogLimpeza.new(limpeza_params)
 	    loglimpeza.user_id = user.id
 
