@@ -43,7 +43,6 @@ public class Register extends AppCompatActivity {
     protected Switch mFormacao;
 
     protected Button mRegisterButton;
-    protected User user;
     private static final int REQUEST_READ_CONTACTS = 0;
 
     @Override
@@ -76,11 +75,6 @@ public class Register extends AppCompatActivity {
         mFormacao=(Switch) findViewById(R.id.FormacaoRegisterSwitch);
 
         mRegisterButton=(Button)findViewById(R.id.RegisterButton);
-        user=new User();
-        user.setId(-1);
-        user.setName("teste");
-        user.setEmail("teste@email.com");
-        user.setPassword("teste");
     }
 
     public void register(View view){
@@ -130,8 +124,6 @@ public class Register extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), Homepage.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-
-        //set user
     }
 
     //menu action bar
@@ -214,11 +206,14 @@ public class Register extends AppCompatActivity {
                             // Commit the edits!
                             editor.commit();
                             finish();
+
+                            User.getInstance().setAuthentication_token(authentication);
+                            User.getInstance().setName(nome);
+                            User.getInstance().setEmail(email);
                         }
                     }
                 });
             }
         }.start();
     }
-
 }

@@ -30,6 +30,7 @@ import ldso.rios.Autenticacao.Login;
 import ldso.rios.Autenticacao.Register;
 import ldso.rios.Form.Sos_rios;
 import ldso.rios.MainActivities.Limpeza;
+import ldso.rios.MainActivities.Profile;
 
 /**
  * Created by filipe on 02/11/2015.
@@ -113,6 +114,99 @@ public class DB_functions {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        }).start();
+    }
+
+    public static void getUserData(final Profile profile, final String email, final String token) {
+
+        new Thread(new Runnable() {
+            public void run() {
+
+                String url = "http://riosmais.herokuapp.com/api/v2/users?user_email="+email+"&user_token="+token;
+
+                URL obj = null;
+                try {
+                    obj = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                HttpURLConnection con = null;
+                try {
+                    con = (HttpURLConnection) obj.openConnection();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // optional default is GET
+                try {
+                    con.setRequestMethod("GET");
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                }
+
+                //add request header
+                con.setRequestProperty("Content-Type", "application/json");
+
+                int responseCode = 0;
+                try {
+                    responseCode = con.getResponseCode();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Log.i("user","getting user");
+                Log.i("user","sending GET request to URL: " + url);
+                Log.i("user","response code: " + responseCode);
+
+                BufferedReader in = null;
+                try {
+                    in = new BufferedReader(
+                            new InputStreamReader(con.getInputStream()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                try {
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //print result
+                System.out.println(response.toString());
+                Log.e("teste", response.toString());
+
+                try {
+                    JSONObject user_json = new JSONObject(response.toString());
+
+                    User user = User.getInstance();
+                    user.setId(Integer.parseInt(user_json.getString("id")));
+                    user.setName(user_json.getString("nome"));
+                    user.setEmail(user_json.getString("email"));
+                    user.setAuthentication_token(user_json.getString("authentication_token"));
+                    user.setTelef(user_json.getString("telef"));
+
+                    String distrito_id = user_json.getString("distrito_id");
+                    String concelho_id = user_json.getString("concelho_id");
+                    user.setDistrito(distrito_id);
+                    user.setConcelho(concelho_id);
+
+                    user.setProfissao(user_json.getString("profissao"));
+                    user.setHabilitacoes(user_json.getString("habilitacoes"));
+                    user.setFormacao(Boolean.valueOf(user_json.getString("formacao")));
+
+                    Log.e("profile","a seguir ao set user todo");
+
+                    profile.afterGetUserData();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         }).start();
     }
@@ -1116,9 +1210,9 @@ public class DB_functions {
 
                         br.close();
 
-                        final String[] authentication_token = {""};
-                        final String[] error_txt = {""};
-                        final Boolean[] error = {false};
+                        String authentication_token = "";
+                        String error_txt = "";
+                        Boolean error = false;
                         String name="";
                         String email="";
 
@@ -1129,26 +1223,40 @@ public class DB_functions {
                          */
 
                         try {
-                            JSONObject obj = new JSONObject(sb.toString());
-                            try {
-                                error_txt[0] = obj.getString("error");
-                                error[0] =true;
-                            } catch (JSONException ignored) {
-                            }
-                            try {
-                                if(!error[0]) {
-                                    authentication_token[0] = obj.getString("authentication_token");
-                                    name=obj.getString("nome");
-                                    email=obj.getString("email");
-                                }
-                            }
-                            catch (JSONException ignored){
+                            JSONObject user_json = new JSONObject(sb.toString());
+                            error_txt = user_json.getString("error");
+
+                            if(!error_txt.equals(""))
+                                error = true;
+
+                            if(!error) {
+                                authentication_token = user_json.getString("authentication_token");
+                                name=user_json.getString("nome");
+                                email=user_json.getString("email");
+
+                                User user = User.getInstance();
+                                user.setId(Integer.parseInt(user_json.getString("id")));
+                                user.setName(user_json.getString("nome"));
+                                user.setEmail(user_json.getString("email"));
+                                user.setAuthentication_token(user_json.getString("authentication_token"));
+                                user.setTelef(user_json.getString("telef"));
+
+                                String distrito_id = user_json.getString("distrito_id");
+                                String concelho_id = user_json.getString("concelho_id");
+                                user.setDistrito(distrito_id);
+                                user.setConcelho(concelho_id);
+
+                                user.setProfissao(user_json.getString("profissao"));
+                                user.setHabilitacoes(user_json.getString("habilitacoes"));
+                                user.setFormacao(Boolean.valueOf(user_json.getString("formacao")));
+
+                                Log.e("profile","a seguir ao set user todo");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Log.e("resposta:","a meio     error:"+ error_txt[0] +" autenticacao:"+ authentication_token[0]);
-                        login.login_response(error[0],error_txt[0],authentication_token[0],name,email);
+                        Log.e("resposta:","a meio error:"+ error_txt +" autenticacao:"+ authentication_token);
+                        login.login_response(error,error_txt);
 
                         System.out.println("errozinho:" + sb.toString());
 
