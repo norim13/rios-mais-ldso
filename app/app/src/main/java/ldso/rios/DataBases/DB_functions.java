@@ -1381,13 +1381,14 @@ public class DB_functions {
         }).start();
     }
 
-    public static void saveLimpeza(final Limpeza limpeza, final String token, final String email, final String q1, String q2, final String q3, String q4,
-                                   String q5, String q6, String q7, String q8, String q9, String q10, String q11, String q12, String q13) {
+    public static void saveLimpeza(final Limpeza limpeza, final String token, final String email, final String q1, final String q2, final String q3, final String q4,
+                                   final String q5, final String q6,final String q7,final String q8,final String q9,final String q10, final String q11, final String q12, final String q13,
+                                   final String q14, final String q15, final Integer q16, final String q17) {
 
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String url = "http://riosmais.herokuapp.com/api/v2/limpeza?user_email="+email+"&user_token="+token;
+                    String url = "http://riosmais.herokuapp.com/api/v2/limpezas?user_email="+email+"&user_token="+token;
                     Log.e("teste limpeza", url);
                     URL object = null;
                     object = new URL(url);
@@ -1400,19 +1401,35 @@ public class DB_functions {
                     con.connect();
                     JSONObject jsonObject = new JSONObject();
 
-                    //jsonObject.accumulate("descricao",q3);
-
-                    JSONObject guardarios= new JSONObject();
-                    guardarios.accumulate("report", jsonObject);
-
-                    Log.w("teste", jsonObject.toString());
-                    Log.e("teste",guardarios.toString());
+                    jsonObject.accumulate("cheia_destruicao",q17);
+                    jsonObject.accumulate("cheia_perdas_monetarias",q16);
+                    jsonObject.accumulate("cheia_origem",q15);
+                    jsonObject.accumulate("cheia_data",q14);
+                    jsonObject.accumulate("problema13",q13);
+                    jsonObject.accumulate("problema12",q12);
+                    jsonObject.accumulate("problema11",q11);
+                    jsonObject.accumulate("problema10",q10);
+                    jsonObject.accumulate("problema9",q9);
+                    jsonObject.accumulate("problema8",q8);
+                    jsonObject.accumulate("problema7",q7);
+                    jsonObject.accumulate("problema6",q6);
+                    jsonObject.accumulate("problema5",q5);
+                    jsonObject.accumulate("problema4",q4);
+                    jsonObject.accumulate("problema3",q3);
+                    jsonObject.accumulate("problema2",q2);
+                    jsonObject.accumulate("problema1",q1);
+/*
+                    JSONObject limpezaObj = new JSONObject();
+                    limpezaObj.accumulate("limpeza", jsonObject);
+*/
+                   Log.w("teste", jsonObject.toString());
+//                    Log.e("teste",limpezaObj.toString());
 
                     OutputStream os = null;
                     os = con.getOutputStream();
                     OutputStreamWriter osw = null;
                     osw = new OutputStreamWriter(os, "UTF-8");
-                    osw.write(guardarios.toString());
+                    osw.write(jsonObject.toString());
                     osw.flush();
                     osw.close();
                     int HttpResult = 0;

@@ -77,4 +77,5 @@
         android:layout_alignRight="@+id/password_login"
         android:layout_alignEnd="@+id/password_login"
         android:checked="false" />
+
 </RelativeLayout>

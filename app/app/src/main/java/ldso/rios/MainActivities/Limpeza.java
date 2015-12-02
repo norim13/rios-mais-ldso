@@ -6,8 +6,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -36,6 +38,9 @@ public class Limpeza extends AppCompatActivity {
     protected ArrayList<RadioButton> question11;
     protected ArrayList<RadioButton> question12;
     protected ArrayList<RadioButton> question13;
+    protected  ArrayList<EditText> question14;
+    protected ArrayList<EditText> question15;
+    protected EditText dataEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,6 +187,25 @@ public class Limpeza extends AppCompatActivity {
                 "Antrópica"};
         question13 = Form_functions.createRadioButtons(options13, layoutLimpeza, this);
 
+        dataEdit= new EditText(this);
+        dataEdit.setInputType(InputType.TYPE_DATETIME_VARIATION_NORMAL);
+        layoutLimpeza.addView(dataEdit);
+
+        TextView text14 = new TextView(this);
+        text14.setText("Cheias");
+        text14.setLayoutParams(radioParams);
+        layoutLimpeza.addView(text14);
+        String texts[] = {"Cheia origem","Cheia destruição"};
+        question14 = Form_functions.createEditText(texts, layoutLimpeza, this);
+
+        TextView text15 = new TextView(this);
+        text15.setLayoutParams(radioParams);
+        layoutLimpeza.addView(text15);
+        String texts1[] = {"Perdas monetárias"};
+        ArrayList<Float[]> perdasMinMax = new ArrayList<Float[]>();
+        Float minMax[] = {0f, 1000000000f};
+        perdasMinMax.add(minMax);
+        question15 = Form_functions.createEditText(texts1,layoutLimpeza, this, perdasMinMax);
     }
 
     public void saveLimpeza(View view) {
@@ -198,10 +222,19 @@ public class Limpeza extends AppCompatActivity {
         String q11 = Form_functions.getRadioButtonOption_string(question11);
         String q12 = Form_functions.getRadioButtonOption_string(question12);
         String q13 = Form_functions.getRadioButtonOption_string(question13);
+        String q14 = dataEdit.getText().toString();
+        String q15 = Form_functions.getEditTexts(question14).get(0);
+        Integer q16;
+        try {
+            q16 = Integer.parseInt(Form_functions.getEditTexts(question15).get(0));
+        }catch(Exception e){
+            q16 = 0;
+        }
+        String q17 = Form_functions.getEditTexts(question14).get(1);
 
 //      String q6 = String.valueOf(question6.getText());
 
-        DB_functions.saveLimpeza(this, Form_functions.getUser(this.getApplicationContext())[0],Form_functions.getUser(this.getApplicationContext())[1], q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13);
+        DB_functions.saveLimpeza(this, Form_functions.getUser(this.getApplicationContext())[0],Form_functions.getUser(this.getApplicationContext())[1], q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14,q15,q16,q17);
     }
 
     public void saveLimpezaDB() {
