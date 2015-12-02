@@ -36,12 +36,10 @@ public class Login extends AppCompatActivity {
         toolbar.setTitle("Autenticação");
         setSupportActionBar(toolbar);
 
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         email=(EditText)findViewById(R.id.email_login);
         password=(EditText)findViewById(R.id.password_login);
     }
-
 
     public void login(View view) throws IOException, JSONException {
         String email_txt=email.getText().toString();
@@ -54,7 +52,6 @@ public class Login extends AppCompatActivity {
     }
 
     public void login_response(final Boolean error, final String error_txt, final String authentication, final String nome, final String email) {
-
 
         new Thread()
         {
@@ -74,8 +71,6 @@ public class Login extends AppCompatActivity {
                         else {
                             toast = Toast.makeText(context, "Bem vindo "+nome, Toast.LENGTH_LONG);
                             toast.show();
-
-
 
                             // We need an Editor object to make preference changes.
                             // All objects are from android.context.Context

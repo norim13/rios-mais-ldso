@@ -41,12 +41,9 @@ public class DB_functions {
         new Thread(new Runnable() {
             public void run() {
                 try {
-
                     String url = "http://riosmais.herokuapp.com/api/v1/sign_up";
-                    URL object = null;
-                    object = new URL(url);
-                    HttpURLConnection con = null;
-                    con = (HttpURLConnection) object.openConnection();
+                    URL object = new URL(url);
+                    HttpURLConnection con = (HttpURLConnection) object.openConnection();
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.setRequestProperty("Content-Type", "application/json");
@@ -73,46 +70,43 @@ public class DB_functions {
 
                     Log.e("user todo: ", user.toString());
 
-                    OutputStream os = null;
-                    os = con.getOutputStream();
-                    OutputStreamWriter osw = null;
-                    osw = new OutputStreamWriter(os, "UTF-8");
+                    OutputStream os = con.getOutputStream();
+                    OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
                     osw.write(user.toString());
                     osw.flush();
                     osw.close();
-                    int HttpResult = 0;
-                    StringBuilder sb=null;
-                    sb= new StringBuilder();
-                    HttpResult = con.getResponseCode();
-                    if (HttpResult == HttpURLConnection.HTTP_OK) {
+                    StringBuilder sb = new StringBuilder();
+                    int HttpResult = con.getResponseCode();
+                    if (HttpResult == HttpURLConnection.HTTP_CREATED) {
                         BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
                         String line = null;
                         while ((line = br.readLine()) != null) {
                             sb.append(line + "\n");
                         }
 
+                        Log.e("register","resposta da api:" + sb.toString());
+
                         final String[] error_txt = {""};
                         final Boolean[] error = {false};
 
+                        JSONObject obj = null;
                         try {
-                            JSONObject obj = new JSONObject(sb.toString());
-                            try {
-                                error_txt[0] = obj.getString("error");
-                                error[0] =true;
-                            } catch (JSONException ignored) {
-                            }
+                            obj = new JSONObject(sb.toString());
+                            error_txt[0] = obj.getString("error");
+                            error[0] = true;
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Log.e("JSON Exception", "exception getting response on register");
                         }
 
-                        Log.e("resposta:","a meio     error:"+ error_txt[0]);
-                        register_class.register_response(error[0], error_txt[0]);
+                        register_class.register_response(error[0], error_txt[0], register_class,obj);
 
                         br.close();
 
-                        System.out.println("" + sb.toString());
+                        System.out.println(sb.toString());
 
                     } else {
+                        Log.e("register","Resposta da api n foi OK");
                         System.out.println(con.getResponseMessage());
                     }
                 } catch (IOException e) {
@@ -141,10 +135,8 @@ public class DB_functions {
                 try {
                     String url = "http://riosmais.herokuapp.com/api/v2/form_irrs?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
-                    URL object = null;
-                    object = new URL(url);
-                    HttpURLConnection con = null;
-                    con = (HttpURLConnection) object.openConnection();
+                    URL object = new URL(url);
+                    HttpURLConnection con = (HttpURLConnection) object.openConnection();
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.setRequestProperty("Content-Type", "application/json");
@@ -1265,10 +1257,8 @@ public class DB_functions {
                 try {
                     String url = "http://riosmais.herokuapp.com/api/v2/guardarios?user_email="+"fil.fmiranda@gmail.com"+"&user_token="+token;
                     Log.e("teste",url);
-                    URL object = null;
-                    object = new URL(url);
-                    HttpURLConnection con = null;
-                    con = (HttpURLConnection) object.openConnection();
+                    URL object = new URL(url);
+                    HttpURLConnection con = (HttpURLConnection) object.openConnection();
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.setRequestProperty("Content-Type", "application/json");
@@ -1294,17 +1284,13 @@ public class DB_functions {
                     Log.w("teste", jsonObject.toString());
                     Log.e("teste",guardarios.toString());
 
-                    OutputStream os = null;
-                    os = con.getOutputStream();
-                    OutputStreamWriter osw = null;
-                    osw = new OutputStreamWriter(os, "UTF-8");
+                    OutputStream os = con.getOutputStream();
+                    OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
                     osw.write(guardarios.toString());
                     osw.flush();
                     osw.close();
-                    int HttpResult = 0;
-                    StringBuilder sb=null;
-                    sb= new StringBuilder();
-                    HttpResult = con.getResponseCode();
+                    StringBuilder sb = new StringBuilder();
+                    int HttpResult = con.getResponseCode();
                     if (HttpResult == HttpURLConnection.HTTP_OK) {
                         BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
                         String line = null;
@@ -1341,10 +1327,8 @@ public class DB_functions {
                 try {
                     String url = "http://riosmais.herokuapp.com/api/v2/reports?user_email="+"fil.fmiranda@gmail.com"+"&user_token="+token;
                     Log.e("teste",url);
-                    URL object = null;
-                    object = new URL(url);
-                    HttpURLConnection con = null;
-                    con = (HttpURLConnection) object.openConnection();
+                    URL object = new URL(url);
+                    HttpURLConnection con = (HttpURLConnection) object.openConnection();
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.setRequestProperty("Content-Type", "application/json");
@@ -1362,17 +1346,13 @@ public class DB_functions {
                     Log.w("teste", jsonObject.toString());
                     Log.e("teste",guardarios.toString());
 
-                    OutputStream os = null;
-                    os = con.getOutputStream();
-                    OutputStreamWriter osw = null;
-                    osw = new OutputStreamWriter(os, "UTF-8");
+                    OutputStream os = con.getOutputStream();
+                    OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
                     osw.write(guardarios.toString());
                     osw.flush();
                     osw.close();
-                    int HttpResult = 0;
-                    StringBuilder sb=null;
-                    sb= new StringBuilder();
-                    HttpResult = con.getResponseCode();
+                    StringBuilder sb = new StringBuilder();
+                    int HttpResult = con.getResponseCode();
                     if (HttpResult == HttpURLConnection.HTTP_OK) {
                         BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
                         String line = null;
