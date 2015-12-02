@@ -1,6 +1,5 @@
 LDSO
 	- acabar os webservices
-		- DEIXARAM DE FUNCIONAR => "cant verify csrf authenticity"
 	- permissoes
 	- dar fix aos forms do fil
 		- por labels nos forms do fil
@@ -22,12 +21,12 @@ LDSO
 	nao calcular o IRR no show!!
 	
 	- no chart, dar fix ao numero que aparece
-	- no perfil dum rio se nao tiver afluencia/afluentes, dizer que n tem e esconder a tabela
+	/- no perfil dum rio se nao tiver afluencia/afluentes, dizer que n tem e esconder a tabela
 	
 	+ por imagens como sinf
 		+ mostrar filename
 		
-	- adicionar formulario id do user que editou por ultimo
+	+ adicionar formulario id do user que editou por ultimo
 	
 	+ por cursor a aparecer como link no "?" das imagens do form irr
 	
