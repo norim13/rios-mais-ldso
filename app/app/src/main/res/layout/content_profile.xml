@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="email"
+        android:text="email:"
         android:id="@+id/emailStaticTextProfile"
         android:layout_below="@+id/profilePicImageView"
         android:layout_alignParentLeft="true"
@@ -62,5 +62,125 @@
         android:layout_alignBottom="@+id/emailStaticTextProfile"
         android:layout_toRightOf="@+id/emailStaticTextProfile"
         android:layout_toEndOf="@+id/emailStaticTextProfile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Distrito:"
+        android:id="@+id/distritoStaticTextProfile"
+        android:layout_below="@+id/emailStaticTextProfile"
+        android:layout_toLeftOf="@+id/emailTextProfile"
+        android:layout_toStartOf="@+id/emailTextProfile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="distrito"
+        android:id="@+id/distritoTextProfile"
+        android:layout_alignTop="@+id/distritoStaticTextProfile"
+        android:layout_alignLeft="@+id/emailTextProfile"
+        android:layout_alignStart="@+id/emailTextProfile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Concelho:"
+        android:id="@+id/concelhoStaticTextProfile"
+        android:layout_alignTop="@+id/concelhoTextProfile"
+        android:layout_alignLeft="@+id/distritoStaticTextProfile"
+        android:layout_alignStart="@+id/distritoStaticTextProfile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="concelho"
+        android:id="@+id/concelhoTextProfile"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/concelhoStaticTextProfile"
+        android:layout_toEndOf="@+id/concelhoStaticTextProfile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Profissão:"
+        android:id="@+id/profissaoStaticTextProfile"
+        android:layout_below="@+id/concelhoStaticTextProfile"
+        android:layout_alignLeft="@+id/concelhoStaticTextProfile"
+        android:layout_alignStart="@+id/concelhoStaticTextProfile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="profissao"
+        android:id="@+id/profissaoTextProfile"
+        android:layout_alignBottom="@+id/profissaoStaticTextProfile"
+        android:layout_toRightOf="@+id/profissaoStaticTextProfile"
+        android:layout_toEndOf="@+id/profissaoStaticTextProfile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Habilitações:"
+        android:id="@+id/habilitacoesStaticTextProfile"
+        android:layout_below="@+id/profissaoStaticTextProfile"
+        android:layout_alignLeft="@+id/profissaoStaticTextProfile"
+        android:layout_alignStart="@+id/profissaoStaticTextProfile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="habilitacoes"
+        android:id="@+id/habilitacoesTextProfile"
+        android:layout_below="@+id/profissaoTextProfile"
+        android:layout_toRightOf="@+id/habilitacoesStaticTextProfile"
+        android:layout_toEndOf="@+id/habilitacoesStaticTextProfile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Fez formação na app?"
+        android:id="@+id/formacaoStaticTextProfile"
+        android:layout_below="@+id/telefStaticTextProfile"
+        android:layout_alignLeft="@+id/telefStaticTextProfile"
+        android:layout_alignStart="@+id/telefStaticTextProfile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Sim/Nao"
+        android:id="@+id/formacaoTextProfile"
+        android:layout_below="@+id/telefStaticTextProfile"
+        android:layout_toRightOf="@+id/formacaoStaticTextProfile"
+        android:layout_toEndOf="@+id/formacaoStaticTextProfile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Telefone:"
+        android:id="@+id/telefStaticTextProfile"
+        android:layout_below="@+id/habilitacoesStaticTextProfile"
+        android:layout_alignLeft="@+id/habilitacoesStaticTextProfile"
+        android:layout_alignStart="@+id/habilitacoesStaticTextProfile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="telef"
+        android:id="@+id/telefTextProfile"
+        android:layout_alignTop="@+id/telefStaticTextProfile"
+        android:layout_toRightOf="@+id/telefStaticTextProfile"
+        android:layout_toEndOf="@+id/telefStaticTextProfile" />
 
 </RelativeLayout>

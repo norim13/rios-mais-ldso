@@ -97,9 +97,7 @@ public class Login extends AppCompatActivity {
             }
         }.start();
 
-
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

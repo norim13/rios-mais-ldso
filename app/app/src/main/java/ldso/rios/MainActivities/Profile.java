@@ -17,7 +17,12 @@ public class Profile extends AppCompatActivity {
 
     TextView name;
     TextView email;
-
+    TextView distrito;
+    TextView concelho;
+    TextView telef;
+    TextView formacao;
+    TextView profissao;
+    TextView habilitacoes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,24 @@ public class Profile extends AppCompatActivity {
 
         email = (TextView) findViewById(R.id.emailTextProfile);
         email.setText(u.getEmail());
+
+        distrito = (TextView) findViewById(R.id.distritoTextProfile);
+        distrito.setText(u.getDistrito());
+
+        concelho = (TextView) findViewById(R.id.concelhoTextProfile);
+        concelho.setText(u.getConcelho());
+
+        telef = (TextView) findViewById(R.id.telefTextProfile);
+        telef.setText(u.getTelef());
+
+        formacao = (TextView) findViewById(R.id.formacaoTextProfile);
+        formacao.setText(String.valueOf(u.getFormacao()));
+
+        profissao = (TextView) findViewById(R.id.profissaoTextProfile);
+        profissao.setText(u.getProfissao());
+
+        habilitacoes = (TextView) findViewById(R.id.habilitacoesTextProfile);
+        habilitacoes.setText(u.getHabilitacoes());
     }
 
     public void afterGetUserData(){
@@ -60,13 +83,18 @@ public class Profile extends AppCompatActivity {
                     public void run() {
                         User u = User.getInstance();
 
-                        name = (TextView) findViewById(R.id.nameTextProfile);
-                        name.setText(u.getName());
+                        if(!u.getName().equals(name.getText()) ||
+                                !u.getConcelho().equals(concelho.getText()) ||
+                                !u.getDistrito().equals(distrito.getText()) ||
+                                !u.getTelef().equals(telef.getText()) ||
+                                !u.getHabilitacoes().equals(habilitacoes.getText()) ||
+                                !u.getProfissao().equals(profissao.getText()) ||
+                                !String.valueOf(u.getFormacao()).equals(formacao.getText()) ||
+                                !u.getEmail().equals(email.getText())) {
 
-                        email = (TextView) findViewById(R.id.emailTextProfile);
-                        email.setText(u.getEmail());
-
-                        Log.e("profile", "apos mudar tudo");
+                            putOldDataOnContent();
+                            Log.e("profile","dados diferentes!");
+                        }
                     }
                 });
             }
