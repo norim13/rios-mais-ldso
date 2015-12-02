@@ -29,6 +29,7 @@ import ldso.rios.Form.IRR.Questions;
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.Autenticacao.Register;
 import ldso.rios.Form.Sos_rios;
+import ldso.rios.MainActivities.Limpeza;
 
 /**
  * Created by filipe on 02/11/2015.
@@ -603,7 +604,7 @@ public class DB_functions {
                 values=values+" "+values_irr.get(i)[j]+",";
 
         }
-        Log.e("form",values);
+        Log.e("form", values);
 
         new Thread(new Runnable() {
             public void run() {
@@ -1335,13 +1336,13 @@ public class DB_functions {
                     con.setRequestMethod("POST");
                     con.connect();
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.accumulate("rio","201.02");
+                    jsonObject.accumulate("rio", "201.02");
                     jsonObject.accumulate("categoria",q1);
                     jsonObject.accumulate("motivo",q2);
-                    jsonObject.accumulate("descricao",q3);
+                    jsonObject.accumulate("descricao", q3);
 
                     JSONObject guardarios= new JSONObject();
-                    guardarios.accumulate("report",jsonObject);
+                    guardarios.accumulate("report", jsonObject);
 
                     Log.w("teste", jsonObject.toString());
                     Log.e("teste",guardarios.toString());
@@ -1379,4 +1380,72 @@ public class DB_functions {
             }
         }).start();
     }
+
+    public static void saveLimpeza(final Limpeza limpeza, final String token, final String email, final String q1, String q2, final String q3, String q4,
+                                   String q5, String q6, String q7, String q8, String q9, String q10, String q11, String q12, String q13) {
+
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String url = "http://riosmais.herokuapp.com/api/v2/limpeza?user_email="+email+"&user_token="+token;
+                    Log.e("teste limpeza", url);
+                    URL object = null;
+                    object = new URL(url);
+                    HttpURLConnection con = null;
+                    con = (HttpURLConnection) object.openConnection();
+                    con.setDoOutput(true);
+                    con.setDoInput(true);
+                    con.setRequestProperty("Content-Type", "application/json");
+                    con.setRequestMethod("POST");
+                    con.connect();
+                    JSONObject jsonObject = new JSONObject();
+
+                    //jsonObject.accumulate("descricao",q3);
+
+                    JSONObject guardarios= new JSONObject();
+                    guardarios.accumulate("report", jsonObject);
+
+                    Log.w("teste", jsonObject.toString());
+                    Log.e("teste",guardarios.toString());
+
+                    OutputStream os = null;
+                    os = con.getOutputStream();
+                    OutputStreamWriter osw = null;
+                    osw = new OutputStreamWriter(os, "UTF-8");
+                    osw.write(guardarios.toString());
+                    osw.flush();
+                    osw.close();
+                    int HttpResult = 0;
+                    StringBuilder sb=null;
+                    sb= new StringBuilder();
+                    HttpResult = con.getResponseCode();
+                    if (HttpResult == HttpURLConnection.HTTP_OK) {
+                        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
+                        String line = null;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line).append("\n");
+                        }
+
+                        br.close();
+
+                        System.out.println("errozinho:" + sb.toString());
+                        limpeza.saveLimpezaDB();
+
+                    } else {
+                        limpeza.errorLimpezaDB(con.getResponseMessage());
+                        Log.e("teste","error: "+con.getResponseMessage());
+                        System.out.println(con.getResponseMessage());
+                    }
+                } catch (IOException e) {
+                    Log.e("teste","stacktrace");
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+
+
 }

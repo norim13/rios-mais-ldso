@@ -12,9 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import ldso.rios.DataBases.DB_functions;
+import ldso.rios.DataBases.User;
 import ldso.rios.Form.Form_functions;
 import ldso.rios.R;
 
@@ -33,7 +36,6 @@ public class Limpeza extends AppCompatActivity {
     protected ArrayList<RadioButton> question11;
     protected ArrayList<RadioButton> question12;
     protected ArrayList<RadioButton> question13;
-    protected ArrayList<RadioButton> question14;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +56,6 @@ public class Limpeza extends AppCompatActivity {
         radioParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         radioParams.setMargins(0, px2, 0, px);
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         layoutLimpeza = (LinearLayout) this.findViewById(R.id.limpeza_linear);
@@ -190,5 +183,59 @@ public class Limpeza extends AppCompatActivity {
         question13 = Form_functions.createRadioButtons(options13, layoutLimpeza, this);
 
     }
+
+    public void saveLimpeza(View view) {
+        String q1 = Form_functions.getRadioButtonOption_string(question1);
+        String q2 = Form_functions.getRadioButtonOption_string(question2);
+        String q3 = Form_functions.getRadioButtonOption_string(question3);
+        String q4 = Form_functions.getRadioButtonOption_string(question4);
+        String q5 = Form_functions.getRadioButtonOption_string(question5);
+        String q6 = Form_functions.getRadioButtonOption_string(question6);
+        String q7 = Form_functions.getRadioButtonOption_string(question7);
+        String q8 = Form_functions.getRadioButtonOption_string(question8);
+        String q9 = Form_functions.getRadioButtonOption_string(question9);
+        String q10 = Form_functions.getRadioButtonOption_string(question10);
+        String q11 = Form_functions.getRadioButtonOption_string(question11);
+        String q12 = Form_functions.getRadioButtonOption_string(question12);
+        String q13 = Form_functions.getRadioButtonOption_string(question13);
+
+//      String q6 = String.valueOf(question6.getText());
+
+        DB_functions.saveLimpeza(this, Form_functions.getUser(this.getApplicationContext())[0],Form_functions.getUser(this.getApplicationContext())[1], q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13);
+    }
+
+    public void saveLimpezaDB() {
+        new Thread() {
+            public void run() {
+                Limpeza.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast toast = Toast.makeText(Limpeza.this, "Formulário de limpeza submetido", Toast.LENGTH_LONG);
+                        toast.show();
+                        Limpeza.this.finish();
+
+                    }
+                });
+            }
+        }.start();
+    }
+
+    public void errorLimpezaDB(final String responseMessage){
+        new Thread()
+        {
+            public void run()
+            {
+                Limpeza.this.runOnUiThread(new Runnable()
+                {
+                    public void run() {
+                        Toast toast = Toast.makeText(Limpeza.this, "Erro na submissão: "+responseMessage, Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                });
+            }
+        }.start();
+
+    }
+
+
 
 }
