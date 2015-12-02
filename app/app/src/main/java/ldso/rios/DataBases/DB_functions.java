@@ -1554,7 +1554,7 @@ public class DB_functions {
                         br.close();
 
                         System.out.println("errozinho:" + sb.toString());
-                        limpeza.saveLimpezaDB();
+                        limpeza.saveLimpezaDB(jsonObject);
 
                     } else {
                         limpeza.errorLimpezaDB(con.getResponseMessage());

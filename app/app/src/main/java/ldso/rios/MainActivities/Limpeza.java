@@ -1,5 +1,6 @@
 package ldso.rios.MainActivities;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,11 +17,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
 import ldso.rios.Form.Form_functions;
+import ldso.rios.Form.LimpezaSolucoes;
 import ldso.rios.R;
 
 public class Limpeza extends AppCompatActivity {
@@ -237,15 +241,17 @@ public class Limpeza extends AppCompatActivity {
         DB_functions.saveLimpeza(this, Form_functions.getUser(this.getApplicationContext())[0],Form_functions.getUser(this.getApplicationContext())[1], q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14,q15,q16,q17);
     }
 
-    public void saveLimpezaDB() {
+    public void saveLimpezaDB(final JSONObject jsonObject) {
         new Thread() {
             public void run() {
                 Limpeza.this.runOnUiThread(new Runnable() {
                     public void run() {
                         Toast toast = Toast.makeText(Limpeza.this, "Formulário de limpeza submetido", Toast.LENGTH_LONG);
                         toast.show();
+                        Intent intent = new Intent(getApplicationContext(),LimpezaSolucoes.class);
+                        intent.putExtra("solucoes",jsonObject.toString());
+                        startActivity(intent);
                         Limpeza.this.finish();
-
                     }
                 });
             }

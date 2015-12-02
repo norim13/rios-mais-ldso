@@ -17,7 +17,7 @@ class Api::V2::LimpezasController < ApplicationController
   	end
 
   	def getRespostas
-      resposta = Limpeza.find(params[:id])
+			resposta = Limpeza.find_by_opcao(params[:opcao])
       render :json => resposta
   	end
 

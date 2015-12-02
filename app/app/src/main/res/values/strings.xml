@@ -104,6 +104,8 @@
     <string name="title_activity_form_irrswipe">FormIRRSwipe</string>
     <string name="title_activity_view_form_irr">ViewFormIRR</string>
     <string name="title_activity_limpeza">Limpeza</string>
+    <string name="title_activity_limpeza_solucoes">LimpezaSolucoes</string>
+
     <string name="title_activity_profile">Profile</string>
 
 
