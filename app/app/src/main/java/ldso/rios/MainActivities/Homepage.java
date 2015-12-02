@@ -57,7 +57,7 @@ public class Homepage extends AppCompatActivity{
 
     }
 
-    public void fomr_irr(View view) throws IOException, JSONException {
+    public void form_irr(View view) throws IOException, JSONException {
         startActivity(new Intent(this, Form_IRR_mainActivity.class));
     }
 
@@ -68,10 +68,7 @@ public class Homepage extends AppCompatActivity{
     public void about(View view)  {
         //startActivity(new Intent(this, TesteChart.class));
         startActivity(new Intent(this, Information.class));
-
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

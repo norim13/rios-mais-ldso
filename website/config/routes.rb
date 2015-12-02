@@ -60,6 +60,9 @@ Rails.application.routes.draw do
 
       post "/guardarios", :to => 'guardarios#create'
       post "/reports", :to => 'reports#create'
+
+      get "/limpezas/:id", :to => 'limpezas#getRespostas'
+      post "/limpezas", :to => 'limpezas#submitProblemas'
     end
   end
 end

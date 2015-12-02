@@ -1,13 +1,13 @@
-class Api::V2::GuardariosController < ApplicationController
+class Api::V2::ReportsController < ApplicationController
 	before_filter :authenticate_user_from_token!
 
 	# POST /reports
 	# POST /reports.json
 	def create
-		@report = Report.new(report_params)
-		@report.user_id = current_user.id
+		report = Report.new(report_params)
+		report.user_id = user.id
 
-		if @report.save
+		if report.save
 			render :json => '{"success" : "true"}'
 		else
 			render :json => '{"success" : "false", "error" : "problem saving guardario"}'
