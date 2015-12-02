@@ -22,8 +22,8 @@ public class checkPergunta extends Pergunta implements Serializable {
     private static final long serialVersionUID = -3522050436780683216L;
     protected ArrayList<CheckBox> check_list;
 
-    public checkPergunta(String[] options, String title, String subtitle, Boolean obly, Boolean other_option) {
-        super(options, title, subtitle, obly, other_option);
+    public checkPergunta(String[] options, String[] images,String title, String subtitle, Boolean obly, Boolean other_option) {
+        super(options,images, title, subtitle, obly, other_option);
 
     }
 

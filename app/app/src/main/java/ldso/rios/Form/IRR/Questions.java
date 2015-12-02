@@ -14,7 +14,7 @@ public class Questions {
     /**
      * Retorna a informação de uma pergunta
      * @param next_question
-     * @return ArrayList<Object> =main_title,sub_title,type,required,options,max,value_irr,maxmin;
+     * @return ArrayList<Object> =main_title,sub_title,type,required,options,max,value_irr,maxmin,images;
      */
     public static ArrayList<Object> getOptions(int next_question){
         ArrayList<Object> response = new ArrayList<Object>() ;
@@ -25,6 +25,7 @@ public class Questions {
         String options[] = new String[0];
         ArrayList<Float[]> maxmin= new ArrayList<Float[]>();
         int max = 0;
+        String[] images = null;
 
         Integer value_irr[] = new Integer[]{};
 
@@ -37,6 +38,13 @@ public class Questions {
                 type=0;
                 required= true;
                 options= new String[]{"1","2","3","4","5","6","7"};
+                images= new String[]{"tipovale_1",
+                        "tipovale_2",
+                        "tipovale_3",
+                        "tipovale_4",
+                        "tipovale_5",
+                        "tipovale_6",
+                        "tipovale_7"};
                 break;
             case 2:
                 main_title= "Hidrogeomorfologia";
@@ -47,8 +55,14 @@ public class Questions {
                         "Vertical cortado",
                         "Declive >45%",
                         "Declive <45%",
-                        "Suave comport <45%",
+                        "Suave composto <45%",
                         "Artificial"};
+                images= new String[]{"perfilmargens_verticalescavado",
+                        "perfilmargens_verticalcortado",
+                        "perfilmargens_declivemaior45",
+                        "perfilmargens_declivemenor45",
+                        "perfilmargens_suavecomposto",
+                        ""};
                 break;
 
             case 3:
@@ -602,7 +616,7 @@ public class Questions {
         response.add(max);
         response.add(value_irr);
         response.add(maxmin);
-
+        response.add(images);
         return response;
 
 

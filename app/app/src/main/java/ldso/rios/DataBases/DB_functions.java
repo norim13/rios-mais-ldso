@@ -981,7 +981,6 @@ public class DB_functions {
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(24)));
                         response.accumulate("flora_outro", "");
 
-
                         response.accumulate("conservacaoBosqueRibeirinho",(int) form_irr.getRespostas().get(25));
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(26);

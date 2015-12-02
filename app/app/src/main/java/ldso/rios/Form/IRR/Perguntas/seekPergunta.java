@@ -24,8 +24,8 @@ public class seekPergunta extends Pergunta implements Serializable {
     protected ArrayList<SeekBar> seekList;
     protected ArrayList<TextView> seekListText;
 
-    public seekPergunta(String[] options, String title, String subtitle, Boolean obly, Boolean other_option, int min, int max) {
-        super(options, title, subtitle, obly, other_option);
+    public seekPergunta(String[] options,String[] images, String title, String subtitle, Boolean obly, Boolean other_option, int min, int max) {
+        super(options,images, title, subtitle, obly, other_option);
         this.min = min;
         this.max = max;
     }

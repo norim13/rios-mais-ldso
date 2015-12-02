@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -21,19 +22,21 @@ public abstract class Pergunta implements Serializable {
     protected Object response;                      //resposta
     protected LinearLayout linearLayout;            //layout onde se inserem as perguntas
     protected Context context;                      //context do layout (activity)
+    protected String[] images;
 
-    public Pergunta(String[] options, String title, String subtitle, Boolean obly, Boolean other_option) {
+    public Pergunta(String[] options, String[] images,String title, String subtitle, Boolean obly, Boolean other_option) {
         this.options = options;
         this.title = title;
         this.subtitle = subtitle;
         this.obly = obly;
         this.other_option = other_option;
+        this.images=images;
     }
 
-    public abstract void generate(LinearLayout linearLayout,Context context);           //generates the activity and questions
-    public abstract void generateView(LinearLayout linearLayout,Context context);       //generates the activity and questions
+    public abstract void generate(LinearLayout linearLayout,Context context) throws IOException;           //generates the activity and questions
+    public abstract void generateView(LinearLayout linearLayout,Context context) throws IOException;       //generates the activity and questions
 
-    public abstract void getAnswer();                                                   //gets the answers
+    public abstract void getAnswer();                                                    //gets the answers
     public abstract void forceresponse();                                               //forces the answers
     public abstract Object getList();                                                   //return list of edittex/radiobuttons/checkboxes/seek/complex
 

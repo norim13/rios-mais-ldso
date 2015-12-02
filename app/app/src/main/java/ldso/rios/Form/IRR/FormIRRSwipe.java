@@ -242,7 +242,11 @@ public class FormIRRSwipe extends AppCompatActivity {
             int number = getArguments().getInt(ARG_SECTION_NUMBER);
             progessbar.setProgress(number);
 
-            this.form.getPerguntas().get(number).generate(linearLayout, this.getContext());
+            try {
+                this.form.getPerguntas().get(number).generate(linearLayout, this.getContext());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             this.form.getPerguntas().get(number).setAnswer();
 
             return rootView;

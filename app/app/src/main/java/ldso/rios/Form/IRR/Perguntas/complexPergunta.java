@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -35,8 +36,8 @@ public class complexPergunta extends Pergunta implements Serializable {
      *
      */
 
-    public complexPergunta(String[] options, String title, String subtitle, Boolean obly, Boolean other_option) {
-        super(new String[]{"ola"}, title, subtitle, obly, other_option);
+    public complexPergunta(String[] options, String[] images, String title, String subtitle, Boolean obly, Boolean other_option) {
+        super(new String[]{"ola"},images, title, subtitle, obly, other_option);
         perguntas=new ArrayList<Pergunta>();
         readOptions(options);
     }
@@ -50,7 +51,7 @@ public class complexPergunta extends Pergunta implements Serializable {
             if(options[i].equals("-")&&single_options.size()!=0){
                 String[] stringArray= new String[single_options.size()];
                 stringArray=single_options.toArray(stringArray);
-                this.perguntas.add(new checkPergunta(stringArray,"",single_subtitle,this.obly,single_other_option));
+                this.perguntas.add(new checkPergunta(stringArray,images,"",single_subtitle,this.obly,single_other_option));
                 single_options=new ArrayList<String>();
                 i++;
                 single_subtitle=options[i];
@@ -71,13 +72,13 @@ public class complexPergunta extends Pergunta implements Serializable {
         }
         String[] stringArray= new String[single_options.size()];
         stringArray=single_options.toArray(stringArray);
-        this.perguntas.add(new checkPergunta(stringArray, "", single_subtitle, this.obly, single_other_option));
+        this.perguntas.add(new checkPergunta(stringArray,images, "", single_subtitle, this.obly, single_other_option));
 
 
     }
 
     @Override
-    public void generate(LinearLayout linearLayout, Context context) {
+    public void generate(LinearLayout linearLayout, Context context) throws IOException {
         for(int i =0;i<perguntas.size();i++){
             perguntas.get(i).generate(linearLayout,context);
         }
@@ -85,7 +86,7 @@ public class complexPergunta extends Pergunta implements Serializable {
     }
 
     @Override
-    public void generateView(LinearLayout linearLayout, Context context) {
+    public void generateView(LinearLayout linearLayout, Context context) throws IOException {
 
         LinearLayout.LayoutParams radioParams;
         radioParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);

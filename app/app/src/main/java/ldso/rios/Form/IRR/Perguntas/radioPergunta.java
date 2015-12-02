@@ -8,6 +8,7 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -22,21 +23,21 @@ public class radioPergunta extends Pergunta implements Serializable {
     private static final long serialVersionUID = 1325410386287654205L;
     protected ArrayList<RadioButton> radio_list;
 
-    public radioPergunta(String[] options, String title, String subtitle, Boolean obly, Boolean other_option) {
-        super(options, title, subtitle, obly, other_option);
+    public radioPergunta(String[] options, String[] images, String title, String subtitle, Boolean obly, Boolean other_option) {
+        super(options, images, title, subtitle, obly, other_option);
     }
 
     @Override
-    public void generate(LinearLayout linearLayout, Context context) {
+    public void generate(LinearLayout linearLayout, Context context) throws IOException {
         this.linearLayout=linearLayout;
         this.context=context;
 
-        this.radio_list= Form_functions.createRadioButtons(this.options,this.linearLayout,this.context);
+        this.radio_list= Form_functions.createRadioButtons(this.options,this.images,this.linearLayout,this.context);
 
     }
 
     @Override
-    public void generateView(LinearLayout linearLayout, Context context) {
+    public void generateView(LinearLayout linearLayout, Context context) throws IOException {
 
         LinearLayout.LayoutParams radioParams;
         radioParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);

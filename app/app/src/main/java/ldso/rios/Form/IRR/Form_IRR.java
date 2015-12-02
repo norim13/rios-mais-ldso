@@ -66,27 +66,27 @@ public class Form_IRR extends Form implements Serializable {
             switch ((int)options.get(2))
             {
                 case 0:
-                    nova= new radioPergunta((String[]) options.get(4),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),false);
+                    nova= new radioPergunta((String[]) options.get(4),(String[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),false);
                     break;
                 case 1:
                     String [] options_txt= (String[]) options.get(4);
                     if(options_txt[0].equals("-"))
                     {
-                        nova=new complexPergunta(options_txt,(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),false);
+                        nova=new complexPergunta(options_txt,(String[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),false);
 
                     }
                     else
-                        nova= new checkPergunta((String[]) options.get(4),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),false);
+                        nova= new checkPergunta((String[]) options.get(4),(String[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),false);
                     break;
                 case 2:
                     if(maxmin.size()==0)
-                    nova= new editPergunta((String[]) options.get(4),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),false);
+                    nova= new editPergunta((String[]) options.get(4),(String[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),false);
                     else
-                    nova= new editPergunta((String[]) options.get(4),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),maxmin,false);
+                    nova= new editPergunta((String[]) options.get(4),(String[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),maxmin,false);
 
                     break;
                 case 3:
-                    nova= new seekPergunta((String[]) options.get(4),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),false,1,5);
+                    nova= new seekPergunta((String[]) options.get(4),(String[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),false,1,5);
             }
             this.perguntas.add(nova);
 

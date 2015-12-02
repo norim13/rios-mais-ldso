@@ -30,13 +30,13 @@ public class editPergunta extends Pergunta implements Serializable {
 
 
 
-    public editPergunta(String[] options, String title, String subtitle, Boolean obly, Boolean other_option) {
-        super(options, title, subtitle, obly, other_option);
+    public editPergunta(String[] options,String[]images, String title, String subtitle, Boolean obly, Boolean other_option) {
+        super(options,images, title, subtitle, obly, other_option);
         range=false;
     }
 
-    public editPergunta(String[] options, String title, String subtitle, Boolean obly, ArrayList<Float[]> minmax, boolean other_option) {
-        super(options, title, subtitle, obly, other_option);
+    public editPergunta(String[] options, String[] images, String title, String subtitle, Boolean obly, ArrayList<Float[]> minmax, boolean other_option) {
+        super(options,images, title, subtitle, obly, other_option);
         range=true;
         this.minmax=minmax;
     }
@@ -142,8 +142,8 @@ public class editPergunta extends Pergunta implements Serializable {
             edit.setEnabled(false);
     }
 
-    public editPergunta(String[] options, String title, String subtitle, Boolean obly, Boolean other_option, ArrayList<Float[]> minmax) {
-        super(options, title, subtitle, obly, other_option);
+    public editPergunta(String[] options,String[] images, String title, String subtitle, Boolean obly, Boolean other_option, ArrayList<Float[]> minmax) {
+        super(options, images, title,subtitle, obly, other_option);
         this.minmax = minmax;
         range=true;
     }

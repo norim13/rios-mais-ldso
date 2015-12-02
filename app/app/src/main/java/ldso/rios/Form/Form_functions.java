@@ -2,6 +2,9 @@ package ldso.rios.Form;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -14,10 +17,12 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import ldso.rios.MainActivities.Homepage;
+import ldso.rios.R;
 
 /**
  * Created by filipe on 04/11/2015.
@@ -50,10 +55,43 @@ public class Form_functions {
         rg.setLayoutParams(radioParams);
         for(int i=0;i<array.length;i++)
         {
+            RadioButton cb = new RadioButton(context);
+            cb.setText(array[i]);
+            list.add(cb);
+            rg.addView(cb);
+        }
+        linearLayout.addView(rg);
+        return list;
+    };
 
+    public static ArrayList<RadioButton> createRadioButtons(String[] array,String[] images, LinearLayout linearLayout, Context context) throws IOException {
+
+        if(images==null)
+            createRadioButtons(array,linearLayout,context);
+
+        ArrayList<RadioButton> list = new ArrayList<RadioButton>();
+        RelativeLayout.LayoutParams radioParams;
+        radioParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+        radioParams.setMargins(10,10,10,10);
+        RadioGroup rg= new RadioGroup(context);
+        rg.setLayoutParams(radioParams);
+
+        for(int i=0;i<array.length;i++)
+        {
 
             RadioButton cb = new RadioButton(context);
             cb.setText(array[i]);
+
+
+            String imageUri = "drawable://tipovale_1.png";
+            Drawable myDrawable = Drawable.createFromPath(imageUri);
+
+            Log.e("nome ficheiro",""+ R.drawable.tipovale_1);
+
+           // InputStream stream = context.getAssets().open("tipovale_1.png");
+            //Drawable d = Drawable.createFromStream(stream, null);
+
+            cb.setCompoundDrawablesWithIntrinsicBounds(null, null, myDrawable, null);
             list.add(cb);
             rg.addView(cb);
 
@@ -62,6 +100,28 @@ public class Form_functions {
         return list;
 
     };
+
+    public static Bitmap getResizedBitmap(int targetW, int targetH,  String imagePath) {
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        //inJustDecodeBounds = true <-- will not load the bitmap into memory
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(imagePath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath, bmOptions);
+        return(bitmap);
+    }
 
     public static ArrayList<ArrayList> createSeekbar(String[] array, LinearLayout linearLayout, Context context,int max){
         ArrayList<ArrayList> al= new ArrayList<ArrayList>();

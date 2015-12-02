@@ -14,8 +14,8 @@ Nos formulários do guardarios e irr, por no incio, a activity dos maps para esc
 
 Form IRR:
     Verificar IRR valores e resultado
-    Guardar Offline um formulário
-    Ao clicar no submeter, preencher autometicamente todas as opcoes para nao dar erro
+    // Guardar Offline um formulário
+    // Ao clicar no submeter, preencher autometicamente todas as opcoes para nao dar erro
     Por um EditText com "outros" onde é preciso e entegrar isso no json submetdio
     Grafico com o valor do irr
 

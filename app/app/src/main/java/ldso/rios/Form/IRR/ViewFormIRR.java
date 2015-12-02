@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import ldso.rios.Autenticacao.Login;
@@ -53,7 +54,11 @@ public class ViewFormIRR extends AppCompatActivity {
 
         for(int i=0;i<=32;i++)
         {
-            this.form.getPerguntas().get(i).generateView(linearLayout, this);
+            try {
+                this.form.getPerguntas().get(i).generateView(linearLayout, this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             this.form.getPerguntas().get(i).setAnswer();
         }
 
