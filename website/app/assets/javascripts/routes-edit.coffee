@@ -34,6 +34,38 @@ $(document).ready(function(){
             $(this).html(new_name);
         });
     });
+
+    $("#submit-rota").on('click', function(e){
+        //e.preventDefault();
+        console.log($('form input[name="utf8"]').val());
+        var route = {};
+        route.nome = $("form #nome-rota").val();
+        route.descricao = $("form #descricao-rota").val();
+        route.zona = $("form #zona-rota").val();
+        route.publicada = $("form #publicada-rota").val();
+
+
+
+        var obj = {};
+        obj.route = route;
+        obj.authenticity_token = $('form input[name="authenticity_token"]').val();
+        obj.rota_points = getPointsOrdered();
+        console.log(JSON.stringify(obj));
+
+        $.ajax({
+            url: '/routes',
+            type: 'POST',
+            dataType: 'json',
+            data: obj,
+            success: function(data){
+                console.log(data);
+                window.location.href = "/routes";
+            },
+            error: function(err){
+                console.log(err);
+            }
+        });
+    });
 });
 
 function placeMarker(location, map) {
@@ -88,7 +120,7 @@ function addMarkerForm(marker, partialId){
 		$("#left-panel-forms").append(
 			'<div id="'+id+'" class="thumbnail">'+ //id = marker-form-{latitude}-{longitude}
 				'<div class="row">'+
-					'<form class="form form-inline">'+
+					//'<form class="form form-inline">'+
 						'<div class="col-xs-12">'+
 							'<h4><span class="nome-ponto-'+partialId+'">Ponto '+markerCount+'</span></h4>'+
 						'</div>'+
@@ -104,7 +136,7 @@ function addMarkerForm(marker, partialId){
 						'<div class="col-md-12">'+
 							'<textarea type="text-field" name="descricao" class="form-control"  rows="4" placeholder="Insira uma descrição"/>'+
 						'</div>'+
-					'</form>'+
+					//'</form>'+
 				'</div>'+
 			'</div>'
 		);
@@ -129,6 +161,7 @@ function removeMarkerSortable(partialId){
 
 function getPointsOrdered(){
     var points = [];
+    var count = 1;
 		$("#route-points-sortable > li").each(function(){
 				var point = {};
 				var this_id_parts = this.id.split('-');
@@ -158,10 +191,14 @@ function getPointsOrdered(){
 				point.descricao = descricao;
 				point.lat = lat;
 				point.lon = lon;
+        point.ordem = count++;
 
-				points.push(point);
+        //var obj = {};
+        //obj.point = point;
+        points.push(point);
     });
 
-		console.log(points);
+		//console.log(points);
+    return points;
 }
 `

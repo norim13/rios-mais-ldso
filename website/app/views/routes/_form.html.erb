@@ -1,4 +1,5 @@
 <%= simple_form_for @route, html: { multipart: true } do |f| %>
+    <% #= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
     <%= f.error_notification %>
 
     <div class="form-inputs">
@@ -19,7 +20,7 @@
             <%= f.text_field :zona, :id => 'zona-rota', :class => 'text_field form-control', :required => true %>
           </div>
           <div class="col-xs-12">
-            <%= f.check_box :publicada %>
+            <%= f.check_box :publicada, :id => 'publicada-rota' %>
             <%= f.label :publicada, "Publicar rota" %>
             <p><strong>Nota:</strong> Selecionar <strong>"Publicar Rota"</strong> se a rota estiver já completa, sendo que ficará visível para o público. Se ainda estiver em edição, deixar desmarcada.</p>
           </div>
@@ -27,8 +28,33 @@
         </div>
       </div>
 
-      <div class="form-actions">
-        <%= f.button :submit, 'Adicionar Rota' %>
-      </div>
+      <!--<div class="form-actions">
+        <% #= f.button :submit, 'Adicionar Rota' %>
+      </div>-->
     </div>
 <% end %>
+
+<div class="row">
+  <h2>Pontos da rota</h2>
+  <p>Clique no mapa para adicionar pontos. Para remover um ponto, basta clicar no marcador referente ao mesmo no mapa.</p>
+  <div id="add-route-points-map" class="col-xs-12 route-points-map"></div>
+  <div id="left-panel-forms" class="col-xs-8">
+    <h3>Informações sobre os pontos:</h3>
+
+  </div>
+
+  <div id="right-panel-drags" class="col-xs-4">
+    <h3>Ordem dos pontos:</h3>
+    <h5>Arraste os vários pontos para definir a sua posição na rota</h5>
+    <ul id="route-points-sortable">
+
+    </ul>
+
+  </div>
+</div>
+
+  <% if @edit %>
+
+  <% else %>
+    <button id="submit-rota" class="btn btn-primary">Guardar Rota</button>
+  <% end %>

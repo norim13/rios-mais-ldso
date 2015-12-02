@@ -3,6 +3,7 @@
 <%= render 'common/header' %>
 
 <%= stylesheet_link_tag "routes" %>
+<%= stylesheet_link_tag "external/jquery-ui.min.css" %>
 
 </head>
 
@@ -18,3 +19,5 @@
 </div>
 
 <%= render 'common/footer' %>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<%= javascript_include_tag 'routes-edit' %>
