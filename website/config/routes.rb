@@ -63,6 +63,8 @@ Rails.application.routes.draw do
 
       get "/limpezas/:id", :to => 'limpezas#getRespostas'
       post "/limpezas", :to => 'limpezas#submitProblemas'
+
+      get "/users", :to => 'users#getUser'
     end
   end
 end
