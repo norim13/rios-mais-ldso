@@ -6,16 +6,14 @@ class Api::V2::LimpezasController < ApplicationController
 		user_email = params[:user_email].presence
 		user = user_email && User.find_by_email(user_email)
 
-	    loglimpeza = LogLimpeza.new(limpeza_params)
-	    loglimpeza.user_id = user.id
+		loglimpeza = LogLimpeza.new(limpeza_params)
+		loglimpeza.user_id = user.id
 
-	    respond_to do |format|
-	      if loglimpeza.save
-	        render :json => '{"success" : "true"}'
-	      else
-	        render :json => '{"success" : "false", "error" : "problem saving limpeza"}'
-	      end
-	    end
+		if loglimpeza.save
+			render :json => '{"success" : "true"}'
+		else
+			render :json => '{"success" : "false", "error" : "problem saving limpeza"}'
+		end
   	end
 
   	def getRespostas
