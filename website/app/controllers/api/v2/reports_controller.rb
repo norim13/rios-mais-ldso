@@ -4,6 +4,10 @@ class Api::V2::ReportsController < ApplicationController
 	# POST /reports
 	# POST /reports.json
 	def create
+
+		user_email = params[:user_email].presence
+		user = user_email && User.find_by_email(user_email)
+
 		report = Report.new(report_params)
 		report.user_id = user.id
 
