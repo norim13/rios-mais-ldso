@@ -1,0 +1,43 @@
+<%= render 'common/header' %>
+
+<%= stylesheet_link_tag "routes" %>
+<%= stylesheet_link_tag "external/jquery-ui.min.css" %>
+
+</head>
+
+<body>
+
+<%= render 'common/navbar' %>
+
+<div class="container">
+  <h1>Editar Rota</h1>
+  <%= render 'form' %>
+
+  <div class="row">
+    <h2>Pontos da rota</h2>
+    <p>Clique no mapa para adicionar pontos. Para remover um ponto, basta clicar no marcador referente ao mesmo no mapa.</p>
+    <div id="add-route-points-map" class="col-xs-12 route-points-map"></div>
+    <div id="left-panel-forms" class="col-xs-8">
+      <h3>Informações sobre os pontos:</h3>
+
+    </div>
+
+    <div id="right-panel-drags" class="col-xs-4">
+      <h3>Ordem dos pontos:</h3>
+      <h5>Arraste os vários pontos para definir a sua posição na rota</h5>
+      <ul id="route-points-sortable">
+
+      </ul>
+
+    </div>
+  </div>
+
+  <button id="test-order-points" class="btn btn-primary">Imprimir pontos ordenados na consola</button><br/>
+
+  <%= link_to 'Ver', @route %> |
+  <%= link_to 'Voltar atrás', routes_path %>
+</div>
+
+<%= render 'common/footer' %>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<%= javascript_include_tag 'routes-edit' %>

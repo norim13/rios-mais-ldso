@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :routes
+  resources :rotas
   get 'lab_rios/info'
 
   get 'rio/:id' => 'rio#show', as: :rio, :id => /.*/

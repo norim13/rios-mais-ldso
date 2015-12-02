@@ -30,8 +30,13 @@ Rails.application.config.assets.precompile += %w( form_irr.js )
 Rails.application.config.assets.precompile += %w( form_irr_image.js )
 Rails.application.config.assets.precompile += %w( limpeza.js )
 Rails.application.config.assets.precompile += %w( rio.js )
+Rails.application.config.assets.precompile += %w( routes-view.js )
+Rails.application.config.assets.precompile += %w( routes-edit.js )
 
 Rails.application.config.assets.precompile += %w( limpeza.css )
 Rails.application.config.assets.precompile += %w( reabilitacaos.css )
 Rails.application.config.assets.precompile += %w( chart-irr.css )
 Rails.application.config.assets.precompile += %w( rio.css )
+Rails.application.config.assets.precompile += %w( routes.css )
+
+Rails.application.config.assets.precompile += %w( external/jquery-ui.min.css )

@@ -1,0 +1,20 @@
+
+
+<%= render 'common/header' %>
+
+<%= stylesheet_link_tag "routes" %>
+
+</head>
+
+<body>
+
+<%= render 'common/navbar' %>
+
+<div class="container">
+  <h1>Nova Rota</h1>
+  <%= render 'form' %>
+
+  <%= link_to 'Voltar atrás', routes_path %>
+</div>
+
+<%= render 'common/footer' %>
