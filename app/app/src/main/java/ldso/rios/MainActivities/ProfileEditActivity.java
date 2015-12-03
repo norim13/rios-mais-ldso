@@ -19,6 +19,8 @@ import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
 import ldso.rios.R;
 
+import static ldso.rios.MainActivities.Homepage.PREFS_NAME;
+
 public class ProfileEditActivity extends AppCompatActivity {
     protected EditText name;
 
@@ -191,13 +193,12 @@ public class ProfileEditActivity extends AppCompatActivity {
                             toast.show();
                         }
                         else {
+                            getApplicationContext().getSharedPreferences(PREFS_NAME, 0).edit().clear().commit();
+                            User.getInstance().resetUser();
+                            finish();
+
                             toast = Toast.makeText(context, "Apagou a sua conta", Toast.LENGTH_LONG);
                             toast.show();
-
-                            //finish profile edit
-                            //finish profile
-                            //logout
-                            //finish();
                         }
                     }
                 });
@@ -230,4 +231,19 @@ public class ProfileEditActivity extends AppCompatActivity {
             }
         }.start();
     }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        this.setResult(0);
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        this.setResult(0);
+    }
+
 }

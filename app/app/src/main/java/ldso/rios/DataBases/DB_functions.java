@@ -1792,8 +1792,10 @@ public class DB_functions {
                 JSONObject obj1 = null;
                 try {
                     obj1 = new JSONObject(response.toString());
-                    error_txt = obj1.getString("error");
-                    error = true;
+                    if(obj1.has("error")) {
+                        error_txt = obj1.getString("error");
+                        error = true;
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("JSON Exception", "exception getting response on register");

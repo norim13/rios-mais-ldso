@@ -40,7 +40,7 @@ public class Profile extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplication(), ProfileEditActivity.class));
+                startActivityForResult(new Intent(getApplication(), ProfileEditActivity.class),1);
                 /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
             }
@@ -50,6 +50,18 @@ public class Profile extends AppCompatActivity {
         updateProfileView();
 
         DB_functions.getUserData(this, User.getInstance().getEmail(),User.getInstance().getAuthentication_token());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        //matches the result code passed from ChildActivity
+        if(resultCode == 0)
+        {
+            //kill self
+            Profile.this.finish();
+        }
     }
 
     public void logout(View view) {
