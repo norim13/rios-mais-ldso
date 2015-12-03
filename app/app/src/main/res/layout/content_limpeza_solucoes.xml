@@ -16,10 +16,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Propostas de solução para os problemas de limpeza"
+        android:text="Propostas de solução para os problemas de limpeza reportados:"
         android:id="@+id/textView4"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
 
 
     <ScrollView
@@ -30,7 +32,7 @@
         android:layout_below="@+id/textView4"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="43dp">
+        android:layout_marginTop="15dp">
 
         <LinearLayout
             android:orientation="vertical"

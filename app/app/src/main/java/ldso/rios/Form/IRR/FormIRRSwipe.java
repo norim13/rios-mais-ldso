@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -29,6 +30,7 @@ import java.util.HashMap;
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
 import ldso.rios.Form.Form_functions;
+import ldso.rios.MainActivities.Form_IRR_mainActivity;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.R;
 
@@ -97,6 +99,9 @@ public class FormIRRSwipe extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
+        final String id= (String) this.getIntent().getSerializableExtra("id");
+
+
         //se clicar no ok
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +118,7 @@ public class FormIRRSwipe extends AppCompatActivity {
                                 Form_functions.getUser(getApplicationContext())[1],form);
                     else
                         DB_functions.update(Form_functions.getUser(getApplicationContext())[0],
-                                Form_functions.getUser(getApplicationContext())[1], form);
+                                Form_functions.getUser(getApplicationContext())[1],id, form);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
@@ -145,6 +150,11 @@ public class FormIRRSwipe extends AppCompatActivity {
             try {
                 //Form_IRR.loadFromIRR(this.getApplicationContext());
                 Form_IRR.saveFormIRR(form, this.getApplicationContext());
+                Toast toast = Toast.makeText(FormIRRSwipe.this, "Formulário de limpeza submetido", Toast.LENGTH_LONG);
+                toast.show();
+                Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
 
             } catch (IOException e) {
                 e.printStackTrace();

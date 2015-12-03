@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -27,7 +28,7 @@ public class ViewFormIRR extends AppCompatActivity {
 
     LinearLayout linearLayout;
     Form_IRR form;
-    int id;
+    String id;
 
 
     @Override
@@ -49,6 +50,8 @@ public class ViewFormIRR extends AppCompatActivity {
 
         this.form = new Form_IRR();
         this.form.generate();
+
+        this.id= ((int) this.getIntent().getSerializableExtra("id"))+"";
 
         if(getIntent().getSerializableExtra("form_irr")!= null) {
             Log.e("form", "entrou");
@@ -81,6 +84,7 @@ public class ViewFormIRR extends AppCompatActivity {
         Intent i;
         i = new Intent(this, FormIRRSwipe.class);
         i.putExtra("form_irr", form.getRespostas());
+        i.putExtra("id", id);
         startActivity(i);
 
     }
@@ -131,7 +135,8 @@ public class ViewFormIRR extends AppCompatActivity {
     }
 
     public void apagaou() {
-
+        Toast toast = Toast.makeText(ViewFormIRR.this, "Formulário apagado", Toast.LENGTH_LONG);
+        toast.show();
         Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

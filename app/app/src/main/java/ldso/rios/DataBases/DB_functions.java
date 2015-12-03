@@ -690,7 +690,7 @@ public class DB_functions {
         }).start();
     }
 
-    public static void update(final String token, final String email, final Form_IRR form_irr) throws IOException, JSONException {
+    public static void update(final String token, final String email,final String id, final Form_IRR form_irr) throws IOException, JSONException {
 
         final ArrayList<Integer[]> values_irr= Questions.getValuesIRR();
         Log.e("form","entrou");
@@ -707,7 +707,7 @@ public class DB_functions {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String url = "http://riosmais.herokuapp.com/api/v2/form_irrs/4?user_email="+email+"&user_token="+token;
+                    String url = "http://riosmais.herokuapp.com/api/v2/form_irrs/"+id+"?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
                     URL object = null;
                     object = new URL(url);

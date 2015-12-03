@@ -1,8 +1,6 @@
 package ldso.rios.Form;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -12,14 +10,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
 import ldso.rios.DataBases.DB_functions;
-import ldso.rios.Form.IRR.ViewFormIRR;
 import ldso.rios.MainActivities.Homepage;
 import ldso.rios.R;
 
@@ -32,6 +28,7 @@ public class LimpezaSolucoes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_limpeza_solucoes);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Soluções de Limpeza");
         setSupportActionBar(toolbar);
 
         layoutLimpezaSolucoes = (LinearLayout) this.findViewById(R.id.limpeza_solucao_linear);

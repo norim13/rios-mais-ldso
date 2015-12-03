@@ -37,10 +37,13 @@ public class Form_functions {
 
     public static ArrayList<CheckBox> createCheckboxes(String[] array, LinearLayout linearLayout, Context context){
         ArrayList<CheckBox> list = new ArrayList<CheckBox>();
+        RadioGroup.LayoutParams params_rb = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT,100);
+
         for(int i=0;i<array.length;i++)
         {
             CheckBox cb = new CheckBox(context);
             cb.setText(array[i]);
+            cb.setLayoutParams(params_rb);
             list.add(cb);
             linearLayout.addView(cb);
         }
@@ -60,6 +63,9 @@ public class Form_functions {
         if (images==null)
             return createCheckboxes(array,linearLayout,context);
 
+        RadioGroup.LayoutParams params_rb = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT,280);
+
+
         ArrayList<CheckBox> list = new ArrayList<CheckBox>();
         for(int i=0;i<array.length;i++)
         {
@@ -75,7 +81,8 @@ public class Form_functions {
                 myDrawable=new BitmapDrawable(context.getResources(), mapa);
 
                 cb.setCompoundDrawablesWithIntrinsicBounds(null, null, myDrawable, null);
-                radioParams_images.setMargins(0,300,0,300);
+                radioParams_images.setMargins(0, 300, 0, 300);
+                cb.setLayoutParams(params_rb);
 
             }
             //cb.setLayoutParams(radioParams_images);
@@ -94,10 +101,15 @@ public class Form_functions {
         radioParams.setMargins(10,10,10,10);
         RadioGroup rg= new RadioGroup(context);
         rg.setLayoutParams(radioParams);
+
+
+        RadioGroup.LayoutParams params_rb = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT,100);
+
         for(int i=0;i<array.length;i++)
         {
             RadioButton cb = new RadioButton(context);
             cb.setText(array[i]);
+            cb.setLayoutParams(params_rb);
             list.add(cb);
             rg.addView(cb);
         }
