@@ -9,14 +9,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_limpeza" tools:context="ldso.rios.MainActivities.Limpeza">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Limpeza de Rios+"
-        android:id="@+id/textView4"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

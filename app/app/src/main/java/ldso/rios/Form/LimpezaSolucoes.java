@@ -1,6 +1,4 @@
 package ldso.rios.Form;
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +20,7 @@ import java.io.IOException;
 
 import ldso.rios.DataBases.DB_functions;
 import ldso.rios.Form.IRR.ViewFormIRR;
+import ldso.rios.MainActivities.Homepage;
 import ldso.rios.R;
 
 public class LimpezaSolucoes extends AppCompatActivity {
@@ -37,17 +36,8 @@ public class LimpezaSolucoes extends AppCompatActivity {
 
         layoutLimpezaSolucoes = (LinearLayout) this.findViewById(R.id.limpeza_solucao_linear);
 
-
         Log.e("tou a testar: ","Já devia ter chegado aqui se não chumbo");
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         JSONObject jsonObject = null;
@@ -118,10 +108,10 @@ public class LimpezaSolucoes extends AppCompatActivity {
                 });
             }
         }.start();
-
-
-
-
     }
 
+    public void moveOn(View view) {
+        Intent intent = new Intent(getApplicationContext(),Homepage.class);
+        startActivity(intent);
+    }
 }
