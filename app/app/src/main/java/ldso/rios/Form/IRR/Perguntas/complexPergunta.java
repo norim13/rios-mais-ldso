@@ -2,6 +2,7 @@ package ldso.rios.Form.IRR.Perguntas;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import ldso.rios.Form.Form_functions;
 import ldso.rios.Form.IRR.Pergunta;
 
 /**
@@ -36,22 +38,37 @@ public class complexPergunta extends Pergunta implements Serializable {
      *
      */
 
-    public complexPergunta(String[] options, String[] images, String title, String subtitle, Boolean obly, Boolean other_option) {
+    public complexPergunta(String[] options, int[] images, String title, String subtitle, Boolean obly, Boolean other_option) {
         super(new String[]{"ola"},images, title, subtitle, obly, other_option);
         perguntas=new ArrayList<Pergunta>();
         readOptions(options);
     }
 
+
+
     private void readOptions(String[] options) {
+
         ArrayList<String> single_options= new ArrayList<String>();
+        ArrayList<Integer> imagensArray= new ArrayList<Integer>();
         String single_subtitle="";
         Boolean single_other_option=false;
+        int imagens_pergunta[];
+        int j=0;
         for (int i =0;i< options.length;i++)
         {
             if(options[i].equals("-")&&single_options.size()!=0){
                 String[] stringArray= new String[single_options.size()];
                 stringArray=single_options.toArray(stringArray);
-                this.perguntas.add(new checkPergunta(stringArray,images,"",single_subtitle,this.obly,single_other_option));
+                if (images==null)
+                this.perguntas.add(new checkPergunta(stringArray,null,"",single_subtitle,this.obly,single_other_option));
+                else
+                {
+                    imagens_pergunta= new int[imagensArray.size()];
+                    for (int x=0;x<imagensArray.size();x++)
+                        imagens_pergunta[x]=imagensArray.get(x);
+                    imagensArray= new ArrayList<Integer>();
+                    this.perguntas.add(new checkPergunta(stringArray,imagens_pergunta,"",single_subtitle,this.obly,single_other_option));
+                }
                 single_options=new ArrayList<String>();
                 i++;
                 single_subtitle=options[i];
@@ -67,7 +84,13 @@ public class complexPergunta extends Pergunta implements Serializable {
             }
             else {
                 single_options.add(options[i]);
+                if (images!=null)
+                    imagensArray.add(this.images[j]);
+                j++;
+
             }
+
+            Log.e("jj",""+j);
 
         }
         String[] stringArray= new String[single_options.size()];
@@ -97,6 +120,9 @@ public class complexPergunta extends Pergunta implements Serializable {
         textView.setTextSize(20);
         textView.setLayoutParams(radioParams);
         linearLayout.addView(textView);
+
+        Form_functions.createTitleSubtitle(this.title, this.subtitle, linearLayout, context);
+
 
         for(int i =0;i<perguntas.size();i++){
             perguntas.get(i).generateView(linearLayout, context);

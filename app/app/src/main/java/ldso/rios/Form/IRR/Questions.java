@@ -2,6 +2,8 @@ package ldso.rios.Form.IRR;
 
 import java.util.ArrayList;
 
+import ldso.rios.R;
+
 /**
  * Created by filipe on 17/11/2015.
  */
@@ -25,7 +27,7 @@ public class Questions {
         String options[] = new String[0];
         ArrayList<Float[]> maxmin= new ArrayList<Float[]>();
         int max = 0;
-        String[] images = null;
+        int[] images = null;
 
         Integer value_irr[] = new Integer[]{};
 
@@ -38,13 +40,14 @@ public class Questions {
                 type=0;
                 required= true;
                 options= new String[]{"1","2","3","4","5","6","7"};
-                images= new String[]{"tipovale_1",
-                        "tipovale_2",
-                        "tipovale_3",
-                        "tipovale_4",
-                        "tipovale_5",
-                        "tipovale_6",
-                        "tipovale_7"};
+                images= new int[]{R.drawable.tipovale_1,
+                        R.drawable.tipovale_2,
+                        R.drawable.tipovale_3,
+                        R.drawable.tipovale_4,
+                        R.drawable.tipovale_5,
+                        R.drawable.tipovale_6,
+                        R.drawable.tipovale_7};
+
                 break;
             case 2:
                 main_title= "Hidrogeomorfologia";
@@ -57,12 +60,12 @@ public class Questions {
                         "Declive <45%",
                         "Suave composto <45%",
                         "Artificial"};
-                images= new String[]{"perfilmargens_verticalescavado",
-                        "perfilmargens_verticalcortado",
-                        "perfilmargens_declivemaior45",
-                        "perfilmargens_declivemenor45",
-                        "perfilmargens_suavecomposto",
-                        ""};
+                images= new int[]{R.drawable.perfilmargens_verticalescavado,
+                        R.drawable.perfilmargens_verticalcortado,
+                        R.drawable.perfilmargens_declivemaior45,
+                        R.drawable.perfilmargens_declivemenor45,
+                        R.drawable.perfilmargens_suavecomposto,
+                        0};
                 break;
 
             case 3:
@@ -219,7 +222,7 @@ public class Questions {
 
             case 13:
                 main_title= "Corredor ecológico";
-                sub_title= "O odor (cheiro) da água";
+                sub_title= "Tabela de Macroinvertebrados";
                 type=1;
                 required= true;
                 options= new String[]{"-","Planárias","Planárias",
@@ -238,7 +241,35 @@ public class Questions {
                         "-","Insetos","Insetos – adultos (adultos na forma aérea)",
                         "-","Mégalopteres","Mégalopteres",
                 };
+
                 value_irr= new Integer[]{1,4,5,2,5,2,4,3,3,4,3,2,2,3,1,3,1,3,3,2,null,3};
+                images= new int[]{
+                    R.drawable.planaria,
+                    R.drawable.hirudineo,
+                    R.drawable.oligoquetas,
+                    R.drawable.simulideo,
+                    R.drawable.quironomideos,
+                    R.drawable.sirfideo,
+                    R.drawable.culicideo,
+                    R.drawable.tipulideo,
+                    R.drawable.ancilideo,
+                    R.drawable.limnelideo,
+                    R.drawable.bivalves,
+                    0,
+                    R.drawable.pataslocomotivas,
+                    R.drawable.trichoptero,
+                    0,
+                    0,
+                    R.drawable.plecopteros,
+                    0,
+                    R.drawable.cabecaplanar,
+                    R.drawable.crustaceos,
+                    R.drawable.acaros,
+                    R.drawable.pulgadeagua,
+                    0,
+                    R.drawable.megalopteres
+            };
+
                 break;
 
             case 14:
@@ -358,6 +389,14 @@ public class Questions {
                         "Rã-verde (Rana perezi)",
                         "Sapo-comum (Bufo bufo)"};
                 value_irr= new Integer[]{1,1,1,1,1,1};
+                images= new int[]{
+                        R.drawable.salamandralusitanica,
+                        R.drawable.salamandrapintasamarelas,
+                        R.drawable.tritaoventrelaranja,
+                        R.drawable.raiberica,
+                        R.drawable.raverde,
+                        R.drawable.sapocomum
+                };
                 break;
 
             case 19:
@@ -371,6 +410,13 @@ public class Questions {
                         "Cágado (Mauremys leprosa)",
                         "Outro"};
                 value_irr= new Integer[]{1,1,3};
+
+            images= new int[]{
+                    R.drawable.lagartodeagua,
+                    R.drawable.cobraaguadecolar,
+                    R.drawable.cagado,
+                    0
+            };
                 break;
 
             case 20:
@@ -388,6 +434,16 @@ public class Questions {
                         "Chapim-real (Parus major)",
                         "Outro"};
                 value_irr= new Integer[]{1,1,1,1,2,1,1};
+                images= new int[]{
+                        R.drawable.guardarios,
+                        R.drawable.garcareal,
+                        R.drawable.melrodeagua,
+                        R.drawable.galinhadeagua,
+                        R.drawable.patoreal,
+                        R.drawable.tentilhaocomum,
+                        R.drawable.chapimreal,
+                        0
+                };
                 break;
 
             case 21:
@@ -404,6 +460,15 @@ public class Questions {
                         "Armilho (Mustela Erminea)",
                         "Outro"};
                 value_irr= new Integer[]{1,1,1,3,1,1};
+                images= new int[]{
+                        R.drawable.lontras,
+                        R.drawable.morcegosdeagua,
+                        R.drawable.toupeiradaagua,
+                        R.drawable.ratodeagua,
+                        R.drawable.ouricocacheiro,
+                        R.drawable.armilho,
+                        0
+                };
 
                 break;
 
@@ -421,6 +486,15 @@ public class Questions {
                         "Boga-do-norte (Chondrostoma duriense)",
                         "Outro"};
                 value_irr= new Integer[]{1,1,1,1,1,1};
+                images= new int[]{
+                        R.drawable.enguia,
+                        R.drawable.lampreia,
+                        R.drawable.salmao,
+                        R.drawable.truta,
+                        R.drawable.bogaportuguesa,
+                        R.drawable.bogadonorte,
+                        0
+                };
 
                 break;
 
@@ -441,6 +515,18 @@ public class Questions {
                         "Perca-sol (Lepomis gibbosus)",
                         "Outro"};
                 value_irr= new Integer[]{5,5,5,5,5,5,5,5,5};
+                images= new int[]{
+                        R.drawable.percasol,
+                        R.drawable.tartarugadaflorida,
+                        R.drawable.caranguejopeludochines,
+                        R.drawable.gambusia,
+                        R.drawable.mustelavison,
+                        R.drawable.lagostimvermelho,
+                        R.drawable.trutaarcoiris,
+                        R.drawable.achiga,
+                        R.drawable.percasol,
+                        0
+                };
 
                 break;
 

@@ -22,16 +22,18 @@ public class checkPergunta extends Pergunta implements Serializable {
     private static final long serialVersionUID = -3522050436780683216L;
     protected ArrayList<CheckBox> check_list;
 
-    public checkPergunta(String[] options, String[] images,String title, String subtitle, Boolean obly, Boolean other_option) {
+    public checkPergunta(String[] options, int[] images,String title, String subtitle, Boolean obly, Boolean other_option) {
         super(options,images, title, subtitle, obly, other_option);
 
     }
 
     @Override
     public void generate(LinearLayout linearLayout, Context context) {
+        Form_functions.createTitleSubtitle(this.title,this.subtitle,linearLayout,context);
+
         this.linearLayout=linearLayout;
         this.context=context;
-        this.check_list= Form_functions.createCheckboxes(this.options,this.linearLayout,this.context);
+        this.check_list= Form_functions.createCheckboxes(this.options,this.images,this.linearLayout,this.context);
     }
 
     @Override
@@ -45,7 +47,10 @@ public class checkPergunta extends Pergunta implements Serializable {
         textView.setTextSize(20);
         textView.setLayoutParams(radioParams);
         linearLayout.addView(textView);
-        generate(linearLayout, context);
+
+        this.linearLayout=linearLayout;
+        this.context=context;
+        this.check_list= Form_functions.createCheckboxes(this.options,null,this.linearLayout,this.context);
         for(CheckBox cb:this.check_list)
             cb.setEnabled(false);
 

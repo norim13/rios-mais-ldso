@@ -22,9 +22,9 @@ public abstract class Pergunta implements Serializable {
     protected Object response;                      //resposta
     protected LinearLayout linearLayout;            //layout onde se inserem as perguntas
     protected Context context;                      //context do layout (activity)
-    protected String[] images;
+    protected int[] images;
 
-    public Pergunta(String[] options, String[] images,String title, String subtitle, Boolean obly, Boolean other_option) {
+    public Pergunta(String[] options, int[] images,String title, String subtitle, Boolean obly, Boolean other_option) {
         this.options = options;
         this.title = title;
         this.subtitle = subtitle;

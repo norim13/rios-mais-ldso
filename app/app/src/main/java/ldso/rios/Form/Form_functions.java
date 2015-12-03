@@ -2,11 +2,15 @@ package ldso.rios.Form;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -22,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import ldso.rios.MainActivities.Homepage;
-import ldso.rios.R;
 
 /**
  * Created by filipe on 04/11/2015.
@@ -38,6 +41,44 @@ public class Form_functions {
         {
             CheckBox cb = new CheckBox(context);
             cb.setText(array[i]);
+            list.add(cb);
+            linearLayout.addView(cb);
+        }
+        return list;
+
+    };
+
+    public static ArrayList<CheckBox> createCheckboxes(String[] array,int[] images,LinearLayout linearLayout, Context context){
+
+        float px_float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 120, context.getResources().getDisplayMetrics());
+        int px = (int) px_float;
+
+        RelativeLayout.LayoutParams radioParams_images;
+        radioParams_images = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+        radioParams_images.setMargins(0,10,0,10);
+
+        if (images==null)
+            return createCheckboxes(array,linearLayout,context);
+
+        ArrayList<CheckBox> list = new ArrayList<CheckBox>();
+        for(int i=0;i<array.length;i++)
+        {
+            CheckBox cb = new CheckBox(context);
+            cb.setText(array[i]);
+            if(images[i]!=0) {
+                Drawable myDrawable;
+                Bitmap mapa = BitmapFactory.decodeResource(context.getResources(), images[i]);
+                int width= mapa.getWidth();
+                int height= mapa.getHeight();
+                int novo= (height*px)/width;
+                mapa = Bitmap.createScaledBitmap(mapa, px,novo, true);
+                myDrawable=new BitmapDrawable(context.getResources(), mapa);
+
+                cb.setCompoundDrawablesWithIntrinsicBounds(null, null, myDrawable, null);
+                radioParams_images.setMargins(0,300,0,300);
+
+            }
+            //cb.setLayoutParams(radioParams_images);
             list.add(cb);
             linearLayout.addView(cb);
         }
@@ -64,34 +105,59 @@ public class Form_functions {
         return list;
     };
 
-    public static ArrayList<RadioButton> createRadioButtons(String[] array,String[] images, LinearLayout linearLayout, Context context) throws IOException {
+    public static ArrayList<RadioButton> createRadioButtons(String[] array,int[] images, LinearLayout linearLayout, Context context) throws IOException {
         if(images==null)
-            createRadioButtons(array,linearLayout,context);
+            return createRadioButtons(array,linearLayout,context);
 
         ArrayList<RadioButton> list = new ArrayList<RadioButton>();
         RelativeLayout.LayoutParams radioParams;
         radioParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
         radioParams.setMargins(10,10,10,10);
+
+        RelativeLayout.LayoutParams radioParams_images;
+        radioParams_images = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+        radioParams_images.setMargins(0,10,0,10);
+
         RadioGroup rg= new RadioGroup(context);
         rg.setLayoutParams(radioParams);
+        Resources r = context.getResources();
+        float px_float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, r.getDisplayMetrics());
+        int px = (int) px_float;
 
         for(int i=0;i<array.length;i++)
         {
+            LinearLayout.LayoutParams linelayout;
+            linelayout = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+
             RadioButton cb = new RadioButton(context);
             cb.setText(array[i]);
 
+            LinearLayout ll = new LinearLayout(context);
+            ll.setLayoutParams(linelayout);
 
-            String imageUri = "drawable://tipovale_1.png";
-            Drawable myDrawable = Drawable.createFromPath(imageUri);
+            try{
+                if(images[i]!=0) {
+                    Drawable myDrawable = context.getResources().getDrawable(images[i]);
+                    Bitmap mapa = BitmapFactory.decodeResource(context.getResources(), images[i]);
+                    int width= mapa.getWidth();
+                    int height= mapa.getHeight();
+                    int novo= (height*px)/width;
+                    mapa = Bitmap.createScaledBitmap(mapa, px,novo, true);
+                    myDrawable=new BitmapDrawable(context.getResources(), mapa);
+                    cb.setCompoundDrawablesWithIntrinsicBounds(null, null, myDrawable, null);
 
-            Log.e("nome ficheiro",""+ R.drawable.tipovale_1);
 
-           // InputStream stream = context.getAssets().open("tipovale_1.png");
-            //Drawable d = Drawable.createFromStream(stream, null);
+                }
 
-            cb.setCompoundDrawablesWithIntrinsicBounds(null, null, myDrawable, null);
+            }
+            catch (Exception e){
+
+            }
+
+            cb.setLayoutParams(radioParams_images);
+            ll.addView(cb);
             list.add(cb);
-            rg.addView(cb);
+            rg.addView(ll);
         }
         linearLayout.addView(rg);
         return list;
@@ -207,6 +273,25 @@ public class Form_functions {
 
 
 
+    public static void createTitleSubtitle(String title,String subtitle, LinearLayout linearLayout,Context context){
+        LinearLayout.LayoutParams radioParams;
+        radioParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        radioParams.setMargins(0, 20, 0, 20);
+        TextView textView=new TextView(context);
+        textView.setText(title );
+        textView.setTextColor(Color.BLACK);
+        textView.setTextSize(25);
+        textView.setLayoutParams(radioParams);
+        linearLayout.addView(textView);
+
+        TextView textView1=new TextView(context);
+        textView1.setText(subtitle);
+        textView1.setTextColor(Color.BLACK);
+        textView1.setTextSize(20);
+        radioParams.setMargins(0, 0, 0, 60);
+        textView1.setLayoutParams(radioParams);
+        linearLayout.addView(textView1);
+    }
     //READ
 
     public static int getRadioButtonOption(ArrayList<RadioButton> arrayList){

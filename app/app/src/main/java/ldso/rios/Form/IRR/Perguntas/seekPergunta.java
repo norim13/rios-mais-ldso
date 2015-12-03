@@ -24,7 +24,7 @@ public class seekPergunta extends Pergunta implements Serializable {
     protected ArrayList<SeekBar> seekList;
     protected ArrayList<TextView> seekListText;
 
-    public seekPergunta(String[] options,String[] images, String title, String subtitle, Boolean obly, Boolean other_option, int min, int max) {
+    public seekPergunta(String[] options,int[] images, String title, String subtitle, Boolean obly, Boolean other_option, int min, int max) {
         super(options,images, title, subtitle, obly, other_option);
         this.min = min;
         this.max = max;
@@ -34,6 +34,9 @@ public class seekPergunta extends Pergunta implements Serializable {
     public void generate(LinearLayout linearLayout, Context context) {
         this.linearLayout=linearLayout;
         this.context=context;
+
+        Form_functions.createTitleSubtitle(this.title, this.subtitle, linearLayout, context);
+
         ArrayList<ArrayList> arrayList=Form_functions.createSeekbar(this.options,this.linearLayout,this.context, max);
         this.seekList=arrayList.get(0);
         this.seekListText=arrayList.get(1);

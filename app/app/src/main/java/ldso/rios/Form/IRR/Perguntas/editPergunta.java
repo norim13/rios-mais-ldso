@@ -30,12 +30,12 @@ public class editPergunta extends Pergunta implements Serializable {
 
 
 
-    public editPergunta(String[] options,String[]images, String title, String subtitle, Boolean obly, Boolean other_option) {
+    public editPergunta(String[] options,int[]images, String title, String subtitle, Boolean obly, Boolean other_option) {
         super(options,images, title, subtitle, obly, other_option);
         range=false;
     }
 
-    public editPergunta(String[] options, String[] images, String title, String subtitle, Boolean obly, ArrayList<Float[]> minmax, boolean other_option) {
+    public editPergunta(String[] options, int[] images, String title, String subtitle, Boolean obly, ArrayList<Float[]> minmax, boolean other_option) {
         super(options,images, title, subtitle, obly, other_option);
         range=true;
         this.minmax=minmax;
@@ -45,6 +45,9 @@ public class editPergunta extends Pergunta implements Serializable {
     public void generate(LinearLayout linearLayout, Context context) {
         this.linearLayout=linearLayout;
         this.context=context;
+
+        Form_functions.createTitleSubtitle(this.title, this.subtitle, linearLayout, context);
+
 
         if(range)
             this.edit_list= Form_functions.createEditText(this.options,this.linearLayout,this.context,this.minmax);
@@ -142,7 +145,7 @@ public class editPergunta extends Pergunta implements Serializable {
             edit.setEnabled(false);
     }
 
-    public editPergunta(String[] options,String[] images, String title, String subtitle, Boolean obly, Boolean other_option, ArrayList<Float[]> minmax) {
+    public editPergunta(String[] options,int[] images, String title, String subtitle, Boolean obly, Boolean other_option, ArrayList<Float[]> minmax) {
         super(options, images, title,subtitle, obly, other_option);
         this.minmax = minmax;
         range=true;

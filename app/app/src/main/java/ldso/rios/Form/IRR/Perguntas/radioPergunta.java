@@ -23,7 +23,7 @@ public class radioPergunta extends Pergunta implements Serializable {
     private static final long serialVersionUID = 1325410386287654205L;
     protected ArrayList<RadioButton> radio_list;
 
-    public radioPergunta(String[] options, String[] images, String title, String subtitle, Boolean obly, Boolean other_option) {
+    public radioPergunta(String[] options, int[] images, String title, String subtitle, Boolean obly, Boolean other_option) {
         super(options, images, title, subtitle, obly, other_option);
     }
 
@@ -31,6 +31,8 @@ public class radioPergunta extends Pergunta implements Serializable {
     public void generate(LinearLayout linearLayout, Context context) throws IOException {
         this.linearLayout=linearLayout;
         this.context=context;
+
+        Form_functions.createTitleSubtitle(this.title, this.subtitle, linearLayout, context);
 
         this.radio_list= Form_functions.createRadioButtons(this.options,this.images,this.linearLayout,this.context);
 
@@ -49,7 +51,10 @@ public class radioPergunta extends Pergunta implements Serializable {
         textView.setLayoutParams(radioParams);
 
         linearLayout.addView(textView);
-        generate(linearLayout,context);
+        this.linearLayout=linearLayout;
+        this.context=context;
+
+        this.radio_list= Form_functions.createRadioButtons(this.options,null,this.linearLayout,this.context);
         for (RadioButton r:this.radio_list)
             r.setEnabled(false);
     }
