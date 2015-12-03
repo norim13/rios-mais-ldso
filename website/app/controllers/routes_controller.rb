@@ -10,6 +10,7 @@ class RoutesController < ApplicationController
   # GET /routes/1
   # GET /routes/1.json
   def show
+    @points = @route.rota_points
   end
 
   # GET /routes/new
