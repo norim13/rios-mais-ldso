@@ -60,6 +60,13 @@ Rails.application.routes.draw do
 
       post "/guardarios", :to => 'guardarios#create'
       post "/reports", :to => 'reports#create'
+
+      get "/limpezas/:opcao", :to => 'limpezas#getRespostas', :opcao => /.*/
+      post "/limpezas", :to => 'limpezas#submitProblemas'
+
+      get "/users", :to => 'users#getUser'
+      delete "/users", :to => 'users#destroy'
+      patch "/users", :to => 'users#update'
     end
   end
 end

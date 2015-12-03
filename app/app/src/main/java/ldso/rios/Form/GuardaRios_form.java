@@ -180,8 +180,6 @@ public class GuardaRios_form extends AppCompatActivity {
         String q6 = String.valueOf(question6.getText());
 
         DB_functions.saveGuardaRios(this, User.getToken(this), q1, q2, q3, q4, q5, q6);
-
-
     }
 
     public void saveGuardaRiosDB() {
@@ -198,10 +196,7 @@ public class GuardaRios_form extends AppCompatActivity {
                 });
             }
         }.start();
-
-
     }
-
 
     @TargetApi(Build.VERSION_CODES.M)
     public LatLng getLocation() {

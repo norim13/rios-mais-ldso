@@ -26,7 +26,6 @@ public class Homepage extends AppCompatActivity{
     public static final String PREFS_NAME = "UserInfo";
     private String token;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,28 +35,39 @@ public class Homepage extends AppCompatActivity{
         toolbar.setTitle("Inicio");
         setSupportActionBar(toolbar);
 
+        setUser();
+    }
+
+    private void setUser() {
+        User u = User.getInstance();
+
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         token=settings.getString("token","-1");
         Log.e("token", ": " + token);
 
+        u.setId(Integer.parseInt(settings.getString("id","-1")));
+        u.setAuthentication_token(settings.getString("token","-1"));
+        u.setName(settings.getString("name",""));
+        u.setEmail(settings.getString("email",""));
+
+        u.setTelef(settings.getString("telef",""));
+        u.setProfissao(settings.getString("profissao",""));
+        u.setHabilitacoes(settings.getString("habilitacoes",""));
+        u.setFormacao(Boolean.parseBoolean(settings.getString("formacao","false")));
+        u.setDistrito(settings.getString("distrito",""));
+        u.setConcelho(settings.getString("concelho",""));
 
     }
 
-    User current_user;
-
-
     public void mapas_init(View view){
         startActivity(new Intent(this, Mapa_rios.class));
-        //startActivity(new Intent(this, GuardaRios_form.class));
-
     }
 
     public void sosRios(View view){
         startActivity(new Intent(this, Sos_rios.class));
-
     }
 
-    public void fomr_irr(View view) throws IOException, JSONException {
+    public void form_irr(View view) throws IOException, JSONException {
         startActivity(new Intent(this, Form_IRR_mainActivity.class));
     }
 
@@ -66,12 +76,8 @@ public class Homepage extends AppCompatActivity{
     }
 
     public void about(View view)  {
-        //startActivity(new Intent(this, TesteChart.class));
         startActivity(new Intent(this, Information.class));
-
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -80,8 +86,20 @@ public class Homepage extends AppCompatActivity{
         if(id==R.id.navigate_guardarios)
             startActivity(new Intent(this,GuardaRios.class));
 
-        if(id==R.id.navigate_account)
-            startActivity(new Intent(this,Login.class));
+        if(id==R.id.navigate_account) {
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            token = settings.getString("token","-1");
+            String email = settings.getString("email","-1");
+
+            if(token.equals("-1"))
+                startActivity(new Intent(this, Login.class));
+            else {
+                User u = User.getInstance();
+                u.setEmail(email);
+                u.setAuthentication_token(token);
+                startActivity(new Intent(this, Profile.class));
+            }
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -94,6 +112,5 @@ public class Homepage extends AppCompatActivity{
         return true;
     }
 
-
-
 }
+

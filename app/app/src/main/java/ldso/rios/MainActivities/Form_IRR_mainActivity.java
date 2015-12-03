@@ -71,14 +71,13 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
 
         TextView textView=new TextView(this);
         try {
-            textView.setText(Form_IRR.loadFromIRR(this.getApplicationContext()).size()+"<-Tamamnho");
+            textView.setText(Form_IRR.loadFromIRR(this.getApplicationContext()).size()+"<-Tamanho");
         } catch (IOException e) {
             e.printStackTrace();
         }
         linearLayout.addView(textView);
 
     }
-
 
     /*
     se clicar no botão "+"

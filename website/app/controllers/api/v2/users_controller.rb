@@ -1,20 +1,33 @@
-class Api::V2::ReportsController < ApplicationController
+class Api::V2::UsersController < ApplicationController
+
 	before_filter :authenticate_user_from_token!
 
-	# POST /reports
-	# POST /reports.json
-	def create
-
+	def getUser
 		user_email = params[:user_email].presence
-		user = user_email && User.find_by_email(user_email)
+		user       = user_email && User.find_by_email(user_email)
 
-		report = Report.new(report_params)
-		report.user_id = user.id
+		render :json => user
+	end
 
-		if report.save
+	def update
+		user_email = params[:user_email].presence
+		user       = user_email && User.find_by_email(user_email)
+
+		if user.update
+			render :json => user
+		else
+			render :json => '{"success" : "false", "error" : "error updating user"}'
+		end
+	end
+
+	def destroy
+		user_email = params[:user_email].presence
+		user       = user_email && User.find_by_email(user_email)
+
+		if user.destroy
 			render :json => '{"success" : "true"}'
 		else
-			render :json => '{"success" : "false", "error" : "problem saving guardario"}'
+			render :json => '{"success" : "false", "error" : "error updating user"}'
 		end
 	end
 
@@ -33,8 +46,4 @@ class Api::V2::ReportsController < ApplicationController
 		end
 	end
 
-	private
-	def report_params
-		params.require(:report).permit(:rio, :categoria, :motivo, :descricao, :local, {images: []})
-	end
 end

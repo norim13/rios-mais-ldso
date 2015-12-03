@@ -4,6 +4,8 @@
 `
 markers = new Array();
 markerCount = 1;
+edit = false;
+route_id = -1;
 $(document).ready(function(){
 
 		//add points
@@ -16,7 +18,7 @@ $(document).ready(function(){
 		var map = new google.maps.Map(mapCanvas, mapOptions);
 
     google.maps.event.addListener(map, 'click', function(event) {
-        placeMarker(event.latLng, map);
+        placeMarker(event.latLng, map, true);
     });
 
     $( "#route-points-sortable" ).sortable({
@@ -34,9 +36,60 @@ $(document).ready(function(){
             $(this).html(new_name);
         });
     });
+
+    $("#submit-rota").on('click', function(e){
+        //e.preventDefault();
+        console.log($('form input[name="utf8"]').val());
+        var route = {};
+        route.nome = $("form #nome-rota").val();
+        route.descricao = $("form #descricao-rota").val();
+        route.zona = $("form #zona-rota").val();
+        route.publicada = $("form #publicada-rota").val();
+
+
+
+        var obj = {};
+        obj.route = route;
+        obj.authenticity_token = $('form input[name="authenticity_token"]').val();
+        obj.rota_points = getPointsOrdered();
+        //console.log(JSON.stringify(obj));
+        var url = '/routes' + ((edit)? ('/'+route_id) : '');
+        console.log(url);
+        $.ajax({
+            url: url,
+            type: edit? 'PATCH' : 'POST',
+            dataType: 'json',
+            data: obj,
+            success: function(data){
+                //console.log(data);
+                window.location.href = "/routes";
+            },
+            error: function(err){
+                console.log(err);
+            }
+        });
+    });
+
+    edit = ($('form').attr('data-edit') == 'true')? true : false;
+    route_id = $('form').attr('data-route-id');
+
+    //check if form is edit or new
+    if(edit){
+        //if edit, add markers based on existing forms
+
+        console.log("edit");
+        var points = getPointsOrdered();
+        for(l = 0; l < points.length; l++){
+            var temp_loc = {};
+            temp_loc.lat = parseFloat(points[l].lat);
+            temp_loc.lng = parseFloat(points[l].lon);
+            placeMarker(temp_loc, map, false);
+        }
+    }
 });
 
-function placeMarker(location, map) {
+function placeMarker(location, map, addForm) {
+    console.log(location);
     var marker = new google.maps.Marker({
         position: location,
         map: map
@@ -48,16 +101,17 @@ function placeMarker(location, map) {
 
 		markers.push(marker);
     //console.log("new size: "+markers.length);
+    if(addForm){
+        var latT = String(marker.getPosition().lat()).replace(/\./g,'_');
+        var lonT = String(marker.getPosition().lng()).replace(/\./g,'_');
+        var partialId = latT + '-' + lonT;
 
-		var latT = String(marker.getPosition().lat()).replace(/\./g,'_');
-    var lonT = String(marker.getPosition().lng()).replace(/\./g,'_');
-    var partialId = latT + '-' + lonT;
-
-		var formId = addMarkerForm(marker, partialId);
-    addMarkerSortable(marker, partialId);
-    $('html, body').animate({
-        scrollTop: $("#"+formId).offset().top
-    }, 1000);
+        var formId = addMarkerForm(marker, partialId);
+        addMarkerSortable(marker, partialId);
+        $('html, body').animate({
+            scrollTop: $("#"+formId).offset().top
+        }, 1000);
+    }
 		markerCount++;
 }
 
@@ -88,7 +142,7 @@ function addMarkerForm(marker, partialId){
 		$("#left-panel-forms").append(
 			'<div id="'+id+'" class="thumbnail">'+ //id = marker-form-{latitude}-{longitude}
 				'<div class="row">'+
-					'<form class="form form-inline">'+
+					//'<form class="form form-inline">'+
 						'<div class="col-xs-12">'+
 							'<h4><span class="nome-ponto-'+partialId+'">Ponto '+markerCount+'</span></h4>'+
 						'</div>'+
@@ -104,7 +158,7 @@ function addMarkerForm(marker, partialId){
 						'<div class="col-md-12">'+
 							'<textarea type="text-field" name="descricao" class="form-control"  rows="4" placeholder="Insira uma descrição"/>'+
 						'</div>'+
-					'</form>'+
+					//'</form>'+
 				'</div>'+
 			'</div>'
 		);
@@ -129,6 +183,7 @@ function removeMarkerSortable(partialId){
 
 function getPointsOrdered(){
     var points = [];
+    var count = 1;
 		$("#route-points-sortable > li").each(function(){
 				var point = {};
 				var this_id_parts = this.id.split('-');
@@ -158,10 +213,14 @@ function getPointsOrdered(){
 				point.descricao = descricao;
 				point.lat = lat;
 				point.lon = lon;
+        point.ordem = count++;
 
-				points.push(point);
+        //var obj = {};
+        //obj.point = point;
+        points.push(point);
     });
 
-		console.log(points);
+		//console.log(points);
+    return points;
 }
 `
