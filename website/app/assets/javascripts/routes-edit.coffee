@@ -39,14 +39,12 @@ $(document).ready(function(){
 
     $("#submit-rota").on('click', function(e){
         //e.preventDefault();
-        console.log($('form input[name="utf8"]').val());
+        //console.log($('form input[name="utf8"]').val());
         var route = {};
         route.nome = $("form #nome-rota").val();
         route.descricao = $("form #descricao-rota").val();
         route.zona = $("form #zona-rota").val();
-        route.publicada = $("form #publicada-rota").val();
-
-
+        route.publicada = $("form #publicada-rota").is(":checked");
 
         var obj = {};
         obj.route = route;
@@ -54,7 +52,7 @@ $(document).ready(function(){
         obj.rota_points = getPointsOrdered();
         //console.log(JSON.stringify(obj));
         var url = '/routes' + ((edit)? ('/'+route_id) : '');
-        console.log(url);
+        //console.log(url);
         $.ajax({
             url: url,
             type: edit? 'PATCH' : 'POST',
@@ -76,8 +74,7 @@ $(document).ready(function(){
     //check if form is edit or new
     if(edit){
         //if edit, add markers based on existing forms
-
-        console.log("edit");
+        //console.log("edit");
         var points = getPointsOrdered();
         for(l = 0; l < points.length; l++){
             var temp_loc = {};
@@ -85,11 +82,19 @@ $(document).ready(function(){
             temp_loc.lng = parseFloat(points[l].lon);
             placeMarker(temp_loc, map, false);
         }
+
+        //set map center to the first point
+        var lat = parseFloat(points[0].lat);
+        var lon = parseFloat(points[0].lon);
+        map.setCenter({
+            lat : lat,
+            lng : lon
+        });
     }
 });
 
 function placeMarker(location, map, addForm) {
-    console.log(location);
+    //console.log(location);
     var marker = new google.maps.Marker({
         position: location,
         map: map
@@ -102,8 +107,8 @@ function placeMarker(location, map, addForm) {
 		markers.push(marker);
     //console.log("new size: "+markers.length);
     if(addForm){
-        var latT = String(marker.getPosition().lat()).replace(/\./g,'_');
-        var lonT = String(marker.getPosition().lng()).replace(/\./g,'_');
+        var latT = String(marker.getPosition().lat().toFixed(14)).replace(/\./g,'_');
+        var lonT = String(marker.getPosition().lng().toFixed(14)).replace(/\./g,'_');
         var partialId = latT + '-' + lonT;
 
         var formId = addMarkerForm(marker, partialId);
@@ -119,8 +124,8 @@ function removeMarker(map, marker) {
 
     var x=window.confirm("Tem a certeza que quer remover o ponto?")
     if (x){
-        var latT = String(marker.getPosition().lat()).replace(/\./g,'_');
-        var lonT = String(marker.getPosition().lng()).replace(/\./g,'_');
+        var latT = String(marker.getPosition().lat().toFixed(14)).replace(/\./g,'_');
+        var lonT = String(marker.getPosition().lng().toFixed(14)).replace(/\./g,'_');
         var partialId = latT + '-' + lonT;
 
         for (i = 0; i < markers.length; i++) {
@@ -174,10 +179,14 @@ function addMarkerSortable(marker, partialId){
 }
 
 function removeMarkerForm(partialId){
+    console.log("remove form");
+    console.log("#marker-form-"+partialId);
 	$("#marker-form-"+partialId).remove();
 }
 
 function removeMarkerSortable(partialId){
+    console.log("remove sortable");
+    console.log("#marker-sortable-"+partialId);
     $("#marker-sortable-"+partialId).remove();
 }
 

@@ -44,8 +44,8 @@
     <% if @edit %>
         <% @points.each do |p| %>
           <%
-             partial_lat = p[:lat].to_s.gsub! '.', '_'
-             partial_lon = p[:lon].to_s.gsub! '.', '_'
+             partial_lat = number_with_precision(p[:lat], precision: 14).to_s.gsub! '.', '_'
+             partial_lon = number_with_precision(p[:lon], precision: 14).to_s.gsub! '.', '_'
              partial_id = "#{partial_lat}-#{partial_lon}"
           %>
 
@@ -64,7 +64,7 @@
                   Longitude:<input type="text-field" name="lon" class="form-control" readonly="true" value="<%= p[:lon] %>"/>
                 </div>
                 <div class="col-md-12">
-                  <textarea type="text-field" name="descricao" class="form-control"  rows="4" placeholder="Insira uma descrição" value="<%= p[:descricao] %>"></textarea>
+                  <textarea type="text-field" name="descricao" class="form-control"  rows="4" placeholder="Insira uma descrição" ><%= p[:descricao] %></textarea>
                 </div>
               </div>
             </div>
@@ -80,8 +80,8 @@
       <% if @edit %>
           <% @points.each do |p| %>
               <%
-                 partial_lat = p[:lat].to_s.gsub! '.', '_'
-                 partial_lon = p[:lon].to_s.gsub! '.', '_'
+                 partial_lat = number_with_precision(p[:lat], precision: 14).to_s.gsub! '.', '_'
+                 partial_lon = number_with_precision(p[:lon], precision: 14).to_s.gsub! '.', '_'
                  partial_id = "#{partial_lat}-#{partial_lon}"
               %>
               <li id="marker-sortable-<%= partial_id %>" class="ui-state-default"> <span class="glyphicon glyphicon-resize-vertical"></span> <span class="nome-ponto-<%= partial_id %>>"><%= p[:nome] %></span></li>

@@ -1,7 +1,7 @@
 <%= render 'common/header' %>
 
 <%= stylesheet_link_tag "routes" %>
-
+<%= stylesheet_link_tag "external/jquery-ui.min.css" %>
 </head>
 
 <body>
@@ -9,27 +9,59 @@
 <%= render 'common/navbar' %>
 
 <div class="container">
+  <h1><strong>Rotas Rios+</strong></h1>
   <h1><%= @route.nome %></h1>
 
-    <div class="thumbnail">
+    <!--<div class="thumbnail">
       <div class="row">
         <div class="col-xs-12">
-          <strong>Zona: </strong><%= @route.zona %>
+          <strong>Zona: </strong><%#= @route.zona %>
         </div>
         <div class="col-xs-12">
           <div><strong>Descrição:</strong></div>
-          <%= @route.descricao %>
+          <%#= @route.descricao %>
         </div>
       </div>
-    </div>
+    </div>-->
 
     <div class="row">
       <div id="view-route-points-map" class="col-xs-12 route-points-map"></div>
     </div>
+
+  <strong>Zona: </strong><%= @route.zona %>
+
+  <div id="points-info" class="row">
+    <h2>Informação detalhada sobre os pontos da Rota:</h2>
+    <% @points.each do |p| %>
+      <%
+         partial_lat = number_with_precision(p[:lat], precision: 14).to_s.gsub! '.', '_'
+         partial_lon = number_with_precision(p[:lon], precision: 14).to_s.gsub! '.', '_'
+         partial_id = "#{partial_lat}-#{partial_lon}"
+      %>
+      <div id="marker-info-<%= partial_id %>" class="col-xs-12 thumbnail">
+        <div class="row">
+          <div class="col-xs-12">
+            <h3><span class="info-nome"><%= p.nome %></span></h3>
+            <p>Coordenadas: <span class="info-lat"><%= p.lat %></span>, <span class="info-lon"><%= p.lon %></span></p>
+            <h5><strong>Descrição</strong></h5>
+            <div>
+              <% if p.descricao == '' %>
+                  <i>Não existe descrição para este ponto...</i>
+              <% else %>
+                  <%= simple_format(p.descricao) %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
 
   <%= link_to 'Editar', edit_route_path(@route) %>
   <%= link_to 'Voltar atrás', routes_path %>
 </div>
 
 <%= render 'common/footer' %>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <%= javascript_include_tag 'routes-view' %>
