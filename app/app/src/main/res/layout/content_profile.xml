@@ -12,56 +12,17 @@
     tools:context="ldso.rios.MainActivities.Profile"
     tools:showIn="@layout/activity_profile">
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/profilePicImageView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@mipmap/ic_launcher" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/nameTextProfile"
-        android:text="nome"
-        android:textSize="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/profilePicImageView"
-        android:layout_toEndOf="@+id/profilePicImageView" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="email:"
-        android:id="@+id/emailStaticTextProfile"
-        android:layout_below="@+id/profilePicImageView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_margin="15dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="permissoes"
-        android:id="@+id/permissoesTextProfile"
-        android:layout_below="@+id/nameTextProfile"
-        android:layout_toRightOf="@+id/profilePicImageView"
-        android:layout_toEndOf="@+id/profilePicImageView" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="email"
         android:id="@+id/emailTextProfile"
-        android:layout_alignBottom="@+id/emailStaticTextProfile"
+        android:layout_alignTop="@+id/emailStaticTextProfile"
         android:layout_toRightOf="@+id/emailStaticTextProfile"
-        android:layout_toEndOf="@+id/emailStaticTextProfile" />
+        android:layout_toEndOf="@+id/emailStaticTextProfile"
+        android:textSize="17dp"
+        android:textIsSelectable="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -69,9 +30,14 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Distrito:"
         android:id="@+id/distritoStaticTextProfile"
-        android:layout_below="@+id/emailStaticTextProfile"
-        android:layout_toLeftOf="@+id/emailTextProfile"
-        android:layout_toStartOf="@+id/emailTextProfile" />
+        android:layout_below="@+id/formacaoStaticTextProfile"
+        android:layout_toEndOf="@+id/permissoesTextProfile"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        android:layout_marginRight="13dp"
+        android:textSize="17dp"
+        android:textIsSelectable="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -79,9 +45,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="distrito"
         android:id="@+id/distritoTextProfile"
-        android:layout_alignTop="@+id/distritoStaticTextProfile"
-        android:layout_alignLeft="@+id/emailTextProfile"
-        android:layout_alignStart="@+id/emailTextProfile" />
+        android:layout_toRightOf="@+id/distritoStaticTextProfile"
+        android:layout_toEndOf="@+id/distritoStaticTextProfile"
+        android:layout_alignBottom="@+id/distritoStaticTextProfile"
+        android:textSize="17dp"
+        android:textIsSelectable="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -89,9 +57,15 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Concelho:"
         android:id="@+id/concelhoStaticTextProfile"
-        android:layout_alignTop="@+id/concelhoTextProfile"
-        android:layout_alignLeft="@+id/distritoStaticTextProfile"
-        android:layout_alignStart="@+id/distritoStaticTextProfile" />
+        android:layout_below="@+id/emailTextProfile"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        android:layout_marginRight="13dp"
+        android:textSize="17dp"
+        android:textIsSelectable="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -99,9 +73,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="concelho"
         android:id="@+id/concelhoTextProfile"
-        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/concelhoStaticTextProfile"
-        android:layout_toEndOf="@+id/concelhoStaticTextProfile" />
+        android:layout_toEndOf="@+id/concelhoStaticTextProfile"
+        android:layout_alignBottom="@+id/concelhoStaticTextProfile"
+        android:textSize="17dp"
+        android:textIsSelectable="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -111,7 +87,13 @@
         android:id="@+id/profissaoStaticTextProfile"
         android:layout_below="@+id/concelhoStaticTextProfile"
         android:layout_alignLeft="@+id/concelhoStaticTextProfile"
-        android:layout_alignStart="@+id/concelhoStaticTextProfile" />
+        android:layout_alignStart="@+id/concelhoStaticTextProfile"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        android:layout_marginRight="13dp"
+        android:textSize="17dp"
+        android:textIsSelectable="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -121,7 +103,9 @@
         android:id="@+id/profissaoTextProfile"
         android:layout_alignBottom="@+id/profissaoStaticTextProfile"
         android:layout_toRightOf="@+id/profissaoStaticTextProfile"
-        android:layout_toEndOf="@+id/profissaoStaticTextProfile" />
+        android:layout_toEndOf="@+id/profissaoStaticTextProfile"
+        android:textSize="17dp"
+        android:textIsSelectable="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -131,7 +115,13 @@
         android:id="@+id/habilitacoesStaticTextProfile"
         android:layout_below="@+id/profissaoStaticTextProfile"
         android:layout_alignLeft="@+id/profissaoStaticTextProfile"
-        android:layout_alignStart="@+id/profissaoStaticTextProfile" />
+        android:layout_alignStart="@+id/profissaoStaticTextProfile"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        android:layout_marginRight="13dp"
+        android:textSize="17dp"
+        android:textIsSelectable="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -139,9 +129,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="habilitacoes"
         android:id="@+id/habilitacoesTextProfile"
-        android:layout_below="@+id/profissaoTextProfile"
         android:layout_toRightOf="@+id/habilitacoesStaticTextProfile"
-        android:layout_toEndOf="@+id/habilitacoesStaticTextProfile" />
+        android:layout_toEndOf="@+id/habilitacoesStaticTextProfile"
+        android:layout_alignBottom="@+id/habilitacoesStaticTextProfile"
+        android:textSize="17dp"
+        android:textIsSelectable="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -151,7 +143,13 @@
         android:id="@+id/formacaoStaticTextProfile"
         android:layout_below="@+id/telefStaticTextProfile"
         android:layout_alignLeft="@+id/telefStaticTextProfile"
-        android:layout_alignStart="@+id/telefStaticTextProfile" />
+        android:layout_alignStart="@+id/telefStaticTextProfile"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        android:layout_marginRight="13dp"
+        android:textSize="17dp"
+        android:textIsSelectable="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -159,9 +157,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Sim/Nao"
         android:id="@+id/formacaoTextProfile"
-        android:layout_below="@+id/telefStaticTextProfile"
         android:layout_toRightOf="@+id/formacaoStaticTextProfile"
-        android:layout_toEndOf="@+id/formacaoStaticTextProfile" />
+        android:layout_toEndOf="@+id/formacaoStaticTextProfile"
+        android:layout_alignBottom="@+id/formacaoStaticTextProfile"
+        android:textSize="17dp"
+        android:textIsSelectable="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -171,7 +171,13 @@
         android:id="@+id/telefStaticTextProfile"
         android:layout_below="@+id/habilitacoesStaticTextProfile"
         android:layout_alignLeft="@+id/habilitacoesStaticTextProfile"
-        android:layout_alignStart="@+id/habilitacoesStaticTextProfile" />
+        android:layout_alignStart="@+id/habilitacoesStaticTextProfile"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        android:layout_marginRight="13dp"
+        android:textSize="17dp"
+        android:textIsSelectable="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -181,16 +187,82 @@
         android:id="@+id/telefTextProfile"
         android:layout_alignTop="@+id/telefStaticTextProfile"
         android:layout_toRightOf="@+id/telefStaticTextProfile"
-        android:layout_toEndOf="@+id/telefStaticTextProfile" />
+        android:layout_toEndOf="@+id/telefStaticTextProfile"
+        android:textSize="17dp"
+        android:textIsSelectable="false" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Desautenticar"
+        android:text="Log out"
         android:onClick="logout"
         android:id="@+id/logoutButtonProfile"
+        android:textColor="#ff0000"
+        android:background="@null"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="59dp" />
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Email:"
+        android:id="@+id/emailStaticTextProfile"
+        android:layout_gravity="center_vertical"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        android:layout_marginRight="13dp"
+        android:textSize="17dp"
+        android:textIsSelectable="false" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
+        android:layout_marginBottom="10dp">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/profilePicImageView"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@mipmap/ic_launcher" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/nameTextProfile"
+                android:text="nome"
+                android:textSize="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/profilePicImageView"
+                android:layout_toEndOf="@+id/profilePicImageView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="permissoes"
+                android:id="@+id/permissoesTextProfile"
+                android:layout_above="@+id/emailTextProfile"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

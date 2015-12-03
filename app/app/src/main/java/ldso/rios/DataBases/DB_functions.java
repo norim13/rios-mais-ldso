@@ -12,27 +12,26 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import ldso.rios.Form.IRR.Form_IRR;
-import ldso.rios.Form.LimpezaSolucoes;
-import ldso.rios.MainActivities.Form_IRR_mainActivity;
-import ldso.rios.Form.GuardaRios_form;
-import ldso.rios.Form.Form_functions;
-import ldso.rios.Form.IRR.Questions;
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.Autenticacao.Register;
+import ldso.rios.Form.Form_functions;
+import ldso.rios.Form.GuardaRios_form;
+import ldso.rios.Form.IRR.Form_IRR;
+import ldso.rios.Form.IRR.Questions;
+import ldso.rios.Form.IRR.ViewFormIRR;
+import ldso.rios.Form.LimpezaSolucoes;
 import ldso.rios.Form.Sos_rios;
+import ldso.rios.MainActivities.Form_IRR_mainActivity;
 import ldso.rios.MainActivities.Limpeza;
 import ldso.rios.MainActivities.Profile;
 import ldso.rios.MainActivities.ProfileEditActivity;
@@ -1818,4 +1817,66 @@ public class DB_functions {
             }
         }).start();
     }
+
+    public static void deleteForm(final ViewFormIRR viewformirr,final String id, final String email, final String token) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String url = "http://riosmais.herokuapp.com/api/v2/form_irrs/"+id+"?user_email="+email+"&user_token="+token;
+                    Log.e("teste",url);
+                    URL object = new URL(url);
+                    HttpURLConnection con = (HttpURLConnection) object.openConnection();
+                    con.setDoOutput(true);
+                    con.setDoInput(true);
+                    con.setRequestProperty("Content-Type", "application/json");
+                    con.setRequestMethod("DELETE");
+                    con.connect();
+
+                    OutputStream os = con.getOutputStream();
+                    OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+                    osw.flush();
+                    osw.close();
+                    StringBuilder sb = new StringBuilder();
+                    int HttpResult = con.getResponseCode();
+
+                    if (HttpResult == 200) {
+                        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
+                        String line = null;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line + "\n");
+                        }
+
+                        Log.e("register", "resposta da api:" + sb.toString());
+                        viewformirr.apagaou();
+
+
+                        final String[] error_txt = {""};
+                        final Boolean[] error = {false};
+
+                        JSONObject obj = null;
+                        try {
+                            obj = new JSONObject(sb.toString());
+                            error_txt[0] = obj.getString("error");
+                            error[0] = true;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("JSON Exception", "exception getting response on register");
+                        }
+
+
+                        br.close();
+
+                        System.out.println(sb.toString());
+
+                    } else {
+                        Log.e("register","Resposta da api n foi OK");
+                        System.out.println(con.getResponseMessage());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
 }

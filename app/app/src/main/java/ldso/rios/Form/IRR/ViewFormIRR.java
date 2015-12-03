@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import ldso.rios.Autenticacao.Login;
+import ldso.rios.DataBases.DB_functions;
+import ldso.rios.DataBases.User;
+import ldso.rios.MainActivities.Form_IRR_mainActivity;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.R;
 
@@ -24,6 +27,7 @@ public class ViewFormIRR extends AppCompatActivity {
 
     LinearLayout linearLayout;
     Form_IRR form;
+    int id;
 
 
     @Override
@@ -76,7 +80,7 @@ public class ViewFormIRR extends AppCompatActivity {
     public void edit_form(View view){
         Intent i;
         i = new Intent(this, FormIRRSwipe.class);
-        i.putExtra("form_irr",form.getRespostas());
+        i.putExtra("form_irr", form.getRespostas());
         startActivity(i);
 
     }
@@ -89,7 +93,7 @@ public class ViewFormIRR extends AppCompatActivity {
         if(this.getIntent().getSerializableExtra("saved")!=null)
             getMenuInflater().inflate(R.menu.menu_form_upload, menu);
         else
-            getMenuInflater().inflate(R.menu.menu_homepage, menu);
+            getMenuInflater().inflate(R.menu.menu_form_irrview, menu);
 
         return true;
     }
@@ -116,7 +120,20 @@ public class ViewFormIRR extends AppCompatActivity {
 
             //Log.e("teste","tamanho do array"+Form_IRR.all_from_irrs.size());
         }
+        if (id == R.id.navigate_remove){
+            Log.e("delete","entrou");
+            User u = User.getInstance();
+            DB_functions.deleteForm(this,this.getIntent().getSerializableExtra("id").toString(),u.getEmail(),u.getAuthentication_token() );
+
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void apagaou() {
+
+        Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

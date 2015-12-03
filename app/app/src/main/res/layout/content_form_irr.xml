@@ -21,7 +21,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Os meus formulários:"
             android:id="@+id/textView25"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:textSize="24dp" />
     </FrameLayout>
 
     <ScrollView

@@ -61,7 +61,7 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
 
         //vai buscar os forms de um user
         try {
-            DB_functions.getForms(token,email,this);
+            DB_functions.getForms(token, email, this);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -69,13 +69,6 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
         }
 
 
-        TextView textView=new TextView(this);
-        try {
-            textView.setText(Form_IRR.loadFromIRR(this.getApplicationContext()).size()+"<-Tamanho");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        linearLayout.addView(textView);
 
     }
 
@@ -120,7 +113,7 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
 
                                 String idRio = form_irr_json.getString("idRio");
                                 String irr = form_irr_json.getString("irr");
-                                String id = form_irr_json.getString("id");
+                                final String id = form_irr_json.getString("id");
                                 String margem = form_irr_json.getString("margem");
 
 
@@ -138,7 +131,7 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
                                 if(new String("0").equals(margem))
                                     tv.setText("Margem: Direita");
                                 else tv.setText("Margem: Esquerda");
-
+                                final int id_int= Integer.parseInt(id);
                                 c.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -151,6 +144,7 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
                                         }
                                         Intent i;
                                         i = new Intent(v.getContext(), ViewFormIRR.class);
+                                        i.putExtra("id",id_int);
                                         i.putExtra("form_irr",form_irr.getRespostas());
                                         startActivity(i);
 

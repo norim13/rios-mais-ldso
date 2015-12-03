@@ -5,6 +5,8 @@
     <item name="navigate_account" type="id">account</item>
     <item name="navigate_save" type="id">save</item>
     <item name="navigate_upload" type="id">upload</item>
+    <item name="navigate_remove" type="id">remove</item>
+
 
 
 
