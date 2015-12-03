@@ -9,4 +9,11 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_limpeza_solucoes" tools:context="ldso.rios.Form.LimpezaSolucoes">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/limpeza_solucao_linear"></LinearLayout>
 </RelativeLayout>

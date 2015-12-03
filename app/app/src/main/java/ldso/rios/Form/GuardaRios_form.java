@@ -198,7 +198,6 @@ public class GuardaRios_form extends AppCompatActivity {
         }.start();
     }
 
-
     @TargetApi(Build.VERSION_CODES.M)
     public LatLng getLocation() {
         // Get the location manager

@@ -17,7 +17,8 @@ class Api::V2::LimpezasController < ApplicationController
   	end
 
   	def getRespostas
-			resposta = Limpeza.find_by_opcao(params[:opcao])
+			opcao_decoded = params[:opcao].encode("utf-8").force_encoding("iso-8859-1")
+			resposta = Limpeza.find_by_opcao(opcao_decoded)
       render :json => resposta
   	end
 

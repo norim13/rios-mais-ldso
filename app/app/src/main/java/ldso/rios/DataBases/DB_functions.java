@@ -1,5 +1,6 @@
 package ldso.rios.DataBases;
 
+import android.net.Uri;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -11,10 +12,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -22,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import ldso.rios.Form.IRR.Form_IRR;
+import ldso.rios.Form.LimpezaSolucoes;
 import ldso.rios.MainActivities.Form_IRR_mainActivity;
 import ldso.rios.Form.GuardaRios_form;
 import ldso.rios.Form.Form_functions;
@@ -1376,20 +1380,20 @@ public class DB_functions {
                     jsonObject.accumulate("local",q1);
                     jsonObject.accumulate("voar",q2);
                     jsonObject.accumulate("cantar",q3);
-                    jsonObject.accumulate("alimentar",q4);
-                    jsonObject.accumulate("parado",q5.get(0));
-                    jsonObject.accumulate("beber",q5.get(1));
-                    jsonObject.accumulate("cacar",q5.get(2));
-                    jsonObject.accumulate("cuidarcrias",q5.get(3));
+                    jsonObject.accumulate("alimentar", q4);
+                    jsonObject.accumulate("parado", q5.get(0));
+                    jsonObject.accumulate("beber", q5.get(1));
+                    jsonObject.accumulate("cacar", q5.get(2));
+                    jsonObject.accumulate("cuidarcrias", q5.get(3));
                     jsonObject.accumulate("outro",q6);
-                    jsonObject.accumulate("lat","");
+                    jsonObject.accumulate("lat", "");
                     jsonObject.accumulate("lon","");
                     jsonObject.accumulate("nomeRio","");
                     JSONObject guardarios= new JSONObject();
-                    guardarios.accumulate("guardario",jsonObject);
+                    guardarios.accumulate("guardario", jsonObject);
 
                     Log.w("teste", jsonObject.toString());
-                    Log.e("teste",guardarios.toString());
+                    Log.e("teste", guardarios.toString());
 
                     OutputStream os = con.getOutputStream();
                     OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
@@ -1507,8 +1511,8 @@ public class DB_functions {
                     con.connect();
                     JSONObject jsonObject = new JSONObject();
 
-                    jsonObject.accumulate("cheia_destruicao",q17);
-                    jsonObject.accumulate("cheia_perdas_monetarias",q16);
+                    jsonObject.accumulate("cheia_destruicao", q17);
+                    jsonObject.accumulate("cheia_perdas_monetarias", q16);
                     jsonObject.accumulate("cheia_origem",q15);
                     jsonObject.accumulate("cheia_data",q14);
                     jsonObject.accumulate("problema13",q13);
@@ -1523,7 +1527,7 @@ public class DB_functions {
                     jsonObject.accumulate("problema4",q4);
                     jsonObject.accumulate("problema3",q3);
                     jsonObject.accumulate("problema2",q2);
-                    jsonObject.accumulate("problema1",q1);
+                    jsonObject.accumulate("problema1", q1);
 /*
                     JSONObject limpezaObj = new JSONObject();
                     limpezaObj.accumulate("limpeza", jsonObject);
@@ -1568,6 +1572,80 @@ public class DB_functions {
             }
         }).start();
     }
+
+    public static void getSolucoes(final LimpezaSolucoes limpezaSolucoes,final String opcao) throws IOException, JSONException {
+
+        new Thread(new Runnable() {
+            public void run() {
+                String text = Uri.encode(opcao);
+
+                String url = "http://riosmais.herokuapp.com/api/v2/limpezas/"+text;
+
+                URL obj = null;
+                try {
+                    obj = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                HttpURLConnection con = null;
+                try {
+                    con = (HttpURLConnection) obj.openConnection();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // optional default is GET
+                try {
+                    con.setRequestMethod("GET");
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                }
+
+                //add request header
+                con.setRequestProperty("Content-Type", "application/json");
+
+                int responseCode = 0;
+                try {
+                    responseCode = con.getResponseCode();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("\nSending 'GET' request to URL : " + url);
+                System.out.println("Response Code : " + responseCode);
+
+                BufferedReader in = null;
+                try {
+                    in = new BufferedReader(
+                            new InputStreamReader(con.getInputStream()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                try {
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //print result
+                System.out.println(response.toString());
+                Log.e("response ", response.toString());
+
+                limpezaSolucoes.solucoesForLimpeza(response.toString());
+
+            }
+        }).start();
+    }
+
 
 
     public static void editUser(final ProfileEditActivity profileEditActivity, final String email, final String token) {
@@ -1687,7 +1765,7 @@ public class DB_functions {
                 }
                 Log.i("user","deleting user");
                 Log.i("user","sending DELETE request to URL: " + url);
-                Log.i("user","response code: " + responseCode);
+                Log.i("user", "response code: " + responseCode);
 
                 BufferedReader in = null;
                 try {
