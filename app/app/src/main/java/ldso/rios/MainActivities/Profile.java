@@ -1,7 +1,7 @@
 package ldso.rios.MainActivities;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,13 +40,14 @@ public class Profile extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(getApplication(), ProfileEditActivity.class));
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        putOldDataOnContent();
+        updateProfileView();
 
         DB_functions.getUserData(this, User.getInstance().getEmail(),User.getInstance().getAuthentication_token());
     }
@@ -62,7 +62,7 @@ public class Profile extends AppCompatActivity {
         toast.show();
     }
 
-    private void putOldDataOnContent() {
+    private void updateProfileView() {
         User u = User.getInstance();
 
         name = (TextView) findViewById(R.id.nameTextProfile);
@@ -81,7 +81,7 @@ public class Profile extends AppCompatActivity {
         telef.setText(u.getTelef());
 
         formacao = (TextView) findViewById(R.id.formacaoTextProfile);
-        formacao.setText(String.valueOf(u.getFormacao()));
+        formacao.setText(u.getFormacao()? "Sim": "Não");
 
         profissao = (TextView) findViewById(R.id.profissaoTextProfile);
         profissao.setText(u.getProfissao());
@@ -108,7 +108,7 @@ public class Profile extends AppCompatActivity {
                                 !String.valueOf(u.getFormacao()).equals(formacao.getText()) ||
                                 !u.getEmail().equals(email.getText())) {
 
-                            putOldDataOnContent();
+                            updateProfileView();
                             Log.e("profile","dados diferentes!");
                         }
                     }

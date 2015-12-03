@@ -9,6 +9,28 @@ class Api::V2::UsersController < ApplicationController
 		render :json => user
 	end
 
+	def update
+		user_email = params[:user_email].presence
+		user       = user_email && User.find_by_email(user_email)
+
+		if user.update
+			render :json => user
+		else
+			render :json => '{"success" : "false", "error" : "error updating user"}'
+		end
+	end
+
+	def destroy
+		user_email = params[:user_email].presence
+		user       = user_email && User.find_by_email(user_email)
+
+		if user.destroy
+			render :json => '{"success" : "true"}'
+		else
+			render :json => '{"success" : "false", "error" : "error updating user"}'
+		end
+	end
+
 	def authenticate_user_from_token!
 		user_email = params[:user_email].presence
 		user = user_email && User.find_by_email(user_email)

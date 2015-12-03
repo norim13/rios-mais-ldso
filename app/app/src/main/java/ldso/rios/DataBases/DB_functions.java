@@ -31,6 +31,7 @@ import ldso.rios.Autenticacao.Register;
 import ldso.rios.Form.Sos_rios;
 import ldso.rios.MainActivities.Limpeza;
 import ldso.rios.MainActivities.Profile;
+import ldso.rios.MainActivities.ProfileEditActivity;
 
 /**
  * Created by filipe on 02/11/2015.
@@ -1527,7 +1528,7 @@ public class DB_functions {
                     JSONObject limpezaObj = new JSONObject();
                     limpezaObj.accumulate("limpeza", jsonObject);
 */
-                   Log.w("teste", jsonObject.toString());
+                    Log.w("teste", jsonObject.toString());
 //                    Log.e("teste",limpezaObj.toString());
 
                     OutputStream os = null;
@@ -1569,5 +1570,172 @@ public class DB_functions {
     }
 
 
+    public static void editUser(final ProfileEditActivity profileEditActivity, final String email, final String token) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String url = "http://riosmais.herokuapp.com/api/v2/users?user_email=" + email + "&user_token=" + token;
+                    URL object = new URL(url);
+                    HttpURLConnection con = (HttpURLConnection) object.openConnection();
+                    con.setDoOutput(true);
+                    con.setDoInput(true);
+                    con.setRequestProperty("Content-Type", "application/json");
+                    con.setRequestMethod("PATCH");
+                    con.connect();
+                    JSONObject jsonObject = new JSONObject();
+                    JSONObject user = new JSONObject();
+                    try {
+                        jsonObject.accumulate("nome", profileEditActivity.getName().getText());
+                        jsonObject.accumulate("email", profileEditActivity.getEmail().getText());
+                        jsonObject.accumulate("password", profileEditActivity.getPassword().getText());
+                        jsonObject.accumulate("password_confirmation", profileEditActivity.getPasswordConfirmation());
+                        jsonObject.accumulate("telef", profileEditActivity.getTelef().getText());
+                        jsonObject.accumulate("habilitacoes", profileEditActivity.getHabilitacoes().getText());
+                        jsonObject.accumulate("profissao", profileEditActivity.getProfissao().getText());
+                        jsonObject.accumulate("formacao", profileEditActivity.getFormacao().isChecked()?"True":"False");
+                        //jsonObject.accumulate("distrito_id", "");
+                        //jsonObject.accumulate("concelho_id", "");
 
+                        user.accumulate("user", jsonObject);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.e("user todo: ", user.toString());
+
+                    OutputStream os = con.getOutputStream();
+                    OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+                    osw.write(user.toString());
+                    osw.flush();
+                    osw.close();
+                    StringBuilder sb = new StringBuilder();
+                    int HttpResult = con.getResponseCode();
+                    if (HttpResult == HttpURLConnection.HTTP_OK) {
+                        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
+                        String line = null;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line + "\n");
+                        }
+
+                        Log.e("register", "resposta da api:" + sb.toString());
+
+                        final String[] error_txt = {""};
+                        final Boolean[] error = {false};
+
+                        JSONObject obj = null;
+                        try {
+                            obj = new JSONObject(sb.toString());
+                            error_txt[0] = obj.getString("error");
+                            error[0] = true;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("JSON Exception", "exception getting response on register");
+                        }
+
+                        profileEditActivity.edit_response(error[0], error_txt[0]);
+
+                        br.close();
+
+                        System.out.println(sb.toString());
+
+                    } else {
+                        Log.e("register", "Resposta da api n foi OK");
+                        System.out.println(con.getResponseMessage());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public static void deleteUser(final ProfileEditActivity profileEditActivity, final String email, final String token) {
+
+        new Thread(new Runnable() {
+            public void run() {
+
+                String url = "http://riosmais.herokuapp.com/api/v2/users?user_email="+email+"&user_token="+token;
+
+                URL obj = null;
+                try {
+                    obj = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                HttpURLConnection con = null;
+                try {
+                    con = (HttpURLConnection) obj.openConnection();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // optional default is GET
+                try {
+                    con.setRequestMethod("DELETE");
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                }
+
+                //add request header
+                con.setRequestProperty("Content-Type", "application/json");
+
+                int responseCode = 0;
+                try {
+                    responseCode = con.getResponseCode();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Log.i("user","deleting user");
+                Log.i("user","sending DELETE request to URL: " + url);
+                Log.i("user","response code: " + responseCode);
+
+                BufferedReader in = null;
+                try {
+                    in = new BufferedReader(
+                            new InputStreamReader(con.getInputStream()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                try {
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                String error_txt = "";
+                Boolean error = false;
+
+                JSONObject obj1 = null;
+                try {
+                    obj1 = new JSONObject(response.toString());
+                    error_txt = obj1.getString("error");
+                    error = true;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("JSON Exception", "exception getting response on register");
+                }
+
+                //print result
+                System.out.println(response.toString());
+                Log.e("teste", response.toString());
+
+                try {
+                    JSONObject user_json = new JSONObject(response.toString());
+
+                    Log.e("edit profile","a seguir ao delete user todo");
+
+                    profileEditActivity.afterDeletingUser(error,error_txt);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }
 }

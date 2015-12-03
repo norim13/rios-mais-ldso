@@ -1,0 +1,233 @@
+package ldso.rios.MainActivities;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import ldso.rios.DataBases.DB_functions;
+import ldso.rios.DataBases.User;
+import ldso.rios.R;
+
+public class ProfileEditActivity extends AppCompatActivity {
+    protected EditText name;
+
+    protected EditText email;
+    protected EditText password;
+    protected EditText passwordConfirmation;
+    protected EditText telef;
+    protected EditText habilitacoes;
+    protected EditText profissao;
+    protected Switch formacao;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile_edit);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        updateEditProfileView();
+    }
+
+    private void updateEditProfileView() {
+        User u = User.getInstance();
+
+        name = (EditText) findViewById(R.id.nameProfileEditText);
+        name.setText(u.getName());
+
+        email = (EditText) findViewById(R.id.emailProfileEditText);
+        email.setText(u.getEmail());
+
+        password = (EditText) findViewById(R.id.passwordProfileEditText);
+        passwordConfirmation = (EditText) findViewById(R.id.passwordConfirmationProfileEditText);
+
+        telef = (EditText) findViewById(R.id.telefProfileEditText);
+        telef.setText(u.getTelef());
+
+        habilitacoes = (EditText) findViewById(R.id.habilitacoesProfileEditText);
+        habilitacoes.setText(u.getHabilitacoes());
+
+        profissao = (EditText) findViewById(R.id.profissaoProfileEditText);
+        profissao.setText(u.getHabilitacoes());
+
+        formacao = (Switch) findViewById(R.id.formacaoProfileEditSwitch);
+        formacao.setChecked(u.getFormacao());
+    }
+
+    public void editProfile(View view) {
+        //get form
+        String username = name.getText().toString().trim();
+        String pass = password.getText().toString().trim();
+        String pass_confirm = passwordConfirmation.getText().toString().trim();
+        String mEmail= email.getText().toString().trim();
+        String mTelef= telef.getText().toString().trim();
+
+        Boolean mFormacao = formacao.isChecked();
+
+        boolean erro=false;
+        if(username.length()==0){
+            name.setError("Preencha o campo");
+            erro=true;
+        }
+        if( ! android.util.Patterns.EMAIL_ADDRESS.matcher(mEmail).matches() ){
+            email.setError("Endereço de email incorreto");
+            erro=true;
+        }
+        if(pass.length() != 0 && pass.length()<8){
+            password.setError("Tem de ter mais de 8 caracteres");
+            erro=true;
+        }
+        if(!pass_confirm.equals(pass)){
+            password.setError("Password nao corresponde");
+            erro=true;
+        }
+        if(mTelef.length()!=9){
+            telef.setError("Tem de ter 9 caracteres");
+            erro=true;
+        }
+        if (erro) return;
+
+        DB_functions.editUser(this, User.getInstance().getEmail(),User.getInstance().getAuthentication_token());
+    }
+
+    public void deleteProfile(View view) {
+        DB_functions.deleteUser(this, User.getInstance().getEmail(),User.getInstance().getAuthentication_token());
+    }
+
+    /*
+     * GETTERS AND SETTERS
+     */
+
+    public EditText getName() {
+        return name;
+    }
+
+    public void setName(EditText name) {
+        this.name = name;
+    }
+
+    public EditText getEmail() {
+        return email;
+    }
+
+    public void setEmail(EditText email) {
+        this.email = email;
+    }
+
+    public EditText getPassword() {
+        return password;
+    }
+
+    public void setPassword(EditText password) {
+        this.password = password;
+    }
+
+    public EditText getPasswordConfirmation() {
+        return passwordConfirmation;
+    }
+
+    public void setPasswordConfirmation(EditText passwordConfirmation) {
+        this.passwordConfirmation = passwordConfirmation;
+    }
+
+    public EditText getTelef() {
+        return telef;
+    }
+
+    public void setTelef(EditText telef) {
+        this.telef = telef;
+    }
+
+    public EditText getHabilitacoes() {
+        return habilitacoes;
+    }
+
+    public void setHabilitacoes(EditText habilitacoes) {
+        this.habilitacoes = habilitacoes;
+    }
+
+    public EditText getProfissao() {
+        return profissao;
+    }
+
+    public void setProfissao(EditText profissao) {
+        this.profissao = profissao;
+    }
+
+    public Switch getFormacao() {
+        return formacao;
+    }
+
+    public void setFormacao(Switch formacao) {
+        this.formacao = formacao;
+    }
+
+    public void afterDeletingUser(final Boolean error, final String error_txt) {
+
+        new Thread()
+        {
+            public void run()
+            {
+                ProfileEditActivity.this.runOnUiThread(new Runnable()
+                {
+                    public void run()
+                    {
+                        Toast toast;
+                        Context context = getApplicationContext();
+                        if (error){
+                            toast = Toast.makeText(context, error_txt, Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                        else {
+                            toast = Toast.makeText(context, "Apagou a sua conta", Toast.LENGTH_LONG);
+                            toast.show();
+
+                            //finish profile edit
+                            //finish profile
+                            //logout
+                            //finish();
+                        }
+                    }
+                });
+            }
+        }.start();
+    }
+
+    public void edit_response(final Boolean error, final String error_txt) {
+
+        new Thread()
+        {
+            public void run()
+            {
+                ProfileEditActivity.this.runOnUiThread(new Runnable()
+                {
+                    public void run()
+                    {
+                        Toast toast;
+                        Context context = getApplicationContext();
+                        if (error){
+                            toast = Toast.makeText(context, error_txt, Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                        else {
+                            toast = Toast.makeText(context, "Editou com sucesso", Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                    }
+                });
+            }
+        }.start();
+    }
+}
