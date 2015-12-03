@@ -107,6 +107,7 @@
     <string name="title_activity_limpeza_solucoes">LimpezaSolucoes</string>
 
     <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_profile_edit">ProfileEditActivity</string>
 
 
 </resources>

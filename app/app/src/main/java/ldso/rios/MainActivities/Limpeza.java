@@ -251,7 +251,7 @@ public class Limpeza extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(),LimpezaSolucoes.class);
                         intent.putExtra("solucoes",jsonObject.toString());
                         startActivity(intent);
-                        Limpeza.this.finish();
+                      //  Limpeza.this.finish();
                     }
                 });
             }

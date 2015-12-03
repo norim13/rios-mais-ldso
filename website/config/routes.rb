@@ -65,6 +65,8 @@ Rails.application.routes.draw do
       post "/limpezas", :to => 'limpezas#submitProblemas'
 
       get "/users", :to => 'users#getUser'
+      delete "/users", :to => 'users#destroy'
+      patch "/users", :to => 'users#update'
     end
   end
 end
