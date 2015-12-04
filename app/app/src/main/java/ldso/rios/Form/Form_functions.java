@@ -63,7 +63,7 @@ public class Form_functions {
         if (images==null)
             return createCheckboxes(array,linearLayout,context);
 
-        RadioGroup.LayoutParams params_rb = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT,280);
+        RadioGroup.LayoutParams params_rb = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT,RadioGroup.LayoutParams.WRAP_CONTENT);
 
 
         ArrayList<CheckBox> list = new ArrayList<CheckBox>();
@@ -80,11 +80,14 @@ public class Form_functions {
                 mapa = Bitmap.createScaledBitmap(mapa, px,novo, true);
                 myDrawable=new BitmapDrawable(context.getResources(), mapa);
 
+                params_rb = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT,novo+80);
+
                 cb.setCompoundDrawablesWithIntrinsicBounds(null, null, myDrawable, null);
                 radioParams_images.setMargins(0, 300, 0, 300);
                 cb.setLayoutParams(params_rb);
 
             }
+            params_rb = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT,RadioGroup.LayoutParams.WRAP_CONTENT);
             //cb.setLayoutParams(radioParams_images);
             list.add(cb);
             linearLayout.addView(cb);
@@ -146,6 +149,7 @@ public class Form_functions {
 
             LinearLayout ll = new LinearLayout(context);
             ll.setLayoutParams(linelayout);
+            RadioGroup.LayoutParams params_rb;
 
             try{
                 if(images[i]!=0) {
@@ -156,7 +160,9 @@ public class Form_functions {
                     int novo= (height*px)/width;
                     mapa = Bitmap.createScaledBitmap(mapa, px,novo, true);
                     myDrawable=new BitmapDrawable(context.getResources(), mapa);
+                     params_rb = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, novo + 80);
                     cb.setCompoundDrawablesWithIntrinsicBounds(null, null, myDrawable, null);
+                    cb.setLayoutParams(params_rb);
 
 
                 }
@@ -166,7 +172,7 @@ public class Form_functions {
 
             }
 
-            cb.setLayoutParams(radioParams_images);
+            //cb.setLayoutParams(radioParams_images);
             ll.addView(cb);
             list.add(cb);
             rg.addView(ll);
@@ -307,9 +313,11 @@ public class Form_functions {
     //READ
 
     public static int getRadioButtonOption(ArrayList<RadioButton> arrayList){
+        Log.e("entrou","entrou auqi");
         for (int i=0;i<arrayList.size();i++){
             if (arrayList.get(i).isChecked()){
                 int r=i+1;
+                Log.e("entrou","entrou auqi e retornou"+r);
                 return r;
             }
         }

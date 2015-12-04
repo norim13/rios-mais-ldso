@@ -39,6 +39,8 @@ public class Form_IRR extends Form implements Serializable {
 
     String file_name;
 
+    private HashMap<Integer,String> other_response;
+
     //public static ArrayList<Form_IRR> all_from_irrs;
 
 
@@ -57,6 +59,7 @@ public class Form_IRR extends Form implements Serializable {
     public void generate(){
         this.perguntas= new ArrayList<Pergunta>();
         this.respostas= new HashMap<Integer,Object>();
+        this.other_response= new HashMap<Integer,String>();
         //{main_title , sub_title , type , required , options , max,value_irr}
         for(int i=1;i<=33;i++)
         {
@@ -66,27 +69,27 @@ public class Form_IRR extends Form implements Serializable {
             switch ((int)options.get(2))
             {
                 case 0:
-                    nova= new radioPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),false);
+                    nova= new radioPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),(Boolean)options.get(9));
                     break;
                 case 1:
                     String [] options_txt= (String[]) options.get(4);
                     if(options_txt[0].equals("-"))
                     {
-                        nova=new complexPergunta(options_txt,(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),false);
+                        nova=new complexPergunta(options_txt,(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),(Boolean)options.get(9));
 
                     }
                     else
-                        nova= new checkPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),false);
+                        nova= new checkPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),(Boolean)options.get(9));
                     break;
                 case 2:
                     if(maxmin.size()==0)
-                    nova= new editPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),false);
+                    nova= new editPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),(Boolean)options.get(9));
                     else
-                    nova= new editPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),maxmin,false);
+                    nova= new editPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),maxmin,(Boolean)options.get(9));
 
                     break;
                 case 3:
-                    nova= new seekPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),false,1,5);
+                    nova= new seekPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),(Boolean)options.get(9),1,5);
             }
             this.perguntas.add(nova);
 

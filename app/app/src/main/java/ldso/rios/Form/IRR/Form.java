@@ -37,10 +37,13 @@ public class Form implements Serializable {
 
 
     public void fillAnswer(int number){
-        this.perguntas.get(number).getAnswer();
+
+        //this.perguntas.get(number).getResponse();
+        //Log.e("resposta:",this.perguntas.get(number).getResponse().toString()+"");
         if(this.perguntas.get(number).getResponse()!=null && this.respostas!=null) {
             int novo_num=number+1;
             this.respostas.put((Integer) novo_num,this.perguntas.get(number).getResponse());
+            Log.e("a reposta é portanto:",this.perguntas.get(number).getResponse()+"");
             Log.e("teste","a resposta nao é nula");
 
         }

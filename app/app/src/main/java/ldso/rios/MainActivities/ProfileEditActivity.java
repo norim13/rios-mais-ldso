@@ -99,9 +99,11 @@ public class ProfileEditActivity extends AppCompatActivity {
         DB_functions.editUser(this, User.getInstance().getEmail(),User.getInstance().getAuthentication_token());
     }
 
+    /*
     public void deleteProfile(View view) {
         DB_functions.deleteUser(this, User.getInstance().getEmail(),User.getInstance().getAuthentication_token());
     }
+    */
 
     /*
      * GETTERS AND SETTERS

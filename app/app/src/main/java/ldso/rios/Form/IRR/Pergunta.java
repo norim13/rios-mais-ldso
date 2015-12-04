@@ -1,6 +1,7 @@
 package ldso.rios.Form.IRR;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -17,6 +18,7 @@ public abstract class Pergunta implements Serializable {
     protected String title;
     protected String subtitle;
     protected EditText other;                       //Edit text para escrever "outros"
+    protected String other_text;
     protected Boolean other_option;                 //se é preciso ter o campo de "outros"
     protected Boolean obly;                         //se é obrigatório responder
     protected Object response;                      //resposta
@@ -42,6 +44,7 @@ public abstract class Pergunta implements Serializable {
 
     public Object getResponse(){
         this.getAnswer();
+        Log.e("respota no pergunta",this.response.toString());
         return this.response;
     }                                                     //returns the answers
     public String[] getOptions(){

@@ -31,6 +31,8 @@ public class Questions {
 
         Integer value_irr[] = new Integer[]{};
 
+        Boolean other_option=false;
+
 
 
         switch (next_question){
@@ -174,7 +176,7 @@ public class Questions {
 
             case 10:
                 main_title="Qualidade da água";
-                sub_title= "Indícios na água :))))";
+                sub_title= "Indícios na água";
                 type=1;
                 required= true;
                 options= new String[]{"Óleo (reflexos multicolores)",
@@ -185,6 +187,7 @@ public class Questions {
                         "Latas ou material ferroso",
                         "Outros"};
                 value_irr= new Integer[]{5,4,3,2,2,3};
+                other_option=true;
 
                 break;
 
@@ -292,6 +295,8 @@ public class Questions {
                         "Paredões",
                         "Técnicas de Engenharia Natural"};
                 value_irr= new Integer[]{2,2,2,1,1,4,5,3,5,5,4,3,1,3};
+                other_option=true;
+
 
                 break;
 
@@ -410,8 +415,9 @@ public class Questions {
                         "Cágado (Mauremys leprosa)",
                         "Outro"};
                 value_irr= new Integer[]{1,1,3};
+                other_option=true;
 
-            images= new int[]{
+                images= new int[]{
                     R.drawable.lagartodeagua,
                     R.drawable.cobraaguadecolar,
                     R.drawable.cagado,
@@ -444,6 +450,8 @@ public class Questions {
                         R.drawable.chapimreal,
                         0
                 };
+                other_option=true;
+
                 break;
 
             case 21:
@@ -469,6 +477,8 @@ public class Questions {
                         R.drawable.armilho,
                         0
                 };
+                other_option=true;
+
 
                 break;
 
@@ -495,6 +505,7 @@ public class Questions {
                         R.drawable.bogadonorte,
                         0
                 };
+                other_option=true;
 
                 break;
 
@@ -527,6 +538,7 @@ public class Questions {
                         R.drawable.percasol,
                         0
                 };
+                other_option=true;
 
                 break;
 
@@ -549,6 +561,7 @@ public class Questions {
                         "Azinhal",
                         "Outro"};
                 value_irr= new Integer[]{1,1,1,1,1,1,1,1,1,1,1};
+                other_option=true;
 
                 break;
 
@@ -582,6 +595,7 @@ public class Questions {
                         "Jacinto de água",
                         "Outro"};
                 value_irr= new Integer[]{1,3,4,3,3,4,3};
+                other_option=true;
 
                 break;
 
@@ -703,6 +717,7 @@ public class Questions {
         response.add(value_irr);
         response.add(maxmin);
         response.add(images);
+        response.add(other_option);
         return response;
 
 

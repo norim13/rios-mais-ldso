@@ -3,6 +3,7 @@ package ldso.rios.Form.IRR.Perguntas;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -36,6 +37,12 @@ public class radioPergunta extends Pergunta implements Serializable {
 
         this.radio_list= Form_functions.createRadioButtons(this.options,this.images,this.linearLayout,this.context);
 
+        if (this.other_option) {
+            this.other = new EditText(context);
+            this.other.setHint("Outro");
+            linearLayout.addView(other);
+        }
+
     }
 
     @Override
@@ -62,10 +69,19 @@ public class radioPergunta extends Pergunta implements Serializable {
 
     @Override
     public void getAnswer() {
-        if (this.radio_list==null)
+        if (this.radio_list==null){
+            Log.e("é nulla a radio lisr","fica a nula");
             this.response=0;
-        else
-            this.response=Form_functions.getRadioButtonOption(this.radio_list);
+            if (other_option)
+                this.other_text="";
+        }
+
+        else {
+            this.response = Form_functions.getRadioButtonOption(this.radio_list);
+            Log.e("a resposta sera",(int)this.response+"");
+            if (this.other_option)
+            this.other_text=this.other.getText().toString();
+        }
     }
 
     @Override
@@ -83,6 +99,8 @@ public class radioPergunta extends Pergunta implements Serializable {
                 int num=(int)this.response -1;
                 radio_list.get(num).setChecked(true);
             }
+            if (this.other_option)
+                this.other.setText(this.other_text);
         }
 
     }

@@ -12,125 +12,131 @@
     tools:context="ldso.rios.MainActivities.ProfileEditActivity"
     tools:showIn="@layout/activity_profile_edit">
 
-    <EditText
-        android:layout_width="250dp"
+    <ScrollView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/nameProfileEditText"
+        android:id="@+id/scrollView3"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:hint="Nome"
-        android:layout_marginTop="2dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/emailProfileEditText"
-        android:layout_below="@+id/nameProfileEditText"
-        android:layout_alignLeft="@+id/nameProfileEditText"
-        android:layout_alignStart="@+id/nameProfileEditText"
-        android:hint="email"
-        android:layout_marginTop="2dp"
-        android:layout_alignRight="@+id/nameProfileEditText"
-        android:layout_alignEnd="@+id/nameProfileEditText" />
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/irr_linear">
 
-    <EditText
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/passwordProfileEditText"
-        android:layout_below="@+id/emailProfileEditText"
-        android:layout_centerHorizontal="true"
-        android:hint="Password"
-        android:layout_marginTop="2dp" />
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/nameProfileEditText"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:hint="Nome"
+                android:layout_marginBottom="5dp" />
 
-    <EditText
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/passwordConfirmationProfileEditText"
-        android:layout_below="@+id/passwordProfileEditText"
-        android:layout_centerHorizontal="true"
-        android:hint="Confirmar Password"
-        android:layout_marginTop="2dp" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/emailProfileEditText"
+                android:layout_below="@+id/nameProfileEditText"
+                android:layout_alignLeft="@+id/nameProfileEditText"
+                android:layout_alignStart="@+id/nameProfileEditText"
+                android:hint="Email"
+                android:layout_alignRight="@+id/nameProfileEditText"
+                android:layout_alignEnd="@+id/nameProfileEditText"
+                android:layout_marginBottom="5dp" />
 
-    <EditText
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:id="@+id/telefProfileEditText"
-        android:layout_below="@+id/passwordConfirmationProfileEditText"
-        android:layout_centerHorizontal="true"
-        android:hint="Telefone"
-        android:layout_marginTop="2dp" />
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/passwordProfileEditText"
+                android:layout_below="@+id/emailProfileEditText"
+                android:layout_centerHorizontal="true"
+                android:hint="Password"
+                android:layout_marginTop="2dp" />
 
-    <EditText
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/habilitacoesProfileEditText"
-        android:layout_below="@+id/telefProfileEditText"
-        android:layout_alignLeft="@+id/telefProfileEditText"
-        android:layout_alignStart="@+id/telefProfileEditText"
-        android:layout_alignRight="@+id/telefProfileEditText"
-        android:layout_alignEnd="@+id/telefProfileEditText"
-        android:hint="Habilitações"
-        android:layout_marginTop="2dp" />
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/passwordConfirmationProfileEditText"
+                android:layout_below="@+id/passwordProfileEditText"
+                android:layout_centerHorizontal="true"
+                android:hint="Confirmar Password"
+                android:layout_marginBottom="5dp" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/profissaoProfileEditText"
-        android:layout_below="@+id/habilitacoesProfileEditText"
-        android:layout_alignLeft="@+id/habilitacoesProfileEditText"
-        android:layout_alignStart="@+id/habilitacoesProfileEditText"
-        android:layout_alignRight="@+id/habilitacoesProfileEditText"
-        android:layout_alignEnd="@+id/habilitacoesProfileEditText"
-        android:hint="Profissão"
-        android:layout_marginTop="2dp" />
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:ems="10"
+                android:id="@+id/telefProfileEditText"
+                android:layout_below="@+id/passwordConfirmationProfileEditText"
+                android:layout_centerHorizontal="true"
+                android:hint="Telefone"
+                android:layout_marginBottom="5dp" />
 
-    <Switch
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Fez formação na app?"
-        android:id="@+id/formacaoProfileEditSwitch"
-        android:layout_below="@+id/profissaoProfileEditText"
-        android:checked="false"
-        android:layout_alignLeft="@+id/profissaoProfileEditText"
-        android:layout_alignStart="@+id/profissaoProfileEditText"
-        android:layout_alignRight="@+id/profissaoProfileEditText"
-        android:layout_alignEnd="@+id/profissaoProfileEditText"
-        android:textSize="17dp"
-        android:layout_marginTop="2dp" />
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/habilitacoesProfileEditText"
+                android:layout_below="@+id/telefProfileEditText"
+                android:layout_alignLeft="@+id/telefProfileEditText"
+                android:layout_alignStart="@+id/telefProfileEditText"
+                android:layout_alignRight="@+id/telefProfileEditText"
+                android:layout_alignEnd="@+id/telefProfileEditText"
+                android:hint="Habilitações"
+                android:layout_marginBottom="5dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Editar informações"
-        android:onClick="editProfile"
-        android:id="@+id/submitProfileEditButton"
-        android:background="@null"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_marginTop="22dp"
-        android:layout_below="@+id/formacaoProfileEditSwitch"
-        android:layout_centerHorizontal="true" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/profissaoProfileEditText"
+                android:layout_below="@+id/habilitacoesProfileEditText"
+                android:layout_alignLeft="@+id/habilitacoesProfileEditText"
+                android:layout_alignStart="@+id/habilitacoesProfileEditText"
+                android:layout_alignRight="@+id/habilitacoesProfileEditText"
+                android:layout_alignEnd="@+id/habilitacoesProfileEditText"
+                android:hint="Profissão"
+                android:layout_marginBottom="5dp" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Apagar esta conta"
-        android:onClick="deleteProfile"
-        android:id="@+id/deleteAccountProfileEditButton"
-        android:background="@null"
-        android:textColor="#ff0000"
-        android:layout_below="@+id/submitProfileEditButton"
-        android:layout_alignRight="@+id/submitProfileEditButton"
-        android:layout_alignEnd="@+id/submitProfileEditButton"
-        android:layout_marginTop="23dp" />
+            <Switch
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="Fez formação na app?"
+                android:id="@+id/formacaoProfileEditSwitch"
+                android:layout_below="@+id/profissaoProfileEditText"
+                android:checked="false"
+                android:layout_alignLeft="@+id/profissaoProfileEditText"
+                android:layout_alignStart="@+id/profissaoProfileEditText"
+                android:layout_alignRight="@+id/profissaoProfileEditText"
+                android:layout_alignEnd="@+id/profissaoProfileEditText"
+                android:textSize="17dp"
+                android:layout_marginBottom="5dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Editar informações"
+                android:onClick="editProfile"
+                android:id="@+id/submitProfileEditButton"
+                android:background="@null"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_below="@+id/formacaoProfileEditSwitch"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
 </RelativeLayout>
