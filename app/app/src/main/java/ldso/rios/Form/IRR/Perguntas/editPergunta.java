@@ -60,6 +60,9 @@ public class editPergunta extends Pergunta implements Serializable {
 
             String[] extra={"Seccao","Caudlal"};
 
+            for(EditText e :this.edit_list)
+            e.setText(""+0);
+
 
 
 

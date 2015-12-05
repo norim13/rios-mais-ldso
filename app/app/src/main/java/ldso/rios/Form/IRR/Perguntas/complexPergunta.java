@@ -2,7 +2,6 @@ package ldso.rios.Form.IRR.Perguntas;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -89,8 +88,6 @@ public class complexPergunta extends Pergunta implements Serializable {
                 j++;
 
             }
-
-            Log.e("jj",""+j);
 
         }
         String[] stringArray= new String[single_options.size()];

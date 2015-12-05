@@ -1,6 +1,7 @@
 package ldso.rios.DataBases;
 
 import android.net.Uri;
+import android.os.SystemClock;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -272,10 +273,11 @@ public class DB_functions {
                         af= (ArrayList<Float>) form_irr.getRespostas().get(3);
                         response.accumulate("larguraDaSuperficieDaAgua",af.get(0));
                         response.accumulate("profundidadeMedia",af.get(1));
-                        response.accumulate("velocidadeMedia",af.get(2));
+                        response.accumulate("velocidadeMedia", af.get(2));
+                        SystemClock.sleep(7000);
                         Log.e("formirr", response.toString());
-                        Float seccao=af.get(0)*af.get(1);
-                        Float caudal=seccao*af.get(2);
+                        Float seccao=Float.parseFloat(String.valueOf(af.get(0)))*Float.parseFloat(String.valueOf(af.get(1)));
+                        Float caudal=seccao*Float.parseFloat(String.valueOf(af.get(2)));
                         response.accumulate("seccao",seccao);
                         response.accumulate("caudal",caudal);
 
@@ -338,7 +340,7 @@ public class DB_functions {
                         response.accumulate("impurezas",ai.get(3));
                         response.accumulate("sacosDePlastico",ai.get(4));
                         response.accumulate("latas",ai.get(5));
-                        //response.accumulate("indiciosNaAgua_outros", "");
+                        response.accumulate("indiciosNaAgua_outros", form_irr.getOther_response().get(10));
                         Log.e("form", "a ler:" + 10);
                         arrayList_QualidadeDaAgua.add(Form_functions.getmax(ai, values_irr.get(10)));
 
@@ -398,7 +400,7 @@ public class DB_functions {
 
                         arrayList_AlteracoesAntropicas.add(Form_functions.getmax(ai, values_irr.get(14)));
 
-                        response.accumulate("intervencoes_outras", "");
+                        response.accumulate("intervencoes_outras",form_irr.getOther_response().get(14));
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(15);
                         response.accumulate("ocupacao_florestaNatural",ai.get(0));
@@ -480,7 +482,7 @@ public class DB_functions {
                         response.accumulate("cagado", ai.get(2));
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(19)));
 
-                        response.accumulate("repteis_outro", "");
+                        response.accumulate("repteis_outro", form_irr.getOther_response().get(19));
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(20);
                         response.accumulate("guardaRios",ai.get(0));
@@ -492,7 +494,7 @@ public class DB_functions {
                         response.accumulate("chapimReal", ai.get(6));
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(20)));
 
-                        response.accumulate("aves_outro", "");
+                        response.accumulate("aves_outro" ,form_irr.getOther_response().get(20));
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(21);
                         response.accumulate("lontras",ai.get(0));
@@ -503,7 +505,7 @@ public class DB_functions {
                         response.accumulate("armilho", ai.get(5));
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(21)));
 
-                        response.accumulate("mamiferos_outro", "");
+                        response.accumulate("mamiferos_outro", form_irr.getOther_response().get(21));
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(22);
                         response.accumulate("enguia",ai.get(0));
@@ -514,7 +516,7 @@ public class DB_functions {
                         response.accumulate("bogaDoNorte", ai.get(5));
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(22)));
 
-                        response.accumulate("peixes_outro", "");
+                        response.accumulate("peixes_outro",form_irr.getOther_response().get(22));
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(23);
                         response.accumulate("percaSol",ai.get(0));
@@ -527,12 +529,12 @@ public class DB_functions {
                         response.accumulate("achiga", ai.get(7));
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(23)));
 
-                        response.accumulate("fauna_outro", "");
+                        response.accumulate("fauna_outro",form_irr.getOther_response().get(23));
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(24);
                         response.accumulate("salgueiral",ai.get(0));
                         response.accumulate("amial",ai.get(1));
-                        response.accumulate("freixal",ai.get(2));
+                        response.accumulate("freixal", ai.get(2));
                         response.accumulate("choupal",ai.get(3));
                         response.accumulate("ulmeiral",ai.get(4));
                         response.accumulate("sanguinos",ai.get(5));
@@ -542,19 +544,19 @@ public class DB_functions {
                         response.accumulate("sobreiral", ai.get(9));
                         response.accumulate("azinhal", ai.get(10));
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(24)));
-                        response.accumulate("flora_outro", "");
+                        response.accumulate("flora_outro", form_irr.getOther_response().get(24));
 
                         response.accumulate("conservacaoBosqueRibeirinho",(int) form_irr.getRespostas().get(25));
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(26);
-                        response.accumulate("silvas",ai.get(0));
+                        response.accumulate("silvas", ai.get(0));
                         response.accumulate("ervaDaFortuna",ai.get(1));
                         response.accumulate("plumas", ai.get(2));
                         response.accumulate("lentilhaDaAgua", ai.get(3));
                         response.accumulate("pinheirinha", ai.get(4));
                         response.accumulate("jacintoDeAgua", ai.get(5));
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(26)));
-                        response.accumulate("vegetacaoInvasora_outro", "");
+                        response.accumulate("vegetacaoInvasora_outro",form_irr.getOther_response().get(26));
 
                         response.accumulate("obstrucaoDoLeitoMargens", (int) form_irr.getRespostas().get(27));
                         arrayList_CorredorEcologico.add(Form_functions.getmax((int) form_irr.getRespostas().get(27), values_irr.get(27)));
@@ -572,6 +574,16 @@ public class DB_functions {
                         arrayList_OrganizacaoPlaneamento.add(Form_functions.getmax((int) form_irr.getRespostas().get(32), values_irr.get(32)));
                         response.accumulate("gestaoDasIntervencoes", (int) form_irr.getRespostas().get(33));
                         arrayList_OrganizacaoPlaneamento.add(Form_functions.getmax((int) form_irr.getRespostas().get(33), values_irr.get(33)));
+
+
+
+
+
+
+
+
+
+
 
                         response.accumulate("irr_hidrogeomorfologia", Collections.max(arrayList_Hidrogeomorfologia));
                         response.accumulate("irr_qualidadedaagua",Collections.max(arrayList_QualidadeDaAgua));
@@ -818,7 +830,7 @@ public class DB_functions {
                         response.accumulate("impurezas",ai.get(3));
                         response.accumulate("sacosDePlastico",ai.get(4));
                         //response.accumulate("latas",ai.get(5));
-                        response.accumulate("indiciosNaAgua_outros", "");
+                        response.accumulate("indiciosNaAgua_outros",form_irr.getOther_response().get(10));
                         Log.e("form", "a ler:" + 10);
                         arrayList_QualidadeDaAgua.add(Form_functions.getmax(ai, values_irr.get(10)));
 
@@ -877,7 +889,7 @@ public class DB_functions {
                         response.accumulate("intervencoes_tecnicasDeEngenhariaNatural",ai.get(12));
                         arrayList_AlteracoesAntropicas.add(Form_functions.getmax(ai, values_irr.get(14)));
 
-                        response.accumulate("intervencoes_outras", "");
+                        response.accumulate("intervencoes_outras",form_irr.getOther_response().get(14));
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(15);
                         response.accumulate("ocupacao_florestaNatural",ai.get(0));
@@ -958,7 +970,7 @@ public class DB_functions {
                         response.accumulate("cagado", ai.get(2));
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(19)));
 
-                        response.accumulate("repteis_outro", "");
+                        response.accumulate("repteis_outro",form_irr.getOther_response().get(19));
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(20);
                         response.accumulate("guardaRios",ai.get(0));
@@ -970,7 +982,7 @@ public class DB_functions {
                         response.accumulate("chapimReal", ai.get(6));
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(20)));
 
-                        response.accumulate("aves_outro", "");
+                        response.accumulate("aves_outro" ,form_irr.getOther_response().get(20));;
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(21);
                         response.accumulate("lontras",ai.get(0));
@@ -981,7 +993,7 @@ public class DB_functions {
                         response.accumulate("armilho", ai.get(5));
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(21)));
 
-                        response.accumulate("mamiferos_outro", "");
+                        response.accumulate("mamiferos_outro",form_irr.getOther_response().get(21));
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(22);
                         response.accumulate("enguia",ai.get(0));
@@ -992,7 +1004,7 @@ public class DB_functions {
                         response.accumulate("bogaDoNorte", ai.get(5));
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(22)));
 
-                        response.accumulate("peixes_outro", "");
+                        response.accumulate("peixes_outro",form_irr.getOther_response().get(22));
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(23);
                         response.accumulate("percaSol",ai.get(0));
@@ -1005,7 +1017,7 @@ public class DB_functions {
                         response.accumulate("achiga", ai.get(7));
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(23)));
 
-                        response.accumulate("fauna_outro", "");
+                        response.accumulate("fauna_outro",form_irr.getOther_response().get(23));
 
                         ai= (ArrayList<Integer>) form_irr.getRespostas().get(24);
                         response.accumulate("salgueiral",ai.get(0));
@@ -1020,7 +1032,7 @@ public class DB_functions {
                         response.accumulate("sobreiral", ai.get(9));
                         response.accumulate("azinhal", ai.get(10));
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(24)));
-                        response.accumulate("flora_outro", "");
+                        response.accumulate("flora_outro",form_irr.getOther_response().get(24));
 
                         response.accumulate("conservacaoBosqueRibeirinho",(int) form_irr.getRespostas().get(25));
 
@@ -1032,7 +1044,7 @@ public class DB_functions {
                         response.accumulate("pinheirinha", ai.get(4));
                         response.accumulate("jacintoDeAgua", ai.get(5));
                         arrayList_CorredorEcologico.add(Form_functions.getmax(ai, values_irr.get(26)));
-                        response.accumulate("vegetacaoInvasora_outro", "");
+                        response.accumulate("vegetacaoInvasora_outro",form_irr.getOther_response().get(26));
 
                         response.accumulate("obstrucaoDoLeitoMargens", (int) form_irr.getRespostas().get(27));
                         arrayList_CorredorEcologico.add(Form_functions.getmax((int) form_irr.getRespostas().get(27), values_irr.get(27)));

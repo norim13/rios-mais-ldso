@@ -18,6 +18,9 @@ public class Form implements Serializable {
         return perguntas;
     }
 
+    public HashMap<Integer, String> getOther_response() {
+        return other_response;
+    }
 
     public String getTeste() {
         return teste;
@@ -28,6 +31,8 @@ public class Form implements Serializable {
     public ArrayList<Pergunta> perguntas;
 
     public HashMap<Integer,Object> respostas;
+    protected HashMap<Integer,String> other_response;
+
 
     public void Form(){
         perguntas=new ArrayList<Pergunta>();
@@ -40,11 +45,16 @@ public class Form implements Serializable {
 
         //this.perguntas.get(number).getResponse();
         //Log.e("resposta:",this.perguntas.get(number).getResponse().toString()+"");
+        int novo_num=number+1;
+
         if(this.perguntas.get(number).getResponse()!=null && this.respostas!=null) {
-            int novo_num=number+1;
-            this.respostas.put((Integer) novo_num,this.perguntas.get(number).getResponse());
-            Log.e("a reposta é portanto:",this.perguntas.get(number).getResponse()+"");
-            Log.e("teste","a resposta nao é nula");
+            this.respostas.put((Integer) novo_num, this.perguntas.get(number).getResponse());
+           // Log.e("a reposta é portanto:",this.perguntas.get(number).getResponse()+"");
+           // Log.e("teste", "a resposta nao é nula");
+            if (this.perguntas.get(number).other_option) {
+                this.other_response.put(novo_num, this.perguntas.get(number).other_text);
+                Log.e("fillAnswer no form IRR",novo_num+" "+this.perguntas.get(number).other_text);
+            }
 
         }
         else
@@ -56,10 +66,15 @@ public class Form implements Serializable {
 
     }
 
-    public void setRespostas(HashMap<Integer, Object> respostas) {
+    public void setRespostas(HashMap<Integer, Object> respostas,HashMap<Integer, String> respotas_outros) {
         this.respostas = respostas;
-        for(int i=0;i<32;i++)
-            perguntas.get(i).setAnswer(respostas.get(i+1));
+        for(int i=0;i<32;i++) {
+            try {
+                perguntas.get(i).setAnswer(respostas.get(i + 1), respotas_outros.get(i + 1));
+            }catch (Exception e){
+                perguntas.get(i).setAnswer(respostas.get(i + 1), "");
+            }
+        }
     }
 
     public void fillAnswers()
@@ -69,6 +84,7 @@ public class Form implements Serializable {
             try {
                 fillAnswer(i-1);
                 Log.e("resposta", i + "-" + this.respostas.get(i).toString());
+                Log.e("resposta", i + "-" + this.other_response.get(i).toString());
 
             } catch (Exception e) {
                 Log.e("resposta", i + "-");
@@ -81,4 +97,7 @@ public class Form implements Serializable {
     public HashMap<Integer, Object> getRespostas() {
         return respostas;
     }
+
+
+
 }

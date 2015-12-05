@@ -39,7 +39,6 @@ public class Form_IRR extends Form implements Serializable {
 
     String file_name;
 
-    private HashMap<Integer,String> other_response;
 
     //public static ArrayList<Form_IRR> all_from_irrs;
 
@@ -186,6 +185,7 @@ public class Form_IRR extends Form implements Serializable {
         ai.add(jsonObject.getInt("sacosDePlastico"));
 
         this.respostas.put(10, ai);
+        this.other_response.put(10,jsonObject.getString("indiciosNaAgua_outros"));
         ai=new ArrayList<Integer>();
 
         //A cor da água
@@ -267,6 +267,7 @@ public class Form_IRR extends Form implements Serializable {
         ai.add(jsonObject.getInt("intervencoes_paredoes"));
         ai.add(jsonObject.getInt("intervencoes_tecnicasDeEngenhariaNatural"));
         this.respostas.put(14, ai);
+        this.other_response.put(14, String.valueOf(jsonObject.getString("intervencoes_outras")));
         ai=new ArrayList<Integer>();
 
         //Ocupação das margens [<10 m]
@@ -346,6 +347,7 @@ public class Form_IRR extends Form implements Serializable {
         ai.add(jsonObject.getInt("cobraAguaDeColar"));
         ai.add(jsonObject.getInt("cagado"));
         this.respostas.put(19, ai);
+        this.other_response.put(19, String.valueOf(jsonObject.getString("repteis_outro")));
         ai=new ArrayList<Integer>();
 
         //Fauna - Aves Autoctones
@@ -357,6 +359,7 @@ public class Form_IRR extends Form implements Serializable {
         ai.add(jsonObject.getInt("tentilhaoComum"));
         ai.add(jsonObject.getInt("chapimReal"));
         this.respostas.put(20, ai);
+        this.other_response.put(20, String.valueOf(jsonObject.getString("aves_outro")));
         ai=new ArrayList<Integer>();
 
         //Fauna - Mamíferos Autoctones
@@ -367,6 +370,7 @@ public class Form_IRR extends Form implements Serializable {
         ai.add(jsonObject.getInt("ouricoCacheiro"));
         ai.add(jsonObject.getInt("armilho"));
         this.respostas.put(21, ai);
+        this.other_response.put(21, String.valueOf(jsonObject.getString("mamiferos_outro")));
         ai=new ArrayList<Integer>();
 
         //Fauna - Peixes Autoctones
@@ -377,6 +381,7 @@ public class Form_IRR extends Form implements Serializable {
         ai.add(jsonObject.getInt("bogaPortuguesa"));
         ai.add(jsonObject.getInt("bogaDoNorte"));
         this.respostas.put(22, ai);
+        this.other_response.put(22, String.valueOf(jsonObject.getString("peixes_outro")));
         ai=new ArrayList<Integer>();
 
         //Fauna Exótica
@@ -389,6 +394,7 @@ public class Form_IRR extends Form implements Serializable {
         ai.add(jsonObject.getInt("trutaArcoIris"));
         ai.add(jsonObject.getInt("achiga"));
         this.respostas.put(23, ai);
+        this.other_response.put(23, String.valueOf(jsonObject.getString("fauna_outro")));
         ai=new ArrayList<Integer>();
 
         //Flora
@@ -404,6 +410,7 @@ public class Form_IRR extends Form implements Serializable {
         ai.add(jsonObject.getInt("sobreiral"));
         ai.add(jsonObject.getInt("azinhal"));
         this.respostas.put(24, ai);
+        this.other_response.put(24, String.valueOf(jsonObject.getString("flora_outro")));
         ai=new ArrayList<Integer>();
 
         //Estado de conservação do bosque ribeirinho (10m*10m)
@@ -417,6 +424,7 @@ public class Form_IRR extends Form implements Serializable {
         ai.add(jsonObject.getInt("pinheirinha"));
         ai.add(jsonObject.getInt("jacintoDeAgua"));
         this.respostas.put(26, ai);
+        this.other_response.put(26, String.valueOf(jsonObject.getString("vegetacaoInvasora_outro")));
         ai=new ArrayList<Integer>();
 
         //Obstrução do leito e margens (vegetação)
@@ -538,6 +546,8 @@ public class Form_IRR extends Form implements Serializable {
 
         form_irr.setDate();
         form_irr.respostas.put(-2, files.getName());
+        form_irr.respostas.put(-3, form_irr.other_response);
+
 
         //all_from_irrs.add(form_irr);
 
@@ -559,6 +569,8 @@ public class Form_IRR extends Form implements Serializable {
         File f = new File(c.getFilesDir()+File.separator+"filipe");
         if(!f.exists())
             f.mkdirs();
+
+
 
 
         try {

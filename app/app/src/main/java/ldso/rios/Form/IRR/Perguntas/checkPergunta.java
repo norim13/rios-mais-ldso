@@ -2,6 +2,7 @@ package ldso.rios.Form.IRR.Perguntas;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -61,6 +62,14 @@ public class checkPergunta extends Pergunta implements Serializable {
         for(CheckBox cb:this.check_list)
             cb.setEnabled(false);
 
+        if (this.other_option) {
+            this.other = new EditText(context);
+            this.other.setHint("Outro");
+            this.other.setText(this.other_text);
+            this.other.setEnabled(false);
+            linearLayout.addView(other);
+        }
+
     }
 
     @Override
@@ -77,6 +86,7 @@ public class checkPergunta extends Pergunta implements Serializable {
         else {
             this.response = Form_functions.getCheckboxes(check_list);
             this.other_text=this.other.getText().toString();
+            Log.e("outra",this.other_text);
         }
     }
 

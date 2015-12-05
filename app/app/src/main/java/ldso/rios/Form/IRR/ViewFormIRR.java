@@ -50,12 +50,18 @@ public class ViewFormIRR extends AppCompatActivity {
 
         this.form = new Form_IRR();
         this.form.generate();
+        try {
+            this.id = ((int) this.getIntent().getSerializableExtra("id")) + "";
+        }
+        catch (Exception e){
 
-        this.id= ((int) this.getIntent().getSerializableExtra("id"))+"";
+        }
 
         if(getIntent().getSerializableExtra("form_irr")!= null) {
             Log.e("form", "entrou");
-            this.form.setRespostas((HashMap<Integer, Object>) getIntent().getSerializableExtra("form_irr"));
+            HashMap<Integer,Object> respostas=(HashMap<Integer, Object>) getIntent().getSerializableExtra("form_irr");
+            HashMap<Integer,String> outros= (HashMap<Integer, String>) respostas.get(-3);
+            this.form.setRespostas(respostas,outros);
         }
 
 
@@ -116,7 +122,7 @@ public class ViewFormIRR extends AppCompatActivity {
             this.form.fillAnswers();
             Form_IRR submeter= new Form_IRR();
             submeter.generate();
-            submeter.setRespostas(this.form.respostas);
+            submeter.setRespostas(this.form.respostas,this.form.other_response);
             submeter.fillAnswers();
             Form_IRR.uploadFormIRR(this.getApplicationContext(),submeter);
             this.finish();

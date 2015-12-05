@@ -68,7 +68,9 @@ public class FormIRRSwipe extends AppCompatActivity {
         this.form.generate();
         //ha respostas, logo é um edit
         if (getIntent().getSerializableExtra("form_irr") != null) {
-            this.form.setRespostas((HashMap<Integer, Object>) getIntent().getSerializableExtra("form_irr"));
+            HashMap<Integer,Object> respostas=(HashMap<Integer, Object>) getIntent().getSerializableExtra("form_irr");
+            HashMap<Integer,String> outros= (HashMap<Integer, String>) respostas.get(-3);
+            this.form.setRespostas(respostas,outros);
             novo = false;
         }
 

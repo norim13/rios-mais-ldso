@@ -2,7 +2,6 @@ package ldso.rios.Form.IRR.Perguntas;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -13,8 +12,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import ldso.rios.Form.IRR.Pergunta;
 import ldso.rios.Form.Form_functions;
+import ldso.rios.Form.IRR.Pergunta;
 
 /**
  * Created by filipe on 24/11/2015.
@@ -70,7 +69,7 @@ public class radioPergunta extends Pergunta implements Serializable {
     @Override
     public void getAnswer() {
         if (this.radio_list==null){
-            Log.e("é nulla a radio lisr","fica a nula");
+            //Log.e("é nulla a radio lisr","fica a nula");
             this.response=0;
             if (other_option)
                 this.other_text="";
@@ -78,7 +77,7 @@ public class radioPergunta extends Pergunta implements Serializable {
 
         else {
             this.response = Form_functions.getRadioButtonOption(this.radio_list);
-            Log.e("a resposta sera",(int)this.response+"");
+            //Log.e("a resposta sera",(int)this.response+"");
             if (this.other_option)
             this.other_text=this.other.getText().toString();
         }
@@ -93,7 +92,7 @@ public class radioPergunta extends Pergunta implements Serializable {
     public void setAnswer() {
         if(this.response!=null)
         {
-            Log.e("fomr","nao é nula");
+            //Log.e("fomr","nao é nula");
             if((int)this.response!=0)
             {
                 int num=(int)this.response -1;

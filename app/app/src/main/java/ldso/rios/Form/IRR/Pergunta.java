@@ -1,7 +1,6 @@
 package ldso.rios.Form.IRR;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -44,7 +43,7 @@ public abstract class Pergunta implements Serializable {
 
     public Object getResponse(){
         this.getAnswer();
-        Log.e("respota no pergunta",this.response.toString());
+     //   Log.e("respota no pergunta",this.response.toString());
         return this.response;
     }                                                     //returns the answers
     public String[] getOptions(){
@@ -52,8 +51,9 @@ public abstract class Pergunta implements Serializable {
     }
 
     public abstract void setAnswer();                                                   //set the answers (for edit forms porpuses)
-    public void setAnswer(Object o){
+    public void setAnswer(Object o, String other){
         this.response=o;
+        this.other_text=other;
 
     };
 }

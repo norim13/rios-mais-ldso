@@ -138,18 +138,12 @@ public class Form_functions {
         Resources r = context.getResources();
         float px_float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, r.getDisplayMetrics());
         int px = (int) px_float;
-
+        RadioGroup.LayoutParams params_rb;
         for(int i=0;i<array.length;i++)
         {
-            LinearLayout.LayoutParams linelayout;
-            linelayout = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-
             RadioButton cb = new RadioButton(context);
             cb.setText(array[i]);
 
-            LinearLayout ll = new LinearLayout(context);
-            ll.setLayoutParams(linelayout);
-            RadioGroup.LayoutParams params_rb;
 
             try{
                 if(images[i]!=0) {
@@ -160,8 +154,8 @@ public class Form_functions {
                     int novo= (height*px)/width;
                     mapa = Bitmap.createScaledBitmap(mapa, px,novo, true);
                     myDrawable=new BitmapDrawable(context.getResources(), mapa);
-                     params_rb = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, novo + 80);
                     cb.setCompoundDrawablesWithIntrinsicBounds(null, null, myDrawable, null);
+                    params_rb = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT,novo+80);
                     cb.setLayoutParams(params_rb);
 
 
@@ -173,9 +167,8 @@ public class Form_functions {
             }
 
             //cb.setLayoutParams(radioParams_images);
-            ll.addView(cb);
             list.add(cb);
-            rg.addView(ll);
+            rg.addView(cb);
         }
         linearLayout.addView(rg);
         return list;
@@ -313,11 +306,9 @@ public class Form_functions {
     //READ
 
     public static int getRadioButtonOption(ArrayList<RadioButton> arrayList){
-        Log.e("entrou","entrou auqi");
         for (int i=0;i<arrayList.size();i++){
             if (arrayList.get(i).isChecked()){
                 int r=i+1;
-                Log.e("entrou","entrou auqi e retornou"+r);
                 return r;
             }
         }

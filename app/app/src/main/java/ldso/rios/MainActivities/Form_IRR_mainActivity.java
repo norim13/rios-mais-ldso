@@ -157,6 +157,7 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
 
                             final ArrayList<HashMap<Integer,Object>> respostas =Form_IRR.loadFromIRR(getApplicationContext());
 
+
                             TextView title2= new TextView(getApplicationContext());
                             title2.setText("Guardados:");
                             title2.setTextSize(20);
@@ -167,6 +168,8 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
 
                                 String idRio = "idrios";
                                 String date= ""+respostas.get(i).get(-1);
+                                HashMap<Integer,String> outras= (HashMap<Integer,String>)respostas.get(i).get(-3);
+                                Log.e("tamanho das strings",outras.size()+"");
 
 
                                 LayoutInflater l = getLayoutInflater();
