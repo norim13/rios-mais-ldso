@@ -829,7 +829,7 @@ public class DB_functions {
                         response.accumulate("esgotos",ai.get(2));
                         response.accumulate("impurezas",ai.get(3));
                         response.accumulate("sacosDePlastico",ai.get(4));
-                        //response.accumulate("latas",ai.get(5));
+                        response.accumulate("latas",ai.get(5));
                         response.accumulate("indiciosNaAgua_outros",form_irr.getOther_response().get(10));
                         Log.e("form", "a ler:" + 10);
                         arrayList_QualidadeDaAgua.add(Form_functions.getmax(ai, values_irr.get(10)));

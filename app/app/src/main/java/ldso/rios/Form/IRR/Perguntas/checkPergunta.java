@@ -101,6 +101,7 @@ public class checkPergunta extends Pergunta implements Serializable {
         if(al==null)
             return;
         for (int i=0;i<check_list.size();i++){
+            Log.e("questao",this.options[i]);
             if(al.get(i)==1)
                 check_list.get(i).setChecked(true);
         }

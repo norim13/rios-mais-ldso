@@ -89,6 +89,7 @@ public class ViewFormIRR extends AppCompatActivity {
     public void edit_form(View view){
         Intent i;
         i = new Intent(this, FormIRRSwipe.class);
+        form.respostas.put(-3,form.other_response);
         i.putExtra("form_irr", form.getRespostas());
         i.putExtra("id", id);
         startActivity(i);

@@ -139,12 +139,16 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
                                         Form_IRR form_irr= new Form_IRR();
                                         try {
                                             form_irr.readResponseJson(form_irr_json);
+
                                         } catch (JSONException e) {
                                             e.printStackTrace();
+                                            //Log.e("erro",e.toString());
                                         }
                                         Intent i;
                                         i = new Intent(v.getContext(), ViewFormIRR.class);
                                         i.putExtra("id",id_int);
+                                        form_irr.respostas.put(-3, form_irr.getOther_response());
+                                        Log.e("tamanho", form_irr.getOther_response().size() + "");
                                         i.putExtra("form_irr",form_irr.getRespostas());
                                         startActivity(i);
 
@@ -170,6 +174,13 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
                                 String date= ""+respostas.get(i).get(-1);
                                 HashMap<Integer,String> outras= (HashMap<Integer,String>)respostas.get(i).get(-3);
                                 Log.e("tamanho das strings",outras.size()+"");
+                                for(int k =0;k<32;k++)
+                                    try{
+                                        Log.e("string-",k+" -"+outras.get(k));
+                                    }
+                                    catch (Exception e){
+
+                                    }
 
 
                                 LayoutInflater l = getLayoutInflater();

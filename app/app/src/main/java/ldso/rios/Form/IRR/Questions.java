@@ -184,8 +184,7 @@ public class Questions {
                         "Esgotos",
                         "Impurezas e lixos orgânicos",
                         "Sacos de plástico e embalagens",
-                        "Latas ou material ferroso",
-                        "Outros"};
+                        "Latas ou material ferroso"};
                 value_irr= new Integer[]{5,4,3,2,2,3};
                 other_option=true;
 

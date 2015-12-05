@@ -101,6 +101,7 @@ public class Form_IRR extends Form implements Serializable {
     public void readResponseJson(JSONObject jsonObject) throws JSONException {
 
         respostas=new HashMap<Integer, Object>();
+        other_response=new HashMap<Integer,String>();
         ArrayList<String> as= new ArrayList<String>();
         ArrayList<Integer> ai= new ArrayList<Integer>();
         ArrayList<Float> af= new ArrayList<Float>();
@@ -119,24 +120,24 @@ public class Form_IRR extends Form implements Serializable {
         as= new ArrayList<String>();
 
         //Substrato das margens (selecionar os que tem mais de 35%)
-        ai.add(jsonObject.getInt("substratoDasMargens_soloArgiloso"));
-        ai.add(jsonObject.getInt("substratoDasMargens_arenoso"));
-        ai.add(jsonObject.getInt("substratoDasMargens_pedregoso"));
-        ai.add(jsonObject.getInt("substratoDasMargens_rochoso"));
-        ai.add(jsonObject.getInt("substratoDasMargens_artificialPedra"));
-        ai.add(jsonObject.getInt("substratoDasMargens_artificialBetao"));
+        ai.add(jsonObject.getBoolean("substratoDasMargens_soloArgiloso")? 1:0);
+        ai.add(jsonObject.getBoolean("substratoDasMargens_arenoso")? 1:0);
+        ai.add(jsonObject.getBoolean("substratoDasMargens_pedregoso")? 1:0);
+        ai.add(jsonObject.getBoolean("substratoDasMargens_rochoso")? 1:0);
+        ai.add(jsonObject.getBoolean("substratoDasMargens_artificialPedra")? 1:0);
+        ai.add(jsonObject.getBoolean("substratoDasMargens_artificialBetao") ? 1 : 0);
         this.respostas.put(4, ai);
         ai=new ArrayList<Integer>();
 
         //Substrato do leito (selecionar os que tem mais de 35%)
-        ai.add(jsonObject.getInt("substratoDoLeito_blocoseRocha"));
-        ai.add(jsonObject.getInt("substratoDoLeito_calhaus"));
-        ai.add(jsonObject.getInt("substratoDoLeito_cascalho"));
-        ai.add(jsonObject.getInt("substratoDoLeito_areia"));
-        ai.add(jsonObject.getInt("substratoDoLeito_limo"));
-        ai.add(jsonObject.getInt("substratoDoLeito_solo"));
-        ai.add(jsonObject.getInt("substratoDoLeito_artificial"));
-        ai.add(jsonObject.getInt("substratoDoLeito_artificial"));
+        ai.add(jsonObject.getBoolean("substratoDoLeito_blocoseRocha") ? 1 : 0);
+        ai.add(jsonObject.getBoolean("substratoDoLeito_calhaus")? 1:0);
+        ai.add(jsonObject.getBoolean("substratoDoLeito_cascalho") ? 1 : 0);
+        ai.add(jsonObject.getBoolean("substratoDoLeito_areia")? 1:0);
+        ai.add(jsonObject.getBoolean("substratoDoLeito_limo")? 1:0);
+        ai.add(jsonObject.getBoolean("substratoDoLeito_solo")? 1:0);
+        ai.add(jsonObject.getBoolean("substratoDoLeito_artificial")? 1:0);
+        ai.add(jsonObject.getBoolean("substratoDoLeito_artificial") ? 1 : 0);
         this.respostas.put(5, ai);
         ai=new ArrayList<Integer>();
 
@@ -145,48 +146,52 @@ public class Form_IRR extends Form implements Serializable {
         this.respostas.put(6, jsonObject.getInt("estadoGeraldaLinhadeAgua"));
 
         //Erosão
-        ai.add(jsonObject.getInt("erosao_semErosao"));
-        ai.add(jsonObject.getInt("erosao_formacaomais3"));
-        ai.add(jsonObject.getInt("erosao_formacao1a3"));
-        ai.add(jsonObject.getInt("erosao_quedamuros"));
-        ai.add(jsonObject.getInt("erosao_rombos"));
+        ai.add(jsonObject.getBoolean("erosao_semErosao")? 1:0);
+        ai.add(jsonObject.getBoolean("erosao_formacaomais3")? 1:0);
+        ai.add(jsonObject.getBoolean("erosao_formacao1a3")? 1:0);
+        ai.add(jsonObject.getBoolean("erosao_quedamuros")? 1:0);
+        ai.add(jsonObject.getBoolean("erosao_rombos") ? 1 : 0);
         this.respostas.put(7, ai);
         ai=new ArrayList<Integer>();
 
         //Sedimentação
-        ai.add(jsonObject.getInt("sedimentacao_ausente"));
-        ai.add(jsonObject.getInt("sedimentacao_decomposicao"));
-        ai.add(jsonObject.getInt("sedimentacao_mouchoes"));
-        ai.add(jsonObject.getInt("sedimentacao_ilhassemveg"));
-        ai.add(jsonObject.getInt("sedimentacao_ilhascomveg"));
-        ai.add(jsonObject.getInt("sedimentacao_deposicaosemveg"));
-        ai.add(jsonObject.getInt("sedimentacao_deposicaocomveg"));
-        ai.add(jsonObject.getInt("sedimentacao_rochas"));
+        ai.add(jsonObject.getBoolean("sedimentacao_ausente") ? 1 : 0);
+        ai.add(jsonObject.getBoolean("sedimentacao_decomposicao")? 1:0);
+        ai.add(jsonObject.getBoolean("sedimentacao_mouchoes")? 1:0);
+        ai.add(jsonObject.getBoolean("sedimentacao_ilhassemveg")? 1:0);
+        ai.add(jsonObject.getBoolean("sedimentacao_ilhascomveg")? 1:0);
+        ai.add(jsonObject.getBoolean("sedimentacao_deposicaosemveg")? 1:0);
+        ai.add(jsonObject.getBoolean("sedimentacao_deposicaocomveg")? 1:0);
+        ai.add(jsonObject.getBoolean("sedimentacao_rochas") ? 1 : 0);
         this.respostas.put(8, ai);
         ai=new ArrayList<Integer>();
 
         //Qualidade da água
-        af.add((Float) jsonObject.get("pH"));
-        af.add((Float) jsonObject.get("condutividade"));
-        af.add((Float) jsonObject.get("temperatura"));
-        af.add((Float) jsonObject.get("nivelDeOxigenio"));
-        af.add((Float) jsonObject.get("percentagemDeOxigenio"));
-        af.add((Float) jsonObject.get("nitratos"));
-        af.add((Float) jsonObject.get("nitritos"));
-        af.add((Float) jsonObject.get("transparencia"));
+        af.add(Float.parseFloat(jsonObject.get("pH").toString()));
+        af.add(Float.parseFloat(jsonObject.get("condutividade").toString()));
+        af.add(Float.parseFloat(jsonObject.get("temperatura").toString()));
+        af.add(Float.parseFloat(jsonObject.get("nivelDeOxigenio").toString()));
+        af.add(Float.parseFloat(jsonObject.get("percentagemDeOxigenio").toString()));
+        af.add(Float.parseFloat(jsonObject.get("nitratos").toString()));
+        af.add(Float.parseFloat(jsonObject.get("nitritos").toString()));
+        af.add(Float.parseFloat(jsonObject.get("transparencia").toString()));
         this.respostas.put(9, af);
         af=new ArrayList<Float>();
+        Log.e("parse","passou "+9);
 
         //Indícios na água
-        ai.add(jsonObject.getInt("oleo"));
-        ai.add(jsonObject.getInt("espuma"));
-        ai.add(jsonObject.getInt("esgotos"));
-        ai.add(jsonObject.getInt("impurezas"));
-        ai.add(jsonObject.getInt("sacosDePlastico"));
+        ai.add(jsonObject.getBoolean("oleo")? 1:0);
+        ai.add(jsonObject.getBoolean("espuma")? 1:0);
+        ai.add(jsonObject.getBoolean("esgotos")? 1:0);
+        ai.add(jsonObject.getBoolean("impurezas")? 1:0);
+        ai.add(jsonObject.getBoolean("sacosDePlastico")? 1:0);
+        ai.add(jsonObject.getBoolean("latas")? 1:0);
 
         this.respostas.put(10, ai);
         this.other_response.put(10,jsonObject.getString("indiciosNaAgua_outros"));
         ai=new ArrayList<Integer>();
+        Log.e("parse","passou "+10);
+
 
         //A cor da água
         this.respostas.put(11, jsonObject.getInt("corDaAgua"));
@@ -453,6 +458,7 @@ public class Form_IRR extends Form implements Serializable {
 
 
 
+
     }
 
     public  static  byte[] serialize(Object obj) throws IOException {
@@ -578,8 +584,8 @@ public class Form_IRR extends Form implements Serializable {
                     Form_functions.getUser(c)[1],
                     form_irr);
             File file = new File(f.getAbsolutePath(),(String) form_irr.getRespostas().get(-2));
-            boolean deleted = file.delete();
-            return deleted;
+            //boolean deleted = file.delete();
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
