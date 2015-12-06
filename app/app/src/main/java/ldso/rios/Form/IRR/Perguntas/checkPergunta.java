@@ -80,8 +80,6 @@ public class checkPergunta extends Pergunta implements Serializable {
             for(String o :this.options)
                 resposta_nula.add(0);
             this.response= resposta_nula;
-            if (other_option)
-                this.other_text="";
         }
         else {
             this.response = Form_functions.getCheckboxes(check_list);
@@ -97,16 +95,27 @@ public class checkPergunta extends Pergunta implements Serializable {
 
     @Override
     public void setAnswer() {
+        Log.e("setanswer check","entrou");
         ArrayList<Integer> al= (ArrayList<Integer>) this.response;
-        if(al==null)
+        if(al==null) {
+            Log.e("panda","");
             return;
+        }
+        Log.e("setanswer check","for");
+
+        Log.e("titulo:",this.subtitle);
         for (int i=0;i<check_list.size();i++){
-            Log.e("questao",this.options[i]);
             if(al.get(i)==1)
                 check_list.get(i).setChecked(true);
         }
-        if (this.other_option)
-        this.other.setText(this.other_text);
+        Log.e("setanswer check","other option");
+
+        if(this.other_option) {
+            Log.e("entrou other","entrou no other option "+this.subtitle+ " "+this.other_text);
+           this.other.setText(this.other_text);
+       }
+
+        Log.e("sair","sair");
     }
 
     @Override

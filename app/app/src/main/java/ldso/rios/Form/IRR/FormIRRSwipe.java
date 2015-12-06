@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,7 +68,7 @@ public class FormIRRSwipe extends AppCompatActivity {
         //ha respostas, logo é um edit
         if (getIntent().getSerializableExtra("form_irr") != null) {
             HashMap<Integer,Object> respostas=(HashMap<Integer, Object>) getIntent().getSerializableExtra("form_irr");
-            HashMap<Integer,String> outros= (HashMap<Integer, String>) respostas.get(-3);
+            HashMap<Integer,String> outros= (HashMap<Integer, String>) getIntent().getSerializableExtra("form_irr_other");
             this.form.setRespostas(respostas,outros);
             for(int k =0;k<32;k++)
                 try{
@@ -78,21 +77,11 @@ public class FormIRRSwipe extends AppCompatActivity {
                 catch (Exception e){
 
                 }
-            novo = false;
         }
 
         Log.e("teste",this.form.toString());
 
-        File file = new File("form.dat");
-        if(file.exists())
-            Log.e("form","existe");
-        else
-            Log.e("form","nao existe");
 
-// Do something else.
-
-        Log.e("form",this.form.toString());
-        Log.e("form", "teste" + this.form.getTeste());
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -109,6 +98,9 @@ public class FormIRRSwipe extends AppCompatActivity {
 
 
         final String id= (String) this.getIntent().getSerializableExtra("id");
+        if(id!=null)
+        novo = false;
+
 
 
         //se clicar no ok
@@ -187,14 +179,12 @@ public class FormIRRSwipe extends AppCompatActivity {
             super(fm);
             this.form = form;
             progessbar = (ProgressBar) findViewById(R.id.progressBar2);
-            Log.e("form", "novo SectionsPageAdapter");
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            Log.e("form", "getItem no Sections");
 
             return PlaceholderFragment.newInstance(position, form, progessbar);
         }
@@ -275,7 +265,6 @@ public class FormIRRSwipe extends AppCompatActivity {
         public void onPause() {
             super.onPause();
             this.form.fillAnswers();
-            //Log.e("vai sair", "" + getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
 }

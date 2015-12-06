@@ -68,18 +68,20 @@ public class Form implements Serializable {
 
     public void setRespostas(HashMap<Integer, Object> respostas,HashMap<Integer, String> respotas_outros) {
         this.respostas = respostas;
+        this.other_response=respotas_outros;
         for(int i=0;i<32;i++) {
             try {
                 perguntas.get(i).setAnswer(respostas.get(i + 1), respotas_outros.get(i + 1));
+
             }catch (Exception e){
                 perguntas.get(i).setAnswer(respostas.get(i + 1), "");
             }
         }
+        Log.e("acbou","");
     }
 
     public void fillAnswers()
     {
-        Log.e("Entrou aqui","entrou");
         for (int i=1;i<=this.getPerguntas().size();i++)
             try {
                 fillAnswer(i-1);

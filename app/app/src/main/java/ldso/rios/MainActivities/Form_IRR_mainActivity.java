@@ -142,7 +142,7 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
-                                            //Log.e("erro",e.toString());
+                                            Log.e("erro",e.toString());
                                         }
                                         Intent i;
                                         i = new Intent(v.getContext(), ViewFormIRR.class);

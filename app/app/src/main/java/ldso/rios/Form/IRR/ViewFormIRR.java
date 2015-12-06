@@ -62,6 +62,8 @@ public class ViewFormIRR extends AppCompatActivity {
             HashMap<Integer,Object> respostas=(HashMap<Integer, Object>) getIntent().getSerializableExtra("form_irr");
             HashMap<Integer,String> outros= (HashMap<Integer, String>) respostas.get(-3);
             this.form.setRespostas(respostas,outros);
+            this.form.other_response=outros;
+
         }
 
 
@@ -87,10 +89,11 @@ public class ViewFormIRR extends AppCompatActivity {
     se clicar no botão de edit, inicia um FormIRRSwipe para editar o formulário
      */
     public void edit_form(View view){
+        Log.e("vai","vai editar");
         Intent i;
         i = new Intent(this, FormIRRSwipe.class);
-        form.respostas.put(-3,form.other_response);
         i.putExtra("form_irr", form.getRespostas());
+        i.putExtra("form_irr_other",form.other_response);
         i.putExtra("id", id);
         startActivity(i);
 

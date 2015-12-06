@@ -411,8 +411,7 @@ public class Questions {
                 options= new String[]{
                         "Lagarto-de-água (Lacerta schreiberi)",
                         "Cobra-de-água-de-colar (Natrix natrix)",
-                        "Cágado (Mauremys leprosa)",
-                        "Outro"};
+                        "Cágado (Mauremys leprosa)"};
                 value_irr= new Integer[]{1,1,3};
                 other_option=true;
 
@@ -436,8 +435,7 @@ public class Questions {
                         "Galinha-de-água (Gallinula chloropus)",
                         "Pato-real (Anas platyrhynchos)",
                         "Tentilhão-comum (Fringilla coelebs)",
-                        "Chapim-real (Parus major)",
-                        "Outro"};
+                        "Chapim-real (Parus major)"};
                 value_irr= new Integer[]{1,1,1,1,2,1,1};
                 images= new int[]{
                         R.drawable.guardarios,
@@ -464,8 +462,7 @@ public class Questions {
                         "Toupeira da água (Galemys pyrenaicus)",
                         "Rato-de-água (Arvicola sapidus)",
                         "Ouriço cacheiro (Erinaceus europaeus)",
-                        "Armilho (Mustela Erminea)",
-                        "Outro"};
+                        "Armilho (Mustela Erminea)"};
                 value_irr= new Integer[]{1,1,1,3,1,1};
                 images= new int[]{
                         R.drawable.lontras,
@@ -492,8 +489,7 @@ public class Questions {
                         "Salmão (Salmo salar)",
                         "Truta (Salmo trutta fario)",
                         "Boga-portuguesa (Iberochondrostoma lusitanicum)",
-                        "Boga-do-norte (Chondrostoma duriense)",
-                        "Outro"};
+                        "Boga-do-norte (Chondrostoma duriense)"};
                 value_irr= new Integer[]{1,1,1,1,1,1};
                 images= new int[]{
                         R.drawable.enguia,
@@ -521,10 +517,8 @@ public class Questions {
                         "Mustela vison",
                         "Lagostim vermelho (Procambarus clarkii)",
                         "Truta-arco-íris (Oncorhynchus mykiss)",
-                        "Achigã (Micropterus salmoides)",
-                        "Perca-sol (Lepomis gibbosus)",
-                        "Outro"};
-                value_irr= new Integer[]{5,5,5,5,5,5,5,5,5};
+                        "Achigã (Micropterus salmoides)"};
+                value_irr= new Integer[]{5,5,5,5,5,5,5,5};
                 images= new int[]{
                         R.drawable.percasol,
                         R.drawable.tartarugadaflorida,
@@ -533,9 +527,7 @@ public class Questions {
                         R.drawable.mustelavison,
                         R.drawable.lagostimvermelho,
                         R.drawable.trutaarcoiris,
-                        R.drawable.achiga,
-                        R.drawable.percasol,
-                        0
+                        R.drawable.achiga
                 };
                 other_option=true;
 
@@ -557,8 +549,7 @@ public class Questions {
                         "Tramazeiras",
                         "Carvalhal (Carvalhos)",
                         "Sobreiral",
-                        "Azinhal",
-                        "Outro"};
+                        "Azinhal"};
                 value_irr= new Integer[]{1,1,1,1,1,1,1,1,1,1,1};
                 other_option=true;
 
@@ -591,8 +582,7 @@ public class Questions {
                         "Plumas",
                         "Lentilha de água",
                         "Pinheirinha",
-                        "Jacinto de água",
-                        "Outro"};
+                        "Jacinto de água"};
                 value_irr= new Integer[]{1,3,4,3,3,4,3};
                 other_option=true;
 

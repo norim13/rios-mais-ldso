@@ -88,7 +88,7 @@ public class editPergunta extends Pergunta implements Serializable {
                         tv.setText("Olaaaaaaa" + edit_list.get(1).toString());
 
                         if(edit_list.get(0).toString().length()>0 && edit_list.get(1).toString().length()>0){
-                            Log.e("form","dentro do if");
+                            //Log.e("form","dentro do if");
                             try {
                                 Log.e("form","dentro do try "+edit_list.get(0).toString()+" "+edit_list.get(1).toString()+" "+edit_list.get(2).toString());
                                 float s= Float.parseFloat(edit_list.get(0).toString())*Float.parseFloat(edit_list.get(1).toString());

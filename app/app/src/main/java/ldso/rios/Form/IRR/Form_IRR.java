@@ -185,7 +185,7 @@ public class Form_IRR extends Form implements Serializable {
         ai.add(jsonObject.getBoolean("esgotos")? 1:0);
         ai.add(jsonObject.getBoolean("impurezas")? 1:0);
         ai.add(jsonObject.getBoolean("sacosDePlastico")? 1:0);
-        ai.add(jsonObject.getBoolean("latas")? 1:0);
+        ai.add(jsonObject.getBoolean("latas") ? 1 : 0);
 
         this.respostas.put(10, ai);
         this.other_response.put(10,jsonObject.getString("indiciosNaAgua_outros"));
@@ -202,92 +202,92 @@ public class Form_IRR extends Form implements Serializable {
         //Corredor Ecologico
         ArrayList<ArrayList<Integer>> all=new ArrayList<ArrayList<Integer>>();
 
-        ai.add(jsonObject.getInt("planarias"));
+        ai.add(jsonObject.getBoolean("planarias")?1:0);
         all.add(ai);ai=new ArrayList<Integer>();
 
-        ai.add(jsonObject.getInt("hirudineos"));
+        ai.add(jsonObject.getBoolean("hirudineos")?1:0);
         all.add(ai);ai=new ArrayList<Integer>();
 
-        ai.add(jsonObject.getInt("oligoquetas"));
-        ai.add(jsonObject.getInt("simulideos"));
-        ai.add(jsonObject.getInt("quironomideos"));
+        ai.add(jsonObject.getBoolean("oligoquetas")?1:0);
+        ai.add(jsonObject.getBoolean("simulideos")?1:0);
+        ai.add(jsonObject.getBoolean("quironomideos")?1:0);
         all.add(ai);ai=new ArrayList<Integer>();
 
-        ai.add(jsonObject.getInt("ancilideo"));
-        ai.add(jsonObject.getInt("limnideo"));
-        ai.add(jsonObject.getInt("bivalves"));
+        ai.add(jsonObject.getBoolean("ancilideo")?1:0);
+        ai.add(jsonObject.getBoolean("limnideo")?1:0);
+        ai.add(jsonObject.getBoolean("bivalves")?1:0);
         all.add(ai);ai=new ArrayList<Integer>();
 
-        ai.add(jsonObject.getInt("patasNadadoras"));
-        ai.add(jsonObject.getInt("pataLocomotoras"));
+        ai.add(jsonObject.getBoolean("patasNadadoras")?1:0);
+        ai.add(jsonObject.getBoolean("pataLocomotoras")?1:0);
         all.add(ai);ai=new ArrayList<Integer>();
 
-        ai.add(jsonObject.getInt("trichopteroS"));
-        ai.add(jsonObject.getInt("trichopteroC"));
+        ai.add(jsonObject.getBoolean("trichopteroS")?1:0);
+        ai.add(jsonObject.getBoolean("trichopteroC")?1:0);
         all.add(ai);ai=new ArrayList<Integer>();
 
-        ai.add(jsonObject.getInt("odonata"));
+        ai.add(jsonObject.getBoolean("odonata")?1:0);
         all.add(ai);ai=new ArrayList<Integer>();
 
-        ai.add(jsonObject.getInt("heteropteros"));
+        ai.add(jsonObject.getBoolean("heteropteros")?1:0);
         all.add(ai);ai=new ArrayList<Integer>();
 
-        ai.add(jsonObject.getInt("plecopteros"));
+        ai.add(jsonObject.getBoolean("plecopteros")?1:0);
         all.add(ai);ai=new ArrayList<Integer>();
 
-        ai.add(jsonObject.getInt("baetideo"));
-        ai.add(jsonObject.getInt("cabecaPlanar"));
+        ai.add(jsonObject.getBoolean("baetideo")?1:0);
+        ai.add(jsonObject.getBoolean("cabecaPlanar")?1:0);
         all.add(ai);ai=new ArrayList<Integer>();
 
-        ai.add(jsonObject.getInt("crustaceos"));
+        ai.add(jsonObject.getBoolean("crustaceos")?1:0);
         all.add(ai);ai=new ArrayList<Integer>();
 
-        ai.add(jsonObject.getInt("acaros"));
+        ai.add(jsonObject.getBoolean("acaros")?1:0);
         all.add(ai);ai=new ArrayList<Integer>();
 
-        ai.add(jsonObject.getInt("pulgaDeAgua"));
+        ai.add(jsonObject.getBoolean("pulgaDeAgua")?1:0);
         all.add(ai);ai=new ArrayList<Integer>();
 
-        ai.add(jsonObject.getInt("insetos"));
+        ai.add(jsonObject.getBoolean("insetos")?1:0);
         all.add(ai);ai=new ArrayList<Integer>();
 
-        ai.add(jsonObject.getInt("megalopteres"));
+        ai.add(jsonObject.getBoolean("megalopteres")?1:0);
         all.add(ai);ai=new ArrayList<Integer>();
 
         this.respostas.put(13, all);
 
         //Intervenções presentes
-        ai.add(jsonObject.getInt("intervencoes_edificios"));
-        ai.add(jsonObject.getInt("intervencoes_pontes"));
-        ai.add(jsonObject.getInt("intervencoes_limpezasDasMargens"));
-        ai.add(jsonObject.getInt("intervencoes_estabilizacaoDeMargens"));
-        ai.add(jsonObject.getInt("intervencoes_estabilizacaoDeMargens"));
-        ai.add(jsonObject.getInt("intervencoes_modelacaoDeMargensNatural"));
-        ai.add(jsonObject.getInt("intervencoes_modelacaoDeMargensArtificial"));
-        ai.add(jsonObject.getInt("intervencoes_barragem"));
-        ai.add(jsonObject.getInt("intervencoes_diques"));
-        ai.add(jsonObject.getInt("intervencoes_rioCanalizado"));
-        ai.add(jsonObject.getInt("intervencoes_rioEntubado"));
-        ai.add(jsonObject.getInt("intervencoes_esporoes"));
-        ai.add(jsonObject.getInt("intervencoes_paredoes"));
-        ai.add(jsonObject.getInt("intervencoes_tecnicasDeEngenhariaNatural"));
+        ai.add(jsonObject.getBoolean("intervencoes_edificios")?1:0);
+        ai.add(jsonObject.getBoolean("intervencoes_pontes")?1:0);
+        ai.add(jsonObject.getBoolean("intervencoes_limpezasDasMargens")?1:0);
+        ai.add(jsonObject.getBoolean("intervencoes_estabilizacaoDeMargens")?1:0);
+        ai.add(jsonObject.getBoolean("intervencoes_estabilizacaoDeMargens")?1:0);
+        ai.add(jsonObject.getBoolean("intervencoes_modelacaoDeMargensNatural")?1:0);
+        ai.add(jsonObject.getBoolean("intervencoes_modelacaoDeMargensArtificial")?1:0);
+        ai.add(jsonObject.getBoolean("intervencoes_barragem")?1:0);
+        ai.add(jsonObject.getBoolean("intervencoes_diques")?1:0);
+        ai.add(jsonObject.getBoolean("intervencoes_rioCanalizado")?1:0);
+        ai.add(jsonObject.getBoolean("intervencoes_rioEntubado")?1:0);
+        ai.add(jsonObject.getBoolean("intervencoes_esporoes")?1:0);
+        ai.add(jsonObject.getBoolean("intervencoes_paredoes")?1:0);
+        ai.add(jsonObject.getBoolean("intervencoes_tecnicasDeEngenhariaNatural")?1:0);
         this.respostas.put(14, ai);
-        this.other_response.put(14, String.valueOf(jsonObject.getString("intervencoes_outras")));
+        this.other_response.put(14,jsonObject.getString("intervencoes_outras"));
         ai=new ArrayList<Integer>();
 
         //Ocupação das margens [<10 m]
-        ai.add(jsonObject.getInt("ocupacao_florestaNatural"));
-        ai.add(jsonObject.getInt("ocupacao_florestaPlantadas"));
-        ai.add(jsonObject.getInt("ocupacao_matoAlto"));
-        ai.add(jsonObject.getInt("ocupacao_matoRasteiro"));
-        ai.add(jsonObject.getInt("ocupacao_pastagem"));
-        ai.add(jsonObject.getInt("ocupacao_agricultura"));
-        ai.add(jsonObject.getInt("ocupacao_espacoAbandonado"));
-        ai.add(jsonObject.getInt("ocupacao_jardins"));
-        ai.add(jsonObject.getInt("ocupacao_zonaEdificada"));
-        ai.add(jsonObject.getInt("ocupacao_zonaIndustrial"));
-        ai.add(jsonObject.getInt("ocupacao_ruas"));
-        ai.add(jsonObject.getInt("ocupacao_entulho"));
+        ai.add(jsonObject.getBoolean("ocupacao_florestaNatural")?1:0);
+        ai.add(jsonObject.getBoolean("ocupacao_florestaPlantadas")?1:0);
+        ai.add(jsonObject.getBoolean("ocupacao_matoAlto")?1:0);
+        ai.add(jsonObject.getBoolean("ocupacao_matoRasteiro")?1:0);
+        ai.add(jsonObject.getBoolean("ocupacao_pastagem")?1:0);
+        ai.add(jsonObject.getBoolean("ocupacao_agricultura")?1:0);
+        ai.add(jsonObject.getBoolean("ocupacao_espacoAbandonado")?1:0);
+        ai.add(jsonObject.getBoolean("ocupacao_jardins")?1:0);
+        ai.add(jsonObject.getBoolean("ocupacao_zonaEdificada")?1:0);
+        ai.add(jsonObject.getBoolean("ocupacao_zonaIndustrial")?1:0);
+        ai.add(jsonObject.getBoolean("ocupacao_ruas")?1:0);
+        ai.add(jsonObject.getBoolean("ocupacao_entulho")?1:0);
         this.respostas.put(15, ai);
         ai=new ArrayList<Integer>();
 
@@ -319,117 +319,116 @@ public class Form_IRR extends Form implements Serializable {
         this.respostas.put(16, ai);
         ai=new ArrayList<Integer>();
 
-
         //Poluição
-        ai.add(jsonObject.getInt("poluicao_descargasDomesticas"));
-        ai.add(jsonObject.getInt("poluicao_descargasETAR"));
-        ai.add(jsonObject.getInt("poluicao_descargasIndustriais"));
-        ai.add(jsonObject.getInt("poluicao_descargasQuimicas"));
-        ai.add(jsonObject.getInt("poluicao_descargasAguasPluviais"));
-        ai.add(jsonObject.getInt("poluicao_presencaCriacaoAnimais"));
-        ai.add(jsonObject.getInt("poluicao_lixeiras"));
-        ai.add(jsonObject.getInt("poluicao_lixoDomestico"));
-        ai.add(jsonObject.getInt("poluicao_entulho"));
-        ai.add(jsonObject.getInt("poluicao_monstrosDomesticos"));
-        ai.add(jsonObject.getInt("poluicao_sacosDePlastico"));
-        ai.add(jsonObject.getInt("poluicao_latasMaterialFerroso"));
-        ai.add(jsonObject.getInt("poluicao_queimadas"));
+        ai.add(jsonObject.getBoolean("poluicao_descargasDomesticas")?1:0);
+        ai.add(jsonObject.getBoolean("poluicao_descargasETAR")?1:0);
+        ai.add(jsonObject.getBoolean("poluicao_descargasIndustriais")?1:0);
+        ai.add(jsonObject.getBoolean("poluicao_descargasQuimicas")?1:0);
+        ai.add(jsonObject.getBoolean("poluicao_descargasAguasPluviais")?1:0);
+        ai.add(jsonObject.getBoolean("poluicao_presencaCriacaoAnimais")?1:0);
+        ai.add(jsonObject.getBoolean("poluicao_lixeiras")?1:0);
+        ai.add(jsonObject.getBoolean("poluicao_lixoDomestico")?1:0);
+        ai.add(jsonObject.getBoolean("poluicao_entulho")?1:0);
+        ai.add(jsonObject.getBoolean("poluicao_monstrosDomesticos")?1:0);
+        ai.add(jsonObject.getBoolean("poluicao_sacosDePlastico")?1:0);
+        ai.add(jsonObject.getBoolean("poluicao_latasMaterialFerroso")?1:0);
+        ai.add(jsonObject.getBoolean("poluicao_queimadas")?1:0);
         this.respostas.put(17, ai);
         ai=new ArrayList<Integer>();
 
         //Fauna - Anfíbios autoctones
-        ai.add(jsonObject.getInt("salamandraLusitanica"));
-        ai.add(jsonObject.getInt("salamandraPintasAmarelas"));
-        ai.add(jsonObject.getInt("tritaoVentreLaranja"));
-        ai.add(jsonObject.getInt("raIberica"));
-        ai.add(jsonObject.getInt("raVerde"));
-        ai.add(jsonObject.getInt("sapoComum"));
+        ai.add(jsonObject.getBoolean("salamandraLusitanica")?1:0);
+        ai.add(jsonObject.getBoolean("salamandraPintasAmarelas")?1:0);
+        ai.add(jsonObject.getBoolean("tritaoVentreLaranja")?1:0);
+        ai.add(jsonObject.getBoolean("raIberica")?1:0);
+        ai.add(jsonObject.getBoolean("raVerde")?1:0);
+        ai.add(jsonObject.getBoolean("sapoComum")?1:0);
         this.respostas.put(18, ai);
         ai=new ArrayList<Integer>();
 
         //Fauna - Répteis Autoctones
-        ai.add(jsonObject.getInt("lagartoDeAgua"));
-        ai.add(jsonObject.getInt("cobraAguaDeColar"));
-        ai.add(jsonObject.getInt("cagado"));
+        ai.add(jsonObject.getBoolean("lagartoDeAgua")?1:0);
+        ai.add(jsonObject.getBoolean("cobraAguaDeColar")?1:0);
+        ai.add(jsonObject.getBoolean("cagado")?1:0);
         this.respostas.put(19, ai);
-        this.other_response.put(19, String.valueOf(jsonObject.getString("repteis_outro")));
+        this.other_response.put(19, jsonObject.getString("repteis_outro"));
         ai=new ArrayList<Integer>();
 
         //Fauna - Aves Autoctones
-        ai.add(jsonObject.getInt("guardaRios"));
-        ai.add(jsonObject.getInt("garcaReal"));
-        ai.add(jsonObject.getInt("melroDeAgua"));
-        ai.add(jsonObject.getInt("galinhaDeAgua"));
-        ai.add(jsonObject.getInt("patoReal"));
-        ai.add(jsonObject.getInt("tentilhaoComum"));
-        ai.add(jsonObject.getInt("chapimReal"));
+        ai.add(jsonObject.getBoolean("guardaRios")?1:0);
+        ai.add(jsonObject.getBoolean("garcaReal")?1:0);
+        ai.add(jsonObject.getBoolean("melroDeAgua")?1:0);
+        ai.add(jsonObject.getBoolean("galinhaDeAgua")?1:0);
+        ai.add(jsonObject.getBoolean("patoReal")?1:0);
+        ai.add(jsonObject.getBoolean("tentilhaoComum")?1:0);
+        ai.add(jsonObject.getBoolean("chapimReal")?1:0);
         this.respostas.put(20, ai);
-        this.other_response.put(20, String.valueOf(jsonObject.getString("aves_outro")));
+        this.other_response.put(20, jsonObject.getString("aves_outro"));
         ai=new ArrayList<Integer>();
 
         //Fauna - Mamíferos Autoctones
-        ai.add(jsonObject.getInt("lontras"));
-        ai.add(jsonObject.getInt("morcegosDeAgua"));
-        ai.add(jsonObject.getInt("toupeiraDaAgua"));
-        ai.add(jsonObject.getInt("ratoDeAgua"));
-        ai.add(jsonObject.getInt("ouricoCacheiro"));
-        ai.add(jsonObject.getInt("armilho"));
+        ai.add(jsonObject.getBoolean("lontras")?1:0);
+        ai.add(jsonObject.getBoolean("morcegosDeAgua")?1:0);
+        ai.add(jsonObject.getBoolean("toupeiraDaAgua")?1:0);
+        ai.add(jsonObject.getBoolean("ratoDeAgua")?1:0);
+        ai.add(jsonObject.getBoolean("ouricoCacheiro")?1:0);
+        ai.add(jsonObject.getBoolean("armilho")?1:0);
         this.respostas.put(21, ai);
-        this.other_response.put(21, String.valueOf(jsonObject.getString("mamiferos_outro")));
+        this.other_response.put(21, jsonObject.getString("mamiferos_outro"));
         ai=new ArrayList<Integer>();
 
         //Fauna - Peixes Autoctones
-        ai.add(jsonObject.getInt("enguia"));
-        ai.add(jsonObject.getInt("lampreia"));
-        ai.add(jsonObject.getInt("salmao"));
-        ai.add(jsonObject.getInt("truta"));
-        ai.add(jsonObject.getInt("bogaPortuguesa"));
-        ai.add(jsonObject.getInt("bogaDoNorte"));
+        ai.add(jsonObject.getBoolean("enguia")?1:0);
+        ai.add(jsonObject.getBoolean("lampreia")?1:0);
+        ai.add(jsonObject.getBoolean("salmao")?1:0);
+        ai.add(jsonObject.getBoolean("truta")?1:0);
+        ai.add(jsonObject.getBoolean("bogaPortuguesa")?1:0);
+        ai.add(jsonObject.getBoolean("bogaDoNorte")?1:0);
         this.respostas.put(22, ai);
-        this.other_response.put(22, String.valueOf(jsonObject.getString("peixes_outro")));
+        this.other_response.put(22, jsonObject.getString("peixes_outro"));
         ai=new ArrayList<Integer>();
 
         //Fauna Exótica
-        ai.add(jsonObject.getInt("percaSol"));
-        ai.add(jsonObject.getInt("tartarugaDaFlorida"));
-        ai.add(jsonObject.getInt("caranguejoPeludoChines"));
-        ai.add(jsonObject.getInt("gambusia"));
-        ai.add(jsonObject.getInt("mustelaVison"));
-        ai.add(jsonObject.getInt("lagostimVermelho"));
-        ai.add(jsonObject.getInt("trutaArcoIris"));
-        ai.add(jsonObject.getInt("achiga"));
+        ai.add(jsonObject.getBoolean("percaSol")?1:0);
+        ai.add(jsonObject.getBoolean("tartarugaDaFlorida")?1:0);
+        ai.add(jsonObject.getBoolean("caranguejoPeludoChines")?1:0);
+        ai.add(jsonObject.getBoolean("gambusia")?1:0);
+        ai.add(jsonObject.getBoolean("mustelaVison")?1:0);
+        ai.add(jsonObject.getBoolean("lagostimVermelho")?1:0);
+        ai.add(jsonObject.getBoolean("trutaArcoIris")?1:0);
+        ai.add(jsonObject.getBoolean("achiga")?1:0);
         this.respostas.put(23, ai);
-        this.other_response.put(23, String.valueOf(jsonObject.getString("fauna_outro")));
+        this.other_response.put(23, jsonObject.getString("fauna_outro"));
         ai=new ArrayList<Integer>();
 
         //Flora
-        ai.add(jsonObject.getInt("salgueiral"));
-        ai.add(jsonObject.getInt("amial"));
-        ai.add(jsonObject.getInt("freixal"));
-        ai.add(jsonObject.getInt("choupal"));
-        ai.add(jsonObject.getInt("ulmeiral"));
-        ai.add(jsonObject.getInt("sanguinos"));
-        ai.add(jsonObject.getInt("ladual"));
-        ai.add(jsonObject.getInt("tramazeiras"));
-        ai.add(jsonObject.getInt("carvalhal"));
-        ai.add(jsonObject.getInt("sobreiral"));
-        ai.add(jsonObject.getInt("azinhal"));
+        ai.add(jsonObject.getBoolean("salgueiral")?1:0);
+        ai.add(jsonObject.getBoolean("amial")?1:0);
+        ai.add(jsonObject.getBoolean("freixal")?1:0);
+        ai.add(jsonObject.getBoolean("choupal")?1:0);
+        ai.add(jsonObject.getBoolean("ulmeiral")?1:0);
+        ai.add(jsonObject.getBoolean("sanguinos")?1:0);
+        ai.add(jsonObject.getBoolean("ladual")?1:0);
+        ai.add(jsonObject.getBoolean("tramazeiras")?1:0);
+        ai.add(jsonObject.getBoolean("carvalhal")?1:0);
+        ai.add(jsonObject.getBoolean("sobreiral")?1:0);
+        ai.add(jsonObject.getBoolean("azinhal")?1:0);
         this.respostas.put(24, ai);
-        this.other_response.put(24, String.valueOf(jsonObject.getString("flora_outro")));
-        ai=new ArrayList<Integer>();
+        this.other_response.put(24, jsonObject.getString("flora_outro"));
+        ai =new ArrayList<Integer>();
 
         //Estado de conservação do bosque ribeirinho (10m*10m)
         this.respostas.put(25, jsonObject.getInt("conservacaoBosqueRibeirinho"));
 
         //Espécies vegetação invasora
-        ai.add(jsonObject.getInt("silvas"));
-        ai.add(jsonObject.getInt("ervaDaFortuna"));
-        ai.add(jsonObject.getInt("plumas"));
-        ai.add(jsonObject.getInt("lentilhaDaAgua"));
-        ai.add(jsonObject.getInt("pinheirinha"));
-        ai.add(jsonObject.getInt("jacintoDeAgua"));
+        ai.add(jsonObject.getBoolean("silvas")?1:0);
+        ai.add(jsonObject.getBoolean("ervaDaFortuna")?1:0);
+        ai.add(jsonObject.getBoolean("plumas")?1:0);
+        ai.add(jsonObject.getBoolean("lentilhaDaAgua")?1:0);
+        ai.add(jsonObject.getBoolean("pinheirinha")?1:0);
+        ai.add(jsonObject.getBoolean("jacintoDeAgua")?1:0);
         this.respostas.put(26, ai);
-        this.other_response.put(26, String.valueOf(jsonObject.getString("vegetacaoInvasora_outro")));
+        this.other_response.put(26, jsonObject.getString("vegetacaoInvasora_outro"));
         ai=new ArrayList<Integer>();
 
         //Obstrução do leito e margens (vegetação)
@@ -453,6 +452,10 @@ public class Form_IRR extends Form implements Serializable {
 
         //Gestão das intervenções de melhoria
         this.respostas.put(33, jsonObject.getInt("gestaoDasIntervencoes"));
+
+
+
+        Log.e("chegou ao final","final");
 
 
 
@@ -546,13 +549,14 @@ public class Form_IRR extends Form implements Serializable {
 
         Calendar calendar = Calendar.getInstance();
         File files = new File(f.getAbsolutePath(),"form-"+System.currentTimeMillis()+".dat");
-        if(!files.exists())
+        if (!files.exists())
             files.createNewFile();
         Log.d("Files", "Size: " + files.getAbsolutePath());
 
         form_irr.setDate();
         form_irr.respostas.put(-2, files.getName());
         form_irr.respostas.put(-3, form_irr.other_response);
+
 
 
         //all_from_irrs.add(form_irr);
