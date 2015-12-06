@@ -116,10 +116,12 @@ public class FormIRRSwipe extends AppCompatActivity {
                 try {
                     if (novo)
                         DB_functions.saveForm(Form_functions.getUser(getApplicationContext())[0],
-                                Form_functions.getUser(getApplicationContext())[1],form);
+                                Form_functions.getUser(getApplicationContext())[1], form);
+
                     else
                         DB_functions.update(Form_functions.getUser(getApplicationContext())[0],
                                 Form_functions.getUser(getApplicationContext())[1],id, form);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
