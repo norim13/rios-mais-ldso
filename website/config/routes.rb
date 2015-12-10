@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'concelhos' => 'concelho#getConcelhosFromDistrito'
   get 'limpeza' => 'limpeza#show'
   get 'respostas' => 'limpeza#getRespostas'
+  get 'adminpanel' => 'admin#index'
   post 'submitProblemasAction' => 'limpeza#submitProblemas'
 
   #info pages

@@ -1,0 +1,56 @@
+<%= render 'common/header' %>
+</head>
+<body>
+<%= render 'common/navbar' %>
+
+<div class="container">
+  <h1> Admin panel </h1>
+  <p id="notice"><%= notice %></p>
+  <div class="table-responsive">
+    <table class="table table-hover table-striped">
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Data de criação</th>
+        <th>Nº de logins </th>
+        <th>Nível Acesso</th>
+        <th> Atribuir permissões </th>
+
+      </tr>
+      <% @users.each do |user| %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.nome %></td>
+            <td><%= user.email %></td>
+            <td><%= user.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
+            <td><%= user.sign_in_count %></td>
+            <td><%= user.permissoes %></td>
+            <td>
+
+            <div class="form-group">
+              <select id="atribuir-permissao" class="form-control">
+                <option disabled selected> </option>
+                <option value="1"> 1 - Proprietários (população em geral) </option>
+                <option value="2"> 2 - Técnicos e Estudantes univ. </option>
+                <option value="3"> 3 - Chefia de municipios </option>
+                <option value="4"> 4 - Multimunicipios </option>
+                <option value="5"> 5 - Técnicos ERio </option>
+                <option value="6"> 6 - Admin. Erio </option>
+              </select>
+            </div>
+
+            </td>
+
+          </tr>
+      <% end %>
+
+      <div class="form-actions">
+        <%= f.button :submit, 'Guardar alterações' %>
+      </div>
+
+    </table>
+  </div>
+</div>
+
+<%= render 'common/footer' %>

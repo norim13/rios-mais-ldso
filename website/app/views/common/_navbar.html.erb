@@ -73,7 +73,12 @@
               <% if user_signed_in? %>
                   <li><%= link_to "Perfil", edit_user_registration_path %></li>
                   <li><%= link_to('Logout', destroy_user_session_path, :method => 'delete') %></li>
-              <% else %>
+
+                  <% if current_user.permissoes == 6 %>
+                      <li><%= link_to "Admin panel", adminpanel_path %></li>
+                  <% else %>
+                  <% end %>
+            <% else %>
                   <li><%= link_to('Login', new_user_session_path) %></li>
                   <li><%= link_to('Registar', new_user_registration_path) %></li>
               <% end %>
