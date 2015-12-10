@@ -116,7 +116,7 @@ window.onload = function () {
 		            dataType: 'json',
 		            success: function(data) {
 		                //console.log("success. data:");
-				            //console.log(data);
+				            console.log(data);
 
 				            if(data.features[0] != undefined) {
                         //console.log(data);

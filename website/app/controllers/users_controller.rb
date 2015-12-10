@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   def create
     #render plain: params[:user].inspect
     @user = User.new(user_params)
-
+    @user.permissoes = 1
     if @user.save
       redirect_to @user
     else

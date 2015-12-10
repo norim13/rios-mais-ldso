@@ -12,21 +12,19 @@
     <table id="" class="table table-hover table-striped">
       <thead>
         <tr>
-          <th class="col-md-2">Cód. Rio</th>
-          <th class="col-md-6">Designação</th>
-          <th class="col-md-2">Tipo</th>
-          <th class="col-md-2">Bacia</th>
+          <th class="col-md-2">Cód. Bacia</th>
+          <th class="col-md-5">Designação</th>
+          <th class="col-md-5">Tipologia</th>
         </tr>
       </thead>
       <tr>
         <td id="cod-rio" value=<%=@rio_id%>><%= @rio_id %></td>
         <td id="designacao-rio"></td>
-        <td id="tipo-rio"></td>
-        <td id="bacia-rio"></td>
+        <td id="tipologia-rio"></td>
       </tr>
     </table>
 
-    <h3>Afluência do rio:</h3>
+    <!--<h3>Afluência do rio:</h3>
     <table id="rios-pais" class="table table-hover table-striped">
       <thead>
         <tr>
@@ -51,12 +49,20 @@
         </tr>
       </thead>
       <tbody></tbody>
-    </table>
+    </table>-->
   </div>
 
   <h2> Índice de Reabilitação de Rios (IRR) </h2>
 
   <% if @has_irr == 'yes' %>
+
+      <div class="input-group date" data-provide="datepicker">
+        <input type="text" class="form-control">
+        <div class="datepicker input-group-addon">
+          <span class="glyphicon glyphicon-th"></span>
+        </div>
+      </div>
+
     <div class="table-responsive">
       <table class="table" id="irr">
         <tr>

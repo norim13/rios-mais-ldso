@@ -4,6 +4,9 @@
 `
 
 $(document).ready(function(){
+
+    $('.datepicker').datepicker();
+
     var cod_rio = $("#cod-rio").html();
 
     var filter2 = new OpenLayers.Filter.Comparison({
@@ -17,7 +20,8 @@ $(document).ready(function(){
         url: 'http://***REMOVED***:10500/geoserver/rios/wms?SERVICE=WFS',
         geometryName: "SHAPE",
         featurePrefix: 'rios',
-        featureType: 'AtAgua_Agsup_rios_AAmb_SNIRH_PC',
+        //featureType: 'AtAgua_Agsup_rios_AAmb_SNIRH_PC',
+        featureType: 'BaciasMA',
         srsName: 'EPSG:900913' // eg "EPSG:900913"
     });
 
@@ -36,14 +40,18 @@ $(document).ready(function(){
         else {
             console.log(request.features[0].data);
             var info_rio = request.features[0].data;
-            $("#designacao-rio").html(decode_utf8(info_rio.designacao));
+            /*$("#designacao-rio").html(decode_utf8(info_rio.designacao));
             $("#tipo-rio").html(decode_utf8(info_rio.tipo));
             $("#bacia-rio").html(decode_utf8(info_rio.bacia));
 
-            $('#perfil-rio-title').html("Informações sobre "+decode_utf8(info_rio.designacao));
+            $('#perfil-rio-title').html("Informações sobre "+decode_utf8(info_rio.designacao));*/
 
-            getRiosPais(cod_rio);
-            getAfluentes(cod_rio);
+            $("#designacao-rio").html(info_rio.RIVER_NAME);
+            $("#tipo-rio").html(info_rio.TYPE_NAME);
+            $('#perfil-rio-title').html("Informações sobre "+info_rio.RIVER_NAME);
+
+            /*getRiosPais(cod_rio);
+            getAfluentes(cod_rio);*/
         }
     }
 
