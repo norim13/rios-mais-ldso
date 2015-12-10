@@ -7,7 +7,8 @@ $(document).ready(function(){
         e.preventDefault();
 
         var propriedade_a_procurar = 'designacao';
-        var campos = {"1" : "designacao", "2" : "codrios", "3" : "bacia"};
+        //var campos = {"1" : "designacao", "2" : "codrios", "3" : "bacia"};
+        var campos = {"1" : "RIVER_NAME", "2" : "EU_CD", "3" : "TYPE_NAME"};
         console.log("option: "+$("#campo-pesquisa option:selected").val());
         propriedade_a_procurar = campos[$("#campo-pesquisa option:selected").val()];
 
@@ -16,14 +17,15 @@ $(document).ready(function(){
             type: OpenLayers.Filter.Comparison.LIKE,
             matchCase:false,
             property: propriedade_a_procurar,
-            value: "*" + encode_utf8($("#pesquisa-rios-input").val()) + "*"
+            value: "*" + $("#pesquisa-rios-input").val() + "*"
         });
 
         var  wfsProtocol = new OpenLayers.Protocol.WFS.v1_1_0({
             url: 'http://***REMOVED***:10500/geoserver/rios/wms?SERVICE=WFS',
             geometryName: "SHAPE",
             featurePrefix: 'rios',
-            featureType: 'AtAgua_Agsup_rios_AAmb_SNIRH_PC',
+            //featureType: 'AtAgua_Agsup_rios_AAmb_SNIRH_PC',
+            featureType: 'BaciasMA',
             srsName: 'EPSG:900913' // eg "EPSG:900913"
         });
 
@@ -40,20 +42,29 @@ $(document).ready(function(){
             $("#resultados-pesquisa-rios").find("tr:gt(0)").remove();
             if(request.features.length == 0){
                 $("#resultados-pesquisa-rios")
-                    .append("<tr><td></td><td><i>Sem resultados...</i></td><td></td><td></td></td></tr>");
+                    .append("<tr><td></td><td><i>Sem resultados...</i></td><td></td></tr>");
             }
             else
                 for(var i in request.features){
-                    console.log(request.features[i].data);
+                    //console.log(request.features[i].data);
                     var info_rio = request.features[i].data;
                     var row = $('<tr></tr>');
 
-                    $(row).append('<td>'+decode_utf8(info_rio.codrios)+'</td>');
+                    //mapas velhos
+                    /*$(row).append('<td>'+decode_utf8(info_rio.codrios)+'</td>');
                     //var a = '<a href="/rio/'+info_rio.codrios+'">'+info_rio.designacao+'</a>';
                     $(row).append('<td>'+decode_utf8(info_rio.designacao)+'</td>');
                     $(row).append('<td>'+decode_utf8(info_rio.tipo)+'</td>');
                     $(row).append('<td>'+decode_utf8(info_rio.bacia)+'</td>');
                     $(row).append('<td><a href="/rio/'+info_rio.codrios+'">'+
+                        '<button class="btn btn-primary">Ver Rio</button>'+'</a></td>');*/
+
+                    //mapas novos - bacias
+                    $(row).append('<td>'+info_rio.EU_CD+'</td>');
+                    //var a = '<a href="/rio/'+info_rio.codrios+'">'+info_rio.designacao+'</a>';
+                    $(row).append('<td>'+info_rio.RIVER_NAME+'</td>');
+                    $(row).append('<td>'+info_rio.TYPE_NAME+'</td>');
+                    $(row).append('<td><a href="/rio/'+info_rio.EU_CD+'">'+
                         '<button class="btn btn-primary">Ver Rio</button>'+'</a></td>');
 
                     var a = $('<a href="/rio/'+info_rio.codrios+'>Ver</a>');
