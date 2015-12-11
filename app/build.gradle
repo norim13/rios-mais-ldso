@@ -6,6 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.0.0-alpha1'
+
         //classpath 'jars/postgresql-9.4-1204.jdbc4.jar'
 
         //compile fileTree(dir: 'jars', include: ['*.jar'])
