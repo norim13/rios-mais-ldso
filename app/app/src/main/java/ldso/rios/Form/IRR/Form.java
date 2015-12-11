@@ -85,8 +85,7 @@ public class Form implements Serializable {
         for (int i=1;i<=this.getPerguntas().size();i++)
             try {
                 fillAnswer(i-1);
-                Log.e("resposta", i + "-" + this.respostas.get(i).toString());
-                Log.e("resposta", i + "-" + this.other_response.get(i).toString());
+                //Log.e("resposta", i + "-" + this.respostas.get(i).toString()+"-" + this.other_response.get(i).toString());
 
             } catch (Exception e) {
                 Log.e("resposta", i + "-");

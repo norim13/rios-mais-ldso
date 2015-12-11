@@ -12,8 +12,10 @@ Form IRR:
     Verificar IRR valores e resultado
     // Guardar Offline um formulário
     // Ao clicar no submeter, preencher autometicamente todas as opcoes para nao dar erro
-    Por um EditText com "outros" onde é preciso e entegrar isso no json submetdio
+    // Por um EditText com "outros" onde é preciso e entegrar isso no json submetdio
     Grafico com o valor do irr
+    Mapa para escolher sitio onde estamos e margem
+    Imagens no form irr
 
 Adicionar "tirar foto" e "foto de galeria" a todos os formularios
 

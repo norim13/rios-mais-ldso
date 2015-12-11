@@ -1,5 +1,6 @@
 package ldso.rios.Form.IRR;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -31,6 +33,7 @@ import ldso.rios.DataBases.DB_functions;
 import ldso.rios.Form.Form_functions;
 import ldso.rios.MainActivities.Form_IRR_mainActivity;
 import ldso.rios.MainActivities.GuardaRios;
+import ldso.rios.Mapa_rios;
 import ldso.rios.R;
 
 /*
@@ -50,6 +53,8 @@ public class FormIRRSwipe extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private Form_IRR form;
     private Boolean novo;                               //se true é um novo formulairo, se é falso, é um edit
+    private EditText currLoc;
+    private EditText selctLoc;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -90,7 +95,7 @@ public class FormIRRSwipe extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this.form);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this.form, this.currLoc,this.selctLoc,this);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -152,8 +157,9 @@ public class FormIRRSwipe extends AppCompatActivity {
 
             try {
                 //Form_IRR.loadFromIRR(this.getApplicationContext());
+                form.fillAnswers();
                 Form_IRR.saveFormIRR(form, this.getApplicationContext());
-                Toast toast = Toast.makeText(FormIRRSwipe.this, "Formulário de limpeza submetido", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(FormIRRSwipe.this, "Formulário de limpeza guardado", Toast.LENGTH_LONG);
                 toast.show();
                 Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -168,6 +174,28 @@ public class FormIRRSwipe extends AppCompatActivity {
             return super.onOptionsItemSelected(item);
     }
 
+    public void abrirMapa(View view)  {
+        startActivityForResult(new Intent(this, Mapa_rios.class),1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("latlan_current");
+                this.currLoc.setText(result);
+               // Log.e("resultado",result);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+                Log.e("resultado","nao recebeu nada");
+
+            }
+        }
+    }//onActivityResult
+
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -176,11 +204,17 @@ public class FormIRRSwipe extends AppCompatActivity {
 
         Form_IRR form;
         ProgressBar progessbar;
+        private EditText currLoc;
+        private EditText selctLoc;
+        FormIRRSwipe app;
 
-        public SectionsPagerAdapter(FragmentManager fm, Form_IRR form) {
+        public SectionsPagerAdapter(FragmentManager fm, Form_IRR form, EditText currLoc,EditText selctLoc, FormIRRSwipe app) {
             super(fm);
             this.form = form;
             progessbar = (ProgressBar) findViewById(R.id.progressBar2);
+            this.currLoc=currLoc;
+            this.selctLoc=selctLoc;
+            this.app=app;
         }
 
         @Override
@@ -188,13 +222,13 @@ public class FormIRRSwipe extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 
-            return PlaceholderFragment.newInstance(position, form, progessbar);
+            return PlaceholderFragment.newInstance(position, form, progessbar, this, currLoc, selctLoc,app);
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 33;
+            return 34;
         }
 
         @Override
@@ -223,14 +257,18 @@ public class FormIRRSwipe extends AppCompatActivity {
         private static final String ARG_SECTION_NUMBER = "section_number";
         Form_IRR form;
         ProgressBar progessbar;
+        SectionsPagerAdapter sectionsPagerAdapter;
+        private EditText currLoc;
+        private EditText selctLoc;
+        FormIRRSwipe app;
 
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber, Form_IRR form, ProgressBar progessbar) {
+        public static PlaceholderFragment newInstance(int sectionNumber, Form_IRR form, ProgressBar progessbar, SectionsPagerAdapter sectionsPagerAdapter, EditText e1,EditText e2, FormIRRSwipe app) {
 
-            PlaceholderFragment fragment = new PlaceholderFragment(form, progessbar);
+            PlaceholderFragment fragment = new PlaceholderFragment(form, progessbar,e1,e2,app);
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
@@ -238,30 +276,69 @@ public class FormIRRSwipe extends AppCompatActivity {
             return fragment;
         }
 
-        public PlaceholderFragment(Form_IRR form, ProgressBar progessbar) {
+        public PlaceholderFragment(Form_IRR form, ProgressBar progessbar, EditText e1,EditText e2, FormIRRSwipe app) {
             this.form = form;
             this.progessbar = progessbar;
+            this.currLoc=e1;
+            this.selctLoc=e2;
+            this.app=app;
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_form_irrswipe, container, false);
-            LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.irr_linear);
-
 
             int number = getArguments().getInt(ARG_SECTION_NUMBER);
             progessbar.setProgress(number);
+            View rootView;
+            if(number==0){
+               rootView = inflater.inflate(R.layout.fragment_form_irrsyipe_inicial, container, false);
+               this.app.currLoc= (EditText) rootView.findViewById(R.id.currLocEditText);
 
-            try {
-                this.form.getPerguntas().get(number).generate(linearLayout, this.getContext());
-            } catch (IOException e) {
-                e.printStackTrace();
+
             }
-            this.form.getPerguntas().get(number).setAnswer();
+            else {
+            rootView = inflater.inflate(R.layout.fragment_form_irrswipe, container, false);
+            LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.irr_linear);
+
+
+
+
+
+
+                try {
+                    this.form.getPerguntas().get(number-1).generate(linearLayout, this.getContext());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                this.form.getPerguntas().get(number-1).setAnswer();
+            }
 
             return rootView;
         }
+
+
+        public void abrirMapa(View view)  {
+            startActivityForResult(new Intent(null, Mapa_rios.class),1);
+        }
+
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+            if (requestCode == 1) {
+                if(resultCode == Activity.RESULT_OK){
+                    String result=data.getStringExtra("latlan_current");
+                    Log.e("resultado",result);
+                }
+                if (resultCode == Activity.RESULT_CANCELED) {
+                    //Write your code if there's no result
+                    Log.e("resultado","nao recebeu nada");
+
+                }
+            }
+        }//onActivityResult
+
+
 
         @Override
         public void onPause() {

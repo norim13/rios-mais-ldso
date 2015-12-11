@@ -36,6 +36,7 @@ public class Form_IRR extends Form implements Serializable {
     private static final long serialVersionUID = -622335515469057949L;
     Float lat_curr,lon_curr;
     Float lat_sel,lon_sel;
+    int margem;
 
     String file_name;
 
