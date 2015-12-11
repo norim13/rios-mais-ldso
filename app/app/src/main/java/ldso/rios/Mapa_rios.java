@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -31,7 +33,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import ldso.rios.Autenticacao.Login;
+import ldso.rios.DataBases.DB_functions;
 import ldso.rios.MainActivities.GuardaRios;
 
 public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -272,15 +279,28 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
     public void goto_next(View view)  {
         //startActivity(new Intent(this, TesteChart.class));
         Intent returnIntent = new Intent();
-        if (current_loc!=null)
-        returnIntent.putExtra("latlan_current",current_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
+        if (current_loc!=null) {
+            //returnIntent.putExtra("latlan_current",current_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
+            if (DB_functions.haveNetworkConnection(this.getApplicationContext()))
+                returnIntent.putExtra("latlan_current", this.getLocationName(current_loc.getPosition()));
+            else
+                returnIntent.putExtra("latlan_current", current_loc.getPosition().latitude + ";" + current_loc.getPosition().longitude);
+        }
+
         else
             returnIntent.putExtra("latlan_current","0");
 
         if (select_loc!=null)
-        returnIntent.putExtra("latlan_picked",select_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
+        {
+            if (DB_functions.haveNetworkConnection(this.getApplicationContext()))
+                returnIntent.putExtra("latlan_picked",this.getLocationName(select_loc.getPosition()));
+            else
+                returnIntent.putExtra("latlan_picked",select_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
+        }
         else
             returnIntent.putExtra("latlan_picked","0");
+
+
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
 
@@ -316,6 +336,29 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
 
 
 
+    public String getLocationName(LatLng locations){
+        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        String provider = locationManager.getBestProvider(new Criteria(), true);
+
+        List<String> providerList = locationManager.getAllProviders();
+        if(null!=locations && null!=providerList && providerList.size()>0){
+            double longitude = locations.longitude;
+            double latitude = locations.latitude;
+            Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+            try {
+                List<Address> listAddresses = geocoder.getFromLocation(latitude, longitude, 1);
+                if(null!=listAddresses&&listAddresses.size()>0){
+                    String _Location = listAddresses.get(0).getAddressLine(0);
+                    return _Location;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "";
+            }
+
+        }
+        return "";
+    }
 
 
 }

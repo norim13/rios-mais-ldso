@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class Profile extends AppCompatActivity {
     TextView formacao;
     TextView profissao;
     TextView habilitacoes;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +49,15 @@ public class Profile extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        progressBar= (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setIndeterminate(true);
         updateProfileView();
 
+
+
+
         DB_functions.getUserData(this, User.getInstance().getEmail(),User.getInstance().getAuthentication_token());
+
     }
 
     @Override
@@ -122,7 +130,9 @@ public class Profile extends AppCompatActivity {
 
                             updateProfileView();
                             Log.e("profile","dados diferentes!");
+                            progressBar.setIndeterminate(false);
                         }
+                        progressBar.setIndeterminate(false);
                     }
                 });
             }

@@ -1,5 +1,8 @@
 package ldso.rios.DataBases;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.SystemClock;
 import android.util.Log;
@@ -1287,6 +1290,7 @@ public class DB_functions {
 
     public static void getForms(final String token,final String email, final Form_IRR_mainActivity formIRR) throws IOException, JSONException {
 
+
         new Thread(new Runnable() {
             public void run() {
 
@@ -1801,4 +1805,22 @@ public class DB_functions {
         }).start();
     }
 
+
+
+    public static boolean haveNetworkConnection(Context c) {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
 }

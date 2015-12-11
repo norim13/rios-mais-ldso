@@ -17,9 +17,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -53,8 +53,8 @@ public class FormIRRSwipe extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private Form_IRR form;
     private Boolean novo;                               //se true é um novo formulairo, se é falso, é um edit
-    private EditText currLoc;
-    private EditText selctLoc;
+    private RadioButton currLoc;
+    private RadioButton selctLoc;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -184,7 +184,12 @@ public class FormIRRSwipe extends AppCompatActivity {
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
                 String result=data.getStringExtra("latlan_current");
-                this.currLoc.setText(result);
+                if (!result.contentEquals("0"))
+                this.currLoc.setText("Atual: "+result);
+
+                result=data.getStringExtra("latlan_picked");
+                if (!result.contentEquals("0"))
+                this.selctLoc.setText("Escolhida: "+result);
                // Log.e("resultado",result);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -204,11 +209,11 @@ public class FormIRRSwipe extends AppCompatActivity {
 
         Form_IRR form;
         ProgressBar progessbar;
-        private EditText currLoc;
-        private EditText selctLoc;
+        private RadioButton currLoc;
+        private RadioButton selctLoc;
         FormIRRSwipe app;
 
-        public SectionsPagerAdapter(FragmentManager fm, Form_IRR form, EditText currLoc,EditText selctLoc, FormIRRSwipe app) {
+        public SectionsPagerAdapter(FragmentManager fm, Form_IRR form, RadioButton currLoc,RadioButton selctLoc, FormIRRSwipe app) {
             super(fm);
             this.form = form;
             progessbar = (ProgressBar) findViewById(R.id.progressBar2);
@@ -258,15 +263,15 @@ public class FormIRRSwipe extends AppCompatActivity {
         Form_IRR form;
         ProgressBar progessbar;
         SectionsPagerAdapter sectionsPagerAdapter;
-        private EditText currLoc;
-        private EditText selctLoc;
+        private RadioButton currLoc;
+        private RadioButton selctLoc;
         FormIRRSwipe app;
 
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber, Form_IRR form, ProgressBar progessbar, SectionsPagerAdapter sectionsPagerAdapter, EditText e1,EditText e2, FormIRRSwipe app) {
+        public static PlaceholderFragment newInstance(int sectionNumber, Form_IRR form, ProgressBar progessbar, SectionsPagerAdapter sectionsPagerAdapter, RadioButton e1,RadioButton e2, FormIRRSwipe app) {
 
             PlaceholderFragment fragment = new PlaceholderFragment(form, progessbar,e1,e2,app);
             Bundle args = new Bundle();
@@ -276,7 +281,7 @@ public class FormIRRSwipe extends AppCompatActivity {
             return fragment;
         }
 
-        public PlaceholderFragment(Form_IRR form, ProgressBar progessbar, EditText e1,EditText e2, FormIRRSwipe app) {
+        public PlaceholderFragment(Form_IRR form, ProgressBar progessbar, RadioButton e1,RadioButton e2, FormIRRSwipe app) {
             this.form = form;
             this.progessbar = progessbar;
             this.currLoc=e1;
@@ -293,7 +298,8 @@ public class FormIRRSwipe extends AppCompatActivity {
             View rootView;
             if(number==0){
                rootView = inflater.inflate(R.layout.fragment_form_irrsyipe_inicial, container, false);
-               this.app.currLoc= (EditText) rootView.findViewById(R.id.currLocEditText);
+               this.app.currLoc= (RadioButton) rootView.findViewById(R.id.currLocRadioButton);
+                this.app.selctLoc=(RadioButton)rootView.findViewById(R.id.selctLocRadioButton);
 
 
             }

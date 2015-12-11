@@ -32,7 +32,7 @@
                     android:id="@+id/link_docs_irr_1"
                     android:layout_below="@+id/imageView11"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="10dp"
                     android:textAlignment="center"
                     android:textSize="21dp" />
 
@@ -94,13 +94,18 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="pteiga@gmail.com"
                     android:id="@+id/textView24"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="26dp"
                     android:textAlignment="center"
                     android:textColor="@color/black"
+                    android:autoLink="email"
                     android:layout_below="@+id/textView22"
-                    android:layout_alignRight="@+id/imageView11"
-                    android:layout_alignEnd="@+id/imageView11"
-                    android:autoLink="email" />
+                    android:layout_alignEnd="@+id/textView20" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/textView24"
+                    android:layout_centerHorizontal="true"></FrameLayout>
             </RelativeLayout>
 
 </ScrollView>

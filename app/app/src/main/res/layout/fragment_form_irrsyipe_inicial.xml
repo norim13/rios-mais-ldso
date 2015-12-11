@@ -43,34 +43,30 @@
                 android:layout_below="@+id/editText"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:paddingTop="10dp" />
+                android:paddingTop="10dp"
+                android:layout_marginTop="20dp" />
 
-            <EditText
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/currLocEditText"
-                android:layout_below="@+id/textView6"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_toStartOf="@+id/imageButton" />
-
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/imageButton"
-                android:src="@drawable/ic_my_location_blue"
+                android:text="Mapa"
+                android:id="@+id/button4"
                 android:background="@null"
-                android:layout_alignTop="@+id/button4"
-                android:layout_toLeftOf="@+id/button4"
-                android:layout_toStartOf="@+id/button4" />
+                android:textColor="#2397f3"
+                android:layout_gravity="right"
+                android:onClick="abrirMapa"
+                android:layout_below="@+id/textView6"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/currLocEditText"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/linearLayout3">
+                android:id="@+id/linearLayout3"
+                android:layout_below="@+id/radioGroup"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -108,18 +104,38 @@
                 </RadioGroup>
             </LinearLayout>
 
-            <Button
+            <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Abrir Mapa"
-                android:id="@+id/button4"
-                android:background="@null"
-                android:textColor="#2397f3"
-                android:layout_gravity="right"
+                android:id="@+id/radioGroup"
                 android:layout_below="@+id/textView6"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:onClick="abrirMapa"/>
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/button4"
+                android:layout_toStartOf="@+id/button4">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Atual"
+                    android:id="@+id/currLocRadioButton"
+                    android:checked="false"
+                    android:padding="10dp"
+                    android:layout_below="@+id/textView6"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Escolhida"
+                    android:id="@+id/selctLocRadioButton"
+                    android:checked="false"
+                    android:padding="10dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+            </RadioGroup>
 
 
         </RelativeLayout>
