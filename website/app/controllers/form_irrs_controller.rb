@@ -3,8 +3,12 @@ class FormIrrsController < ApplicationController
 
 	def custom_auth!
 
-		if :authenticate_user! && current_user.permissoes > 1
-			return true
+		if :authenticate_user!
+			if current_user.permissoes > 1
+				return true
+			else
+				render 'noaccess'
+			end
 		else
 			render 'noaccess'
 		end
