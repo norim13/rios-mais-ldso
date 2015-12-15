@@ -104,4 +104,19 @@
         android:layout_alignRight="@+id/button_irr_form"
         android:layout_alignEnd="@+id/button_irr_form" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload Imagens"
+        android:id="@+id/uploadImagens"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:onClick="uploadImagens"
+        android:layout_alignTop="@+id/button3"
+        android:layout_alignLeft="@+id/button"
+        android:layout_alignStart="@+id/button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        />
+
 </RelativeLayout>

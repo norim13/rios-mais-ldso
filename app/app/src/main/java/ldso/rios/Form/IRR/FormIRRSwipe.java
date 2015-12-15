@@ -316,9 +316,9 @@ public class FormIRRSwipe extends AppCompatActivity {
                 if (this.app.form.current_location!=null){
                     Log.e("bool","nao é null");
                     if (this.app.form.current_location)
-                        this.app.form.currLoc.setEnabled(true);
+                        this.app.form.currLoc.setChecked(true);
                     else
-                        this.app.form.selctLoc.setEnabled(true);
+                        this.app.form.selctLoc.setChecked(true);
                 }
 
 

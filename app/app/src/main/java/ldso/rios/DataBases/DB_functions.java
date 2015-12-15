@@ -265,8 +265,8 @@ public class DB_functions {
                     try {
                         response.accumulate("idRio", "201.04");
                         response.accumulate("margem", "1");
-                        response.accumulate("lat", "1");
-                        response.accumulate("lon", "1");
+                        response.accumulate("lat", form_irr.lat_final+"");
+                        response.accumulate("lon", form_irr.lon_final+"");
                         response.accumulate("nomeRio", "Rio Tinto");
 
                         response.accumulate("tipoDeVale", (int) form_irr.getRespostas().get(1));

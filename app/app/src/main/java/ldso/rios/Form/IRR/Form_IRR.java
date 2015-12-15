@@ -118,6 +118,18 @@ public class Form_IRR extends Form implements Serializable {
         ArrayList<Integer> ai= new ArrayList<Integer>();
         ArrayList<Float> af= new ArrayList<Float>();
 
+        this.lat_sel= Float.parseFloat(jsonObject.get("lat").toString());
+        this.lon_sel=  Float.parseFloat( jsonObject.get("lon").toString());
+        this.nomeRio= (String) jsonObject.get("nomeRio");
+
+        ArrayList<Float> arrayLocation = new ArrayList<Float>();
+        arrayLocation.add(0f);
+        arrayLocation.add(0f);
+        arrayLocation.add(this.lat_sel);
+        arrayLocation.add(this.lon_sel);
+        arrayLocation.add(2f);           //set radiobutton to select the "selected place"
+        this.respostas.put(0,arrayLocation);
+
         Log.e("form", "size:" + jsonObject.toString());
         //Tipo de Vale
         this.respostas.put(1, jsonObject.get("tipoDeVale"));
