@@ -69,16 +69,15 @@ public class ViewFormIRR extends AppCompatActivity {
 
 
 
-        Form_functions.createTitle("Rio:",linearLayout,this.getApplicationContext());
+        Form_functions.createTitle("Rio:"+this.form.nomeRio,linearLayout,this.getApplicationContext());
         if (this.form.current_location==null)
-        Form_functions.createTitle("Localização:"+this.form.lat_sel+";"+this.form.lon_sel,linearLayout,this.getApplicationContext());
+        Form_functions.createTitle("Localização:"+0+";"+0,linearLayout,this.getApplicationContext());
         else if (this.form.current_location)
             Form_functions.createTitle("Localização:"+this.form.lat_curr+";"+this.form.lon_curr,linearLayout,this.getApplicationContext());
         else
             Form_functions.createTitle("Localização:"+this.form.lat_sel+";"+this.form.lon_sel,linearLayout,this.getApplicationContext());
 
-
-        Form_functions.createTitle("Margem:",linearLayout,this.getApplicationContext());
+        Form_functions.createTitle("Margem:"+ ((this.form.margem == 1) ? "Esquerda" : "Direita"),linearLayout,this.getApplicationContext());
 
 
 

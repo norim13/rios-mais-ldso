@@ -45,8 +45,8 @@ public class Form implements Serializable {
     Float lat_curr,lon_curr;
     Float lat_sel,lon_sel;
     public Float lat_final,lon_final;
-    String nomeRio;
-    int margem;
+    public String nomeRio="";
+    public int margem=1;
     Boolean current_location;
 
 
@@ -105,6 +105,10 @@ public class Form implements Serializable {
                 this.current_location = false;
         }
 
+        ArrayList<Object> arrayNomeEMargem = (ArrayList<Object>) respostas.get(-1);
+        this.nomeRio= (String) arrayNomeEMargem.get(0);
+        this.margem= (int) arrayNomeEMargem.get(1);
+
         for(int i=0;i<32;i++) {
             try {
                 perguntas.get(i).setAnswer(respostas.get(i + 1), respotas_outros.get(i + 1));
@@ -126,6 +130,51 @@ public class Form implements Serializable {
                 {
                     lat_curr = Float.valueOf(currLoc.getText().toString().split("Atual: ")[1].split(";")[0]);
                     lon_curr = Float.valueOf(currLoc.getText().toString().split("Atual: ")[1].split(";")[1]);
+                    current_location=true;
+
+                }
+                else {
+                    Log.e("lat_sel",(selctLoc.getText().toString()));
+                    lat_sel = Float.valueOf(selctLoc.getText().toString().split("Escolhida: ")[1].split(";")[0]);
+                    lon_sel = Float.valueOf(selctLoc.getText().toString().split("Escolhida: ")[1].split(";")[1]);
+                    current_location=false;
+                }
+            }
+            else {
+                lat_curr=lon_curr=lat_sel=lon_sel=0f;
+                current_location=null;
+
+            }
+        }
+        catch (Exception e){
+
+        }
+
+        try {
+            if(margEsquerda.isChecked() || margDireita.isChecked())
+            {
+                if (margEsquerda.isChecked())
+                {
+                    margem=1;
+
+                }
+                else {
+                    margem=2;
+                }
+            }
+        }
+        catch (Exception e){
+
+        }
+
+        this.nomeRio=this.nomeRioEditText.getText().toString();
+
+        try {
+            if(margEsquerda.isChecked() || margDireita.isChecked())
+            {
+                if (margEsquerda.isChecked())
+                {
+                    margem=0;
                     current_location=true;
 
                 }

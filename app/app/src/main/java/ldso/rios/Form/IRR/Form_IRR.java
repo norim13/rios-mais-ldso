@@ -130,6 +130,14 @@ public class Form_IRR extends Form implements Serializable {
         arrayLocation.add(2f);           //set radiobutton to select the "selected place"
         this.respostas.put(0,arrayLocation);
 
+        this.margem=jsonObject.getInt("margem");
+
+        ArrayList<Object> arrayNomeEMargem= new ArrayList<Object>();
+        arrayNomeEMargem.add(jsonObject.get("nomeRio").toString());
+        arrayNomeEMargem.add(jsonObject.getInt("margem"));
+
+        this.respostas.put(-1,arrayNomeEMargem);
+
         Log.e("form", "size:" + jsonObject.toString());
         //Tipo de Vale
         this.respostas.put(1, jsonObject.get("tipoDeVale"));
