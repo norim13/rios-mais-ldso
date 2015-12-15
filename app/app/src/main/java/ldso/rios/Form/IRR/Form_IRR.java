@@ -514,7 +514,7 @@ public class Form_IRR extends Form implements Serializable {
     public void setDate(){
 
         Calendar calendar = Calendar.getInstance();
-        this.respostas.put(-1,calendar.MINUTE+"-"+calendar.HOUR+"-"+calendar.DAY_OF_MONTH+"-"+calendar.MONTH+"-"+calendar.YEAR);
+        this.respostas.put(-4,calendar.MINUTE+"-"+calendar.HOUR+"-"+calendar.DAY_OF_MONTH+"-"+calendar.MONTH+"-"+calendar.YEAR);
 
     }
 

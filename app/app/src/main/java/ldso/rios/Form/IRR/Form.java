@@ -106,8 +106,10 @@ public class Form implements Serializable {
         }
 
         ArrayList<Object> arrayNomeEMargem = (ArrayList<Object>) respostas.get(-1);
-        this.nomeRio= (String) arrayNomeEMargem.get(0);
-        this.margem= (int) arrayNomeEMargem.get(1);
+        if(arrayNomeEMargem!=null) {
+            this.nomeRio = (String) arrayNomeEMargem.get(0);
+            this.margem = (int) arrayNomeEMargem.get(1);
+        }
 
         for(int i=0;i<32;i++) {
             try {
@@ -166,9 +168,12 @@ public class Form implements Serializable {
         catch (Exception e){
 
         }
+        try {
+            this.nomeRio = this.nomeRioEditText.getText().toString();
+        }
+        catch (Exception e){
 
-        this.nomeRio=this.nomeRioEditText.getText().toString();
-
+        }
         try {
             if(margEsquerda.isChecked() || margDireita.isChecked())
             {
@@ -200,7 +205,7 @@ public class Form implements Serializable {
     for (int i=1;i<=this.getPerguntas().size();i++)
             try {
         fillAnswer(i-1);
-        //Log.e("resposta", i + "-" + this.respostas.get(i).toString()+"-" + this.other_response.get(i).toString());
+        Log.e("resposta", i + "-" + this.respostas.get(i).toString()+"-" + this.other_response.get(i).toString());
 
     } catch (Exception e) {
         Log.e("resposta", i + "-");
@@ -232,6 +237,13 @@ public class Form implements Serializable {
 
 
         this.respostas.put(0,arrayLocation);
+
+
+        ArrayList<Object> arrayNomeEMargem= new ArrayList<Object>();
+        arrayNomeEMargem.add(this.nomeRio);
+        arrayNomeEMargem.add(this.margem);
+
+        this.respostas.put(-1,arrayNomeEMargem);
 
 }
 

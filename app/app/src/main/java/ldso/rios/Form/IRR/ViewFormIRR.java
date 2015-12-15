@@ -138,11 +138,7 @@ public class ViewFormIRR extends AppCompatActivity {
 
             //Form_IRR.loadFromIRR(this.getApplicationContext());
             this.form.fillAnswers();
-            Form_IRR submeter= new Form_IRR();
-            submeter.generate();
-            submeter.setRespostas(this.form.respostas,this.form.other_response);
-            submeter.fillAnswers();
-            Form_IRR.uploadFormIRR(this.getApplicationContext(),submeter);
+            Form_IRR.uploadFormIRR(this.getApplicationContext(),this.form);
             this.finish();
 
 
