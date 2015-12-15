@@ -53,8 +53,9 @@ public class FormIRRSwipe extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private Form_IRR form;
     private Boolean novo;                               //se true é um novo formulairo, se é falso, é um edit
-    private RadioButton currLoc;
-    private RadioButton selctLoc;
+    Float lat_curr,lon_curr;
+    Float lat_sel,lon_sel;
+    int margem;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -72,21 +73,18 @@ public class FormIRRSwipe extends AppCompatActivity {
         this.form.generate();
         //ha respostas, logo é um edit
         if (getIntent().getSerializableExtra("form_irr") != null) {
-            HashMap<Integer,Object> respostas=(HashMap<Integer, Object>) getIntent().getSerializableExtra("form_irr");
-            HashMap<Integer,String> outros= (HashMap<Integer, String>) getIntent().getSerializableExtra("form_irr_other");
-            this.form.setRespostas(respostas,outros);
-            for(int k =0;k<32;k++)
-                try{
-                    Log.e("string-",k+" -"+outros.get(k));
-                }
-                catch (Exception e){
+            HashMap<Integer, Object> respostas = (HashMap<Integer, Object>) getIntent().getSerializableExtra("form_irr");
+            HashMap<Integer, String> outros = (HashMap<Integer, String>) getIntent().getSerializableExtra("form_irr_other");
+            this.form.setRespostas(respostas, outros);
+            for (int k = 0; k < 32; k++)
+                try {
+                    Log.e("string-", k + " -" + outros.get(k));
+                } catch (Exception e) {
 
                 }
         }
 
-        Log.e("teste",this.form.toString());
-
-
+        Log.e("teste", this.form.toString());
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -95,17 +93,16 @@ public class FormIRRSwipe extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this.form, this.currLoc,this.selctLoc,this);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this.form, this.form.currLoc, this.form.selctLoc, this);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
-        final String id= (String) this.getIntent().getSerializableExtra("id");
-        if(id!=null)
-        novo = false;
-
+        final String id = (String) this.getIntent().getSerializableExtra("id");
+        if (id != null)
+            novo = false;
 
 
         //se clicar no ok
@@ -125,7 +122,7 @@ public class FormIRRSwipe extends AppCompatActivity {
 
                     else
                         DB_functions.update(Form_functions.getUser(getApplicationContext())[0],
-                                Form_functions.getUser(getApplicationContext())[1],id, form);
+                                Form_functions.getUser(getApplicationContext())[1], id, form);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -152,8 +149,7 @@ public class FormIRRSwipe extends AppCompatActivity {
             startActivity(new Intent(this, GuardaRios.class));
         if (id == R.id.navigate_account)
             startActivity(new Intent(this, Login.class));
-        if (id == R.id.navigate_save)
-        {
+        if (id == R.id.navigate_save) {
 
             try {
                 //Form_IRR.loadFromIRR(this.getApplicationContext());
@@ -168,33 +164,40 @@ public class FormIRRSwipe extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-             //Log.e("teste","tamanho do array"+Form_IRR.all_from_irrs.size());
+            //Log.e("teste","tamanho do array"+Form_IRR.all_from_irrs.size());
         }
 
-            return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
-    public void abrirMapa(View view)  {
-        startActivityForResult(new Intent(this, Mapa_rios.class),1);
+    public void abrirMapa(View view) {
+        startActivityForResult(new Intent(this, Mapa_rios.class), 1);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 1) {
-            if(resultCode == Activity.RESULT_OK){
-                String result=data.getStringExtra("latlan_current");
-                if (!result.contentEquals("0"))
-                this.currLoc.setText("Atual: "+result);
+            if (resultCode == Activity.RESULT_OK) {
+                String result = data.getStringExtra("latlan_current");
+                if (!result.contentEquals("0")) {
+                    this.form.currLoc.setText("Atual: " + result);
+                    this.lat_curr= Float.valueOf(result.split(";")[0]);
+                    this.lon_curr= Float.valueOf(result.split(";")[1]);
 
-                result=data.getStringExtra("latlan_picked");
-                if (!result.contentEquals("0"))
-                this.selctLoc.setText("Escolhida: "+result);
-               // Log.e("resultado",result);
+                }
+
+                result = data.getStringExtra("latlan_picked");
+                if (!result.contentEquals("0")) {
+                    this.form.selctLoc.setText("Escolhida: " + result);
+                    this.lat_sel= Float.valueOf(result.split(";")[0]);
+                    this.lon_sel= Float.valueOf(result.split(";")[1]);
+                }
+                // Log.e("resultado",result);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
-                Log.e("resultado","nao recebeu nada");
+                Log.e("resultado", "nao recebeu nada");
 
             }
         }
@@ -213,13 +216,13 @@ public class FormIRRSwipe extends AppCompatActivity {
         private RadioButton selctLoc;
         FormIRRSwipe app;
 
-        public SectionsPagerAdapter(FragmentManager fm, Form_IRR form, RadioButton currLoc,RadioButton selctLoc, FormIRRSwipe app) {
+        public SectionsPagerAdapter(FragmentManager fm, Form_IRR form, RadioButton currLoc, RadioButton selctLoc, FormIRRSwipe app) {
             super(fm);
             this.form = form;
             progessbar = (ProgressBar) findViewById(R.id.progressBar2);
-            this.currLoc=currLoc;
-            this.selctLoc=selctLoc;
-            this.app=app;
+            this.currLoc = currLoc;
+            this.selctLoc = selctLoc;
+            this.app = app;
         }
 
         @Override
@@ -227,7 +230,7 @@ public class FormIRRSwipe extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 
-            return PlaceholderFragment.newInstance(position, form, progessbar, this, currLoc, selctLoc,app);
+            return PlaceholderFragment.newInstance(position, form, progessbar, this, currLoc, selctLoc, app);
         }
 
         @Override
@@ -271,9 +274,9 @@ public class FormIRRSwipe extends AppCompatActivity {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber, Form_IRR form, ProgressBar progessbar, SectionsPagerAdapter sectionsPagerAdapter, RadioButton e1,RadioButton e2, FormIRRSwipe app) {
+        public static PlaceholderFragment newInstance(int sectionNumber, Form_IRR form, ProgressBar progessbar, SectionsPagerAdapter sectionsPagerAdapter, RadioButton e1, RadioButton e2, FormIRRSwipe app) {
 
-            PlaceholderFragment fragment = new PlaceholderFragment(form, progessbar,e1,e2,app);
+            PlaceholderFragment fragment = new PlaceholderFragment(form, progessbar, e1, e2, app);
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
@@ -281,12 +284,12 @@ public class FormIRRSwipe extends AppCompatActivity {
             return fragment;
         }
 
-        public PlaceholderFragment(Form_IRR form, ProgressBar progessbar, RadioButton e1,RadioButton e2, FormIRRSwipe app) {
+        public PlaceholderFragment(Form_IRR form, ProgressBar progessbar, RadioButton e1, RadioButton e2, FormIRRSwipe app) {
             this.form = form;
             this.progessbar = progessbar;
-            this.currLoc=e1;
-            this.selctLoc=e2;
-            this.app=app;
+            this.currLoc = e1;
+            this.selctLoc = e2;
+            this.app = app;
         }
 
         @Override
@@ -296,54 +299,66 @@ public class FormIRRSwipe extends AppCompatActivity {
             int number = getArguments().getInt(ARG_SECTION_NUMBER);
             progessbar.setProgress(number);
             View rootView;
-            if(number==0){
-               rootView = inflater.inflate(R.layout.fragment_form_irrsyipe_inicial, container, false);
-               this.app.currLoc= (RadioButton) rootView.findViewById(R.id.currLocRadioButton);
-                this.app.selctLoc=(RadioButton)rootView.findViewById(R.id.selctLocRadioButton);
+            if (number == 0) {
+                rootView = inflater.inflate(R.layout.fragment_form_irrsyipe_inicial, container, false);
+                this.app.form.currLoc = (RadioButton) rootView.findViewById(R.id.currLocRadioButton);
+                if (this.form.lat_curr!=null)
+                this.app.form.currLoc.setText("Atual: "+this.form.lat_curr+";"+this.form.lon_curr);
+                else
+                    this.app.form.currLoc.setText("Atual: "+0+";"+0);
+
+                this.app.form.selctLoc = (RadioButton) rootView.findViewById(R.id.selctLocRadioButton);
+                if (this.form.lat_sel!=null)
+                this.app.form.selctLoc.setText("Escolhida: "+this.form.lat_sel+";"+this.form.lon_sel);
+                else
+                    this.app.form.selctLoc.setText("Escolhida: "+0+";"+0);
+
+                if (this.app.form.current_location!=null){
+                    Log.e("bool","nao é null");
+                    if (this.app.form.current_location)
+                        this.app.form.currLoc.setEnabled(true);
+                    else
+                        this.app.form.selctLoc.setEnabled(true);
+                }
 
 
-            }
-            else {
-            rootView = inflater.inflate(R.layout.fragment_form_irrswipe, container, false);
-            LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.irr_linear);
 
-
-
-
+            } else {
+                rootView = inflater.inflate(R.layout.fragment_form_irrswipe, container, false);
+                LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.irr_linear);
 
 
                 try {
-                    this.form.getPerguntas().get(number-1).generate(linearLayout, this.getContext());
+                    this.form.getPerguntas().get(number - 1).generate(linearLayout, this.getContext());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                this.form.getPerguntas().get(number-1).setAnswer();
+                this.form.getPerguntas().get(number - 1).setAnswer();
             }
 
             return rootView;
         }
 
 
-        public void abrirMapa(View view)  {
-            startActivityForResult(new Intent(null, Mapa_rios.class),1);
+        public void abrirMapa(View view) {
+            startActivityForResult(new Intent(null, Mapa_rios.class), 1);
         }
 
         @Override
         public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
             if (requestCode == 1) {
-                if(resultCode == Activity.RESULT_OK){
-                    String result=data.getStringExtra("latlan_current");
-                    Log.e("resultado",result);
+                if (resultCode == Activity.RESULT_OK) {
+                    String result = data.getStringExtra("latlan_current");
+                    Log.e("resultado", result);
                 }
                 if (resultCode == Activity.RESULT_CANCELED) {
                     //Write your code if there's no result
-                    Log.e("resultado","nao recebeu nada");
+                    Log.e("resultado", "nao recebeu nada");
 
                 }
             }
         }//onActivityResult
-
 
 
         @Override

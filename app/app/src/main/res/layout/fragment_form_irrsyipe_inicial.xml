@@ -117,7 +117,7 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Atual"
+                    android:text="Atual: 0;0"
                     android:id="@+id/currLocRadioButton"
                     android:checked="false"
                     android:padding="10dp"
@@ -128,7 +128,7 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Escolhida"
+                    android:text="Escolhida: 0;0"
                     android:id="@+id/selctLocRadioButton"
                     android:checked="false"
                     android:padding="10dp"

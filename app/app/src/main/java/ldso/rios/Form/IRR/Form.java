@@ -1,6 +1,8 @@
 package ldso.rios.Form.IRR;
 
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.RadioButton;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,9 +36,25 @@ public class Form implements Serializable {
     protected HashMap<Integer,String> other_response;
 
 
+    RadioButton margEsquerda;
+    RadioButton margDireita;
+    RadioButton currLoc;
+    RadioButton selctLoc;
+    EditText nomeRio;
+
+    Float lat_curr,lon_curr;
+    Float lat_sel,lon_sel;
+    int margem;
+    Boolean current_location;
+
+
+
+
     public void Form(){
         perguntas=new ArrayList<Pergunta>();
         respostas=new HashMap<Integer, Object>();
+        lat_curr=lon_curr=lat_sel=lon_sel=0f;
+        lat_sel=0f;
         teste="mira";
     }
 
@@ -69,6 +87,22 @@ public class Form implements Serializable {
     public void setRespostas(HashMap<Integer, Object> respostas,HashMap<Integer, String> respotas_outros) {
         this.respostas = respostas;
         this.other_response=respotas_outros;
+
+        ArrayList<Float> arrayLocation = (ArrayList<Float>) respostas.get(0);
+        this.lat_curr=arrayLocation.get(0);
+        this.lon_curr=arrayLocation.get(1);
+        this.lat_sel=arrayLocation.get(2);
+        this.lon_sel= arrayLocation.get(3);
+        Float tempCurrent_location=arrayLocation.get(4);
+        if (tempCurrent_location==0f){
+            this.current_location=null;
+        }
+        else if (tempCurrent_location==1f)
+            this.current_location=true;
+        else
+            this.current_location=false;
+
+
         for(int i=0;i<32;i++) {
             try {
                 perguntas.get(i).setAnswer(respostas.get(i + 1), respotas_outros.get(i + 1));
@@ -82,18 +116,56 @@ public class Form implements Serializable {
 
     public void fillAnswers()
     {
-        for (int i=1;i<=this.getPerguntas().size();i++)
-            try {
-                fillAnswer(i-1);
-                //Log.e("resposta", i + "-" + this.respostas.get(i).toString()+"-" + this.other_response.get(i).toString());
-
-            } catch (Exception e) {
-                Log.e("resposta", i + "-");
+        if(currLoc.isChecked() || selctLoc.isChecked())
+        {
+            if (currLoc.isChecked())
+            {
+                lat_curr = Float.valueOf(currLoc.getText().toString().split("Atual: ")[1].split(";")[0]);
+                lon_curr = Float.valueOf(currLoc.getText().toString().split("Atual: ")[1].split(";")[1]);
+                current_location=true;
 
             }
-        Log.e("resposta","--------");
+            else {
+                Log.e("lat_sel",(selctLoc.getText().toString()));
+                lat_sel = Float.valueOf(selctLoc.getText().toString().split("Escolhida: ")[1].split(";")[0]);
+                lon_sel = Float.valueOf(selctLoc.getText().toString().split("Escolhida: ")[1].split(";")[1]);
+                current_location=false;
+            }
+        }
+        else {
+            lat_curr=lon_curr=lat_sel=lon_sel=0f;
+            current_location=null;
+
+        }
+
+
+    for (int i=1;i<=this.getPerguntas().size();i++)
+            try {
+        fillAnswer(i-1);
+        //Log.e("resposta", i + "-" + this.respostas.get(i).toString()+"-" + this.other_response.get(i).toString());
+
+    } catch (Exception e) {
+        Log.e("resposta", i + "-");
 
     }
+    Log.e("resposta","--------");
+
+        ArrayList<Float> arrayLocation = new ArrayList<Float>();
+        arrayLocation.add(this.lat_curr);
+        arrayLocation.add(this.lon_curr);
+        arrayLocation.add(this.lat_sel);
+        arrayLocation.add(this.lon_sel);
+        if(this.current_location==null)
+            arrayLocation.add(0f);
+        else if (this.current_location)
+            arrayLocation.add(1f);
+        else
+            arrayLocation.add(2f);
+
+
+        this.respostas.put(0,arrayLocation);
+
+}
 
     public HashMap<Integer, Object> getRespostas() {
         return respostas;
