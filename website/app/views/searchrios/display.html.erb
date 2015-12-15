@@ -9,7 +9,7 @@
   <%= render 'common/navbar' %>
 
   <div class="container">
-    <h1>Pesquisa de rios</h1>
+    <h1>Pesquisa de bacias</h1>
     <div class="">
       <form id="searchform" class="remove-side-paddings form-inline" role="search">
         <div class="form-group">
@@ -20,8 +20,8 @@
             <select id="campo-pesquisa" class="form-control" required>
               <option disabled selected> Campo a pesquisar... </option>
               <option value="1">Designação</option>
-              <option value="2">Cód. Rio</option>
-              <option value="3">Bacia</option>
+              <option value="2">Cód. Bacia</option>
+              <option value="3">Tipologia</option>
             </select>
         </div>
 
@@ -34,10 +34,9 @@
     <h3>Resultados</h3>
     <table id="resultados-pesquisa-rios" class="table table-hover table-striped">
       <tr>
-        <th>Cód. Rio</th>
+        <th>Cód. Bacia</th>
         <th>Designação</th>
-        <th>Tipo</th>
-        <th>Bacia</th>
+        <th>Tipologia</th>
         <th style="width: 100px"></th>
       </tr>
     </table>

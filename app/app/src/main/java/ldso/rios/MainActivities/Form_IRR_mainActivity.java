@@ -59,14 +59,25 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
         String token=settings.getString("token", "-1");
         String email=settings.getString("email", "-1");
 
-        //vai buscar os forms de um user
         try {
-            DB_functions.getForms(token, email, this);
+            formsFormUserSaved();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
+
+        if (DB_functions.haveNetworkConnection(this.getApplicationContext())) {
+            //vai buscar os forms de um user
+            try {
+                DB_functions.getForms(token, email, this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        else
+            progressBar.setVisibility(View.INVISIBLE);
 
 
 
@@ -159,73 +170,14 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
                                 linearLayout.addView(v);
                             }
 
-                            final ArrayList<HashMap<Integer,Object>> respostas =Form_IRR.loadFromIRR(getApplicationContext());
-
-
-                            TextView title2= new TextView(getApplicationContext());
-                            title2.setText("Guardados:");
-                            title2.setTextSize(20);
-                            title2.setTextColor(Color.BLACK);
-                            linearLayout.addView(title2);
-
-                            for (int i = 0; i < respostas.size(); i++) {
-
-                                String idRio = "idrios";
-                                String date= ""+respostas.get(i).get(-1);
-                                HashMap<Integer,String> outras= (HashMap<Integer,String>)respostas.get(i).get(-3);
-                                Log.e("tamanho das strings",outras.size()+"");
-                                for(int k =0;k<32;k++)
-                                    try{
-                                        Log.e("string-",k+" -"+outras.get(k));
-                                    }
-                                    catch (Exception e){
-
-                                    }
-
-
-                                LayoutInflater l = getLayoutInflater();
-                                View v = l.inflate(R.layout.form_irr_cardview, null);
-                                CardView c= (CardView) v.findViewById(R.id.card_view);
-
-                                TextView tv = (TextView) v.findViewById(R.id.name_irr_cardview);
-                                tv.setText("Rio: "+idRio);
-                                tv= (TextView) v.findViewById(R.id.irr_cardview);
-                                tv.setText("Date: "+date);
-
-
-                                final int finalI = i;
-
-
-                                if(respostas.get(i)==null)
-                                    Log.e("teste","a resposta é nula");
-
-                                c.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Log.e("form", "clicou");
-
-
-                                        Log.e("form","clicou");
-                                        Intent i;
-                                        i = new Intent(v.getContext(), ViewFormIRR.class);
-                                        i.putExtra("saved",(String) respostas.get(finalI).get(-2));
-                                        i.putExtra("form_irr",respostas.get(finalI));
-                                        startActivity(i);
 
 
 
-                                    }
-                                });
-
-                                linearLayout.addView(v);
-                            }
 
 
 
 
                         } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
@@ -238,6 +190,66 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
 
     }
 
+    public void formsFormUserSaved() throws IOException {
+        final ArrayList<HashMap<Integer,Object>> respostas =Form_IRR.loadFromIRR(getApplicationContext());
+        TextView title2= new TextView(getApplicationContext());
+        title2.setText("Guardados:");
+        title2.setTextSize(20);
+        title2.setTextColor(Color.BLACK);
+        linearLayout.addView(title2);
+
+        for (int i = 0; i < respostas.size(); i++) {
+
+            String idRio = "idrios";
+            String date= ""+respostas.get(i).get(-1);
+            HashMap<Integer,String> outras= (HashMap<Integer,String>)respostas.get(i).get(-3);
+            Log.e("tamanho das strings",outras.size()+"");
+            for(int k =0;k<32;k++)
+                try{
+                    Log.e("string-",k+" -"+outras.get(k));
+                }
+                catch (Exception e){
+
+                }
+
+
+            LayoutInflater l = getLayoutInflater();
+            View v = l.inflate(R.layout.form_irr_cardview, null);
+            CardView c= (CardView) v.findViewById(R.id.card_view);
+
+            TextView tv = (TextView) v.findViewById(R.id.name_irr_cardview);
+            tv.setText("Rio: "+idRio);
+            tv= (TextView) v.findViewById(R.id.irr_cardview);
+            tv.setText("Date: "+date);
+
+
+            final int finalI = i;
+
+
+            if(respostas.get(i)==null)
+                Log.e("teste","a resposta é nula");
+
+            c.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("form", "clicou");
+
+
+                    Log.e("form","clicou");
+                    Intent i;
+                    i = new Intent(v.getContext(), ViewFormIRR.class);
+                    i.putExtra("saved",(String) respostas.get(finalI).get(-2));
+                    i.putExtra("form_irr",respostas.get(finalI));
+                    startActivity(i);
+
+
+
+                }
+            });
+
+            linearLayout.addView(v);
+        }
+    }
 
 
     //menu action bar

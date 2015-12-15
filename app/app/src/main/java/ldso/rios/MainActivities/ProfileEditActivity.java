@@ -1,9 +1,12 @@
 package ldso.rios.MainActivities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -25,6 +28,8 @@ public class ProfileEditActivity extends AppCompatActivity {
     protected EditText habilitacoes;
     protected EditText profissao;
     protected Switch formacao;
+    private String current_password = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +62,7 @@ public class ProfileEditActivity extends AppCompatActivity {
         habilitacoes.setText(u.getHabilitacoes());
 
         profissao = (EditText) findViewById(R.id.profissaoProfileEditText);
-        profissao.setText(u.getHabilitacoes());
+        profissao.setText(u.getProfissao());
 
         formacao = (Switch) findViewById(R.id.formacaoProfileEditSwitch);
         formacao.setChecked(u.getFormacao());
@@ -96,14 +101,38 @@ public class ProfileEditActivity extends AppCompatActivity {
         }
         if (erro) return;
 
-        DB_functions.editUser(this, User.getInstance().getEmail(),User.getInstance().getAuthentication_token());
+        showInputPasswordDialog(this);
+        //DB_functions.editUser(this, User.getInstance().getEmail(),User.getInstance().getAuthentication_token());
     }
 
-    /*
-    public void deleteProfile(View view) {
-        DB_functions.deleteUser(this, User.getInstance().getEmail(),User.getInstance().getAuthentication_token());
+    public void showInputPasswordDialog(final ProfileEditActivity profileEditActivity) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirme a password atual para confirmar a edição");
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        input.setHint("Password Atual");
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                current_password = input.getText().toString();
+                DB_functions.editUser(profileEditActivity, User.getInstance().getEmail(),User.getInstance().getAuthentication_token());
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
-    */
 
     /*
      * GETTERS AND SETTERS
@@ -243,4 +272,7 @@ public class ProfileEditActivity extends AppCompatActivity {
         this.setResult(0);
     }
 
+    public String getCurrentPassword() {
+        return current_password;
+    }
 }

@@ -3,8 +3,11 @@ Pagina de perfil
     -edit info
 
 Login
-    -Forgot password
-    -por a dar erro especifico de password errada por exemplo
+    Forgot password
+    por a dar erro especifico de password errada por exemplo
+    Editar ainda nao esta a dar
+    Por a verificar aceso à internet
+
 
 Nos formulários do guardarios e irr, por no inicio, a activity dos maps para escolher sitio
 
@@ -12,10 +15,16 @@ Form IRR:
     Verificar IRR valores e resultado
     // Guardar Offline um formulário
     // Ao clicar no submeter, preencher autometicamente todas as opcoes para nao dar erro
-    Por um EditText com "outros" onde é preciso e entegrar isso no json submetdio
+    // Por um EditText com "outros" onde é preciso e entegrar isso no json submetdio
     Grafico com o valor do irr
+    Mapa para escolher sitio onde estamos e margem
+    //Imagens no form irr
+    Quando nao tem, por a guardar
 
 Adicionar "tirar foto" e "foto de galeria" a todos os formularios
 
-Limpeza de Rios
+Todos os acessos a base de dados devem verificar se ha ligação à internet
+
+
+//Limpeza de Rios
 

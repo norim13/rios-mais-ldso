@@ -1,5 +1,18 @@
 class FormIrrsController < ApplicationController
-	before_filter :authenticate_user!, :except => [:info]
+	before_filter :custom_auth!, :except => [:info]
+
+	def custom_auth!
+
+		if authenticate_user!
+			if current_user.permissoes > 1
+				return true
+			else
+				render 'noaccess'
+			end
+		else
+			render 'noaccess'
+		end
+	end
 
 	def info
 		render 'info'

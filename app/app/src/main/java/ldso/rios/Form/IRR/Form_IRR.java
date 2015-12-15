@@ -34,13 +34,25 @@ public class Form_IRR extends Form implements Serializable {
 
 
     private static final long serialVersionUID = -622335515469057949L;
-    Float lat_curr,lon_curr;
-    Float lat_sel,lon_sel;
 
     String file_name;
 
+    public void setLat_curr(Float lat_curr) {
+        this.lat_curr = lat_curr;
+    }
 
-    //public static ArrayList<Form_IRR> all_from_irrs;
+    public void setLon_curr(Float lon_curr) {
+        this.lon_curr = lon_curr;
+    }
+
+    public void setLat_sel(Float lat_sel) {
+        this.lat_sel = lat_sel;
+    }
+
+    public void setLon_sel(Float lon_sel) {
+        this.lon_sel = lon_sel;
+    }
+//public static ArrayList<Form_IRR> all_from_irrs;
 
 
     @Override
@@ -554,6 +566,7 @@ public class Form_IRR extends Form implements Serializable {
         Log.d("Files", "Size: " + files.getAbsolutePath());
 
         form_irr.setDate();
+
         form_irr.respostas.put(-2, files.getName());
         form_irr.respostas.put(-3, form_irr.other_response);
 

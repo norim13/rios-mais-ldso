@@ -84,7 +84,7 @@
                  partial_lon = number_with_precision(p[:lon], precision: 14).to_s.gsub! '.', '_'
                  partial_id = "#{partial_lat}-#{partial_lon}"
               %>
-              <li id="marker-sortable-<%= partial_id %>" class="ui-state-default"> <span class="glyphicon glyphicon-resize-vertical"></span> <span class="nome-ponto-<%= partial_id %>>"><%= p[:nome] %></span></li>
+              <li id="marker-sortable-<%= partial_id %>" class="ui-state-default"> <span class="glyphicon glyphicon-resize-vertical"></span> <span class="nome-ponto-<%= partial_id %>"><%= p[:nome] %></span></li>
           <% end %>
       <% end %>
 

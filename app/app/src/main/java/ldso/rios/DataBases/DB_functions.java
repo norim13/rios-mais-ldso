@@ -1,5 +1,8 @@
 package ldso.rios.DataBases;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.SystemClock;
 import android.util.Log;
@@ -1287,6 +1290,7 @@ public class DB_functions {
 
     public static void getForms(final String token,final String email, final Form_IRR_mainActivity formIRR) throws IOException, JSONException {
 
+
         new Thread(new Runnable() {
             public void run() {
 
@@ -1664,6 +1668,7 @@ public class DB_functions {
             public void run() {
                 try {
                     String url = "http://riosmais.herokuapp.com/api/v2/users?user_email=" + email + "&user_token=" + token;
+                    Log.e("link",url);
                     URL object = new URL(url);
                     HttpURLConnection con = (HttpURLConnection) object.openConnection();
                     con.setDoOutput(true);
@@ -1676,6 +1681,7 @@ public class DB_functions {
                     try {
                         jsonObject.accumulate("nome", profileEditActivity.getName().getText());
                         jsonObject.accumulate("email", profileEditActivity.getEmail().getText());
+                        jsonObject.accumulate("current_password", profileEditActivity.getCurrentPassword());
                         jsonObject.accumulate("password", profileEditActivity.getPassword().getText());
                         jsonObject.accumulate("password_confirmation", profileEditActivity.getPasswordConfirmation());
                         jsonObject.accumulate("telef", profileEditActivity.getTelef().getText());
@@ -1734,98 +1740,6 @@ public class DB_functions {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-        }).start();
-    }
-
-    public static void deleteUser(final ProfileEditActivity profileEditActivity, final String email, final String token) {
-
-        new Thread(new Runnable() {
-            public void run() {
-
-                String url = "http://riosmais.herokuapp.com/api/v2/users?user_email="+email+"&user_token="+token;
-
-                URL obj = null;
-                try {
-                    obj = new URL(url);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                HttpURLConnection con = null;
-                try {
-                    con = (HttpURLConnection) obj.openConnection();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                // optional default is GET
-                try {
-                    con.setRequestMethod("DELETE");
-                } catch (ProtocolException e) {
-                    e.printStackTrace();
-                }
-
-                //add request header
-                con.setRequestProperty("Content-Type", "application/json");
-
-                int responseCode = 0;
-                try {
-                    responseCode = con.getResponseCode();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Log.i("user","deleting user");
-                Log.i("user","sending DELETE request to URL: " + url);
-                Log.i("user", "response code: " + responseCode);
-
-                BufferedReader in = null;
-                try {
-                    in = new BufferedReader(
-                            new InputStreamReader(con.getInputStream()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-
-                try {
-                    while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-                    }
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                String error_txt = "";
-                Boolean error = false;
-
-                JSONObject obj1 = null;
-                try {
-                    obj1 = new JSONObject(response.toString());
-                    if(obj1.has("error")) {
-                        error_txt = obj1.getString("error");
-                        error = true;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.e("JSON Exception", "exception getting response on register");
-                }
-
-                //print result
-                System.out.println(response.toString());
-                Log.e("teste", response.toString());
-
-                try {
-                    JSONObject user_json = new JSONObject(response.toString());
-
-                    Log.e("edit profile","a seguir ao delete user todo");
-
-                    profileEditActivity.afterDeletingUser(error,error_txt);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
             }
         }).start();
     }
@@ -1891,4 +1805,22 @@ public class DB_functions {
         }).start();
     }
 
+
+
+    public static boolean haveNetworkConnection(Context c) {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
 }
