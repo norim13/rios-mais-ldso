@@ -9,7 +9,7 @@ class Api::V2::RoutesController < ApplicationController
   # GET /routes/1.json
   def show
     route = Route.find(params[:id])
-
+    imgs = []
     if !route.nil?
       route.rota_points.each do |rp|
         imgs.push(rp.rota_point_images)
