@@ -21,6 +21,7 @@ class TripsController < ApplicationController
   # GET /trips/1/edit
   def edit
     @edit = true;
+    @points = @trip.trip_points
   end
 
   # POST /trips

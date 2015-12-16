@@ -14,7 +14,7 @@ connection_line = null;
 $(document).on('click', '#add-point-btn', submitPonto);
 
 $(document).ready(function() {
-    if ($('.edit_trip').length)
+   if ($('.edit_trip').length)
         id_trip = $('.edit_trip').attr('data-trip-id');
 
     var mapCanvas = document.getElementById('add-trip-points-map');
@@ -24,7 +24,7 @@ $(document).ready(function() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(mapCanvas, mapOptions);
-
+    getExistantPoints(map);
     addClickListenerToMap();
 
 		$("#add-gps-point-trip").on('click', addGPSMarker);
@@ -90,6 +90,7 @@ function addMarkerForm(marker){
     $("#point-lat").val(marker.getPosition().lat());
     $("#point-lon").val(marker.getPosition().lng());
     $("#add-point-btn").removeAttr("disabled");
+    $(".empty-this").each(function(){$(this).removeAttr("disabled");});
 }
 
 function removeCurrentMarker(map, force) {
@@ -99,7 +100,7 @@ function removeCurrentMarker(map, force) {
     if (x){
         currentMarker.setMap(null);
         currentMarker = null;
-        $(".empty-this").each(function(){ $(this).val(""); });
+        $(".empty-this").each(function(){ $(this).val(""); $(this).attr("disabled", "disabled"); });
         $("#point-lat").val("Nenhum ponto selecionado...");
         $("#point-lon").val("Nenhum ponto selecionado...");
         $("#add-point-btn").attr("disabled", "disabled");
@@ -124,7 +125,6 @@ function submitPonto(){
         url: '/trip_points',
         data: obj,
         success: function(data){
-            addedMarkers.push(currentMarker);
             placeDefinitiveMarker(currentMarker, map);
             removeCurrentMarker(map, true);
             $('html, body').animate({
@@ -139,6 +139,7 @@ function submitPonto(){
 }
 
 function placeDefinitiveMarker(marker, map){
+    addedMarkers.push(currentMarker);
     marker_line_array.push(marker.position);
 
     var marker = new google.maps.Marker({
@@ -149,13 +150,26 @@ function placeDefinitiveMarker(marker, map){
 
     if (connection_line != null)
         connection_line.setMap(null);
-    connection_line = new google.maps.Polyline(
-        {   path: marker_line_array,
+        connection_line = new google.maps.Polyline(
+        {
+            path: marker_line_array,
             strokeColor: "#2196F3",
             strokeOpacity: 1.0,
             strokeWeight: 2,
             map: map
         });
 
+}
+
+function getExistantPoints(map){
+    $("#points-info .point-info").each(function(){
+        var lat = $(this).attr('data-point-lat');
+        var lon = $(this).attr('data-point-lon');
+
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(lat, lon)
+        });
+        placeDefinitiveMarker(marker, map);
+    });
 }
 `

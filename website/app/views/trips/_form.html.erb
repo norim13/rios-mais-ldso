@@ -52,13 +52,18 @@
         </div>
       </div>
 
+      <div id="points-info" style="display: none">
+        <% @points.each do |p| %>
+          <div class="point-info" data-point-id="<%= p.id%>" data-point-lat="<%= p.lat%>" data-point-lon="<%= p.lon%>" data-point-descricao="<%= p.descricao%>"></div>
+        <% end %>
+      </div>
 
       <div id="left-panel-forms" class="col-xs-12">
         <h3>Informações sobre os pontos:</h3>
         <div id="form-current-marker" class="thumbnail">
           <div class="row">
             <div class="col-md-4">
-              Nome:<input id="point-nome" type="text-field" name="nome" class="form-control empty-this" value=""/>
+              Nome:<input id="point-nome" type="text-field" name="nome" class="form-control empty-this" value="" disabled="disabled"/>
             </div>
             <div class="col-md-4">
               Latitude:<input id="point-lat" type="text-field" name="lat" class="form-control" readonly="true" value="Nenhum ponto selecionado..."/>
@@ -67,10 +72,10 @@
               Longitude:<input id="point-lon" type="text-field" name="lon" class="form-control" readonly="true" value="Nenhum ponto selecionado..."/>
             </div>
             <div class="col-md-12">
-              <textarea id="point-text" type="text-field" name="descricao" class="form-control empty-this"  rows="4" placeholder="Insira uma descrição"></textarea>
+              <textarea id="point-text" type="text-field" name="descricao" class="form-control empty-this"  rows="4" placeholder="Insira uma descrição" disabled="disabled"></textarea>
             </div>
           </div>
-          <button id="add-point-btn" class="btn btn-success">Adicionar Ponto</button>
+          <button id="add-point-btn" class="btn btn-success" disabled="disabled">Adicionar Ponto</button>
         </div>
       </div>
 
