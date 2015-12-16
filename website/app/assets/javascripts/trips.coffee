@@ -4,11 +4,19 @@
 
 `
 currentMarker = null;
-definitiveMarkers = new Array();
-markerCount = 1;
+addedMarkers = new Array();
 map = null;
+id_trip = null;
+
+marker_line_array = new Array();
+connection_line = null;
+
+$(document).on('click', '#add-point-btn', submitPonto);
 
 $(document).ready(function() {
+    if ($('.edit_trip').length)
+        id_trip = $('.edit_trip').attr('data-trip-id');
+
     var mapCanvas = document.getElementById('add-trip-points-map');
     var mapOptions = {
         center: new google.maps.LatLng(41.179379, -8.606543),
@@ -21,12 +29,14 @@ $(document).ready(function() {
 
 		$("#add-gps-point-trip").on('click', addGPSMarker);
     $("#add-gps-point-trip").removeAttr("disabled");
+
+
 });
 
 function addClickListenerToMap(){
     mapClickListenerHandler =
 			google.maps.event.addListener(map, 'click', function(event) {
-	        placeMarker(event.latLng, map, true);
+	        placeMarker(event.latLng, map);
 	    });
 }
 
@@ -45,21 +55,24 @@ function addGPSMarker(){
 }
 
 function placeMarker(location, map) {
-
+		if(currentMarker != null) {
+        if (!removeCurrentMarker(map, false))
+          return;
+    }
 
 		//console.log(location);
     var marker = new google.maps.Marker({
         position: location,
         map: map
     });
-    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
 
+    currentMarker = marker;
     google.maps.event.addListener(marker, 'click', function(event) {
-        removeMarker(map, marker);
+        removeCurrentMarker(map, false);
     });
     map.panTo(location);
 
-		currentMarker = marker;
+
     /*definitiveMarkers.push(marker);
     markerCount++;*/
     $("#add-gps-point-trip").removeAttr("disabled");
@@ -71,41 +84,78 @@ function placeMarker(location, map) {
     }, 1000);
 }
 
-function removeCurrentMarker(){
-		if(currentMarker != null) {
-        removeMarker(map);
-				console.log("gg");
-    }
-}
+
 
 function addMarkerForm(marker){
-    $("#left-panel-forms").append(
-        '<div id="form-current-marker" class="thumbnail">'+ //id = marker-form-{latitude}-{longitude}
-	        '<div class="row">'+
-			        '<div class="col-md-4">'+
-			            'Nome:<input id="input-nome" type="text-field" name="nome" class="form-control" value=""/>'+
-			        '</div>'+
-			        '<div class="col-md-4">'+
-			            'Latitude:<input type="text-field" name="lat" class="form-control" readonly="true" value="'+marker.getPosition().lat()+'"/>'+
-			        '</div>'+
-			        '<div class="col-md-4">'+
-			            'Longitude:<input type="text-field" name="lon" class="form-control" readonly="true" value="'+marker.getPosition().lng()+'"/>'+
-			        '</div>'+
-			        '<div class="col-md-12">'+
-			            '<textarea type="text-field" name="descricao" class="form-control"  rows="4" placeholder="Insira uma descrição"/>'+
-			        '</div>'+
-	        '</div>'+
-        '</div>'
-    );
+    $("#point-lat").val(marker.getPosition().lat());
+    $("#point-lon").val(marker.getPosition().lng());
+    $("#add-point-btn").removeAttr("disabled");
 }
 
-function removeMarker(map) {
-    var x=window.confirm("Tem a certeza que quer remover o ponto?")
+function removeCurrentMarker(map, force) {
+    var x = true;
+    if (!force)
+        x = window.confirm("Tem a certeza que quer remover o ponto actual e as suas informações?")
     if (x){
         currentMarker.setMap(null);
         currentMarker = null;
-        $("#form-current-marker").remove();
+        $(".empty-this").each(function(){ $(this).val(""); });
+        $("#point-lat").val("Nenhum ponto selecionado...");
+        $("#point-lon").val("Nenhum ponto selecionado...");
+        $("#add-point-btn").attr("disabled", "disabled");
+		    return true;
     }
+		return false;
 }
 
+
+function submitPonto(){
+		//var nome = $("#point-nome").val();
+    var trip_point = {};
+    trip_point.lat = $("#point-lat").val();
+    trip_point.lon = $("#point-lon").val();
+    trip_point.descricao = $("#point-text").val();
+    trip_point.trip_id = id_trip;
+    var obj = {};
+    obj.trip_point = trip_point;
+
+    $.ajax({
+        type: 'POST',
+        url: '/trip_points',
+        data: obj,
+        success: function(data){
+            addedMarkers.push(currentMarker);
+            placeDefinitiveMarker(currentMarker, map);
+            removeCurrentMarker(map, true);
+            $('html, body').animate({
+                scrollTop: $("#add-trip-points-map").offset().top
+            }, 1000);
+        },
+        error: function(err){
+            window.alert("Ocorreu um erro ao submeter a informação do ponto...");
+        }
+    });
+
+}
+
+function placeDefinitiveMarker(marker, map){
+    marker_line_array.push(marker.position);
+
+    var marker = new google.maps.Marker({
+        position: marker.getPosition(),
+        map: map
+    });
+    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+
+    if (connection_line != null)
+        connection_line.setMap(null);
+    connection_line = new google.maps.Polyline(
+        {   path: marker_line_array,
+            strokeColor: "#2196F3",
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+            map: map
+        });
+
+}
 `

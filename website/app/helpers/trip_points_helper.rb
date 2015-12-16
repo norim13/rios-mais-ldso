@@ -1,0 +1,2 @@
+module TripPointsHelper
+end

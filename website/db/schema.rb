@@ -409,6 +409,15 @@ ActiveRecord::Schema.define(version: 20151216015457) do
     t.boolean  "publicada"
   end
 
+  create_table "trip_points", force: :cascade do |t|
+    t.integer  "trip_id"
+    t.string   "descricao"
+    t.float    "lat"
+    t.float    "lon"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "trips", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at", null: false
@@ -456,4 +465,5 @@ ActiveRecord::Schema.define(version: 20151216015457) do
   add_foreign_key "reports", "users"
   add_foreign_key "rota_point_images", "rota_points"
   add_foreign_key "rota_points", "routes"
+  add_foreign_key "trip_points", "trips"
 end
