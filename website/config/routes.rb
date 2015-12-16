@@ -68,6 +68,7 @@ Rails.application.routes.draw do
       delete "/form_irrs/:id", :to => 'form_irrs#destroy'
 
       post "/guardarios", :to => 'guardarios#create'
+      get "/guardarios/:id", :to => 'guardarios#get'
       post "/reports", :to => 'reports#create'
 
       get "/limpezas/:opcao", :to => 'limpezas#getRespostas', :opcao => /.*/
