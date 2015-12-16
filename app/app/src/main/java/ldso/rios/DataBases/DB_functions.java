@@ -36,6 +36,7 @@ import ldso.rios.Form.IRR.ViewFormIRR;
 import ldso.rios.Form.LimpezaSolucoes;
 import ldso.rios.Form.Sos_rios;
 import ldso.rios.MainActivities.Form_IRR_mainActivity;
+import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.MainActivities.Limpeza;
 import ldso.rios.MainActivities.Profile;
 import ldso.rios.MainActivities.ProfileEditActivity;
@@ -49,7 +50,7 @@ import ldso.rios.Mapa_Rotas;
 
 public class DB_functions {
 
-    static String base_url="http://riosmais.herokuapp.com";
+    public static String base_url="http://riosmais.herokuapp.com";
 
     public static void saveUser(final String nome, final String email, final String password, final String password_confirmation, final String telef, final String profissao, final String habilitacoes, final Boolean formacao, final Register register_class) throws IOException, JSONException {
 
@@ -1983,6 +1984,85 @@ public class DB_functions {
                         System.out.println(name);
                         System.out.println(url);
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }
+
+
+
+    public static void getGuardaRios(final GuardaRios guardaRios) throws IOException, JSONException {
+
+
+        new Thread(new Runnable() {
+            public void run() {
+
+                String url = base_url+"/api/v2/guardarios";
+
+                URL obj = null;
+                try {
+                    obj = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                HttpURLConnection con = null;
+                try {
+                    con = (HttpURLConnection) obj.openConnection();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // optional default is GET
+                try {
+                    con.setRequestMethod("GET");
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                }
+
+                //add request header
+                con.setRequestProperty("Content-Type", "application/json");
+
+                int responseCode = 0;
+                try {
+                    responseCode = con.getResponseCode();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("\nSending 'GET' request to URL : " + url);
+                System.out.println("Response Code : " + responseCode);
+
+                BufferedReader in = null;
+                try {
+                    in = new BufferedReader(
+                            new InputStreamReader(con.getInputStream()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                try {
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //print result
+                System.out.println(response.toString());
+                Log.e("teste", response.toString());
+
+                try {
+                    guardaRios.images(response.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -110,6 +110,7 @@
     <string name="title_activity_profile_edit">ProfileEditActivity</string>
     <string name="title_activity_rotas_rios_list">RotasRios_list</string>
     <string name="title_activity_mapa__rotas">Mapa_Rotas</string>
+    <string name="title_activity_rota_point_show">RotaPoint_show</string>
 
 
 </resources>
