@@ -58,6 +58,9 @@ class FormIrrsController < ApplicationController
 		@form_irr.edit_user_id = current_user.id
 		@form_irr.validated = false
 
+		UserMailer.irr_email(@form_irr).deliver_now
+
+
 		if @form_irr.save
 			if params[:images]
 				params[:images].each { |image|
