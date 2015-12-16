@@ -84,12 +84,11 @@ function placeMarker(location, map) {
     }, 1000);
 }
 
-
-
 function addMarkerForm(marker){
     $("#point-lat").val(marker.getPosition().lat());
     $("#point-lon").val(marker.getPosition().lng());
     $("#add-point-btn").removeAttr("disabled");
+    $("#btn-add-img-trip-point").removeAttr("disabled");
     $(".empty-this").each(function(){$(this).removeAttr("disabled");});
 }
 
@@ -104,6 +103,8 @@ function removeCurrentMarker(map, force) {
         $("#point-lat").val("Nenhum ponto selecionado...");
         $("#point-lon").val("Nenhum ponto selecionado...");
         $("#add-point-btn").attr("disabled", "disabled");
+        $("#btn-add-img-trip-point").attr("disabled", "disabled");
+        $("#img-filenames").html("");
 		    return true;
     }
 		return false;
@@ -123,10 +124,13 @@ function submitPonto(){
     var images = new Array();
 
     if($('input[name="images[]"]').val() != "") {
-        var imgs = $('input[name="images[]"]')[0].files[0];
-        var img = {};
-        img.image = imgs;
-        images.push(img);
+        var imgs = $('input[name="images[]"]')[0].files;
+
+        for(var i = 0; i< imgs.length; i++) {
+            var img = {};
+            img.image = imgs[i];
+            images.push(img);
+        }
     }
 
     $.ajax({

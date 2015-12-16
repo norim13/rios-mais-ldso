@@ -5,7 +5,7 @@ class TripPointsController < ApplicationController
     if @trip_point.nil?
       render :json => {:success => "false"}
     else
-      render :json => {:success => "true", :point => @trip_point}
+      render :json => {:success => "true", :point => @trip_point, :images => @trip_point.trip_images}
     end
   end
 
