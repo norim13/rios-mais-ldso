@@ -9,8 +9,8 @@ var myLon = null;
 var geographic = new OpenLayers.Projection("EPSG:4326");
 var mercator = new OpenLayers.Projection("EPSG:900913");
 var geographic2 = new OpenLayers.Projection("EPSG:3763");
-//var base_url = '***REMOVED***/geoserver/rios';
-var base_url = 'http://***REMOVED***:10500/geoserver/rios';
+var base_url = '***REMOVED***/geoserver/rios';
+//var base_url = 'http://***REMOVED***:10500/geoserver/rios';
 
 (function () {
 window.onload = function () {
@@ -37,13 +37,13 @@ window.onload = function () {
 
 
 		// TESTE MARKER
-		var lonLat = new OpenLayers.LonLat(-8.495595,41.111715)
-		          .transform(geographic,map.getProjectionObject());
-	 
-	    var markers = new OpenLayers.Layer.Markers( "Markers" );
-	    map.addLayer(markers);
-	 
-	    markers.addMarker(new OpenLayers.Marker(lonLat));
+		/*var lonLat = new OpenLayers.LonLat(-8.495595,41.111715)
+		        .transform(geographic,map.getProjectionObject());
+
+		var markers = new OpenLayers.Layer.Markers( "Markers" );
+		map.addLayer(markers);
+
+		markers.addMarker(new OpenLayers.Marker(lonLat));*/
 	    ////////////////////////////////////
 
 
@@ -155,6 +155,8 @@ window.onload = function () {
                                 null,
                                 true
                             ));
+
+                            map.setCenter(latLon, 14);
                         }
                     }
 		            },
@@ -188,6 +190,7 @@ function getLocation(map) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			myLat = position.coords.latitude;
 			myLon = position.coords.longitude;
+				console.log("lat: " + myLat + " # lon: " + myLon);
 			var center = new OpenLayers.LonLat(myLon,myLat).transform(geographic, mercator);
 			map.setCenter(center, 14);
 		});

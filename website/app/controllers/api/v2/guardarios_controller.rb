@@ -33,6 +33,6 @@ class Api::V2::GuardariosController < ApplicationController
 
 	private
 	def guardario_params
-		params.require(:guardario).permit(:rio, :local, :voar, :cantar, :parado, :beber, :cacar, :cuidarcrias, :alimentar, :outro, {images: []})
+		params.require(:guardario).permit(:rio, :nomeRio, :lat, :lon, :local, :voar, :cantar, :parado, :beber, :cacar, :cuidarcrias, :alimentar, :outro, {images: []})
 	end
 end

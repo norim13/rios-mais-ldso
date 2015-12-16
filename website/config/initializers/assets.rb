@@ -14,11 +14,8 @@ Rails.application.config.assets.precompile += %w( navbar.css )
 Rails.application.config.assets.precompile += %w( footer.css )
 
 Rails.application.config.assets.precompile += %w( searchrios.css )
-
 Rails.application.config.assets.precompile += %w( users.css )
-
 Rails.application.config.assets.precompile += %w( form_irr.css )
-
 Rails.application.config.assets.precompile += %w( mapa.css )
 
 Rails.application.config.assets.precompile += %w( concelho.js )
@@ -32,12 +29,13 @@ Rails.application.config.assets.precompile += %w( limpeza.js )
 Rails.application.config.assets.precompile += %w( rio.js )
 Rails.application.config.assets.precompile += %w( routes-view.js )
 Rails.application.config.assets.precompile += %w( routes-edit.js )
-Rails.application.config.assets.precompile += %w( rota_point_image.js )
+Rails.application.config.assets.precompile += %w( trips.js )
 
 Rails.application.config.assets.precompile += %w( limpeza.css )
 Rails.application.config.assets.precompile += %w( reabilitacaos.css )
 Rails.application.config.assets.precompile += %w( chart-irr.css )
 Rails.application.config.assets.precompile += %w( rio.css )
 Rails.application.config.assets.precompile += %w( routes.css )
+Rails.application.config.assets.precompile += %w( trips.css )
 
 Rails.application.config.assets.precompile += %w( external/jquery-ui.min.css )

@@ -118,6 +118,26 @@ public class Form_IRR extends Form implements Serializable {
         ArrayList<Integer> ai= new ArrayList<Integer>();
         ArrayList<Float> af= new ArrayList<Float>();
 
+        this.lat_sel= Float.parseFloat(jsonObject.get("lat").toString());
+        this.lon_sel=  Float.parseFloat( jsonObject.get("lon").toString());
+        this.nomeRio= (String) jsonObject.get("nomeRio");
+
+        ArrayList<Float> arrayLocation = new ArrayList<Float>();
+        arrayLocation.add(0f);
+        arrayLocation.add(0f);
+        arrayLocation.add(this.lat_sel);
+        arrayLocation.add(this.lon_sel);
+        arrayLocation.add(2f);           //set radiobutton to select the "selected place"
+        this.respostas.put(0,arrayLocation);
+
+        this.margem=jsonObject.getInt("margem");
+
+        ArrayList<Object> arrayNomeEMargem= new ArrayList<Object>();
+        arrayNomeEMargem.add(jsonObject.get("nomeRio").toString());
+        arrayNomeEMargem.add(jsonObject.getInt("margem"));
+
+        this.respostas.put(-1,arrayNomeEMargem);
+
         Log.e("form", "size:" + jsonObject.toString());
         //Tipo de Vale
         this.respostas.put(1, jsonObject.get("tipoDeVale"));
@@ -494,7 +514,7 @@ public class Form_IRR extends Form implements Serializable {
     public void setDate(){
 
         Calendar calendar = Calendar.getInstance();
-        this.respostas.put(-1,calendar.MINUTE+"-"+calendar.HOUR+"-"+calendar.DAY_OF_MONTH+"-"+calendar.MONTH+"-"+calendar.YEAR);
+        this.respostas.put(-4,calendar.MINUTE+"-"+calendar.HOUR+"-"+calendar.DAY_OF_MONTH+"-"+calendar.MONTH+"-"+calendar.YEAR);
 
     }
 
@@ -601,7 +621,7 @@ public class Form_IRR extends Form implements Serializable {
                     Form_functions.getUser(c)[1],
                     form_irr);
             File file = new File(f.getAbsolutePath(),(String) form_irr.getRespostas().get(-2));
-            //boolean deleted = file.delete();
+            boolean deleted = file.delete();
             return true;
         } catch (IOException e) {
             e.printStackTrace();

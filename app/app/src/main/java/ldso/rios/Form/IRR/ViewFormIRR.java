@@ -17,6 +17,7 @@ import java.util.HashMap;
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
+import ldso.rios.Form.Form_functions;
 import ldso.rios.MainActivities.Form_IRR_mainActivity;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.R;
@@ -65,6 +66,19 @@ public class ViewFormIRR extends AppCompatActivity {
             this.form.other_response=outros;
 
         }
+
+
+
+        Form_functions.createTitle("Rio:"+this.form.nomeRio,linearLayout,this.getApplicationContext());
+        if (this.form.current_location==null)
+        Form_functions.createTitle("Localização:"+0+";"+0,linearLayout,this.getApplicationContext());
+        else if (this.form.current_location)
+            Form_functions.createTitle("Localização:"+this.form.lat_curr+";"+this.form.lon_curr,linearLayout,this.getApplicationContext());
+        else
+            Form_functions.createTitle("Localização:"+this.form.lat_sel+";"+this.form.lon_sel,linearLayout,this.getApplicationContext());
+
+        Form_functions.createTitle("Margem:"+ ((this.form.margem == 1) ? "Esquerda" : "Direita"),linearLayout,this.getApplicationContext());
+
 
 
         for(int i=0;i<=32;i++)
@@ -124,11 +138,7 @@ public class ViewFormIRR extends AppCompatActivity {
 
             //Form_IRR.loadFromIRR(this.getApplicationContext());
             this.form.fillAnswers();
-            Form_IRR submeter= new Form_IRR();
-            submeter.generate();
-            submeter.setRespostas(this.form.respostas,this.form.other_response);
-            submeter.fillAnswers();
-            Form_IRR.uploadFormIRR(this.getApplicationContext(),submeter);
+            Form_IRR.uploadFormIRR(this.getApplicationContext(),this.form);
             this.finish();
 
 

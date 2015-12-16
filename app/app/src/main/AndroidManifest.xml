@@ -139,12 +139,12 @@
         <activity
             android:name=".TesteChart"
             android:label="@string/title_activity_teste_chart"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Form.IRR.FormIRRSwipe"
             android:label="@string/title_activity_form_irrswipe"
-            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivities.Homepage"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -186,6 +186,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ldso.rios.MainActivities.Profile" />
         </activity>
+        <activity android:name=".ImageTest"></activity>
     </application>
 
 </manifest>
