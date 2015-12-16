@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   get 'meusguardarios' => 'guardarios#getMine'
   resources :reports, only: [:index, :show, :new, :create, :destroy]
   resources :form_irrs
+  patch 'validate_form_irrs/:id' => 'form_irrs#validate', :as => :validate_form_irr
+  get 'validate_form_irrs' => 'form_irrs#validate_index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
