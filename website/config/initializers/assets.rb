@@ -32,6 +32,7 @@ Rails.application.config.assets.precompile += %w( limpeza.js )
 Rails.application.config.assets.precompile += %w( rio.js )
 Rails.application.config.assets.precompile += %w( routes-view.js )
 Rails.application.config.assets.precompile += %w( routes-edit.js )
+Rails.application.config.assets.precompile += %w( rota_point_image.js )
 
 Rails.application.config.assets.precompile += %w( limpeza.css )
 Rails.application.config.assets.precompile += %w( reabilitacaos.css )

@@ -66,6 +66,13 @@
                 <div class="col-md-12">
                   <textarea type="text-field" name="descricao" class="form-control"  rows="4" placeholder="Insira uma descrição" ><%= p[:descricao] %></textarea>
                 </div>
+                <div class="form-group container col-md-12">
+                  <div id="img-filenames-sep-<%=partial_id%>"></div>
+                  <div class="rota-point-imgs">
+                    <button id="btn-sep-<%=partial_id%>" class="btn btn-primary btn-add-img-rota-point" type="button"> Adicionar imagens </button>
+                    <input type="file" name="image" class="rota-point-img-input" id="pt-sep-<%=partial_id%>" accept="image/png,image/gif,image/jpeg" style="display:none">
+                  </div>
+                </div>
               </div>
             </div>
         <% end %>

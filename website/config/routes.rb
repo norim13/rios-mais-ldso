@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   get 'respostas' => 'limpeza#getRespostas'
   post 'submitProblemasAction' => 'limpeza#submitProblemas'
 
+  post 'rota_point_image' => 'rota_point_image#create'
+  delete 'rota_point_image/:id' => 'rota_point_image#destroy'
+
   #info pages
   get 'limpeza/info' => 'limpeza#info'
   get 'reabilitacao/info' => 'reabilitacaos#info'

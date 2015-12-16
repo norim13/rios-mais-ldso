@@ -6,6 +6,8 @@ markers = new Array();
 markerCount = 1;
 edit = false;
 route_id = -1;
+
+images = new Array();
 $(document).ready(function(){
 
 		//add points
@@ -50,16 +52,20 @@ $(document).ready(function(){
         obj.route = route;
         obj.authenticity_token = $('form input[name="authenticity_token"]').val();
         obj.rota_points = getPointsOrdered();
-        //console.log(JSON.stringify(obj));
         var url = '/routes' + ((edit)? ('/'+route_id) : '');
-        //console.log(url);
+
         $.ajax({
             url: url,
             type: edit? 'PATCH' : 'POST',
             dataType: 'json',
             data: obj,
             success: function(data){
-                //console.log(data);
+		            if(data.success == 'true') {
+                    for (i = 0; i < data.points.length; i++) {
+		                    if(images[i].image != "no img")
+                          uploadImages(images[i].image, data.points[i].id);
+                    }
+                }
                 window.location.href = "/routes";
             },
             error: function(err){
@@ -92,6 +98,23 @@ $(document).ready(function(){
         });
     }
 });
+
+function uploadImages(img,rp_id) {
+    var formData = new FormData();
+    formData.append('rota_point_image[image]',img);
+    formData.append('rota_point_image[rota_point_id]',rp_id);
+    $.ajax({
+        url: '/rota_point_image',
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: function (data) {
+            console.log("Imagem inserida");
+        }
+    });
+}
 
 function placeMarker(location, map, addForm) {
     //console.log(location);
@@ -193,6 +216,7 @@ function removeMarkerSortable(partialId){
 function getPointsOrdered(){
     var points = [];
     var count = 1;
+		images = new Array();
 		$("#route-points-sortable > li").each(function(){
 				var point = {};
 				var this_id_parts = this.id.split('-');
@@ -218,11 +242,23 @@ function getPointsOrdered(){
         var lat = $("#"+form_id+' input[name="lat"]').val();
         var lon = $("#"+form_id+' input[name="lon"]').val();
 
+				if($("#"+form_id+' input[name="image"]').val() != "") {
+            var imgs = $("#" + form_id + ' input[name="image"]')[0].files[0];
+						var img = {};
+						img.image = imgs;
+						images.push(img);
+        } else {
+            var img = {};
+            img.image = "no img";
+            images.push(img);
+				}
+
 				point.nome = nome;
 				point.descricao = descricao;
 				point.lat = lat;
 				point.lon = lon;
         point.ordem = count++;
+
 
         //var obj = {};
         //obj.point = point;
@@ -232,4 +268,5 @@ function getPointsOrdered(){
 		//console.log(points);
     return points;
 }
+
 `
