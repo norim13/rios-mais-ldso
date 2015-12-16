@@ -1,0 +1,116 @@
+<div class="container">
+  <h1>Avistamento de Guarda-Rios</h1>
+  <table class="table table-hover table-striped">
+    <tr>
+      <th>Código do Rio</th>
+      <td><%= @guardario.rio %></td>
+    </tr>
+
+    <tr>
+      <th>Nº de utilizador</th>
+      <td><%= @guardario.user_id %></td>
+    </tr>
+
+    <tr>
+      <th>Local</th>
+      <td>
+        <% case @guardario.local %>
+        <% when 'ninho' %>
+            <%= 'Ninho' %>
+        <% when 'arvores' %>
+            <%= 'Árvores/Ramo' %>
+        <% when 'solo' %>
+            <%= 'Solo/Margem' %>
+        <% when 'mergulhar' %>
+            <%= 'A mergulhar' %>
+        <% else %>
+            <%= 'Pedra/Rocha' %>
+        <% end %></td>
+    </tr>
+
+
+    <tr>
+      <th>Estava a voar?</th>
+      <td>
+        <% if @guardario.voar != '' %>
+            <%= @guardario.voar %>
+        <% else %> Não
+        <% end %>
+      </td>
+    </tr>
+
+
+    <tr>
+      <th>Estava a cantar?</th>
+      <td>
+        <% if @guardario.cantar != '' %>
+            <%= @guardario.cantar %>
+        <% else %> Não
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Estava-se a alimentar?</th>
+      <td>
+        <% if @guardario.alimentar != '' %>
+            <%= @guardario.alimentar %>
+        <% else %> Não
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Estava parado?</th>
+      <td>
+        <% if @guardario.parado %> Sim
+        <% else %> Não
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Estava a beber?</th>
+      <td>
+        <% if @guardario.beber %> Sim
+        <% else %> Não
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Estava a caçar?</th>
+      <td>
+        <% if @guardario.cacar %> Sim
+        <% else %> Não
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Estava a cuidar de crias?</th>
+      <td>
+        <% if @guardario.cuidarcrias %> Sim
+        <% else %> Não
+        <% end %>
+      </td>
+    </tr>
+
+
+  </table>
+
+
+  <% if !@imgs.nil? %>
+      <div id="show-form_irr-imgs">
+        <div class="row">
+          <% @imgs.each do |img| %>
+              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <%= image_tag(img.image, :class => 'img-responsive') %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+  <% end %>
+
+
+</div>

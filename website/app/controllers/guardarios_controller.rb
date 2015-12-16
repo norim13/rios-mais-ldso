@@ -35,6 +35,11 @@ class GuardariosController < ApplicationController
     @guardario = Guardario.new(guardario_params)
     @guardario.user_id = current_user.id
 
+
+
+    UserMailer.guardarios_email(@guardario).deliver_now
+
+
     respond_to do |format|
       if @guardario.save
         if params[:images]
