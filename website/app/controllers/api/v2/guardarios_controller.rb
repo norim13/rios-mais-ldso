@@ -16,6 +16,15 @@ class Api::V2::GuardariosController < ApplicationController
 		end
 	end
 
+	def get
+		@guardario = Guardario.find(params[:id])
+		if !@guardario.nil?
+			render :json => {:success => "true", :guardario => @guardario, :images => @guardario.guardario_images}
+		else
+			render :json => {:success => "false"}
+		end
+	end
+
 	def authenticate_user_from_token!
 		user_email = params[:user_email].presence
 		user = user_email && User.find_by_email(user_email)
