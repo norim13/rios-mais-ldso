@@ -101,7 +101,7 @@ class FormIrrsController < ApplicationController
 		if current_user.permissoes > 5
 			form_irr = FormIrr.find(params[:id])
 			#form_irr.validated = true
-			if form_irr.update_attribute(:validated, true)
+			if form_irr.update_column(:validated, true)
 				redirect_to :back
 			end
 		else
