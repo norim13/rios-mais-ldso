@@ -50,7 +50,7 @@ class RoutesController < ApplicationController
     if success
       #format.html { redirect_to @route, notice: 'Route was successfully created.' }
       #format.json { render :show, status: :created, location: @route }
-      render :json => '{"success" : "true"}'
+      render :json => {:success => "true", :points => @route.rota_points}
     else
       #format.html { render :new }
       #format.json { render json: @route.errors, status: :unprocessable_entity }

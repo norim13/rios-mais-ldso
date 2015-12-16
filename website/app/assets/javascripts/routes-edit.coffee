@@ -9,6 +9,20 @@ route_id = -1;
 
 images = new Array();
 $(document).ready(function(){
+    $(document).on('click', '.btn-add-img-rota-point', function(){
+        var id = $(this).attr('id').split('-sep-')[1];
+        $('#pt-sep-'+id).click();
+    });
+
+    $(document).on('change', '.rota-point-img-input', function(){
+        var id = $(this).attr('id').split('-sep-')[1];
+        var files = $(this)[0].files;
+        var file_names = "";
+        for (var i = 0; i < files.length; i++) {
+            file_names += "<p>"+files[i].name+"</p>";
+        }
+        $("#img-filenames-sep-"+id).html(file_names);
+    });
 
 		//add points
 		var mapCanvas = document.getElementById('add-route-points-map');
@@ -111,7 +125,7 @@ function uploadImages(img,rp_id) {
         processData: false,
         type: 'POST',
         success: function (data) {
-            console.log("Imagem inserida");
+		        //console.log("Imagem inserida");
         }
     });
 }
@@ -186,7 +200,13 @@ function addMarkerForm(marker, partialId){
 						'<div class="col-md-12">'+
 							'<textarea type="text-field" name="descricao" class="form-control"  rows="4" placeholder="Insira uma descrição"/>'+
 						'</div>'+
-					//'</form>'+
+            '<div class="form-group container col-md-12">'+
+              '<div id="img-filenames-sep-'+partialId+'"></div>'+
+              '<div class="rota-point-imgs">'+
+                '<button id="btn-sep-'+partialId+'" class="btn btn-primary btn-add-img-rota-point" type="button"> Adicionar imagens </button>'+
+                '<input type="file" name="image" class="rota-point-img-input" id="pt-sep-'+partialId+'" accept="image/png,image/gif,image/jpeg" style="display:none">'+
+              '</div>'+
+						'</div>'+
 				'</div>'+
 			'</div>'
 		);
