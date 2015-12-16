@@ -22,8 +22,24 @@
                   <%= f.text_field :nomeRio, :id => 'nome-rio', :class => 'text_field form-control',
                                    :readonly => true, :placeholder => "Clique em cima do rio para selecionar", :required => true %>
                 </div>
+                <% if @edit %>
+                    <div class="col-md-6 col-xs-12">
+                      <%= label_tag 'created-at' do %>
+                          Iniciada em:
+                      <% end %>
+                      <%= text_field_tag 'created-at', @trip.created_at.strftime("%d/%m/%Y - %H:%M"), {:class => 'text_field form-control',  :readonly => true }%>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                      <%= label_tag 'nome-user' do %>
+                          Criada por:
+                      <% end %>
+                      <%= text_field_tag 'nome-user', current_user.nome, {:class => 'text_field form-control',  :readonly => true }%>
+                    </div>
+                <% end %>
               </div>
-              <%= render 'mapa/mapa' %>
+              <% if !@edit %>
+                <%= render 'mapa/mapa' %>
+              <% end %>
             </div>
           </div>
         </div>
