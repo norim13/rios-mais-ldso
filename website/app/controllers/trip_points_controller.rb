@@ -14,7 +14,7 @@ class TripPointsController < ApplicationController
   def create
     @trip_point = TripPoint.new(trip_point_params)
     if @trip_point.save
-        render :json => '{"success" : "true"}'
+        render :json => {:success => 'true', :trip_point_id => @trip_point.id}
     else
         render :json => '{"success" : "false"}'
     end

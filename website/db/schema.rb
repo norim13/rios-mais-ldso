@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151216015457) do
+ActiveRecord::Schema.define(version: 20151216195122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -409,6 +409,15 @@ ActiveRecord::Schema.define(version: 20151216015457) do
     t.boolean  "publicada"
   end
 
+  create_table "trip_images", force: :cascade do |t|
+    t.string   "image"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "trip_point_id"
+  end
+
+  add_index "trip_images", ["trip_point_id"], name: "index_trip_images_on_trip_point_id", using: :btree
+
   create_table "trip_points", force: :cascade do |t|
     t.integer  "trip_id"
     t.string   "descricao"
@@ -465,5 +474,6 @@ ActiveRecord::Schema.define(version: 20151216015457) do
   add_foreign_key "reports", "users"
   add_foreign_key "rota_point_images", "rota_points"
   add_foreign_key "rota_points", "routes"
+  add_foreign_key "trip_images", "trip_points"
   add_foreign_key "trip_points", "trips"
 end

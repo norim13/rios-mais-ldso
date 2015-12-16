@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   post 'rota_point_image' => 'rota_point_image#create'
   delete 'rota_point_image/:id' => 'rota_point_image#destroy'
 
+  post 'trip_point_image' => 'trip_image#create'
+  delete 'trip_point_image/:id' => 'trip_image#destroy'
+
   #info pages
   get 'limpeza/info' => 'limpeza#info'
   get 'reabilitacao/info' => 'reabilitacaos#info'
