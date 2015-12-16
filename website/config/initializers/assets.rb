@@ -41,5 +41,6 @@ Rails.application.config.assets.precompile += %w( rio.css )
 Rails.application.config.assets.precompile += %w( routes.css )
 Rails.application.config.assets.precompile += %w( trips.css )
 Rails.application.config.assets.precompile += %w( profile.css )
+Rails.application.config.assets.precompile += %w( admin.css )
 
 Rails.application.config.assets.precompile += %w( external/jquery-ui.min.css )
