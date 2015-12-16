@@ -1,6 +1,8 @@
 package ldso.rios.DataBases;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -12,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -42,6 +45,7 @@ import ldso.rios.MainActivities.Profile;
 import ldso.rios.MainActivities.ProfileEditActivity;
 import ldso.rios.MainActivities.RotasRios_list;
 import ldso.rios.Mapa_Rotas;
+import ldso.rios.R;
 
 /**
  * Created by filipe on 02/11/2015.
@@ -1387,6 +1391,8 @@ public class DB_functions {
             public void run() {
 
                 try {
+
+
                     String url = base_url+"/api/v2/guardarios?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
                     URL object = new URL(url);
@@ -1415,6 +1421,26 @@ public class DB_functions {
 
                     Log.w("teste", jsonObject.toString());
                     Log.e("teste", guardarios.toString());
+
+                    DataOutputStream request = new DataOutputStream(
+                            con.getOutputStream());
+
+                    Bitmap bitmap = BitmapFactory.decodeResource(guardaRios_form.getApplicationContext().getResources(),  R.drawable.planaria);
+
+                    byte[] pixels = new byte[bitmap.getWidth() * bitmap.getHeight()];
+                    for (int i = 0; i < bitmap.getWidth(); ++i) {
+                        for (int j = 0; j < bitmap.getHeight(); ++j) {
+                            //we're interested only in the MSB of the first byte,
+                            //since the other 3 bytes are identical for B&W images
+                            pixels[i + j] = (byte) ((bitmap.getPixel(i, j) & 0x80) >> 7);
+                        }
+                    }
+
+                    request.write(pixels);
+                    request.flush();
+                    request.close();
+
+
 
                     OutputStream os = con.getOutputStream();
                     OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
