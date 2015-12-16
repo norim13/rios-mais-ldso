@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'respostas' => 'limpeza#getRespostas'
   get 'adminpanel' => 'admin#index'
   post 'submitProblemasAction' => 'limpeza#submitProblemas'
+  post 'changePermissions' => 'users#updatepermissions'
 
   #info pages
   get 'limpeza/info' => 'limpeza#info'

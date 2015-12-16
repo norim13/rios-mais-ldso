@@ -3,8 +3,10 @@
 <body>
 <%= render 'common/navbar' %>
 
+
 <div class="container">
   <h1> Admin panel </h1>
+
   <p id="notice"><%= notice %></p>
   <div class="table-responsive">
     <table class="table table-hover table-striped">
@@ -18,8 +20,11 @@
         <th> Atribuir permissões </th>
 
       </tr>
-      <% @users.each do |user| %>
-          <tr>
+      <form action="changePermissions" method="POST">
+        <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+      <% @users.each_with_index do |user,index| %>
+
+            <tr>
             <td><%= user.id %></td>
             <td><%= user.nome %></td>
             <td><%= user.email %></td>
@@ -28,26 +33,29 @@
             <td><%= user.permissoes %></td>
             <td>
 
+
             <div class="form-group">
-              <select id="atribuir-permissao" class="form-control">
+              <select name="atribuir-permissao-<%= index %>" class="form-control">
                 <option disabled selected> </option>
-                <option value="1"> 1 - Proprietários (população em geral) </option>
-                <option value="2"> 2 - Técnicos e Estudantes univ. </option>
-                <option value="3"> 3 - Chefia de municipios </option>
-                <option value="4"> 4 - Multimunicipios </option>
-                <option value="5"> 5 - Técnicos ERio </option>
-                <option value="6"> 6 - Admin. Erio </option>
+                <option value="<%= user.id  %>-1"> 1 - Proprietários (população em geral) </option>
+                <option value="<%= user.id  %>-2"> 2 - Técnicos e Estudantes univ. </option>
+                <option value="<%= user.id  %>-3"> 3 - Chefia de municipios </option>
+                <option value="<%= user.id  %>-4"> 4 - Multimunicipios </option>
+                <option value="<%= user.id  %>-5"> 5 - Técnicos ERio </option>
+                <option value="<%= user.id  %>-6"> 6 - Admin. Erio </option>
               </select>
             </div>
 
-            </td>
+
+
+        </td>
+
 
           </tr>
       <% end %>
+      <input type="submit">
+      </form>
 
-      <div class="form-actions">
-        <%= f.button :submit, 'Guardar alterações' %>
-      </div>
 
     </table>
   </div>

@@ -20,6 +20,25 @@ class UsersController < ApplicationController
     end
   end
 
+  def updatepermissions
+    @arrayTemp = [];
+
+    params.each_with_index do |key, value,index|
+      # target groups using regular expressions
+      if (key.to_s[/atribuir-permissao-.*/])
+        @arrayTemp << value
+      end
+    end
+
+    @arrayTemp.each do |obj|
+      User.where(:id => @arrayTemp).update(:permissoes,3)
+    end
+
+    redirect_to adminpanel_path
+
+  end
+
+
   def self.authenticate(email, password)
     user = find_by_email(email)
     if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
