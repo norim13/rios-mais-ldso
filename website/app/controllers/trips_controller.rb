@@ -15,10 +15,13 @@ class TripsController < ApplicationController
   # GET /trips/new
   def new
     @trip = Trip.new
+    @edit = false;
   end
 
   # GET /trips/1/edit
   def edit
+    @edit = true;
+    @points = @trip.trip_points
   end
 
   # POST /trips
@@ -69,6 +72,6 @@ class TripsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_params
-      params[:trip]
+      params.require(:trip).permit(:idRio, :nomeRio)
     end
 end

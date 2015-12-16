@@ -6,11 +6,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    debugger
   end
 
   def create
-    #render plain: params[:user].inspect
     @user = User.new(user_params)
     @user.permissoes = 1
     if @user.save
@@ -18,6 +16,17 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def updatepermissions
+    @users = User.find(params[:user_ids])
+    @permissoes = params[:permissoes]
+
+    @users.each_with_index do |u,index|
+      u.update_attribute(:permissoes,@permissoes[index])
+    end
+
+    redirect_to adminpanel_path
   end
 
   def self.authenticate(email, password)

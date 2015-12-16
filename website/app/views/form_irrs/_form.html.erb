@@ -5,7 +5,6 @@
 
   <!-- Tab panes -->
   <div class="container">
-
     <%= form_for @form_irr, :html => {:role => 'form', :multipart => true, :class => "#{@is_show} tab-content form_form_irr"}  do |f| %>
         <% if @form_irr.errors.any? %>
             <div id="error_explanation">
@@ -1372,6 +1371,11 @@
 
         <div>
           <p>
+            <% if !@form_irr.id.nil? %>
+              <% if !@form_irr.validated && @permissoes > 5 %>
+                <%= link_to 'Validar', validate_form_irr_path(@form_irr), method: :patch, class: "btn btn-success", data: {:confirm => "Tem a certeza que quer validar o formulário?"} %>
+              <% end %>
+            <% end %>
             <a class="btn btn-primary btnPrevious" >Anterior</a>
             <a class="btn btn-primary btnNext" >Seguinte</a>
             <% if @is_show != 'form-disabled' %>

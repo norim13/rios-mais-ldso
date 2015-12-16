@@ -17,6 +17,7 @@
         <th>Ver</th>
         <th>Editar</th>
         <th>Apagar</th>
+        <th>Validado</th>
       </tr>
       <% @form_irrs.each do |form_irr| %>
           <tr>
@@ -34,10 +35,12 @@
             <td><%= link_to 'Ver', form_irr_path(form_irr) %></td>
             <td><%= link_to 'Editar', edit_form_irr_path(form_irr) %></td>
             <td><%= link_to 'Apagar', form_irr_path(form_irr), method: :delete, data: {:confirm => "Tem a certeza que quer apagar o formulário?"} %></td>
+            <td><% if form_irr.validated %> <span class="glyphicon glyphicon-ok"></span> <% else %> <span class="glyphicon glyphicon-remove"></span> <% end %></td>
           </tr>
       <% end %>
     </table>
   </div>
+  <%= will_paginate @form_irrs, :previous_label => 'Anterior', :next_label => 'Seguinte' %>
 </div>
 
 <%= render 'common/footer' %>
