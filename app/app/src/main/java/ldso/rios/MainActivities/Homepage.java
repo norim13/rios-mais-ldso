@@ -17,7 +17,7 @@ import java.io.IOException;
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.User;
 import ldso.rios.Form.Sos_rios;
-import ldso.rios.Mapa_rios;
+import ldso.rios.ImageTest;
 import ldso.rios.R;
 
 public class Homepage extends AppCompatActivity{
@@ -60,7 +60,11 @@ public class Homepage extends AppCompatActivity{
     }
 
     public void mapas_init(View view){
-        startActivity(new Intent(this, Mapa_rios.class));
+        startActivity(new Intent(this, ImageTest.class));
+    }
+
+    public void uploadImagens(View view){
+        startActivity(new Intent(this, ImageTest.class));
     }
 
     public void sosRios(View view){

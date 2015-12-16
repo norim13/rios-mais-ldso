@@ -38,7 +38,6 @@ import java.util.List;
 import java.util.Locale;
 
 import ldso.rios.Autenticacao.Login;
-import ldso.rios.DataBases.DB_functions;
 import ldso.rios.MainActivities.GuardaRios;
 
 public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -280,11 +279,13 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
         //startActivity(new Intent(this, TesteChart.class));
         Intent returnIntent = new Intent();
         if (current_loc!=null) {
-            //returnIntent.putExtra("latlan_current",current_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
+            returnIntent.putExtra("latlan_current",current_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
+            /*
             if (DB_functions.haveNetworkConnection(this.getApplicationContext()))
                 returnIntent.putExtra("latlan_current", this.getLocationName(current_loc.getPosition()));
             else
                 returnIntent.putExtra("latlan_current", current_loc.getPosition().latitude + ";" + current_loc.getPosition().longitude);
+                */
         }
 
         else
@@ -292,10 +293,13 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
 
         if (select_loc!=null)
         {
+            returnIntent.putExtra("latlan_picked",select_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
+            /*
             if (DB_functions.haveNetworkConnection(this.getApplicationContext()))
                 returnIntent.putExtra("latlan_picked",this.getLocationName(select_loc.getPosition()));
             else
                 returnIntent.putExtra("latlan_picked",select_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
+                */
         }
         else
             returnIntent.putExtra("latlan_picked","0");

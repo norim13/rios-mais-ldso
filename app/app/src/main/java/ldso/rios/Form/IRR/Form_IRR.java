@@ -34,14 +34,25 @@ public class Form_IRR extends Form implements Serializable {
 
 
     private static final long serialVersionUID = -622335515469057949L;
-    Float lat_curr,lon_curr;
-    Float lat_sel,lon_sel;
-    int margem;
 
     String file_name;
 
+    public void setLat_curr(Float lat_curr) {
+        this.lat_curr = lat_curr;
+    }
 
-    //public static ArrayList<Form_IRR> all_from_irrs;
+    public void setLon_curr(Float lon_curr) {
+        this.lon_curr = lon_curr;
+    }
+
+    public void setLat_sel(Float lat_sel) {
+        this.lat_sel = lat_sel;
+    }
+
+    public void setLon_sel(Float lon_sel) {
+        this.lon_sel = lon_sel;
+    }
+//public static ArrayList<Form_IRR> all_from_irrs;
 
 
     @Override
@@ -106,6 +117,26 @@ public class Form_IRR extends Form implements Serializable {
         ArrayList<String> as= new ArrayList<String>();
         ArrayList<Integer> ai= new ArrayList<Integer>();
         ArrayList<Float> af= new ArrayList<Float>();
+
+        this.lat_sel= Float.parseFloat(jsonObject.get("lat").toString());
+        this.lon_sel=  Float.parseFloat( jsonObject.get("lon").toString());
+        this.nomeRio= (String) jsonObject.get("nomeRio");
+
+        ArrayList<Float> arrayLocation = new ArrayList<Float>();
+        arrayLocation.add(0f);
+        arrayLocation.add(0f);
+        arrayLocation.add(this.lat_sel);
+        arrayLocation.add(this.lon_sel);
+        arrayLocation.add(2f);           //set radiobutton to select the "selected place"
+        this.respostas.put(0,arrayLocation);
+
+        this.margem=jsonObject.getInt("margem");
+
+        ArrayList<Object> arrayNomeEMargem= new ArrayList<Object>();
+        arrayNomeEMargem.add(jsonObject.get("nomeRio").toString());
+        arrayNomeEMargem.add(jsonObject.getInt("margem"));
+
+        this.respostas.put(-1,arrayNomeEMargem);
 
         Log.e("form", "size:" + jsonObject.toString());
         //Tipo de Vale
@@ -483,7 +514,7 @@ public class Form_IRR extends Form implements Serializable {
     public void setDate(){
 
         Calendar calendar = Calendar.getInstance();
-        this.respostas.put(-1,calendar.MINUTE+"-"+calendar.HOUR+"-"+calendar.DAY_OF_MONTH+"-"+calendar.MONTH+"-"+calendar.YEAR);
+        this.respostas.put(-4,calendar.MINUTE+"-"+calendar.HOUR+"-"+calendar.DAY_OF_MONTH+"-"+calendar.MONTH+"-"+calendar.YEAR);
 
     }
 
@@ -555,6 +586,7 @@ public class Form_IRR extends Form implements Serializable {
         Log.d("Files", "Size: " + files.getAbsolutePath());
 
         form_irr.setDate();
+
         form_irr.respostas.put(-2, files.getName());
         form_irr.respostas.put(-3, form_irr.other_response);
 

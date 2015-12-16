@@ -27,7 +27,7 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText"
+                android:id="@+id/nomeRio"
                 android:layout_below="@+id/textView5"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -40,7 +40,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Localização:"
                 android:id="@+id/textView6"
-                android:layout_below="@+id/editText"
+                android:layout_below="@+id/nomeRio"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:paddingTop="10dp"
@@ -90,7 +90,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Esquerda"
-                        android:id="@+id/radioButton3"
+                        android:id="@+id/margemEsquerda"
                         android:checked="false"
                         android:padding="10dp" />
 
@@ -98,7 +98,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Direita"
-                        android:id="@+id/radioButton4"
+                        android:id="@+id/margemDireita"
                         android:checked="false"
                         android:padding="10dp" />
                 </RadioGroup>
@@ -117,7 +117,7 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Atual"
+                    android:text="Atual: 0;0"
                     android:id="@+id/currLocRadioButton"
                     android:checked="false"
                     android:padding="10dp"
@@ -128,7 +128,7 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Escolhida"
+                    android:text="Escolhida: 0;0"
                     android:id="@+id/selctLocRadioButton"
                     android:checked="false"
                     android:padding="10dp"
