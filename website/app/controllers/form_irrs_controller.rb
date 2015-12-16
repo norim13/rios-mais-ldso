@@ -89,8 +89,15 @@ class FormIrrsController < ApplicationController
 	end
 
 	def validate_index
-		if current_user.permissoes > 5
+		if current_user.permissoes > 4 #admin e tecnico do engenho e rio
 			@form_irrs = FormIrr.where(:validated => false).paginate(:page => params[:page], :per_page => 10).order('updated_at')
+			render 'index_not_validated'
+		elsif current_user.permissoes > 2 #apenas do mesmo concelho
+			concelho = current_user.concelho_id
+
+			@form_irrs = FormIrr.joins(:user).select('form_irrs.*, users.concelho_id')
+					             .where(:validated => false, users: {concelho_id: concelho})
+					             .paginate(:page => params[:page], :per_page => 10).order('updated_at')
 			render 'index_not_validated'
 		else
 			render 'noaccess'
@@ -100,7 +107,6 @@ class FormIrrsController < ApplicationController
 	def validate
 		if current_user.permissoes > 5
 			form_irr = FormIrr.find(params[:id])
-			#form_irr.validated = true
 			if form_irr.update_column(:validated, true)
 				redirect_to :back
 			end
