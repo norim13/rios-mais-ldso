@@ -58,16 +58,13 @@ class FormIrrsController < ApplicationController
 		@form_irr.edit_user_id = current_user.id
 		@form_irr.validated = false
 
-		UserMailer.irr_email(@form_irr).deliver_now
-
-
 		if @form_irr.save
 			if params[:images]
 				params[:images].each { |image|
 					FormIrrImage.create(image: image, form_irr_id: @form_irr.id)
 				}
 			end
-
+			UserMailer.irr_email(@form_irr).deliver_now
 			redirect_to @form_irr
 		else
 			render 'new'
