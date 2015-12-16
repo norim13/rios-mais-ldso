@@ -120,13 +120,29 @@ function submitPonto(){
     var obj = {};
     obj.trip_point = trip_point;
 
+    var images = new Array();
+
+    if($('input[name="images[]"]').val() != "") {
+        var imgs = $('input[name="images[]"]')[0].files[0];
+        var img = {};
+        img.image = imgs;
+        images.push(img);
+    }
+
     $.ajax({
         type: 'POST',
         url: '/trip_points',
         data: obj,
         success: function(data){
+            for (var i = 0; i < images.length; i++) {
+                uploadImages(images[i].image,data.trip_point_id);
+            }
+
             placeDefinitiveMarker(currentMarker, map);
             removeCurrentMarker(map, true);
+
+            $('input[name="images[]"]').val("");
+
             $('html, body').animate({
                 scrollTop: $("#add-trip-points-map").offset().top
             }, 1000);
@@ -136,6 +152,23 @@ function submitPonto(){
         }
     });
 
+}
+
+function uploadImages(img,rp_id) {
+    var formData = new FormData();
+    formData.append('trip_image[image]',img);
+    formData.append('trip_image[trip_point_id]',rp_id);
+    $.ajax({
+        url: '/trip_point_image',
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: function (data) {
+            //console.log("Imagem inserida");
+        }
+    });
 }
 
 function placeDefinitiveMarker(marker, map){

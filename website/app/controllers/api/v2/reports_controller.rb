@@ -18,6 +18,28 @@ class Api::V2::ReportsController < ApplicationController
 		end
 	end
 
+	# GET /reports/1
+	# GET /reports/1.json
+	def get
+		report = Report.find(params[:id])
+		if !report.nil?
+			render :json => {:success => "true", :report => report, :images => report.report_images}
+		else
+			render :json => {:success => "false"}
+		end
+	end
+
+	# GET /reports
+	# GET /reports.json
+	def index
+		reports = Report.all
+		if !reports.nil?
+			render :json => {:success => "true", :reports => reports}
+		else
+			render :json => {:success => "false"}
+		end
+	end
+
 	def authenticate_user_from_token!
 		user_email = params[:user_email].presence
 		user = user_email && User.find_by_email(user_email)

@@ -1,15 +1,14 @@
 class Api::V2::GuardariosController < ApplicationController
-
-	before_filter :authenticate_user_from_token!
+	before_filter :authenticate_user_from_token!, except: [:get,:recent]
 
 	def create
 		user_email = params[:user_email].presence
 		user       = user_email && User.find_by_email(user_email)
 
-		@guardario = Guardario.new(guardario_params)
-		@guardario.user_id = user.id
+		guardario = Guardario.new(guardario_params)
+		guardario.user_id = user.id
 
-		if @guardario.save
+		if guardario.save
 			render :json => '{"success" : "true"}'
 		else
 			render :json => '{"success" : "false", "error" : "problem saving guardario"}'
@@ -17,20 +16,19 @@ class Api::V2::GuardariosController < ApplicationController
 	end
 
 	def get
-		@guardario = Guardario.find(params[:id])
-		if !@guardario.nil?
-			render :json => {:success => "true", :guardario => @guardario, :images => @guardario.guardario_images}
+		guardario = Guardario.find(params[:id])
+		if !guardario.nil?
+			render :json => {:success => "true", :guardario => guardario, :images => guardario.guardario_images}
 		else
 			render :json => {:success => "false"}
 		end
 	end
 
   def recent
+		guardarios_img = GuardarioImage.last(9)
 
-		@guardarios_img = GuardarioImage.last(9)
-
-		if !@guardarios_img.nil?
-			render :json => {:success => "true", :guardarios => @guardarios_img}
+		if !guardarios_img.nil?
+			render :json => {:success => "true", :guardarios => guardarios_img}
 		else
 			render :json => {:success => "false"}
 		end

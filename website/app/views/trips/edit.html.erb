@@ -13,7 +13,7 @@
   <h1>Adicionar Pontos ao Trip no/a <%= @trip.nomeRio %></h1>
   <%= render 'form' %>
 
-  <%= link_to 'Show', @trip %> |
+  <%= link_to 'Mostrar', @trip %> |
   <%= link_to 'Voltar atrás', trips_path %>
 
 </div>
@@ -21,4 +21,4 @@
 <%= render 'common/footer' %>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <%= javascript_include_tag 'trips' %>
-
+<%= javascript_include_tag "trip_image" %>

@@ -1,25 +1,36 @@
-<p id="notice"><%= notice %></p>
+<%= render 'common/header' %>
+</head>
+<body>
+<%= render 'common/navbar' %>
 
-<h1>Listing Trips</h1>
+<div class="container">
+  <h1>Minhas Trips <%= link_to "Nova Trip", new_trip_path, class: "btn btn-primary" %></h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @trips.each do |trip| %>
+  <div class="table-responsive">
+    <table class="table table-hover table-striped">
       <tr>
-        <td><%= link_to 'Show', trip %></td>
-        <td><%= link_to 'Edit', edit_trip_path(trip) %></td>
-        <td><%= link_to 'Destroy', trip, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Id</th>
+        <th>Rio</th>
+        <th>Criado em</th>
+        <th>Editado em</th>
+        <th>Ver</th>
+        <th>Editar</th>
+        <th>Apagar</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      <% @trips.each do |trip| %>
+          <tr>
+            <td><%= trip.id %></td>
+            <td><%= link_to trip.nomeRio, trip_path(trip.idRio) %></td>
+            <td><%= trip.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
+            <td><%= trip.updated_at.strftime("%d/%m/%Y - %H:%M") %></td>
+            <td><%= link_to 'Ver', trip_path(trip) %></td>
+            <td><%= link_to 'Editar', edit_trip_path(trip) %></td>
+            <td><%= link_to 'Apagar', trip_path(trip), method: :delete, data: {:confirm => "Tem a certeza que quer apagar a trip?"} %></td>
+          </tr>
+      <% end %>
+    </table>
+  </div>
+  <%= will_paginate @trips, :previous_label => 'Anterior', :next_label => 'Seguinte' %>
+</div>
 
-<br>
-
-<%= link_to 'New Trip', new_trip_path %>
+<%= render 'common/footer' %>
