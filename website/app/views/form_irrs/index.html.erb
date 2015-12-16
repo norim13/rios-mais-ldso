@@ -40,6 +40,7 @@
       <% end %>
     </table>
   </div>
+  <%= will_paginate @form_irrs, :previous_label => 'Anterior', :next_label => 'Seguinte' %>
 </div>
 
 <%= render 'common/footer' %>

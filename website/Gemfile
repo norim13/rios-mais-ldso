@@ -77,3 +77,4 @@ gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 #gem "rmagick", :require => 'RMagick'
 gem "mini_magick"
 
+gem 'will_paginate', '~> 3.0.6'
