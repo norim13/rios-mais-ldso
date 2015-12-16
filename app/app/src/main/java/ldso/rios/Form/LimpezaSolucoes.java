@@ -89,7 +89,7 @@ public class LimpezaSolucoes extends AppCompatActivity {
 
                             TextView tv = (TextView) v.findViewById(R.id.name_irr_cardview);
                             tv.setText("Categoria: "+ categoria);
-                            tv= (TextView) v.findViewById(R.id.irr_cardview);
+                            tv= (TextView) v.findViewById(R.id.id_rota);
                             tv.setText("");
                             tv= (TextView) v.findViewById(R.id.margem_cardview);
                             tv.setText("Opção: " + opcao);

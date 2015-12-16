@@ -134,7 +134,7 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
 
                                 TextView tv = (TextView) v.findViewById(R.id.name_irr_cardview);
                                 tv.setText("Rio: "+idRio);
-                                tv= (TextView) v.findViewById(R.id.irr_cardview);
+                                tv= (TextView) v.findViewById(R.id.id_rota);
                                 tv.setText("IRR: "+irr);
                                 tv= (TextView) v.findViewById(R.id.id_cardview);
                                 tv.setText("ID: "+id);
@@ -219,7 +219,7 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
 
             TextView tv = (TextView) v.findViewById(R.id.name_irr_cardview);
             tv.setText("Rio: "+idRio);
-            tv= (TextView) v.findViewById(R.id.irr_cardview);
+            tv= (TextView) v.findViewById(R.id.id_rota);
             tv.setText("Date: "+date);
 
 

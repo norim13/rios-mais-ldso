@@ -186,7 +186,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ldso.rios.MainActivities.Profile" />
         </activity>
-        <activity android:name=".ImageTest"></activity>
+        <activity android:name=".ImageTest" />
+        <activity
+            android:name=".MainActivities.RotasRios_list"
+            android:label="@string/title_activity_rotas_rios_list"
+            android:parentActivityName=".MainActivities.Homepage"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ldso.rios.MainActivities.Homepage" />
+        </activity>
+        <activity
+            android:name=".Mapa_Rotas"
+            android:label="@string/title_activity_mapa__rotas"
+            android:theme="@style/AppTheme.NoActionBar"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
