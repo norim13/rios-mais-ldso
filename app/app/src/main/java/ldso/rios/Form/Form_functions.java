@@ -303,6 +303,20 @@ public class Form_functions {
         textView1.setLayoutParams(radioParams);
         linearLayout.addView(textView1);
     }
+
+
+    public static void createTitle(String title, LinearLayout linearLayout,Context context){
+        LinearLayout.LayoutParams radioParams;
+        radioParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        radioParams.setMargins(0, 10, 0, 10);
+        TextView textView=new TextView(context);
+        textView.setText(title );
+        textView.setTextColor(Color.BLACK);
+        textView.setTextSize(20);
+        textView.setLayoutParams(radioParams);
+        linearLayout.addView(textView);
+
+    }
     //READ
 
     public static int getRadioButtonOption(ArrayList<RadioButton> arrayList){

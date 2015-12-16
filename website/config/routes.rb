@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :trips
   resources :routes
   resources :rotas
 

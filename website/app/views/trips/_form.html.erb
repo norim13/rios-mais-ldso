@@ -1,0 +1,90 @@
+
+<%= simple_form_for @trip, html: { multipart: true, :"data-edit" => @edit, :"data-route-id" => @trip.id } do |f| %>
+    <% #= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+
+      <div class="form-group container">
+
+        <div id="rio-nome" class="rio-info form-inline">
+          <div class="row">
+            <div class="thumbnail">
+
+              <div class="row">
+                <div class="col-md-6 col-xs-12">
+                  <%= f.label :idRio, "Código do rio:" %>
+                  <%= f.text_field :idRio, :id => 'codigo-rio', :class => 'text_field form-control',
+                                   :readonly => true, :placeholder => "Clique em cima do rio para selecionar", :required => true %>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                  <%= f.label :nomeRio, "Nome do rio:" %>
+                  <%= f.text_field :nomeRio, :id => 'nome-rio', :class => 'text_field form-control',
+                                   :readonly => true, :placeholder => "Clique em cima do rio para selecionar", :required => true %>
+                </div>
+              </div>
+              <%= render 'mapa/mapa' %>
+            </div>
+          </div>
+        </div>
+
+        </div>
+
+      <!--<div class="form-actions">
+        <% #= f.button :submit, 'Adicionar Trip' %>
+      </div>-->
+    </div>
+<% end %>
+
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Pontos da rota</h2>
+    <p>Pode adicionar pontos à trip clicando no mapa, ou utilizando as funcionalidades de localização GPS do seu dispositivo, clicando no botão indicado. Para remover um ponto, basta clicar no marcador referente ao mesmo no mapa.</p>
+  </div>
+
+  <div class="col-xs-12" id="map-wrapper">
+    <div id="add-trip-points-map" class="col-xs-12"></div>
+
+    <div id="over-map-container">
+      <button id="add-gps-point-trip" class="btn btn-primary" disabled="disabled">Adicionar Ponto GPS</button>
+    </div>
+  </div>
+
+
+  <div id="left-panel-forms" class="col-xs-12">
+    <h3>Informações sobre os pontos:</h3>
+    <% if @edit %>
+        <% @points.each do |p| %>
+            <%
+               partial_lat = number_with_precision(p[:lat], precision: 14).to_s.gsub! '.', '_'
+               partial_lon = number_with_precision(p[:lon], precision: 14).to_s.gsub! '.', '_'
+               partial_id = "#{partial_lat}-#{partial_lon}"
+            %>
+
+            <div id="marker-form-<%= partial_id %>" class="thumbnail">
+              <div class="row">
+                <div class="col-xs-12">
+                  <h4><span class="nome-ponto-<%= partial_id %>"><%= p[:nome] %></span></h4>
+                </div>
+                <div class="col-md-4">
+                  Nome:<input id="input-nome-<%= partial_id %>" type="text-field" name="nome" class="form-control" value="<%= p[:nome] %>"/>
+                </div>
+                <div class="col-md-4">
+                  Latitude:<input type="text-field" name="lat" class="form-control" readonly="true" value="<%= p[:lat] %>"/>
+                </div>
+                <div class="col-md-4">
+                  Longitude:<input type="text-field" name="lon" class="form-control" readonly="true" value="<%= p[:lon] %>"/>
+                </div>
+                <div class="col-md-12">
+                  <textarea type="text-field" name="descricao" class="form-control"  rows="4" placeholder="Insira uma descrição" ><%= p[:descricao] %></textarea>
+                </div>
+              </div>
+            </div>
+        <% end %>
+
+    <% end %>
+  </div>
+
+</div>
+
+<button id="submit-rota" class="btn btn-primary">Guardar Rota</button>

@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -301,6 +302,11 @@ public class FormIRRSwipe extends AppCompatActivity {
             View rootView;
             if (number == 0) {
                 rootView = inflater.inflate(R.layout.fragment_form_irrsyipe_inicial, container, false);
+
+                this.app.form.nomeRioEditText= (EditText) rootView.findViewById(R.id.nomeRio);
+                this.app.form.nomeRioEditText.setText(this.app.form.nomeRio);
+
+
                 this.app.form.currLoc = (RadioButton) rootView.findViewById(R.id.currLocRadioButton);
                 if (this.form.lat_curr!=null)
                 this.app.form.currLoc.setText("Atual: "+this.form.lat_curr+";"+this.form.lon_curr);
@@ -314,12 +320,20 @@ public class FormIRRSwipe extends AppCompatActivity {
                     this.app.form.selctLoc.setText("Escolhida: "+0+";"+0);
 
                 if (this.app.form.current_location!=null){
-                    Log.e("bool","nao é null");
                     if (this.app.form.current_location)
-                        this.app.form.currLoc.setEnabled(true);
+                        this.app.form.currLoc.setChecked(true);
                     else
-                        this.app.form.selctLoc.setEnabled(true);
+                        this.app.form.selctLoc.setChecked(true);
                 }
+
+
+                this.app.form.margEsquerda= (RadioButton) rootView.findViewById(R.id.margemEsquerda);
+                this.app.form.margDireita= (RadioButton) rootView.findViewById(R.id.margemDireita);
+
+                if (this.app.form.margem==1)
+                    this.app.form.margEsquerda.setChecked(true);
+                else
+                    this.app.form.margDireita.setChecked(true);
 
 
 

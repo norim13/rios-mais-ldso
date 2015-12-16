@@ -264,10 +264,10 @@ public class DB_functions {
 
                     try {
                         response.accumulate("idRio", "201.04");
-                        response.accumulate("margem", "1");
-                        response.accumulate("lat", "1");
-                        response.accumulate("lon", "1");
-                        response.accumulate("nomeRio", "Rio Tinto");
+                        response.accumulate("margem", form_irr.margem+"");
+                        response.accumulate("lat", form_irr.lat_final+"");
+                        response.accumulate("lon", form_irr.lon_final+"");
+                        response.accumulate("nomeRio", form_irr.nomeRio);
 
                         response.accumulate("tipoDeVale", (int) form_irr.getRespostas().get(1));
 
@@ -752,10 +752,10 @@ public class DB_functions {
 
                     try {
                         response.accumulate("idRio", "201.04");
-                        response.accumulate("margem", "1");
-                        response.accumulate("lat", "1");
-                        response.accumulate("lon", "1");
-                        response.accumulate("nomeRio", "Rio Tinto");
+                        response.accumulate("margem", form_irr.margem+"");
+                        response.accumulate("lat", form_irr.lat_final+"");
+                        response.accumulate("lon", form_irr.lon_final+"");
+                        response.accumulate("nomeRio", form_irr.nomeRio);
 
                         response.accumulate("tipoDeVale", (int) form_irr.getRespostas().get(1));
 

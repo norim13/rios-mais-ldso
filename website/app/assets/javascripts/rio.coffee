@@ -2,22 +2,23 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 `
-
+    //var base_url = 'http://***REMOVED***:10500/geoserver/rios';
+    var base_url = '***REMOVED***/geoserver/rios';
 $(document).ready(function(){
 
-    $('.datepicker').datepicker();
+    //$('.datepicker').datepicker();
 
     var cod_rio = $("#cod-rio").html();
 
     var filter2 = new OpenLayers.Filter.Comparison({
         type: OpenLayers.Filter.Comparison.LIKE,
         matchCase:false,
-        property: "codrios",
+        property: "EU_CD",
         value: cod_rio
     });
 
     var  wfsProtocol2 = new OpenLayers.Protocol.WFS.v1_1_0({
-        url: 'http://***REMOVED***:10500/geoserver/rios/wms?SERVICE=WFS',
+        url: base_url+'/wms?SERVICE=WFS',
         geometryName: "SHAPE",
         featurePrefix: 'rios',
         //featureType: 'AtAgua_Agsup_rios_AAmb_SNIRH_PC',
@@ -32,13 +33,14 @@ $(document).ready(function(){
     });
 
     function fillInfoRio(request) {
+        //console.log(request);
         // the first bit sets the value of sExt to be the a boundingbox on the features returned.
         // Depending on application logic, this could happen in other places in the code.
         if(request.features.length == 0){
             $("#designacao-rio").val("Código inválido...");
         }
         else {
-            console.log(request.features[0].data);
+            //console.log(request.features[0].data);
             var info_rio = request.features[0].data;
             /*$("#designacao-rio").html(decode_utf8(info_rio.designacao));
             $("#tipo-rio").html(decode_utf8(info_rio.tipo));
@@ -49,7 +51,7 @@ $(document).ready(function(){
             $("#designacao-rio").html(info_rio.RIVER_NAME);
             $("#tipo-rio").html(info_rio.TYPE_NAME);
             $('#perfil-rio-title').html("Informações sobre "+info_rio.RIVER_NAME);
-
+            $('#tipologia-rio').html(info_rio.TYPE_NAME);
             /*getRiosPais(cod_rio);
             getAfluentes(cod_rio);*/
         }
