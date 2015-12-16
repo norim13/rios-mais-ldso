@@ -1,0 +1,21 @@
+<%= render 'common/header' %>
+
+<%= stylesheet_link_tag "trips" %>
+<%= stylesheet_link_tag "external/jquery-ui.min.css" %>
+
+</head>
+
+<body>
+
+<%= render 'common/navbar' %>
+
+<div class="container">
+  <h1>Nova Trip</h1>
+  <%= render 'form' %>
+
+  <%= link_to 'Voltar atrás', trips_path %>
+</div>
+
+<%= render 'common/footer' %>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<%= javascript_include_tag 'trips' %>

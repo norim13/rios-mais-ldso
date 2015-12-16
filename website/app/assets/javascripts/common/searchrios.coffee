@@ -2,6 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 `
+    //var base_url = 'http://***REMOVED***:10500/geoserver/rios';
+    var base_url = '***REMOVED***/geoserver/rios';
 $(document).ready(function(){
     $('#searchform').on('submit', function(e){
         e.preventDefault();
@@ -21,7 +23,7 @@ $(document).ready(function(){
         });
 
         var  wfsProtocol = new OpenLayers.Protocol.WFS.v1_1_0({
-            url: 'http://***REMOVED***:10500/geoserver/rios/wms?SERVICE=WFS',
+            url: base_url+'/wms?SERVICE=WFS',
             geometryName: "SHAPE",
             featurePrefix: 'rios',
             //featureType: 'AtAgua_Agsup_rios_AAmb_SNIRH_PC',

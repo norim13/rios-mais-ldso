@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :reports, dependent: :destroy
   has_many :log_limpezas, dependent: :destroy
   has_many :reabilitacaos, dependent: :destroy
-
+  has_many :trips, dependent: :destroy
 
   validates :telef, length: {is: 9}
 
