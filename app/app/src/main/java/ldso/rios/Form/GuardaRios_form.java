@@ -1,13 +1,9 @@
 package ldso.rios.Form;
 
-import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -29,8 +25,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
@@ -40,6 +34,7 @@ import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.MapFfrag;
+import ldso.rios.Mapa_rios;
 import ldso.rios.R;
 
 public class GuardaRios_form extends AppCompatActivity {
@@ -82,15 +77,6 @@ public class GuardaRios_form extends AppCompatActivity {
         progressbar = (ProgressBar) this.findViewById(R.id.progressBar);
 
         LayoutInflater l = getLayoutInflater();
-        View v = l.inflate(R.layout.fragment_map_ffrag, null);
-
-        frameLayout.addView(v);
-
-        GoogleMap googleMap;
-        googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-        if (googleMap == null)
-            Log.e("teste", "é null");
-
        // LatLng current_location = this.getLocation();
        // current_loc = googleMap.addMarker(new MarkerOptions().position(current_location).title("Localização Actual"));
 
@@ -172,14 +158,61 @@ public class GuardaRios_form extends AppCompatActivity {
 
     public void saveGuardaRios(View view) {
         progressbar.setVisibility(View.VISIBLE);
-        String q1 = Form_functions.getRadioButtonOption_string(question1);
+        Integer escolha = Form_functions.getRadioButtonOption(question1);
+        Log.e("escolha",escolha+"");
+        String q1="";
+        switch (escolha){
+            case 1:
+                q1="arvores";
+                break;
+            case 2:
+                q1="pedra";
+                break;
+            case 3:
+                q1="solo";
+                break;
+            case 4:
+                q1="mergulhar";
+                break;
+            case 5:
+                q1="ninho";
+                break;
+            default:
+                q1="";
+                break;
+        }
+        Log.e("saiu","saiu do switch");
         String q2 = Form_functions.getRadioButtonOption_string(question2);
         String q3 = Form_functions.getRadioButtonOption_string(question3);
         String q4 = Form_functions.getRadioButtonOption_string(question4);
         ArrayList<Integer> q5 = Form_functions.getCheckboxes(question5);
         String q6 = String.valueOf(question6.getText());
 
-        DB_functions.saveGuardaRios(this, User.getToken(this), q1, q2, q3, q4, q5, q6);
+        RadioButton r1= (RadioButton) findViewById(R.id.currLocRadioButton);
+        RadioButton r2= (RadioButton) findViewById(R.id.selctLocRadioButton);
+
+        Float lat,lang;
+
+        if (r1.isChecked())
+        {
+            lat = Float.valueOf(r1.getText().toString().split("Atual: ")[1].split(";")[0]);
+            lang = Float.valueOf(r1.getText().toString().split("Atual: ")[1].split(";")[1]);
+        }
+        else if(r2.isChecked())
+        {
+            lat = Float.valueOf(r2.getText().toString().split("Escolhida: ")[1].split(";")[0]);
+            lang = Float.valueOf(r2.getText().toString().split("Escolhida: ")[1].split(";")[1]);
+        }
+        else
+        {
+            lat=lang=0f;
+        }
+
+        String nomeRio=((EditText)this.findViewById(R.id.nomeRio)).getText().toString();
+
+        Log.e("DB","vai entrar na DB");
+
+        DB_functions.saveGuardaRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(),q1, q2, q3, q4, q5, q6, lat,lang,nomeRio);
     }
 
     public void saveGuardaRiosDB() {
@@ -198,36 +231,36 @@ public class GuardaRios_form extends AppCompatActivity {
         }.start();
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
-    public LatLng getLocation() {
-        // Get the location manager
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        String bestProvider = locationManager.getBestProvider(criteria, false);
-        if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for Activity#requestPermissions for more details.
-            Log.e("teste","vai sair do if");
-            return null;
-        }
-        Location location = locationManager.getLastKnownLocation(bestProvider);
-        Double lat,lon;
-        try {
-            lat = location.getLatitude ();
-            lon = location.getLongitude ();
-            return new LatLng(lat, lon);
-        }
-        catch (NullPointerException e){
-            e.printStackTrace();
-            Log.e("teste","é nulo");
-            return null;
-        }
+
+    public void abrirMapa(View view) {
+        startActivityForResult(new Intent(this, Mapa_rios.class), 1);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                String result = data.getStringExtra("latlan_current");
+                if (!result.contentEquals("0")) {
+                    ((RadioButton)this.findViewById(R.id.currLocRadioButton)).setText("Atual: " + result);
+                }
+
+                result = data.getStringExtra("latlan_picked");
+                if (!result.contentEquals("0")) {
+                    ((RadioButton)this.findViewById(R.id.selctLocRadioButton)).setText("Escolhida: " + result);
+                }
+                // Log.e("resultado",result);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+                Log.e("resultado", "nao recebeu nada");
+
+            }
+        }
+    }//onActivityResult
+
+
 
     //menu action bar
     @Override

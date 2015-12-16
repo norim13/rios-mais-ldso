@@ -37,7 +37,6 @@ class RoutesController < ApplicationController
         # break
         # if RotaPoint.create(p)
         if RotaPoint.create(ordem: p[:ordem], lat: p[:lat], lon: p[:lon], nome: p[:nome], descricao: p[:descricao], route_id: @route.id)
-
         else
           @route.delete
           success = false
@@ -51,7 +50,7 @@ class RoutesController < ApplicationController
     if success
       #format.html { redirect_to @route, notice: 'Route was successfully created.' }
       #format.json { render :show, status: :created, location: @route }
-      render :json => '{"success" : "true"}'
+      render :json => {:success => "true", :points => @route.rota_points}
     else
       #format.html { render :new }
       #format.json { render json: @route.errors, status: :unprocessable_entity }
@@ -75,7 +74,6 @@ class RoutesController < ApplicationController
         # break
         # if RotaPoint.create(p)
         if RotaPoint.create(ordem: p[:ordem], lat: p[:lat], lon: p[:lon], nome: p[:nome], descricao: p[:descricao], route_id: @route.id)
-
         else
           @route.delete
           success = false
@@ -87,7 +85,7 @@ class RoutesController < ApplicationController
     end
 
     if success
-      render :json => '{"success" : "true"}'
+      render :json => {:success => "true", :points => @route.rota_points}
     else
       render :json => '{"success" : "false", "error" : "problem"}'
     end

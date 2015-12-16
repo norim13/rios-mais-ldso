@@ -2,8 +2,8 @@ class FormIrrsController < ApplicationController
 	before_filter :custom_auth!, :except => [:info]
 
 	def custom_auth!
-
 		if authenticate_user!
+			@permissoes = current_user.permissoes
 			if current_user.permissoes > 1
 				return true
 			else
@@ -19,7 +19,7 @@ class FormIrrsController < ApplicationController
 	end
 
 	def index
-		@form_irrs = current_user.form_irrs
+		@form_irrs = current_user.form_irrs.paginate(:page => params[:page], :per_page => 10).order('updated_at DESC')
 	end
 
 	def new
@@ -32,7 +32,7 @@ class FormIrrsController < ApplicationController
 		@form_irr = FormIrr.find(params[:id])
 		@images = @form_irr.form_irr_images
 
-		if @form_irr.user_id != current_user.id
+		if @form_irr.user_id != current_user.id && @permissoes < 4
 			render 'noaccess'
 		else
 			@is_show = 'form-disabled'
@@ -44,7 +44,7 @@ class FormIrrsController < ApplicationController
 		@form_irr = FormIrr.find(params[:id])
 		@images = @form_irr.form_irr_images
 
-		if @form_irr.user_id != current_user.id
+		if @form_irr.user_id != current_user.id && @permissoes < 4
 			render 'noaccess'
 		else
 			@is_show = ''
@@ -56,6 +56,7 @@ class FormIrrsController < ApplicationController
 		@form_irr = FormIrr.new(form_irr_params)
 		@form_irr.user_id = current_user.id
 		@form_irr.edit_user_id = current_user.id
+		@form_irr.validated = false
 
 		if @form_irr.save
 			if params[:images]
@@ -87,6 +88,27 @@ class FormIrrsController < ApplicationController
 		end
 	end
 
+	def validate_index
+		if current_user.permissoes > 5
+			@form_irrs = FormIrr.where(:validated => false).paginate(:page => params[:page], :per_page => 10).order('updated_at')
+			render 'index_not_validated'
+		else
+			render 'noaccess'
+		end
+	end
+
+	def validate
+		if current_user.permissoes > 5
+			form_irr = FormIrr.find(params[:id])
+			#form_irr.validated = true
+			if form_irr.update_attribute(:validated, true)
+				redirect_to :back
+			end
+		else
+			render 'noaccess'
+		end
+	end
+
 	def destroy
 		@form_irr = FormIrr.find(params[:id])
 		@form_irr.destroy
@@ -110,6 +132,6 @@ class FormIrrsController < ApplicationController
 			:tritaoVentreLaranja,:raIberica,:raVerde,:sapoComum,:lagartoDeAgua,:cobraAguaDeColar,:cagado,:repteis_outro,:guardaRios,:garcaReal,:melroDeAgua,:galinhaDeAgua,:patoReal,:tentilhaoComum,:chapimReal,:aves_outro,:lontras,:morcegosDeAgua,:toupeiraDaAgua,:ratoDeAgua,:ouricoCacheiro,
 			:armilho,:mamiferos_outro,:enguia,:lampreia,:salmao,:truta,:bogaPortuguesa,:bogaDoNorte,:peixes_outro,:percaSol,:tartarugaDaFlorida,:caranguejoPeludoChines,:gambusia,:mustelaVison,:lagostimVermelho,:trutaArcoIris,:achiga,:fauna_outro,:salgueiral,:amial,:freixal,:choupal,:ulmeiral,
 			:sanguinos,:ladual,:tramazeiras,:carvalhal,:sobreiral,:azinhal,:flora_outro,:conservacaoBosqueRibeirinho,:silvas,:ervaDaFortuna,:plumas,:lentilhaDaAgua,:pinheirinha,:jacintoDeAgua,:vegetacaoInvasora_outro,:obstrucaoDoLeitoMargens,:disponibilizacaoDeInformacao,:envolvimentoPublico,
-			:acao,:legislacao,:estrategia,:gestaoDasIntervencoes, :irr_hidrogeomorfologia,:irr_qualidadedaagua,:irr_alteracoesantropicas, :irr_corredorecologico, :irr_participacaopublica,:irr_organizacaoeplaneamento, :irr)
+			:acao,:legislacao,:estrategia,:gestaoDasIntervencoes, :irr_hidrogeomorfologia,:irr_qualidadedaagua,:irr_alteracoesantropicas, :irr_corredorecologico, :irr_participacaopublica,:irr_organizacaoeplaneamento,:validated, :irr)
 	end
 end

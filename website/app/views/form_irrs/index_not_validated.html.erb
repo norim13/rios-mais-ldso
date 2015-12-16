@@ -1,0 +1,51 @@
+<%= render 'common/header' %>
+</head>
+<body>
+<%= render 'common/navbar' %>
+
+<div class="container">
+  <h1>Validar formulários</h1>
+  <div class="row">
+    <div class="table-responsive">
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Rio</th>
+            <th>Margem</th>
+            <th>Criado em</th>
+            <th>Editado em</th>
+            <th>Ver</th>
+            <th>Editar</th>
+            <th>Apagar</th>
+            <th>Validar</th>
+          </tr>
+        </thead>
+        <tbody id="form-irrs-table-body">
+          <% @form_irrs.each do |form_irr| %>
+              <tr>
+                <td><%= form_irr.id %></td>
+                <td><%= link_to form_irr.nomeRio, rio_path(form_irr.idRio) %></td>
+                <td>
+                  <% if form_irr.margem == 1 %>
+                      Esquerda
+                  <% else %>
+                      Direita
+                  <% end %>
+                </td>
+                <td><%= form_irr.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
+                <td><%= form_irr.updated_at.strftime("%d/%m/%Y - %H:%M") %></td>
+                <td><%= link_to 'Ver', form_irr_path(form_irr) %></td>
+                <td><%= link_to 'Editar', edit_form_irr_path(form_irr) %></td>
+                <td><%= link_to 'Apagar', form_irr_path(form_irr), method: :delete, data: {:confirm => "Tem a certeza que quer apagar o formulário?"} %></td>
+                <td><%= link_to 'Validar', validate_form_irr_path(form_irr), method: :patch, class: "btn btn-primary", data: {:confirm => "Tem a certeza que quer validar o formulário?"} %></td>
+              </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%= will_paginate @form_irrs, :previous_label => 'Anterior', :next_label => 'Seguinte' %>
+  </div>
+</div>
+
+<%= render 'common/footer' %>

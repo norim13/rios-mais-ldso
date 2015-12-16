@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :trip_points
   resources :trips
   resources :routes
   resources :rotas
@@ -19,6 +20,9 @@ Rails.application.routes.draw do
   post 'submitProblemasAction' => 'limpeza#submitProblemas'
   post 'changePermissions' => 'users#updatepermissions'
 
+  post 'rota_point_image' => 'rota_point_image#create'
+  delete 'rota_point_image/:id' => 'rota_point_image#destroy'
+
   #info pages
   get 'limpeza/info' => 'limpeza#info'
   get 'reabilitacao/info' => 'reabilitacaos#info'
@@ -34,6 +38,8 @@ Rails.application.routes.draw do
   get 'meusguardarios' => 'guardarios#getMine'
   resources :reports, only: [:index, :show, :new, :create, :destroy]
   resources :form_irrs
+  patch 'validate_form_irrs/:id' => 'form_irrs#validate', :as => :validate_form_irr
+  get 'validate_form_irrs' => 'form_irrs#validate_index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -70,6 +76,9 @@ Rails.application.routes.draw do
       get "/users", :to => 'users#getUser'
       delete "/users", :to => 'users#destroy'
       patch "/users", :to => 'users#update'
+
+	    get "/routes", :to => 'routes#index'
+      get "/routes/:id", :to => 'routes#show'
     end
   end
 end
