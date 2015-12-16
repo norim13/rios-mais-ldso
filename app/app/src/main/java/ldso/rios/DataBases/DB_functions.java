@@ -39,19 +39,24 @@ import ldso.rios.MainActivities.Form_IRR_mainActivity;
 import ldso.rios.MainActivities.Limpeza;
 import ldso.rios.MainActivities.Profile;
 import ldso.rios.MainActivities.ProfileEditActivity;
+import ldso.rios.MainActivities.RotasRios_list;
+import ldso.rios.Mapa_Rotas;
 
 /**
  * Created by filipe on 02/11/2015.
  */
 
+
 public class DB_functions {
+
+    static String base_url="http://riosmais.herokuapp.com";
 
     public static void saveUser(final String nome, final String email, final String password, final String password_confirmation, final String telef, final String profissao, final String habilitacoes, final Boolean formacao, final Register register_class) throws IOException, JSONException {
 
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String url = "http://riosmais.herokuapp.com/api/v1/sign_up";
+                    String url = base_url+"/api/v1/sign_up";
                     URL object = new URL(url);
                     HttpURLConnection con = (HttpURLConnection) object.openConnection();
                     con.setDoOutput(true);
@@ -131,7 +136,7 @@ public class DB_functions {
         new Thread(new Runnable() {
             public void run() {
 
-                String url = "http://riosmais.herokuapp.com/api/v2/users?user_email="+email+"&user_token="+token;
+                String url = base_url+"/api/v2/users?user_email="+email+"&user_token="+token;
 
                 URL obj = null;
                 try {
@@ -236,7 +241,7 @@ public class DB_functions {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String url = "http://riosmais.herokuapp.com/api/v2/form_irrs?user_email="+email+"&user_token="+token;
+                    String url = base_url+"/api/v2/form_irrs?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
                     URL object = new URL(url);
                     HttpURLConnection con = (HttpURLConnection) object.openConnection();
@@ -722,7 +727,7 @@ public class DB_functions {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String url = "http://riosmais.herokuapp.com/api/v2/form_irrs/"+id+"?user_email="+email+"&user_token="+token;
+                    String url = base_url+"/api/v2/form_irrs/"+id+"?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
                     URL object = null;
                     object = new URL(url);
@@ -1189,7 +1194,7 @@ public class DB_functions {
             public void run() {
 
                 try {
-                    String url = "http://riosmais.herokuapp.com/api/v1/sign_in";
+                    String url = base_url+"/api/v1/sign_in";
                     URL object = null;
                     object = new URL(url);
                     HttpURLConnection con = null;
@@ -1294,7 +1299,7 @@ public class DB_functions {
         new Thread(new Runnable() {
             public void run() {
 
-                String url = "http://riosmais.herokuapp.com/api/v2/form_irrs?user_email="+email+"&user_token="+token;
+                String url = base_url+"/api/v2/form_irrs?user_email="+email+"&user_token="+token;
 
                 URL obj = null;
                 try {
@@ -1381,7 +1386,7 @@ public class DB_functions {
             public void run() {
 
                 try {
-                    String url = "http://riosmais.herokuapp.com/api/v2/guardarios?user_email="+email+"&user_token="+token;
+                    String url = base_url+"/api/v2/guardarios?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
                     URL object = new URL(url);
                     HttpURLConnection con = (HttpURLConnection) object.openConnection();
@@ -1451,7 +1456,7 @@ public class DB_functions {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String url = "http://riosmais.herokuapp.com/api/v2/reports?user_email="+"fil.fmiranda@gmail.com"+"&user_token="+token;
+                    String url = base_url+"/api/v2/reports?user_email="+"fil.fmiranda@gmail.com"+"&user_token="+token;
                     Log.e("teste",url);
                     URL object = new URL(url);
                     HttpURLConnection con = (HttpURLConnection) object.openConnection();
@@ -1513,7 +1518,7 @@ public class DB_functions {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String url = "http://riosmais.herokuapp.com/api/v2/limpezas?user_email="+email+"&user_token="+token;
+                    String url = base_url+"/api/v2/limpezas?user_email="+email+"&user_token="+token;
                     Log.e("teste limpeza", url);
                     URL object = null;
                     object = new URL(url);
@@ -1594,7 +1599,7 @@ public class DB_functions {
             public void run() {
                 String text = Uri.encode(opcao);
 
-                String url = "http://riosmais.herokuapp.com/api/v2/limpezas/"+text;
+                String url = base_url+"/api/v2/limpezas/"+text;
 
                 URL obj = null;
                 try {
@@ -1667,7 +1672,7 @@ public class DB_functions {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String url = "http://riosmais.herokuapp.com/api/v2/users?user_email=" + email + "&user_token=" + token;
+                    String url = base_url+"/api/v2/users?user_email=" + email + "&user_token=" + token;
                     Log.e("link",url);
                     URL object = new URL(url);
                     HttpURLConnection con = (HttpURLConnection) object.openConnection();
@@ -1748,7 +1753,7 @@ public class DB_functions {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String url = "http://riosmais.herokuapp.com/api/v2/form_irrs/"+id+"?user_email="+email+"&user_token="+token;
+                    String url = base_url+"/api/v2/form_irrs/"+id+"?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
                     URL object = new URL(url);
                     HttpURLConnection con = (HttpURLConnection) object.openConnection();
@@ -1805,6 +1810,186 @@ public class DB_functions {
         }).start();
     }
 
+
+    public static void getRotasList(final RotasRios_list rotas) throws IOException, JSONException {
+
+
+        new Thread(new Runnable() {
+            public void run() {
+
+                String url = base_url+"/api/v2/routes";
+
+                URL obj = null;
+                try {
+                    obj = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                HttpURLConnection con = null;
+                try {
+                    con = (HttpURLConnection) obj.openConnection();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // optional default is GET
+                try {
+                    con.setRequestMethod("GET");
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                }
+
+                //add request header
+                con.setRequestProperty("Content-Type", "application/json");
+
+                int responseCode = 0;
+                try {
+                    responseCode = con.getResponseCode();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("\nSending 'GET' request to URL : " + url);
+                System.out.println("Response Code : " + responseCode);
+
+                BufferedReader in = null;
+                try {
+                    in = new BufferedReader(
+                            new InputStreamReader(con.getInputStream()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                try {
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //print result
+                System.out.println(response.toString());
+                Log.e("teste", response.toString());
+
+                rotas.routeList(response.toString());
+                try {
+                    JSONArray jsonarray  = new JSONArray(response.toString());
+
+                    Log.e("teste","tamanh:"+jsonarray.length());
+                    for(int i=0; i<jsonarray.length(); i++){
+                        JSONObject form_irr_json = jsonarray.getJSONObject(i);
+
+                        String name = form_irr_json.getString("name");
+
+                        System.out.println(name);
+                        System.out.println(url);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }
+
+    public static void getRotasList(final Mapa_Rotas mapa_rios, final Integer routeID) throws IOException, JSONException {
+
+
+        new Thread(new Runnable() {
+            public void run() {
+
+                String url = base_url+"/api/v2/routes/"+routeID;
+
+                URL obj = null;
+                try {
+                    obj = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                HttpURLConnection con = null;
+                try {
+                    con = (HttpURLConnection) obj.openConnection();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // optional default is GET
+                try {
+                    con.setRequestMethod("GET");
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                }
+
+                //add request header
+                con.setRequestProperty("Content-Type", "application/json");
+
+                int responseCode = 0;
+                try {
+                    responseCode = con.getResponseCode();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("\nSending 'GET' request to URL : " + url);
+                System.out.println("Response Code : " + responseCode);
+
+                BufferedReader in = null;
+                try {
+                    in = new BufferedReader(
+                            new InputStreamReader(con.getInputStream()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                try {
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //print result
+                System.out.println(response.toString());
+                Log.e("teste", response.toString());
+
+                try {
+                    mapa_rios.route(response.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    JSONArray jsonarray  = new JSONArray(response.toString());
+
+                    Log.e("teste","tamanh:"+jsonarray.length());
+                    for(int i=0; i<jsonarray.length(); i++){
+                        JSONObject form_irr_json = jsonarray.getJSONObject(i);
+
+                        String name = form_irr_json.getString("name");
+
+                        System.out.println(name);
+                        System.out.println(url);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }
 
 
     public static boolean haveNetworkConnection(Context c) {

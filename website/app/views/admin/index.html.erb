@@ -9,88 +9,38 @@
 
   <%= form_for :user, :url => 'changePermissions', :html => { :method => :post } do |f| %>
       <table class="table table-hover table-striped">
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Data de criação</th>
-          <th>Nº de logins </th>
-          <th>Nível Acesso</th>
-          <th> Atribuir permissões </th>
-
-        </tr>
-        <% for user in @users %>
-
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Data de registo</th>
+            <th>Nº de logins</th>
+            <th>Nível Acesso</th>
+            <th>Atribuir permissões</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for user in @users %>
             <tr>
-              <td> <%= hidden_field_tag "user_ids[]", user.id %> </td>
+              <%= hidden_field_tag "user_ids[]", user.id %>
+              <td><%= user.id %></td>
               <td><%= user.nome %></td>
               <td><%= user.email %></td>
               <td><%= user.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
               <td><%= user.sign_in_count %></td>
               <td><%= user.permissoes %></td>
             <td>
-              <%= select_tag  "permissoes[]", options_for_select(['1', '2','3','4','5','6'],user.permissoes),
-                          :class => 'form-control'%>
+              <%= select_tag  "permissoes[]", options_for_select(['1','2','3','4','5','6'],user.permissoes),
+                           :class => 'form-control'%>
             </td>
-        <% end %>
+          <% end %>
+        </tbody>
       </table>
+      <%= will_paginate @users, :previous_label => 'Anterior', :next_label => 'Seguinte' %>
 
-
-      <p><%= f.submit "Submit" %></p>
+      <p><%= f.submit "Submeter" , :class => 'btn btn-primary' %></p>
   <% end %>
-
-  <p id="notice"><%= notice %></p>
-  <div class="table-responsive">
-    <table class="table table-hover table-striped">
-      <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>Data de criação</th>
-        <th>Nº de logins </th>
-        <th>Nível Acesso</th>
-        <th> Atribuir permissões </th>
-
-      </tr>
-      <form action="changePermissions" method="POST">
-        <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
-      <% @users.each_with_index do |user,index| %>
-
-            <tr>
-            <td><%= user.id %></td>
-            <td><%= user.nome %></td>
-            <td><%= user.email %></td>
-            <td><%= user.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
-            <td><%= user.sign_in_count %></td>
-            <td><%= user.permissoes %></td>
-            <td>
-
-
-            <div class="form-group">
-              <select name="atribuir-permissao-<%= index %>" class="form-control">
-                <option disabled selected> </option>
-                <option value="<%= user.id  %>-1"> 1 - Proprietários (população em geral) </option>
-                <option value="<%= user.id  %>-2"> 2 - Técnicos e Estudantes univ. </option>
-                <option value="<%= user.id  %>-3"> 3 - Chefia de municipios </option>
-                <option value="<%= user.id  %>-4"> 4 - Multimunicipios </option>
-                <option value="<%= user.id  %>-5"> 5 - Técnicos ERio </option>
-                <option value="<%= user.id  %>-6"> 6 - Admin. Erio </option>
-              </select>
-            </div>
-
-
-
-        </td>
-
-
-          </tr>
-      <% end %>
-      <input type="submit">
-      </form>
-
-
-    </table>
-  </div>
 </div>
 
 <%= render 'common/footer' %>

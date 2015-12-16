@@ -17,9 +17,10 @@ Form IRR:
     // Ao clicar no submeter, preencher autometicamente todas as opcoes para nao dar erro
     // Por um EditText com "outros" onde é preciso e entegrar isso no json submetdio
     Grafico com o valor do irr
-    Mapa para escolher sitio onde estamos e margem
+    //Mapa para escolher sitio onde estamos e margem
     //Imagens no form irr
     Quando nao tem, por a guardar
+    Por a guardar a data dos saved forms direita
 
 Adicionar "tirar foto" e "foto de galeria" a todos os formularios
 

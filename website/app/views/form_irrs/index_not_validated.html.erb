@@ -11,6 +11,7 @@
         <thead>
           <tr>
             <th>Id</th>
+            <th>Utilizador</th>
             <th>Rio</th>
             <th>Margem</th>
             <th>Criado em</th>
@@ -25,6 +26,8 @@
           <% @form_irrs.each do |form_irr| %>
               <tr>
                 <td><%= form_irr.id %></td>
+                <% u = User.find(form_irr.user_id) %>
+                <td><%= u.email %></td>
                 <td><%= link_to form_irr.nomeRio, rio_path(form_irr.idRio) %></td>
                 <td>
                   <% if form_irr.margem == 1 %>
