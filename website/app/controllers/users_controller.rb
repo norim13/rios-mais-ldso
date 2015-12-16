@@ -21,18 +21,14 @@ class UsersController < ApplicationController
   end
 
   def updatepermissions
-    @arrayTemp = [];
 
-    params.each_with_index do |key, value,index|
-      # target groups using regular expressions
-      if (key.to_s[/atribuir-permissao-.*/])
-        @arrayTemp << value
-      end
-    end
+    @users = User.find(params[:user_ids])
+    @permissoes = params[:permissoes]
 
-    @arrayTemp.each do |obj|
-      User.where(:id => @arrayTemp).update(:permissoes,3)
+    @users.each_with_index do |u,index|
+      u.update_attributes(params[:user].permit(@permissoes[index]))
     end
+    flash[:notice] = "Updated users!"
 
     redirect_to adminpanel_path
 
