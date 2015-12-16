@@ -95,8 +95,6 @@ public class GuardaRios extends AppCompatActivity {
                             Log.e("entrou aqui","");
                             for(int i =0;i<array.length();i++)
                             {
-                                if (i==0)
-                                {
                                     final int finalI = i;
                                     Thread thread = new Thread(new Runnable(){
                                         @Override
@@ -109,7 +107,21 @@ public class GuardaRios extends AppCompatActivity {
                                                 final String url=DB_functions.base_url+array_imagens.get("url");
                                                 Log.e("url",url);
 
-                                                final ImageView imageView= (ImageView) findViewById(R.id.imageView);
+                                                ImageView imageViewTemp = null;
+                                                switch (finalI)
+                                                {
+                                                    case 0:imageViewTemp= (ImageView) findViewById(R.id.imageView1);break;
+                                                    case 1:imageViewTemp= (ImageView) findViewById(R.id.imageView2);break;
+                                                    case 2:imageViewTemp= (ImageView) findViewById(R.id.imageView3);break;
+                                                    case 3:imageViewTemp= (ImageView) findViewById(R.id.imageView4);break;
+                                                    case 4:imageViewTemp= (ImageView) findViewById(R.id.imageView5);break;
+                                                    case 5:imageViewTemp= (ImageView) findViewById(R.id.imageView6);break;
+                                                    case 6:imageViewTemp= (ImageView) findViewById(R.id.imageView7);break;
+                                                    case 7:imageViewTemp= (ImageView) findViewById(R.id.imageView8);break;
+                                                    case 8:imageViewTemp= (ImageView) findViewById(R.id.imageView9);break;
+                                                    default:break;
+                                                }
+                                                final ImageView imageView=imageViewTemp;
                                                 final Drawable d=LoadImageFromWebOperations(url);
                                                 final Bitmap b= LoafImageURL(url);
 
@@ -141,7 +153,10 @@ public class GuardaRios extends AppCompatActivity {
                                     });
 
                                     thread.start();
-                                }
+
+
+
+
 
 
 
@@ -168,8 +183,17 @@ public class GuardaRios extends AppCompatActivity {
     }
 
     public Bitmap LoafImageURL(String url) throws IOException {
+
+
+        //In case the image is too large
         URL url_value = new URL(url);
-        Bitmap srcBmp =BitmapFactory.decodeStream(url_value.openConnection().getInputStream());
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 8;
+        Bitmap srcBmp = BitmapFactory.decodeStream(url_value.openConnection().getInputStream(), null, options);
+
+
+        Log.e("depois",url);
+
         Bitmap dstBmp;
 
         if (srcBmp.getWidth() >= srcBmp.getHeight()){
