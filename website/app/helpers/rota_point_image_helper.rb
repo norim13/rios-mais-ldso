@@ -1,0 +1,2 @@
+module RotaPointImageHelper
+end

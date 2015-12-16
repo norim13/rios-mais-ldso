@@ -705,7 +705,7 @@ public class DB_functions {
         }).start();
     }
 
-    public static void update(final String token, final String email,final String id, final Form_IRR form_irr) throws IOException, JSONException {
+    public static void updateForm(final String token, final String email, final String id, final Form_IRR form_irr) throws IOException, JSONException {
 
         final ArrayList<Integer[]> values_irr= Questions.getValuesIRR();
         Log.e("form","entrou");
@@ -1376,12 +1376,12 @@ public class DB_functions {
         }).start();
     }
 
-    public static void saveGuardaRios(final GuardaRios_form guardaRios_form,final String token, final String q1, final String q2, final String q3, final String q4, final ArrayList<Integer> q5, final String q6) {
+    public static void saveGuardaRios(final GuardaRios_form guardaRios_form,final String email, final String token, final String q1, final String q2, final String q3, final String q4, final ArrayList<Integer> q5, final String q6, final Float lat, final Float lon, final String nomeRio) {
         new Thread(new Runnable() {
             public void run() {
 
                 try {
-                    String url = "http://riosmais.herokuapp.com/api/v2/guardarios?user_email="+"fil.fmiranda@gmail.com"+"&user_token="+token;
+                    String url = "http://riosmais.herokuapp.com/api/v2/guardarios?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
                     URL object = new URL(url);
                     HttpURLConnection con = (HttpURLConnection) object.openConnection();
@@ -1401,9 +1401,9 @@ public class DB_functions {
                     jsonObject.accumulate("cacar", q5.get(2));
                     jsonObject.accumulate("cuidarcrias", q5.get(3));
                     jsonObject.accumulate("outro",q6);
-                    jsonObject.accumulate("lat", "");
-                    jsonObject.accumulate("lon","");
-                    jsonObject.accumulate("nomeRio","");
+                    jsonObject.accumulate("lat", lat);
+                    jsonObject.accumulate("lon",lon);
+                    jsonObject.accumulate("nomeRio",nomeRio);
                     JSONObject guardarios= new JSONObject();
                     guardarios.accumulate("guardario", jsonObject);
 
