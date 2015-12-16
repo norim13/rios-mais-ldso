@@ -1371,8 +1371,10 @@
 
         <div>
           <p>
-            <% if !@form_irr.validated && @permissoes > 5 %>
-              <%= link_to 'Validar', validate_form_irr_path(@form_irr), method: :patch, class: "btn btn-primary", data: {:confirm => "Tem a certeza que quer validar o formulário?"} %>
+            <% if !@form_irr.id.nil? %>
+              <% if !@form_irr.validated && @permissoes > 5 %>
+                <%= link_to 'Validar', validate_form_irr_path(@form_irr), method: :patch, class: "btn btn-success", data: {:confirm => "Tem a certeza que quer validar o formulário?"} %>
+              <% end %>
             <% end %>
             <a class="btn btn-primary btnPrevious" >Anterior</a>
             <a class="btn btn-primary btnNext" >Seguinte</a>
