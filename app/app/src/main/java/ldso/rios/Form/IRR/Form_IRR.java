@@ -621,7 +621,7 @@ public class Form_IRR extends Form implements Serializable {
                     Form_functions.getUser(c)[1],
                     form_irr);
             File file = new File(f.getAbsolutePath(),(String) form_irr.getRespostas().get(-2));
-            //boolean deleted = file.delete();
+            boolean deleted = file.delete();
             return true;
         } catch (IOException e) {
             e.printStackTrace();

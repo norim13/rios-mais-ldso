@@ -67,7 +67,7 @@ public class MapFfrag extends Fragment {
         return inflater.inflate(R.layout.fragment_map_ffrag, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    // TODO: Rename method, updateForm argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
