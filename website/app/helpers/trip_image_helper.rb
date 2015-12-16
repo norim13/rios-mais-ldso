@@ -1,0 +1,2 @@
+module TripImageHelper
+end

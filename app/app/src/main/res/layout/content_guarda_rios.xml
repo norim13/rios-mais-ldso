@@ -102,7 +102,9 @@
 
             <GridLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:longClickable="false"
+                android:id="@+id/girdLayout">
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -118,7 +120,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:id="@+id/imageView"
+                            android:id="@+id/imageView1"
                             android:src="@mipmap/ic_launcher" />
                     </FrameLayout>
 

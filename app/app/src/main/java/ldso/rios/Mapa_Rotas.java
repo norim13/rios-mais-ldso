@@ -50,6 +50,7 @@ import java.util.Locale;
 
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
+import ldso.rios.Form.Sos_rios;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.MainActivities.Rota;
 
@@ -223,7 +224,7 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
         mMap = googleMap;
         onMapready=true;
 
-       
+
 
         // Add a marker in Sydney and move the camera
 
@@ -290,13 +291,25 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
 
 
 
-
+/*
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
             @Override
             public void onMapClick(LatLng arg0) {
             }
         });
+        */
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                startActivity(new Intent(Mapa_Rotas.this, Sos_rios.class));
+
+
+            }
+        });
+
+
 
         connected=true;
     }
