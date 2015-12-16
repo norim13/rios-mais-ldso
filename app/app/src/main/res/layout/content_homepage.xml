@@ -39,6 +39,7 @@
         android:layout_height="wrap_content"
         android:text="Rotas Rios+"
         android:id="@+id/button_rotas"
+        android:onClick="rotasRios"
         android:layout_alignBottom="@+id/button_avaliacoes"
         android:layout_toRightOf="@+id/title"
         android:layout_alignParentRight="true"

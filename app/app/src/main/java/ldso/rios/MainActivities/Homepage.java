@@ -59,6 +59,10 @@ public class Homepage extends AppCompatActivity{
 
     }
 
+    public void rotasRios(View view){
+        startActivity(new Intent(this, RotasRios_list.class));
+    }
+
     public void mapas_init(View view){
         startActivity(new Intent(this, ImageTest.class));
     }
@@ -82,6 +86,8 @@ public class Homepage extends AppCompatActivity{
     public void about(View view)  {
         startActivity(new Intent(this, Information.class));
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
