@@ -64,7 +64,7 @@ class FormIrrsController < ApplicationController
 					FormIrrImage.create(image: image, form_irr_id: @form_irr.id)
 				}
 			end
-
+			UserMailer.irr_email(@form_irr).deliver_now
 			redirect_to @form_irr
 		else
 			render 'new'

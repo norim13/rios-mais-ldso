@@ -741,7 +741,7 @@ public class DB_functions {
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.setRequestProperty("Content-Type", "application/json");
-                    con.setRequestMethod("PATCH");
+                    con.setRequestMethod("PUT");
 
                     con.connect();
                     JSONObject jsonObject = new JSONObject();
@@ -1706,7 +1706,7 @@ public class DB_functions {
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.setRequestProperty("Content-Type", "application/json");
-                    con.setRequestMethod("PATCH");
+                    con.setRequestMethod("PUT");
                     con.connect();
                     JSONObject jsonObject = new JSONObject();
                     JSONObject user = new JSONObject();

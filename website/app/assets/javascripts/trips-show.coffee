@@ -95,7 +95,6 @@ function showMarkerInfo(marker){
         type: 'GET',
         url: '/trip_points/'+marker.id,
         success: function(data){
-            //console.log(data);
             var content =
             '<div class="container-fluid">'+
                 '<div class="row">'+
@@ -107,11 +106,15 @@ function showMarkerInfo(marker){
                     '</div>'+
                     '<div class="col-xs-12">'+
                        '<p>Descrição: '+ data.point.descricao +'</p>'+
-                   '</div>'+
+                    '</div>'+
                     '<div class="col-xs-12">'+
                        '<p>Imagens:</p>'+
-                   '</div>'+
-               '</div>'+
+                       '<div class="row">';
+                       for(var i in data.images)
+                           content += '<img src="'+data.images[i].image.url+'" class="img-responsive" />'
+                       content += '</div>'+
+                    '</div>'+
+                '</div>'+
             '</div>';
             $('.modal-body').html(content);
             $('#modal-trip-point-info').modal('show');

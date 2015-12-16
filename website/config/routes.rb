@@ -67,7 +67,7 @@ Rails.application.routes.draw do
     namespace :v2 do
       post "/form_irrs", :to => 'form_irrs#create'
       get "/form_irrs", :to => 'form_irrs#getMyForms'
-      patch "/form_irrs/:id", :to => 'form_irrs#update'
+      put "/form_irrs/:id", :to => 'form_irrs#update'
       delete "/form_irrs/:id", :to => 'form_irrs#destroy'
 
       post "/guardarios", :to => 'guardarios#create'
@@ -83,7 +83,7 @@ Rails.application.routes.draw do
 
       get "/users", :to => 'users#getUser'
       delete "/users", :to => 'users#destroy'
-      patch "/users", :to => 'users#update'
+      put "/users", :to => 'users#update'
 
 	    get "/routes", :to => 'routes#index'
       get "/routes/:id", :to => 'routes#show'

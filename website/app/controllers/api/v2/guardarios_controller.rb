@@ -9,6 +9,11 @@ class Api::V2::GuardariosController < ApplicationController
 		guardario.user_id = user.id
 
 		if guardario.save
+			if params[:images]
+				params[:images].each { |image|
+					GuardarioImage.create(image: image, guardario_id: guardario.id)
+				}
+			end
 			render :json => '{"success" : "true"}'
 		else
 			render :json => '{"success" : "false", "error" : "problem saving guardario"}'

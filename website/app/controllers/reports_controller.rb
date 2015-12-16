@@ -16,7 +16,7 @@ class ReportsController < ApplicationController
   # GET /reports/1.json
   def show
     @user_reporter = User.find_by_id(@report.user_id)
-    @imgs = report.report_images
+    @imgs = @report.report_images
   end
 
   # GET /reports/new
@@ -29,6 +29,9 @@ class ReportsController < ApplicationController
   def create
     @report = Report.new(report_params)
     @report.user_id = current_user.id
+
+    UserMailer.reports_email(@report).deliver_now
+
 
     respond_to do |format|
       if @report.save
