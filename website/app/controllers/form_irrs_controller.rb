@@ -19,7 +19,7 @@ class FormIrrsController < ApplicationController
 	end
 
 	def index
-		@form_irrs = current_user.form_irrs
+		@form_irrs = current_user.form_irrs.paginate(:page => params[:page], :per_page => 10)
 	end
 
 	def new
@@ -90,7 +90,7 @@ class FormIrrsController < ApplicationController
 
 	def validate_index
 		if current_user.permissoes > 5
-			@form_irrs = FormIrr.where(:validated => false)
+			@form_irrs = FormIrr.where(:validated => false).paginate(:page => params[:page], :per_page => 10)
 			render 'index_not_validated'
 		else
 			render 'noaccess'

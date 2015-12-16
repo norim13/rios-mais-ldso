@@ -44,16 +44,8 @@
         </tbody>
       </table>
     </div>
-    <div class="col-md-12 text-center">
-      <ul class="pagination" id="form-irrs-table-body-pager"></ul>
-    </div>
+    <%= will_paginate @form_irrs, :previous_label => 'Anterior', :next_label => 'Seguinte' %>
   </div>
 </div>
 
 <%= render 'common/footer' %>
-<%= javascript_include_tag 'external/PageMe.js' %>
-<script>
-  $(document).ready(function(){
-    $('#form-irrs-table-body').pageMe({pagerSelector:'#form-irrs-table-body-pager',showPrevNext:true,hidePageNumbers:false,perPage:10});
-  });
-</script>
