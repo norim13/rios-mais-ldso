@@ -25,6 +25,17 @@ class Api::V2::GuardariosController < ApplicationController
 		end
 	end
 
+  def recent
+		@guardarios_img = GuardarioImage.last(9)
+
+		if !@guardarios_img.nil?
+			render :json => {:success => "true", :guardarios => @guardarios_img}
+		else
+			render :json => {:success => "false"}
+		end
+
+	end
+
 	def authenticate_user_from_token!
 		user_email = params[:user_email].presence
 		user = user_email && User.find_by_email(user_email)
