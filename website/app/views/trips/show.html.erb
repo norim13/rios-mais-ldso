@@ -1,4 +1,96 @@
-<p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_trip_path(@trip) %> |
-<%= link_to 'Back', trips_path %>
+
+
+
+<%= render 'common/header' %>
+
+<%= stylesheet_link_tag "trips" %>
+<%= stylesheet_link_tag "external/jquery-ui.min.css" %>
+
+</head>
+
+<body>
+
+<%= render 'common/navbar' %>
+
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  <h1>Trip no/a <%= @trip.nomeRio %></h1>
+  <h5><%= @trip.created_at %></h5>
+
+  <div class="form-inputs">
+
+    <div class="form-group container">
+      <div id="rio-nome" class="rio-info form-inline">
+        <div class="row">
+          <div class="thumbnail">
+
+            <div class="row">
+              <div class="col-md-6 col-xs-12">
+                <%= label_tag 'codigo-rio' do %>
+                    Código do rio:
+                <% end %>
+                <%= text_field_tag 'codigo-rio', @trip.idRio, {:class => 'text_field form-control',  :readonly => true }%>
+              </div>
+              <div class="col-md-6 col-xs-12">
+                <%= label_tag 'nome-rio' do %>
+                    Nome do rio:
+                <% end %>
+                <%= text_field_tag 'nome-rio', @trip.nomeRio, {:class => 'text_field form-control',  :readonly => true}%>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--<div class="form-actions">
+    </div>-->
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Pontos da rota</h2>
+      <p>Para ver informações acerca de cada um dos pontos, basta clicar nos mesmos no mapa abaixo.</p>
+    </div>
+
+    <div class="col-xs-12" id="map-wrapper">
+      <div id="view-trip-points-map" class="col-xs-12"></div>
+
+      <div id="over-map-container">
+        <button id="current-location-btn-trip" class="btn btn-primary" >Ir para localização atual</button>
+      </div>
+    </div>
+
+    <div id="points-info" style="display: none">
+      <% @points.each do |p| %>
+          <div class="point-info" data-point-id="<%= p.id%>" data-point-lat="<%= p.lat%>" data-point-lon="<%= p.lon%>" data-point-descricao="<%= p.descricao%>"></div>
+      <% end %>
+    </div>
+  </div>
+
+  <%= link_to 'Editar', edit_trip_path(@trip) %> |
+  <%= link_to 'Voltar às minhas trips', trips_path %>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modal-trip-point-info" tabindex="-1" role="dialog" aria-labelledby="modal-title">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="modal-title">Informação de ponto</h4>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%= render 'common/footer' %>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<%= javascript_include_tag 'trips-show' %>

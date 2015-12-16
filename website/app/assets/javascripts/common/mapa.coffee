@@ -140,7 +140,7 @@ window.onload = function () {
                             $("#codigo-rio").val(codigo);
                             $("#nome-rio").val(designacao);
 														var latLon = map.getLonLatFromPixel(event.xy);
-														console.log(latLon);
+														//console.log(latLon);
 														//convert to regular latitude and longitude
 														var latLon_r = new OpenLayers.LonLat(latLon.lon, latLon.lat).transform(mercator,geographic);
 														//fill lat and lon hidden fields
@@ -190,7 +190,7 @@ function getLocation(map) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			myLat = position.coords.latitude;
 			myLon = position.coords.longitude;
-				console.log("lat: " + myLat + " # lon: " + myLon);
+				//console.log("lat: " + myLat + " # lon: " + myLon);
 			var center = new OpenLayers.LonLat(myLon,myLat).transform(geographic, mercator);
 			map.setCenter(center, 14);
 		});

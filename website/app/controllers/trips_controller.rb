@@ -1,15 +1,32 @@
 class TripsController < ApplicationController
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
+  before_action :custom_auth!
+
+  def custom_auth!
+    if authenticate_user!
+      @permissoes = current_user.permissoes
+      if current_user.permissoes > 2
+        return true
+      else
+        render 'noaccess'
+      end
+    else
+      render 'noaccess'
+    end
+  end
+
 
   # GET /trips
   # GET /trips.json
   def index
-    @trips = Trip.all
+    #@trips = Trip.all
+    @trips = current_user.trips.paginate(:page => params[:page], :per_page => 10).order('updated_at DESC')
   end
 
   # GET /trips/1
   # GET /trips/1.json
   def show
+    @points = @trip.trip_points
   end
 
   # GET /trips/new
@@ -28,15 +45,11 @@ class TripsController < ApplicationController
   # POST /trips.json
   def create
     @trip = Trip.new(trip_params)
+    @trip.user_id = current_user.id
+    if @trip.save
+      redirect_to @trip
+    else
 
-    respond_to do |format|
-      if @trip.save
-        format.html { redirect_to @trip, notice: 'Trip was successfully created.' }
-        format.json { render :show, status: :created, location: @trip }
-      else
-        format.html { render :new }
-        format.json { render json: @trip.errors, status: :unprocessable_entity }
-      end
     end
   end
 
