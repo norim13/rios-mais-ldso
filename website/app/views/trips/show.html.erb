@@ -16,7 +16,6 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
   <h1>Trip no/a <%= @trip.nomeRio %></h1>
-  <h5><%= @trip.created_at %></h5>
 
   <div class="form-inputs">
 
@@ -37,6 +36,18 @@
                     Nome do rio:
                 <% end %>
                 <%= text_field_tag 'nome-rio', @trip.nomeRio, {:class => 'text_field form-control',  :readonly => true}%>
+              </div>
+              <div class="col-md-6 col-xs-12">
+                <%= label_tag 'created-at' do %>
+                    Iniciada em:
+                <% end %>
+                <%= text_field_tag 'created-at', @trip.created_at.strftime("%d/%m/%Y - %H:%M"), {:class => 'text_field form-control',  :readonly => true }%>
+              </div>
+              <div class="col-md-6 col-xs-12">
+                <%= label_tag 'nome-user' do %>
+                    Criada por:
+                <% end %>
+                <%= text_field_tag 'nome-user', current_user.nome, {:class => 'text_field form-control',  :readonly => true }%>
               </div>
             </div>
           </div>

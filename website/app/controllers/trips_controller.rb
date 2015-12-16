@@ -47,7 +47,7 @@ class TripsController < ApplicationController
     @trip = Trip.new(trip_params)
     @trip.user_id = current_user.id
     if @trip.save
-      redirect_to @trip
+      redirect_to edit_trip_path(@trip)
     else
 
     end
