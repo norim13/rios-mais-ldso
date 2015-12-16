@@ -26,6 +26,7 @@ class Api::V2::GuardariosController < ApplicationController
 	end
 
   def recent
+
 		@guardarios_img = GuardarioImage.last(9)
 
 		if !@guardarios_img.nil?
