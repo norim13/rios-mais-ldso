@@ -1,91 +1,93 @@
 <%= simple_form_for(@reabilitacao) do |f| %>
   <%= f.error_notification %>
 
-    <div class="form-inputs">
+    <div class="form-inputs ">
       <div>
+        <div class="checkbox">
         <%= f.check_box :definicao %>
         <%= f.label :definicao, "Definição estratégica à escala municipal" %>
-        <div>
+        </div>
+        <div class="checkbox">
           <%= f.check_box :diagnostico %>
           <%= f.label :diagnostico, 'Diagnóstico e caracterização'%>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :prioritizacao %>
           <%= f.label :prioritizacao, 'Priorização de problemas e mais-valias' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :objectivos %>
           <%= f.label :objectivos, 'Identificação dos objetivos' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :solucoes %>
           <%= f.label :solucoes, 'Identificação de soluções' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :elaboracao %>
           <%= f.label :elaboracao, 'Elaboração de projetos' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :implementacao %>
           <%= f.label :implementacao, 'Implementação e gestão de projetos' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :monitorizacao %>
           <%= f.label :monitorizacao, 'Monitorização' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :avaliacao %>
           <%= f.label :avaliacao, 'Programas de verificação e avaliação' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :correcao %>
           <%= f.label :correcao, 'Implementação de medidas mitigadoras, corretoras e de manutenção' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :ppublica %>
           <%= f.label :ppublica, 'Participação Publica' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :parcerias %>
           <%= f.label :parcerias, 'Parcerias' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :legislacao %>
           <%= f.label :legislacao, 'Legislação: (Link APA)' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :lei_agua %>
           <%= f.label :lei_agua, 'Lei da água (nº58/2005, de 29/12)' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :directiva_agua %>
           <%= f.label :directiva_agua, 'Diretiva quadro da água' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :directiva_inundacoes %>
           <%= f.label :directiva_inundacoes, 'Diretiva inundações' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :custo %>
           <%= f.label :custo, 'Custo/beneficio' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :cronograma %>
           <%= f.label :cronograma,'Cronograma' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :formacao %>
           <%= f.label :formacao, 'Formação (Link siteAPP)' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :emergencia %>
           <%= f.label :emergencia, 'Plano de Emergência' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :reabilitacao %>
           <%= f.label :reabilitacao, 'Princípios da reabilitação' %>
         </div>
-        <div>
+        <div class="checkbox">
           <%= f.check_box :revisao %>
           <%= f.label :revisao, 'Plano de revisão' %>
         </div>

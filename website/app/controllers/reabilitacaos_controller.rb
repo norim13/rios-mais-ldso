@@ -66,7 +66,7 @@ class ReabilitacaosController < ApplicationController
   def update
     respond_to do |format|
       if @reabilitacao.update(reabilitacao_params)
-        format.html { redirect_to @reabilitacao, notice: 'Reabilitacao was successfully updated.' }
+        format.html { redirect_to action: "index", notice: 'Reabilitacao was successfully updated.' }
         format.json { render :index, status: :ok, location: @reabilitacao }
       else
         format.html { render :edit }
