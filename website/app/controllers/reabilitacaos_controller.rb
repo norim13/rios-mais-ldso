@@ -67,7 +67,7 @@ class ReabilitacaosController < ApplicationController
     respond_to do |format|
       if @reabilitacao.update(reabilitacao_params)
         format.html { redirect_to @reabilitacao, notice: 'Reabilitacao was successfully updated.' }
-        format.json { render :show, status: :ok, location: @reabilitacao }
+        format.json { render :index, status: :ok, location: @reabilitacao }
       else
         format.html { render :edit }
         format.json { render json: @reabilitacao.errors, status: :unprocessable_entity }
