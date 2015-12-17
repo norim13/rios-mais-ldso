@@ -584,16 +584,6 @@ public class DB_functions {
                         response.accumulate("gestaoDasIntervencoes", (int) form_irr.getRespostas().get(33));
                         arrayList_OrganizacaoPlaneamento.add(Form_functions.getmax((int) form_irr.getRespostas().get(33), values_irr.get(33)));
 
-
-
-
-
-
-
-
-
-
-
                         response.accumulate("irr_hidrogeomorfologia", Collections.max(arrayList_Hidrogeomorfologia));
                         response.accumulate("irr_qualidadedaagua",Collections.max(arrayList_QualidadeDaAgua));
                         response.accumulate("irr_alteracoesantropicas",Collections.max(arrayList_AlteracoesAntropicas));
@@ -1689,7 +1679,7 @@ public class DB_functions {
                         jsonObject.accumulate("email", profileEditActivity.getEmail().getText());
                         jsonObject.accumulate("current_password", profileEditActivity.getCurrentPassword());
                         jsonObject.accumulate("password", profileEditActivity.getPassword().getText());
-                        jsonObject.accumulate("password_confirmation", profileEditActivity.getPasswordConfirmation());
+                        jsonObject.accumulate("password_confirmation", profileEditActivity.getPasswordConfirmation().getText());
                         jsonObject.accumulate("telef", profileEditActivity.getTelef().getText());
                         jsonObject.accumulate("habilitacoes", profileEditActivity.getHabilitacoes().getText());
                         jsonObject.accumulate("profissao", profileEditActivity.getProfissao().getText());
