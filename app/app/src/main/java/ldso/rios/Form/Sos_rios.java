@@ -121,7 +121,7 @@ public class Sos_rios extends AppCompatActivity {
         String q2=Form_functions.getRadioButtonOption_string(question2);
         String q3=question3.getText().toString();
 
-        DB_functions.saveSOSRios(this, User.getToken(this),q1,q2,q3);
+        DB_functions.saveSOSRios(this, User.getInstance().getEmail(),User.getInstance().getAuthentication_token(),q1,q2,q3);
 
     }
 
