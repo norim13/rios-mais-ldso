@@ -13,15 +13,26 @@
     <table class="table">
       <tr>
         <th>Data de criação</th>
+        <th>Última atualização</th>
+        <th>Progresso</th>
         <th>Editar</th>
         <th>Apagar</th>
       </tr>
 
-      <% @reabilitacaos.each do |reabilitacao| %>
+      <% @reabilitacaos.each_with_index do |reabilitacao,index| %>
           <tr>
-            <td><%= reabilitacao.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
-            <td><%= link_to 'Editar', edit_reabilitacao_path(reabilitacao) %></td>
-            <td><%= link_to 'Apagar', reabilitacao, method: :delete, data: {confirm: 'Tem a certeza que pretende apagar?'} %></td>
+            <td class="col-xs-2"><%= reabilitacao.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
+            <td class="col-xs-2"><%= reabilitacao.updated_at.strftime("%d/%m/%Y - %H:%M") %></td>
+            <td class="col-xs-6">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="<%=@percentagens[index]%>"
+                     aria-valuemin="0" aria-valuemax="100" style="width:<%=@percentagens[index]%>%">
+                  <span class="sr-only">70% Complete</span>
+                </div>
+              </div>
+            </td>
+            <td class="col-xs-1"><%= link_to 'Editar', edit_reabilitacao_path(reabilitacao) %></td>
+            <td class="col-xs-1"><%= link_to 'Apagar', reabilitacao, method: :delete, data: {confirm: 'Tem a certeza que pretende apagar?'} %></td>
           </tr>
       <% end %>
     </table>

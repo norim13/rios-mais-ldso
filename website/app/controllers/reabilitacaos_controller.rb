@@ -5,6 +5,12 @@ class ReabilitacaosController < ApplicationController
   # GET /reabilitacaos.json
   def index
     @reabilitacaos = Reabilitacao.all
+    @percentagens = []
+
+    @reabilitacaos.each do |reabilitacao|
+      @percentagens << calculateProgress(reabilitacao.id)
+    end
+
   end
 
   def info
@@ -20,6 +26,24 @@ class ReabilitacaosController < ApplicationController
   def edit
   end
 
+  def calculateProgress(id)
+    @reabilitacao = Reabilitacao.find(id)
+    @trues = []
+    @falses = []
+
+    @reabilitacao.attributes.each do |attr_name, attr_value|
+      if attr_value == true
+        @trues.push(attr_name)
+      elsif attr_value == false
+        @falses.push(attr_name)
+      else
+      end
+    end
+
+    @valor = (@trues.size.to_f/(@trues.size + @falses.size).to_f)*100
+    return @valor.round
+  end
+
   # POST /reabilitacaos
   # POST /reabilitacaos.json
   def create
@@ -29,7 +53,7 @@ class ReabilitacaosController < ApplicationController
     respond_to do |format|
       if @reabilitacao.save
         format.html { redirect_to action: "index", notice: 'Reabilitacao was successfully created.' }
-        format.json { render :show, status: :created, location: @reabilitacao }
+        format.json { render :index, status: :created, location: @reabilitacao }
       else
         format.html { render :new }
         format.json { render json: @reabilitacao.errors, status: :unprocessable_entity }
