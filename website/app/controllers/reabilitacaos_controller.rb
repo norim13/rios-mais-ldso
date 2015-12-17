@@ -52,7 +52,7 @@ class ReabilitacaosController < ApplicationController
 
     respond_to do |format|
       if @reabilitacao.save
-        format.html { redirect_to action: "index", notice: 'Reabilitacao was successfully created.' }
+        format.html { redirect_to action: "index", notice: 'Plano de reabilitação iniciado.' }
         format.json { render :index, status: :created, location: @reabilitacao }
       else
         format.html { render :new }
@@ -66,7 +66,7 @@ class ReabilitacaosController < ApplicationController
   def update
     respond_to do |format|
       if @reabilitacao.update(reabilitacao_params)
-        format.html { redirect_to action: "index", notice: 'Reabilitacao was successfully updated.' }
+        format.html { redirect_to action: "index", notice: 'Plano de reabilitação atualizado.' }
         format.json { render :index, status: :ok, location: @reabilitacao }
       else
         format.html { render :edit }
@@ -80,7 +80,7 @@ class ReabilitacaosController < ApplicationController
   def destroy
     @reabilitacao.destroy
     respond_to do |format|
-      format.html { redirect_to reabilitacaos_url, notice: 'Reabilitacao was successfully destroyed.' }
+      format.html { redirect_to reabilitacaos_url, notice: 'Plano de reabilitação removido.' }
       format.json { head :no_content }
     end
   end

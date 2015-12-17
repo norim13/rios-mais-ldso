@@ -40,7 +40,7 @@ class ReportsController < ApplicationController
             ReportImage.create(image: image, report: @report.id)
           }
         end
-        format.html { redirect_to @report, notice: 'Report was successfully created.' }
+        format.html { redirect_to @report, notice: 'Denúncia enviada.' }
         format.json { render :show, status: :created, location: @report }
       else
         format.html { render :new }
@@ -54,7 +54,7 @@ class ReportsController < ApplicationController
   def destroy
     @report.destroy
     respond_to do |format|
-      format.html { redirect_to reports_url, notice: 'Report was successfully destroyed.' }
+      format.html { redirect_to reports_url, notice: 'Denúncia removida.' }
       format.json { head :no_content }
     end
   end

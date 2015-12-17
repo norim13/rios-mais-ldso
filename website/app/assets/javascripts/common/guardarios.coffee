@@ -16,4 +16,12 @@
             $("#img-filenames").html(file_names);
         });
     });
+
+    $(document).ready(function(){
+        setTimeout(function(){
+            $("#notice").fadeOut(500, function(){
+                $(this).remove();
+            });
+        }, 3000);
+    })
 `

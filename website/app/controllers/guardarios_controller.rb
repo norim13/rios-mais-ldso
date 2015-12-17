@@ -42,7 +42,7 @@ class GuardariosController < ApplicationController
             GuardarioImage.create(image: image, guardario_id: @guardario.id)
           }
         end
-        format.html { redirect_to @guardario, notice: 'Guardario was successfully created.' }
+        format.html { redirect_to @guardario, notice: 'O seu avistamento foi reportado com sucesso.' }
         format.json { render :show, status: :created, location: @guardario }
       else
         format.html { render :new }
