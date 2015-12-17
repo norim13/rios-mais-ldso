@@ -1,5 +1,19 @@
 class RoutesController < ApplicationController
   before_action :set_route, only: [:show, :edit, :update, :destroy]
+  before_action :custom_auth!, only: [:create,:new, :edit, :update, :destroy]
+
+  def custom_auth!
+    if authenticate_user!
+      @permissoes = current_user.permissoes
+      if current_user.permissoes > 3
+        return true
+      else
+        render 'common/noaccess'
+      end
+    else
+      render 'common/noaccess'
+    end
+  end
 
   # GET /routes
   # GET /routes.json
@@ -33,9 +47,6 @@ class RoutesController < ApplicationController
 
     if @route.save
       params[:rota_points].each do |k, p|
-        # render :json => p[:ordem]
-        # break
-        # if RotaPoint.create(p)
         if RotaPoint.create(ordem: p[:ordem], lat: p[:lat], lon: p[:lon], nome: p[:nome], descricao: p[:descricao], route_id: @route.id)
         else
           @route.delete
@@ -48,12 +59,8 @@ class RoutesController < ApplicationController
     end
 
     if success
-      #format.html { redirect_to @route, notice: 'Route was successfully created.' }
-      #format.json { render :show, status: :created, location: @route }
       render :json => {:success => "true", :points => @route.rota_points}
     else
-      #format.html { render :new }
-      #format.json { render json: @route.errors, status: :unprocessable_entity }
       render :json => '{"success" : "false", "error" : "problem"}'
     end
 
@@ -70,9 +77,6 @@ class RoutesController < ApplicationController
 
       #add points from POST
       params[:rota_points].each do |k, p|
-        # render :json => p[:ordem]
-        # break
-        # if RotaPoint.create(p)
         if RotaPoint.create(ordem: p[:ordem], lat: p[:lat], lon: p[:lon], nome: p[:nome], descricao: p[:descricao], route_id: @route.id)
         else
           @route.delete
@@ -89,16 +93,6 @@ class RoutesController < ApplicationController
     else
       render :json => '{"success" : "false", "error" : "problem"}'
     end
-
-    # respond_to do |format|
-    #   if @route.update(route_params)
-    #     format.html { redirect_to @route, notice: 'A Rota foi actualizada com sucesso.' }
-    #     format.json { render :show, status: :ok, location: @route }
-    #   else
-    #     format.html { render :edit }
-    #     format.json { render json: @route.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # DELETE /routes/1

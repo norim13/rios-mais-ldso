@@ -1,12 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :trip_points
-  resources :trips
-  resources :routes
-  resources :rotas
-
-  get 'rio/:id' => 'rio#show', as: :rio, :id => /.*/
-
   get 'search' => 'searchrios#display'
   get 'profile' => 'profile#display'
   get 'home' => 'home#homepage'
@@ -26,6 +19,8 @@ Rails.application.routes.draw do
   post 'trip_point_image' => 'trip_image#create'
   delete 'trip_point_image/:id' => 'trip_image#destroy'
 
+  get 'meusguardarios' => 'guardarios#getMine'
+
   #info pages
   get 'limpeza/info' => 'limpeza#info'
   get 'reabilitacao/info' => 'reabilitacaos#info'
@@ -35,14 +30,25 @@ Rails.application.routes.draw do
   get 'participacao_publica/info' => 'participacao_publica#info'
   get 'projetos/info' => 'projetos#info'
 
+  #all
+  get 'form_irrs/all' => 'form_irrs#all'
+  get 'trips/all' => 'trips#all'
+
+  get 'rio/:id' => 'rio#show', as: :rio, :id => /.*/
+
   resources :form_irr_image
   resources :reabilitacaos
   resources :guardarios, only: [:index, :show, :new, :create, :destroy]
-  get 'meusguardarios' => 'guardarios#getMine'
   resources :reports, only: [:index, :show, :new, :create, :destroy]
   resources :form_irrs
+  resources :trip_points
+  resources :trips
+  resources :routes
+  resources :rotas
+
   patch 'validate_form_irrs/:id' => 'form_irrs#validate', :as => :validate_form_irr
   get 'validate_form_irrs' => 'form_irrs#validate_index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
