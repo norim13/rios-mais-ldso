@@ -7,8 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import ldso.rios.R;
-
 public class RotaPoint_show extends AppCompatActivity {
 
     @Override
@@ -26,6 +24,8 @@ public class RotaPoint_show extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        
     }
 
 }

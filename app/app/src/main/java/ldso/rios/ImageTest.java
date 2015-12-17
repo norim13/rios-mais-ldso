@@ -1,14 +1,17 @@
 package ldso.rios;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.File;
+
+import ldso.rios.DataBases.DB_functions;
+import ldso.rios.DataBases.User;
 
 public class ImageTest extends AppCompatActivity {
     private static final int SELECT_PHOTO = 100;
@@ -30,15 +33,36 @@ public class ImageTest extends AppCompatActivity {
             case SELECT_PHOTO:
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = imageReturnedIntent.getData();
-                    InputStream imageStream = null;
+
+                    File f = new File(getRealPathFromURI(selectedImage));
+
+                    Log.e("path",selectedImage.getPath());
+
+                    if(f.exists())
+                        Log.e("existe","ficheiro existe");
+                    else
+                        Log.e("Nao existe","ficheiro nao existe");
                     try {
-                        imageStream = getContentResolver().openInputStream(selectedImage);
-                    } catch (FileNotFoundException e) {
+                        DB_functions.alternativoGuardarios(f, User.getInstance().getEmail(),User.getInstance().getAuthentication_token(),"","","","",null,"",1f,1f,"Leça");
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
                 }
         }
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
     }
 
 

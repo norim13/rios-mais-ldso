@@ -27,11 +27,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 import ldso.rios.Autenticacao.Login;
-import ldso.rios.DataBases.DB_functions;
-import ldso.rios.DataBases.User;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.MapFfrag;
 import ldso.rios.Mapa_rios;
@@ -156,7 +157,7 @@ public class GuardaRios_form extends AppCompatActivity {
     }
 
 
-    public void saveGuardaRios(View view) {
+    public void saveGuardaRios(View view) throws IOException, JSONException {
         progressbar.setVisibility(View.VISIBLE);
         Integer escolha = Form_functions.getRadioButtonOption(question1);
         Log.e("escolha",escolha+"");
@@ -212,7 +213,7 @@ public class GuardaRios_form extends AppCompatActivity {
 
         Log.e("DB","vai entrar na DB");
 
-        DB_functions.saveGuardaRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(),q1, q2, q3, q4, q5, q6, lat,lang,nomeRio);
+        //DB_functions.alternativoGuardarios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(),q1, q2, q3, q4, q5, q6, lat,lang,nomeRio);
     }
 
     public void saveGuardaRiosDB() {

@@ -1,17 +1,30 @@
 package ldso.rios.DataBases;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.SystemClock;
 import android.util.Log;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -42,6 +55,7 @@ import ldso.rios.MainActivities.Profile;
 import ldso.rios.MainActivities.ProfileEditActivity;
 import ldso.rios.MainActivities.RotasRios_list;
 import ldso.rios.Mapa_Rotas;
+import ldso.rios.R;
 
 /**
  * Created by filipe on 02/11/2015.
@@ -1377,6 +1391,13 @@ public class DB_functions {
             public void run() {
 
                 try {
+                    String attachmentName = "bitmap";
+                    String attachmentFileName = "bitmap.bmp";
+                    String crlf = "\r\n";
+                    String twoHyphens = "--";
+                    String boundary =  "*****";
+
+
                     String url = base_url+"/api/v2/guardarios?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
                     URL object = new URL(url);
@@ -1402,6 +1423,43 @@ public class DB_functions {
                     jsonObject.accumulate("nomeRio",nomeRio);
                     JSONObject guardarios= new JSONObject();
                     guardarios.accumulate("guardario", jsonObject);
+
+
+
+                    JSONArray array = new JSONArray();
+
+                    DataOutputStream request = new DataOutputStream(
+                            con.getOutputStream());
+
+                    request.writeBytes(twoHyphens + boundary + crlf);
+                    request.writeBytes("Content-Disposition: form-data; name=\"" +
+                            attachmentName + "\";filename=\"" +
+                            attachmentFileName + "\"" + crlf);
+                    request.writeBytes(crlf);
+
+                    Bitmap bitmap = BitmapFactory.decodeResource(guardaRios_form.getApplicationContext().getResources(),R.drawable.acaros);
+
+                    byte[] pixels = new byte[bitmap.getWidth() * bitmap.getHeight()];
+                    for (int i = 0; i < bitmap.getWidth(); ++i) {
+                        for (int j = 0; j < bitmap.getHeight(); ++j) {
+                            //we're interested only in the MSB of the first byte
+
+                            //since the other 3 bytes are identical for B&W images
+                            pixels[i + j] = (byte) ((bitmap.getPixel(i, j) & 0x80) >> 7);
+                        }
+                    }
+
+                    request.write(pixels);
+
+                    request.writeBytes(crlf);
+                    request.writeBytes(twoHyphens + boundary +
+                            twoHyphens + crlf);
+
+                    request.flush();
+
+                    array.put(pixels.toString());
+                    guardarios.put("images",array);
+
 
                     Log.w("teste", jsonObject.toString());
                     Log.e("teste", guardarios.toString());
@@ -2061,6 +2119,76 @@ public class DB_functions {
         }).start();
     }
 
+
+
+    public  static void alternativoGuardarios(final File f,final String email, final String token, final String q1, final String q2, final String q3, final String q4, final ArrayList<Integer> q5, final String q6, final Float lat, final Float lon, final String nomeRio) throws IOException, JSONException {
+
+
+
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+
+
+                DefaultHttpClient client = new DefaultHttpClient();
+                String url = base_url+"/api/v2/guardarios?user_email="+email+"&user_token="+token;
+                HttpPost post = new HttpPost(url);
+                MultipartEntityBuilder imageMPentity = MultipartEntityBuilder.create();
+
+
+
+
+                imageMPentity.addBinaryBody("image",f,ContentType.create("image/jpeg"),f.getName());
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.accumulate("rio","201.02");
+                jsonObject.accumulate("local",q1);
+                jsonObject.accumulate("voar",q2);
+                jsonObject.accumulate("cantar",q3);
+                jsonObject.accumulate("alimentar", q4);
+                jsonObject.accumulate("parado", 0);
+                jsonObject.accumulate("beber", 0);
+                jsonObject.accumulate("cacar", 0);
+                jsonObject.accumulate("cuidarcrias", 0);
+                jsonObject.accumulate("outro",q6);
+                jsonObject.accumulate("lat", lat);
+                jsonObject.accumulate("lon",lon);
+                jsonObject.accumulate("nomeRio",nomeRio);
+                String s = (String) jsonObject.toString();
+                imageMPentity.addPart("guardarios",new StringBody(s,ContentType.TEXT_PLAIN));
+
+
+
+                post.setEntity(imageMPentity.build());
+                    Log.e("enviado",imageMPentity.toString());
+
+                HttpResponse response = null;
+
+                try {
+                    response = client.execute(post);
+                    String resposta=new BasicResponseHandler().handleResponse(response);
+                    Log.e("resposta",resposta);
+                } catch (ClientProtocolException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    String resposta=new BasicResponseHandler().handleResponse(response);
+                    Log.e("resposta",resposta);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                HttpEntity result = response.getEntity();
+
+                }
+                catch (Exception e)
+                {
+
+                }
+
+            }
+        }).start();
+    }
 
     public static boolean haveNetworkConnection(Context c) {
         boolean haveConnectedWifi = false;

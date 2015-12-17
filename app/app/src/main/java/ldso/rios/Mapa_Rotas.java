@@ -49,6 +49,7 @@ import java.util.Locale;
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
 import ldso.rios.MainActivities.GuardaRios;
+import ldso.rios.MainActivities.PointRota;
 import ldso.rios.MainActivities.Rota;
 
 public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -300,7 +301,10 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                startActivity(new Intent(Mapa_Rotas.this, RotaPoint_show.class));
+                PointRota p;
+
+                Intent i= new Intent(Mapa_Rotas.this, RotaPoint_show.class);
+                i.putExtra("nome_rota",rota.getNome());
 
 
             }
