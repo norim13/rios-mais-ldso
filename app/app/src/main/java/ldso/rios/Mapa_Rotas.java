@@ -61,6 +61,7 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
     Rota rota;
     Boolean connected=false;
     Boolean onMapready=false;
+    String imagens;
 
     ArrayList<Marker> pontos;
 
@@ -135,6 +136,8 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
                             JSONObject resposta_json = new JSONObject(resposta);
 
                             JSONObject rota_json = (JSONObject) resposta_json.get("route");
+                            JSONArray arrayImagens=(JSONArray) resposta_json.get("images");
+                            imagens=arrayImagens.toString();
 
                             rota = new Rota(rota_json.getInt("id"),
                                     rota_json.getString("nome"),
@@ -181,7 +184,7 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
                                     rectOptions.add(current_location);
 
                                     if(i==0)
-                                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current_location, 12.0f));
+                                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current_location, 14.0f));
 
                                 }
 
@@ -231,7 +234,6 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         */
     }
-
 
     public boolean isLocationServiceEnabled() {
         LocationManager locationManager = null;
@@ -312,9 +314,11 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
 
                 Intent intent= new Intent(Mapa_Rotas.this, RotaPoint_show.class);
                 intent.putExtra("nome_rota",rota.getNome());
+                intent.putExtra("rota_id",rota.getId());
                 intent.putExtra("nome_ponto",rota.getPontos().get(i).getNome());
                 intent.putExtra("descricao_ponto",rota.getPontos().get(i).getDescricao());
                 intent.putExtra("ordem_ponto",rota.getPontos().get(i).getOrdem());
+                intent.putExtra("imagens",imagens);
 
 
                 startActivity(intent);

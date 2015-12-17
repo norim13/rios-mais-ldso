@@ -123,7 +123,6 @@ public class GuardaRios extends AppCompatActivity {
                                                     default:break;
                                                 }
                                                 final ImageView imageView=imageViewTemp;
-                                                final Drawable d=LoadImageFromWebOperations(url);
                                                 final Bitmap b= LoafImageURL(url);
 
                                                 new Thread()
@@ -183,7 +182,7 @@ public class GuardaRios extends AppCompatActivity {
 
     }
 
-    public Bitmap LoafImageURL(String url) throws IOException {
+    public static Bitmap LoafImageURL(String url) throws IOException {
 
 
         //In case the image is too large
