@@ -2020,21 +2020,6 @@ public class DB_functions {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                try {
-                    JSONArray jsonarray  = new JSONArray(response.toString());
-
-                    Log.e("teste","tamanh:"+jsonarray.length());
-                    for(int i=0; i<jsonarray.length(); i++){
-                        JSONObject form_irr_json = jsonarray.getJSONObject(i);
-
-                        String name = form_irr_json.getString("name");
-
-                        System.out.println(name);
-                        System.out.println(url);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
             }
         }).start();

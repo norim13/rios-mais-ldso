@@ -77,6 +77,7 @@ public class GuardaRios extends AppCompatActivity {
 
     public void form_guardarios(View view){
         startActivity(new Intent(this, GuardaRios_form.class));
+        this.finish();
     }
 
 

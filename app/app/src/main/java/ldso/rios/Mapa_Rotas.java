@@ -79,7 +79,7 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
 
         if (this.getIntent().getSerializableExtra("id") != null)
             id = (Integer) this.getIntent().getSerializableExtra("id");
-        setContentView(R.layout.activity_mapa_rios);
+        setContentView(R.layout.activity_mapa__rotas);
         mLastLocation = null;
         mGoogleApiClient = null;
         pontos= new ArrayList<Marker>();
@@ -303,8 +303,23 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
             public void onInfoWindowClick(Marker marker) {
                 PointRota p;
 
-                Intent i= new Intent(Mapa_Rotas.this, RotaPoint_show.class);
-                i.putExtra("nome_rota",rota.getNome());
+                int i;
+                for (i =0;i<pontos.size();i++)
+                {
+                    if (pontos.get(i).equals(marker))
+                        break;
+                }
+
+                Intent intent= new Intent(Mapa_Rotas.this, RotaPoint_show.class);
+                intent.putExtra("nome_rota",rota.getNome());
+                intent.putExtra("nome_ponto",rota.getPontos().get(i).getNome());
+                intent.putExtra("descricao_ponto",rota.getPontos().get(i).getDescricao());
+                intent.putExtra("ordem_ponto",rota.getPontos().get(i).getOrdem());
+
+
+                startActivity(intent);
+
+
 
 
             }
