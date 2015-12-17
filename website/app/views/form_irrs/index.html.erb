@@ -4,7 +4,11 @@
 <%= render 'common/navbar' %>
 
 <div class="container">
-  <h1>Meus formulários <%= link_to "Novo formulário", new_form_irr_path, class: "btn btn-primary" %></h1>
+  <% if @all %>
+      <h1>Todos os formulários</h1>
+  <% else %>
+      <h1>Meus formulários <%= link_to "Novo formulário", new_form_irr_path, class: "btn btn-primary" %></h1>
+  <% end %>
 
   <div class="table-responsive">
     <table class="table table-hover table-striped">

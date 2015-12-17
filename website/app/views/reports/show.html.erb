@@ -6,7 +6,11 @@
 
 
 <div class="container">
-  <p id="notice"><%= notice %></p>
+
+  <% if !flash[:notice].blank? %>
+      <div id="notice" class="alert alert-success"> <%= notice %> </div>
+  <% else %>
+  <% end %>
 
   <h1>Relatório SOS Rios+</h1>
   <table class="table table-hover table-striped">
@@ -59,3 +63,4 @@
 
 
 <%= render 'common/footer' %>
+<%= javascript_include_tag 'guardarios' %>

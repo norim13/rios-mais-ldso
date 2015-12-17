@@ -5,13 +5,13 @@ class TripsController < ApplicationController
   def custom_auth!
     if authenticate_user!
       @permissoes = current_user.permissoes
-      if current_user.permissoes > 2
+      if current_user.permissoes > 1
         return true
       else
-        render 'noaccess'
+        render 'common/noaccess'
       end
     else
-      render 'noaccess'
+      render 'common/noaccess'
     end
   end
 
@@ -19,8 +19,18 @@ class TripsController < ApplicationController
   # GET /trips
   # GET /trips.json
   def index
-    #@trips = Trip.all
+    @all = false
     @trips = current_user.trips.paginate(:page => params[:page], :per_page => 10).order('updated_at DESC')
+  end
+
+  def all
+    if current_user.permissoes > 4
+      @all = true
+      @trips = Trip.all.paginate(:page => params[:page], :per_page => 10).order('updated_at DESC')
+      render 'index'
+    else
+      render 'common/noaccess'
+    end
   end
 
   # GET /trips/1
@@ -38,7 +48,7 @@ class TripsController < ApplicationController
   # GET /trips/1/edit
   def edit
     if( @trip.user_id != current_user.id)
-      render 'noaccess'
+      render 'common/noaccess'
     else
       @edit = true;
       @points = @trip.trip_points
