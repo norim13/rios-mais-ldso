@@ -6,7 +6,11 @@
 
 
 <div class="container">
-  <div id="notice" class="alert alert-success"> <%= notice %> </div>
+
+  <% if !flash[:notice].blank? %>
+      <div id="notice" class="alert alert-success"> <%= notice %> </div>
+  <% else %>
+  <% end %>
 
   <h1>Relatório SOS Rios+</h1>
   <table class="table table-hover table-striped">
