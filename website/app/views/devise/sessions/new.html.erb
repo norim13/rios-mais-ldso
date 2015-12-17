@@ -12,8 +12,10 @@
 
 <h2> Entrar </h2>
 
-<div class="alert alert-danger"><%= flash[:alert]%></div>
-
+  <% if !flash[:alert].blank? %>
+    <div class="alert alert-danger"><%= flash[:alert]%></div>
+  <% else %>
+  <% end %>
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="form-inputs">
     <%= f.error_notification %>
