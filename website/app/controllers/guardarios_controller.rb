@@ -6,7 +6,7 @@ class GuardariosController < ApplicationController
   # GET /guardarios.json
   # display last
   def index
-    @guardarios_img = GuardarioImage.last(9)
+    @guardarios_img = GuardarioImage.last(9).reverse
   end
 
   def getMine
