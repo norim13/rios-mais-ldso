@@ -1,8 +1,6 @@
 package ldso.rios.DataBases;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -14,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -45,7 +42,6 @@ import ldso.rios.MainActivities.Profile;
 import ldso.rios.MainActivities.ProfileEditActivity;
 import ldso.rios.MainActivities.RotasRios_list;
 import ldso.rios.Mapa_Rotas;
-import ldso.rios.R;
 
 /**
  * Created by filipe on 02/11/2015.
@@ -762,9 +758,9 @@ public class DB_functions {
                         response.accumulate("perfilDeMargens", (int) form_irr.getRespostas().get(2));
 
                         af= (ArrayList<Float>) form_irr.getRespostas().get(3);
-                        response.accumulate("larguraDaSuperficieDaAgua",af.get(0));
-                        response.accumulate("profundidadeMedia",af.get(1));
-                        response.accumulate("velocidadeMedia", af.get(2));
+                        response.accumulate("larguraDaSuperficieDaAgua",Float.parseFloat(af.get(0).toString()));
+                        response.accumulate("profundidadeMedia",Float.parseFloat(af.get(1).toString()));
+                        response.accumulate("velocidadeMedia", Float.parseFloat(af.get(2).toString()));
                         Log.e("formirr", response.toString());
                         Log.e("formirr", af.get(0) + "-" + af.get(1));
                         Float largura=Float.parseFloat(String.valueOf(af.get(0)));
@@ -1381,8 +1377,6 @@ public class DB_functions {
             public void run() {
 
                 try {
-
-
                     String url = base_url+"/api/v2/guardarios?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
                     URL object = new URL(url);
@@ -1411,26 +1405,6 @@ public class DB_functions {
 
                     Log.w("teste", jsonObject.toString());
                     Log.e("teste", guardarios.toString());
-
-                    DataOutputStream request = new DataOutputStream(
-                            con.getOutputStream());
-
-                    Bitmap bitmap = BitmapFactory.decodeResource(guardaRios_form.getApplicationContext().getResources(),  R.drawable.planaria);
-
-                    byte[] pixels = new byte[bitmap.getWidth() * bitmap.getHeight()];
-                    for (int i = 0; i < bitmap.getWidth(); ++i) {
-                        for (int j = 0; j < bitmap.getHeight(); ++j) {
-                            //we're interested only in the MSB of the first byte,
-                            //since the other 3 bytes are identical for B&W images
-                            pixels[i + j] = (byte) ((bitmap.getPixel(i, j) & 0x80) >> 7);
-                        }
-                    }
-
-                    request.write(pixels);
-                    request.flush();
-                    request.close();
-
-
 
                     OutputStream os = con.getOutputStream();
                     OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
@@ -1468,12 +1442,12 @@ public class DB_functions {
         }).start();
     }
 
-    public static void saveSOSRios(final Sos_rios sos_rios,final String token,final String q1,final String q2,final String q3) {
+    public static void saveSOSRios(final Sos_rios sos_rios,final String email,final String token,final String q1,final String q2,final String q3) {
 
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String url = base_url+"/api/v2/reports?user_email="+"fil.fmiranda@gmail.com"+"&user_token="+token;
+                    String url = base_url+"/api/v2/reports?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
                     URL object = new URL(url);
                     HttpURLConnection con = (HttpURLConnection) object.openConnection();
