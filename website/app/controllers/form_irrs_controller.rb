@@ -7,10 +7,10 @@ class FormIrrsController < ApplicationController
 			if current_user.permissoes > 1
 				return true
 			else
-				render 'noaccess'
+				render 'common/noaccess'
 			end
 		else
-			render 'noaccess'
+			render 'common/noaccess'
 		end
 	end
 
@@ -19,6 +19,7 @@ class FormIrrsController < ApplicationController
 	end
 
 	def index
+		@all = false
 		@form_irrs = current_user.form_irrs.paginate(:page => params[:page], :per_page => 10).order('updated_at DESC')
 	end
 
@@ -28,12 +29,22 @@ class FormIrrsController < ApplicationController
 		@is_edit = false
 	end
 
+	def all
+		if current_user.permissoes > 4
+			@form_irrs = FormIrr.all.paginate(:page => params[:page], :per_page => 10).order('updated_at DESC')
+			@all = true
+			render 'index'
+		else
+			render 'common/noaccess'
+		end
+	end
+
 	def show
 		@form_irr = FormIrr.find(params[:id])
 		@images = @form_irr.form_irr_images
 
 		if @form_irr.user_id != current_user.id && @permissoes < 4
-			render 'noaccess'
+			render 'common/noaccess'
 		else
 			@is_show = 'form-disabled'
 			@is_edit = false
@@ -45,7 +56,7 @@ class FormIrrsController < ApplicationController
 		@images = @form_irr.form_irr_images
 
 		if @form_irr.user_id != current_user.id && @permissoes < 4
-			render 'noaccess'
+			render 'common/noaccess'
 		else
 			@is_show = ''
 			@is_edit = true
@@ -100,7 +111,7 @@ class FormIrrsController < ApplicationController
 					             .paginate(:page => params[:page], :per_page => 10).order('updated_at')
 			render 'index_not_validated'
 		else
-			render 'noaccess'
+			render 'common/noaccess'
 		end
 	end
 
@@ -111,7 +122,7 @@ class FormIrrsController < ApplicationController
 				redirect_to :back
 			end
 		else
-			render 'noaccess'
+			render 'common/noaccess'
 		end
 	end
 

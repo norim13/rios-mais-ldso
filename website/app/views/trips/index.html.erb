@@ -4,7 +4,11 @@
 <%= render 'common/navbar' %>
 
 <div class="container">
-  <h1>Minhas Trips <%= link_to "Nova Trip", new_trip_path, class: "btn btn-primary" %></h1>
+  <% if @all %>
+      <h1>Todas as Trips</h1>
+  <% else %>
+      <h1>Minhas Trips <%= link_to "Nova Trip", new_trip_path, class: "btn btn-primary" %></h1>
+  <% end %>
 
   <div class="table-responsive">
     <table class="table table-hover table-striped">
