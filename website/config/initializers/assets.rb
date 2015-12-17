@@ -33,6 +33,7 @@ Rails.application.config.assets.precompile += %w( rota_point_image.js )
 Rails.application.config.assets.precompile += %w( trips.js )
 Rails.application.config.assets.precompile += %w( trip_image.js )
 Rails.application.config.assets.precompile += %w( trips-show.js )
+Rails.application.config.assets.precompile += %w( guardarios.js )
 
 Rails.application.config.assets.precompile += %w( limpeza.css )
 Rails.application.config.assets.precompile += %w( reabilitacaos.css )
