@@ -318,6 +318,9 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
                 intent.putExtra("nome_ponto",rota.getPontos().get(i).getNome());
                 intent.putExtra("descricao_ponto",rota.getPontos().get(i).getDescricao());
                 intent.putExtra("ordem_ponto",rota.getPontos().get(i).getOrdem());
+                intent.putExtra("lat",rota.getPontos().get(i).getLat());
+                intent.putExtra("lon",rota.getPontos().get(i).getLon());
+
                 intent.putExtra("imagens",imagens);
 
 
