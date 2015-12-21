@@ -2,13 +2,18 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 `
-    //var base_url = 'http://***REMOVED***:10500/geoserver/rios';
-    var base_url = '***REMOVED***/geoserver/rios';
+//var base_url = 'http://***REMOVED***:10500/geoserver/rios';
+var base_url = '***REMOVED***/geoserver/rios';
+currentMarker = null;
+cod_rio = null;
+//lat_deg = 110.574;//Latitude: 1 deg = 110.574 km
+//lon_deg = 111.320*cos(latitude);//Longitude: 1 deg = 111.320*cos(latitude) km
+//http://stackoverflow.com/questions/1253499/simple-calculations-for-working-with-lat-lon-km-distance
 $(document).ready(function(){
 
     //$('.datepicker').datepicker();
-
-    var cod_rio = $("#cod-rio").html();
+    //INFO RIO
+    cod_rio = $("#cod-rio").html();
 
     var filter2 = new OpenLayers.Filter.Comparison({
         type: OpenLayers.Filter.Comparison.LIKE,
@@ -166,6 +171,7 @@ $(document).ready(function(){
         });
     }
 
+    // CHART IRR
     if ($("#chart-irr").length){
         ctx = $("#chart-irr").get(0).getContext("2d");
         // This will get the first returned node in the jQuery collection.
@@ -244,7 +250,89 @@ $(document).ready(function(){
     }
 
 
+    // MAP
+    var mapCanvas = document.getElementById('profile-rio-map');
+    var mapOptions = {
+        center: new google.maps.LatLng(41.179379, -8.606543),
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(mapCanvas, mapOptions);
+
+    $("#current-location-map-btn").on('click', addGPSMarker);
+    addClickListenerToMap();
+
 });
 
+function addGPSMarker(){
+    $("#add-gps-point-trip").attr("disabled", "disabled");
+    navigator.geolocation.getCurrentPosition(function(position) {
+        var temp_loc = {};
+        temp_loc.lat = position.coords.latitude;
+        temp_loc.lng = position.coords.longitude;
+        placeMarker(temp_loc, map);
+    });
+};
+
+function addClickListenerToMap(){
+    mapClickListenerHandler =
+        google.maps.event.addListener(map, 'click', function(event) {
+            placeMarker(event.latLng, map);
+        });
+};
+
+function placeMarker(location, map) {
+    if(currentMarker != null) {
+        removeCurrentMarker();
+    }
+
+    //console.log(location);
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    });
+
+    currentMarker = marker;
+    google.maps.event.addListener(marker, 'click', function(event) {
+        removeCurrentMarker();
+    });
+    map.panTo(location);
+
+    $("#add-gps-point-trip").removeAttr("disabled");
+
+    requestIRRdata(marker);
+
+};
+
+function removeCurrentMarker() {
+    currentMarker.setMap(null);
+    currentMarker = null;
+};
+
+function requestIRRdata(marker){
+    var obj = {};
+    console.log(marker);
+    /*obj.lat = marker.position.lat;
+    obj.lon = marker.position.lng;*/
+    obj.lat = 41.1159570399812;
+    obj.lon = -8.5303135134888;
+    obj.raio = 5;
+    obj.rio = cod_rio;
+
+
+    $.ajax({
+        type: 'GET',
+        url: '/rio/irrrange',
+        data: obj,
+        success: function(data){
+            console.log(data);
+        },
+        error: function(err){
+            console.log("error");
+            console.log(err);
+        }
+    });
+
+};
 
 `

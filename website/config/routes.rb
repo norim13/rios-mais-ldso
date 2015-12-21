@@ -34,7 +34,10 @@ Rails.application.routes.draw do
   get 'form_irrs/all' => 'form_irrs#all'
   get 'trips/all' => 'trips#all'
 
+  get 'rio/irrrange' => 'rio#getIRRrange'
   get 'rio/:id' => 'rio#show', as: :rio, :id => /.*/
+
+
 
   resources :form_irr_image
   resources :reabilitacaos

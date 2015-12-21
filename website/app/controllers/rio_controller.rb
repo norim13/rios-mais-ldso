@@ -1,4 +1,5 @@
 class RioController < ApplicationController
+
   def show
     @rio_id = params[:id]
     @form_irrs = FormIrr.where(idRio: @rio_id, validated: true)
@@ -24,5 +25,26 @@ class RioController < ApplicationController
         end
       end
     end
+  end
+
+  # get FormIRR dentro de um raio à volta de lat/lon dados,
+  # e dentro de um intervalo de datas especificado
+  def getIRRrange
+      delta_lat = params[:raio].to_f/110.574 #Latitude: 1 deg = 110.574 km
+      delta_lon = params[:raio].to_f/(111.320*Math.cos(params[:lat].to_d).abs) #Longitude: 1 deg = 111.320*cos(latitude) km
+      lat_min = params[:lat].to_d - delta_lat
+      lat_max = params[:lat].to_d + delta_lat
+      lon_min = params[:lon].to_d - delta_lon
+      lon_max = params[:lon].to_d + delta_lon
+
+      @forms = FormIrr.where("'idRio' = ? AND lat > ? AND lat < ? AND lon > ? AND lon < ?",
+                     params[:rio], lat_min, lat_max, lon_min, lon_max)#.where(validated: true)
+
+      render :json => {:success => true, :forms => @forms, :params => params,
+          :delta_lat => delta_lat, :delta_lon => delta_lon,
+                       :lat_min => lat_min, :lat_max => lat_max,
+                       :lon_min => lon_min, :lon_max => lon_max,
+                       :lat => params[:lat].to_d , :lon => params[:lon].to_d,
+                       :cod_rio => params[:rio]}
   end
 end

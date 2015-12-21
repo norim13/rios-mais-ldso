@@ -34,6 +34,7 @@ $(document).ready(function(){
         // This will get the first returned node in the jQuery collection.
     }
 
+    calculateIRR();
     displayIRR();
 
 });
