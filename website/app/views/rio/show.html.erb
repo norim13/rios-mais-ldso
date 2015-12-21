@@ -89,6 +89,15 @@
       </table>
     </div>
     <canvas id="chart-irr"></canvas>
+
+      <p>Pode selecionar abaixo um ponto no mapa, e serão mostrados no gráfico os dados de IRR relativos a esse ponto, e num raio definido por si também.</p>
+    <div class="col-xs-12" id="map-wrapper">
+      <div id="profile-rio-map" class="col-xs-12"></div>
+      <div id="over-map-container">
+        <button id="current-location-map-btn" class="btn btn-primary" >Ir para localização atual</button>
+      </div>
+    </div>
+
   <% else %>
   <i>Não existem dados relativos ao IRR deste rio...</i>
   <% end %>

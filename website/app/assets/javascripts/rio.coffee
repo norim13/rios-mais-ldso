@@ -2,13 +2,18 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 `
-    //var base_url = 'http://***REMOVED***:10500/geoserver/rios';
-    var base_url = '***REMOVED***/geoserver/rios';
+//var base_url = 'http://***REMOVED***:10500/geoserver/rios';
+var base_url = '***REMOVED***/geoserver/rios';
+currentMarker = null;
+cod_rio = null;
+//lat_deg = 110.574;//Latitude: 1 deg = 110.574 km
+//lon_deg = 111.320*cos(latitude);//Longitude: 1 deg = 111.320*cos(latitude) km
+//http://stackoverflow.com/questions/1253499/simple-calculations-for-working-with-lat-lon-km-distance
 $(document).ready(function(){
 
     //$('.datepicker').datepicker();
-
-    var cod_rio = $("#cod-rio").html();
+    //INFO RIO
+    cod_rio = $("#cod-rio").html();
 
     var filter2 = new OpenLayers.Filter.Comparison({
         type: OpenLayers.Filter.Comparison.LIKE,
@@ -166,6 +171,43 @@ $(document).ready(function(){
         });
     }
 
+    drawChart(null);
+
+
+    // MAP
+    var mapCanvas = document.getElementById('profile-rio-map');
+    var mapOptions = {
+        center: new google.maps.LatLng(41.179379, -8.606543),
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(mapCanvas, mapOptions);
+
+    $("#current-location-map-btn").on('click', addGPSMarker);
+    addClickListenerToMap();
+
+});
+
+function convertDataForChart(data_array){
+    var ret = [];
+    for(var i in data_array){
+        switch(data_array[i]){
+            case 1: ret[i] = 5; break;
+            case 2: ret[i] = 4; break;
+            case 3: ret[i] = 3; break;
+            case 4: ret[i] = 2; break;
+            case 5: ret[i] = 1; break;
+            default: ret[i] = 0 ; break;
+        }
+    }
+    return ret;
+}
+
+/**
+ *  if data = null, vai buscar os valores IRR globais do rio. senao recebe a resposta da query ao controller
+ */
+function drawChart(data){
+    // CHART IRR
     if ($("#chart-irr").length){
         ctx = $("#chart-irr").get(0).getContext("2d");
         // This will get the first returned node in the jQuery collection.
@@ -177,46 +219,72 @@ $(document).ready(function(){
         var irr_organizacaoeplaneamento = null;
         var irr_total = null;
 
-        irr_hidrogeomorfologia = parseInt($('#irr_hidrogeomorfologia').html());
-        irr_qualidadedaagua = parseInt($('#irr_qualidadedaagua').html());
-        irr_alteracoesantropicas = parseInt($('#irr_alteracoesantropicas').html());
-        irr_corredorecologico = parseInt($('#irr_corredorecologico').html());
-        irr_participacaopublica = parseInt($('#irr_participacaopublica').html());
-        irr_organizacaoeplaneamento = parseInt($('#irr_organizacaoeplaneamento').html());
-        irr_total = parseInt($('#irr_total').html());
+        var data_set = [];
 
-        var data_array = [irr_hidrogeomorfologia,irr_qualidadedaagua,
-            irr_alteracoesantropicas,irr_corredorecologico,
-            irr_participacaopublica,irr_organizacaoeplaneamento,
-            irr_total]
-
-        //console.log(data_array);
-        for(var i in data_array){
-            switch(data_array[i]){
-                case 1: data_array[i] = 5; break;
-                case 2: data_array[i] = 4; break;
-                case 3: data_array[i] = 3; break;
-                case 4: data_array[i] = 2; break;
-                case 5: data_array[i] = 1; break;
-                default: data_array[i] = 0 ; break;
-            }
+        if (data == null){
+            var temp = [];
+            temp.push(parseInt($('#irr_hidrogeomorfologia').html()));
+            temp.push(parseInt($('#irr_qualidadedaagua').html()));
+            temp.push(parseInt($('#irr_alteracoesantropicas').html()));
+            temp.push(parseInt($('#irr_corredorecologico').html()));
+            temp.push(parseInt($('#irr_participacaopublica').html()));
+            temp.push(parseInt($('#irr_organizacaoeplaneamento').html()));
+            temp.push(parseInt($('#irr_total').html()));
+            temp = convertDataForChart(temp);
+            data_set.push(temp);
         }
-        //console.log(data_array);
+        else{
+            for(var i in data['forms']){
+                var temp = [];
+                temp.push(data['forms'][i]['irr_hidrogeomorfologia']);
+                temp.push(data['forms'][i]['irr_qualidadedaagua']);
+                temp.push(data['forms'][i]['irr_alteracoesantropicas']);
+                temp.push(data['forms'][i]['irr_corredorecologico']);
+                temp.push(data['forms'][i]['irr_participacaopublica']);
+                temp.push(data['forms'][i]['irr_organizacaoeplaneamento']);
+                temp.push(data['forms'][i]['irr']);
+                temp = convertDataForChart(temp);
+                data_set.push(temp);
+            }
+            var temp = [];
+            temp.push(data['media']['irr_hidrogeomorfologia']);
+            temp.push(data['media']['irr_qualidadedaagua']);
+            temp.push(data['media']['irr_alteracoesantropicas']);
+            temp.push(data['media']['irr_corredorecologico']);
+            temp.push(data['media']['irr_participacaopublica']);
+            temp.push(data['media']['irr_organizacaoeplaneamento']);
+            temp.push(data['media']['irr']);
+            temp = convertDataForChart(temp);
+            data_set.push(temp);
+
+        }
+
+        var data_sets_for_chart = [];
+        var colors_transparent = ["rgba(150,243,33,0.2)", "rgba(33,243,150,0.2)", "rgba(243,150,33,0.2)", "rgba(243,33,150,0.2)", "rgba(150,33,243,0.2)", "rgba(33,150,243,0.6)"];
+        var colors = ["rgba(150,243,33,1)", "rgba(33,243,150,1)", "rgba(243,150,33,1)", "rgba(243,33,150,1)", "rgba(150,33,243,1)", "rgba(33,150,243,1)"];
+        for(var i in data_set)
+        {
+            var obj = {
+                label: "Dataset "+i,
+                fillColor: colors_transparent[i],
+                strokeColor: colors[i],
+                pointColor: colors[i],
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: data_set[i]
+            }
+            data_sets_for_chart.push(obj);
+        }
+        //force last element to have the last color (avg is always blue)
+        data_sets_for_chart[data_sets_for_chart.length - 1].fillColor = colors_transparent[colors_transparent.length-1];
+        data_sets_for_chart[data_sets_for_chart.length - 1].strokeColor = colors[colors.length-1];
+        data_sets_for_chart[data_sets_for_chart.length - 1].pointColor = colors[colors.length-1];
+
 
         var data = {
             labels: ["Hidrogeomorfologia", "Alterações Antrópicas", "Corredor Ecológico", "Qualidade da Água", "Participação Pública", "Organização e Planeamento", "Total"],
-            datasets: [
-                {
-                    label: "My First dataset",
-                    fillColor: "rgba(33,150,243,0.2)",
-                    strokeColor: "rgba(33,150,243,1)",
-                    pointColor: "rgba(33,150,243,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: data_array
-                }
-            ]
+            datasets: data_sets_for_chart
         };
 
         var myLineChart = new Chart(ctx).Line(data, {
@@ -239,12 +307,98 @@ $(document).ready(function(){
                     return '2';
                 if(Number(valuePayload.value)===5)
                     return '1';
-            }
+            },
+            showTooltips: false
+            //custom tootip on chart hover
+            /*tooltipTemplate: "<%= value %>",
+            onAnimationComplete: function()
+            {
+                //this.showTooltip(this.segments, true);
+                //Show tooltips in bar chart (issue: multiple datasets doesnt work http://jsfiddle.net/5gyfykka/14/)
+                //this.showTooltip(this.datasets[0].bars, true);
+                //Show tooltips in line chart (issue: multiple datasets doesnt work http://jsfiddle.net/5gyfykka/14/)
+                //this.showTooltip(this.datasets[0].points, true);
+            },
+            tooltipEvents: [],*/
+
         });
     }
 
+}
 
-});
+function addGPSMarker(){
+    $("#add-gps-point-trip").attr("disabled", "disabled");
+    navigator.geolocation.getCurrentPosition(function(position) {
+        var temp_loc = {};
+        temp_loc.lat = position.coords.latitude;
+        temp_loc.lng = position.coords.longitude;
+        placeMarker(temp_loc, map);
+    });
+};
 
+function addClickListenerToMap(){
+    mapClickListenerHandler =
+        google.maps.event.addListener(map, 'click', function(event) {
+            placeMarker(event.latLng, map);
+        });
+};
+
+function placeMarker(location, map) {
+    if(currentMarker != null) {
+        removeCurrentMarker();
+    }
+
+    //console.log(location);
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    });
+
+    currentMarker = marker;
+    google.maps.event.addListener(marker, 'click', function(event) {
+        removeCurrentMarker();
+    });
+    map.panTo(location);
+
+    $("#add-gps-point-trip").removeAttr("disabled");
+
+    requestIRRdata(marker);
+
+};
+
+function removeCurrentMarker() {
+    currentMarker.setMap(null);
+    currentMarker = null;
+};
+
+function requestIRRdata(marker){
+    var obj = {};
+    console.log(marker);
+    obj.lat = marker.position.lat;
+    obj.lon = marker.position.lng;
+    /*obj.lat = 41.1159570399812;
+    obj.lon = -8.5303135134888;*/
+    /*obj.lat = 41;
+    obj.lon = -8;*/
+    obj.raio = 100;
+    obj.rio = cod_rio.trim();
+
+
+    $.ajax({
+        type: 'GET',
+        url: '/rio/irrrange',
+        data: obj,
+        success: function(data){
+            console.log(data);
+
+            drawChart(data);
+        },
+        error: function(err){
+            console.log("error");
+            console.log(err);
+        }
+    });
+
+};
 
 `

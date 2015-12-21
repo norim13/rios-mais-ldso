@@ -34,7 +34,10 @@ Rails.application.routes.draw do
   get 'form_irrs/all' => 'form_irrs#all'
   get 'trips/all' => 'trips#all'
 
+  get 'rio/irrrange' => 'rio#getIRRrange'
   get 'rio/:id' => 'rio#show', as: :rio, :id => /.*/
+
+
 
   resources :form_irr_image
   resources :reabilitacaos
@@ -75,6 +78,8 @@ Rails.application.routes.draw do
       get "/form_irrs", :to => 'form_irrs#getMyForms'
       put "/form_irrs/:id", :to => 'form_irrs#update'
       delete "/form_irrs/:id", :to => 'form_irrs#destroy'
+
+      post "/temp_image", :to => 'temp_image#create'
 
       post "/guardarios", :to => 'guardarios#create'
       get "/guardarios/:id", :to => 'guardarios#get'

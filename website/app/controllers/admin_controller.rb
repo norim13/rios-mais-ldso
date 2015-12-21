@@ -2,14 +2,13 @@ class AdminController < ApplicationController
   before_filter { |c| c.authenticate_rights current_user.id }
 
   def index
-
+    str = Arel::Nodes::SqlLiteral.new(params[:pesquisa])
     if params.has_key?(:pesquisa)
-        str = Arel::Nodes::SqlLiteral.new(params[:pesquisa])
         t = User.arel_table
         @users = User.where(
-                    (t[:nome].matches("%#{params[:pesquisa]}%")).
-                    or(t[:email].matches("%#{params[:pesquisa]}%")))
-                .paginate(:page => params[:page], :per_page => 10).order('created_at')
+                (t[:nome].matches("%#{params[:pesquisa]}%")).
+                  or(t[:email].matches("%#{params[:pesquisa]}%"))
+        ).paginate(:page => params[:page], :per_page => 10).order('created_at')
     else
       @users = User.all.paginate(:page => params[:page], :per_page => 10).order('created_at')
     end
