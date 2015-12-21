@@ -42,9 +42,12 @@ public class ImageTest extends AppCompatActivity {
                         Log.e("existe","ficheiro existe");
                     else
                         Log.e("Nao existe","ficheiro nao existe");
+                    Log.e("vai tentar","");
                     try {
+                        Log.e("vai tentar","");
                         DB_functions.alternativoGuardarios(f, User.getInstance().getEmail(),User.getInstance().getAuthentication_token(),"","","","",null,"",1f,1f,"Leça");
                     } catch (Exception e) {
+                        Log.e("erro","erro na DB");
                         e.printStackTrace();
                     }
                 }
