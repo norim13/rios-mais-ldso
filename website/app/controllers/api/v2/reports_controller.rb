@@ -12,9 +12,9 @@ class Api::V2::ReportsController < ApplicationController
 		report.user_id = user.id
 
 		if report.save
-			render :json => '{"success" : "true"}'
+			render :json => {:success => true, :report_id => report.id }
 		else
-			render :json => '{"success" : "false", "error" : "problem saving guardario"}'
+			render :json => '{"success" : "false", "error" : "problem saving report"}'
 		end
 	end
 

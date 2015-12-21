@@ -79,7 +79,7 @@ Rails.application.routes.draw do
       put "/form_irrs/:id", :to => 'form_irrs#update'
       delete "/form_irrs/:id", :to => 'form_irrs#destroy'
 
-      post "/temp_image", :to => 'temp_image#create'
+      post "/image", :to => 'image#create'
 
       post "/guardarios", :to => 'guardarios#create'
       get "/guardarios/:id", :to => 'guardarios#get'

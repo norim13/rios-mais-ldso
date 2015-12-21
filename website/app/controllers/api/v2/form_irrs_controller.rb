@@ -11,7 +11,7 @@ class Api::V2::FormIrrsController < ApplicationController
     form_irr.edit_user_id = user.id
 
     if form_irr.save
-      render :json => '{"success" : "true"}'
+      render :json => {:success => true, :form_irr_id => form_irr.id }
     else
       render :json => '{"success" : "false", "error" : "problem saving form"}'
     end

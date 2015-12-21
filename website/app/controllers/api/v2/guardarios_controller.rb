@@ -9,7 +9,7 @@ class Api::V2::GuardariosController < ApplicationController
 		guardario.user_id = user.id
 
 		if guardario.save
-			render :json => {:success => true, :guardario => guardario.id }
+			render :json => {:success => true, :guardario_id => guardario.id }
 		else
 			render :json => '{"success" : "false", "error" : "problem saving guardario"}'
 		end
