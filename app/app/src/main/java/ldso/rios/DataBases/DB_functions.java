@@ -13,10 +13,9 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -2117,54 +2116,32 @@ public class DB_functions {
 
 
                 DefaultHttpClient client = new DefaultHttpClient();
-                String url = base_url+"/api/v2/guardarios?user_email="+email+"&user_token="+token;
+                String url = base_url+"/api/v2/temp_image?user_email="+email+"&user_token="+token;
+                    Log.e("url",url);
                 HttpPost post = new HttpPost(url);
-                MultipartEntityBuilder imageMPentity = MultipartEntityBuilder.create();
+                    MultipartEntity imageMPentity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
+                    try{
+                        imageMPentity.addPart("image", new FileBody(f));
+                        post.setEntity(imageMPentity);
 
+                    } catch(Exception e){
+                        Log.e("error Image Entity", e.getLocalizedMessage(), e);
+                    }
+                    HttpResponse response = null;
 
+                    try {
+                        response = client.execute(post);
+                    } catch (ClientProtocolException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
 
-                imageMPentity.addBinaryBody("image",f,ContentType.create("image/jpeg"),f.getName());
+                    HttpEntity result = response.getEntity();
 
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("rio","201.02");
-                jsonObject.accumulate("local",q1);
-                jsonObject.accumulate("voar",q2);
-                jsonObject.accumulate("cantar",q3);
-                jsonObject.accumulate("alimentar", q4);
-                jsonObject.accumulate("parado", 0);
-                jsonObject.accumulate("beber", 0);
-                jsonObject.accumulate("cacar", 0);
-                jsonObject.accumulate("cuidarcrias", 0);
-                jsonObject.accumulate("outro",q6);
-                jsonObject.accumulate("lat", lat);
-                jsonObject.accumulate("lon",lon);
-                jsonObject.accumulate("nomeRio",nomeRio);
-                String s = (String) jsonObject.toString();
-                imageMPentity.addPart("guardarios",new StringBody(s,ContentType.TEXT_PLAIN));
-
-
-
-                post.setEntity(imageMPentity.build());
-                    Log.e("enviado",imageMPentity.toString());
-
-                HttpResponse response = null;
-
-                try {
-                    response = client.execute(post);
-                    String resposta=new BasicResponseHandler().handleResponse(response);
-                    Log.e("resposta",resposta);
-                } catch (ClientProtocolException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    String resposta=new BasicResponseHandler().handleResponse(response);
-                    Log.e("resposta",resposta);
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-                HttpEntity result = response.getEntity();
 
                 }
                 catch (Exception e)
