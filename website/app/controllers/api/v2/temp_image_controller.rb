@@ -6,7 +6,7 @@ class Api::V2::TempImageController < ApplicationController
     user       = user_email && User.find_by_email(user_email)
 
     if params[:image]
-      GuardarioImage.create(image: params[:image], guardario_id: 4)
+      GuardarioImage.create(image: params[:image], guardario_id: params[:guardario_id])
 
       render :json => '{"success" : "true"}'
     else
