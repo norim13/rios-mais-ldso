@@ -30,21 +30,41 @@ class RioController < ApplicationController
   # get FormIRR dentro de um raio à volta de lat/lon dados,
   # e dentro de um intervalo de datas especificado
   def getIRRrange
-      delta_lat = params[:raio].to_f/110.574 #Latitude: 1 deg = 110.574 km
-      delta_lon = params[:raio].to_f/(111.320*Math.cos(params[:lat].to_d).abs) #Longitude: 1 deg = 111.320*cos(latitude) km
+      delta_lat = params[:raio].to_d/110.574 #Latitude: 1 deg = 110.574 km
+      delta_lon = params[:raio].to_d/(111.320*Math.cos(params[:lat].to_d).abs) #Longitude: 1 deg = 111.320*cos(latitude) km
       lat_min = params[:lat].to_d - delta_lat
       lat_max = params[:lat].to_d + delta_lat
       lon_min = params[:lon].to_d - delta_lon
       lon_max = params[:lon].to_d + delta_lon
 
-      @forms = FormIrr.where("'idRio' = ? AND lat > ? AND lat < ? AND lon > ? AND lon < ?",
-                     params[:rio], lat_min, lat_max, lon_min, lon_max)#.where(validated: true)
+      forms = FormIrr.where(:idRio => params[:rio]).where(validated: true)
+                  .where("lat > ? AND lat < ? AND lon > ? AND lon < ?",
+                     lat_min, lat_max, lon_min, lon_max).order('updated_at DESC')
+      media = mediaIRR(forms)
 
-      render :json => {:success => true, :forms => @forms, :params => params,
-          :delta_lat => delta_lat, :delta_lon => delta_lon,
-                       :lat_min => lat_min, :lat_max => lat_max,
-                       :lon_min => lon_min, :lon_max => lon_max,
-                       :lat => params[:lat].to_d , :lon => params[:lon].to_d,
-                       :cod_rio => params[:rio]}
+      render :json => {:success => true, :forms => forms, :media => media}
+          # :delta_lat => delta_lat, :delta_lon => delta_lon,
+          #              :lat_min => lat_min, :lat_max => lat_max,
+          #              :lon_min => lon_min, :lon_max => lon_max,
+          #              :lat => params[:lat].to_d , :lon => params[:lon].to_d,
+          #              :cod_rio => params[:rio]}
+  end
+
+  def mediaIRR(form_irrs)
+
+    if form_irrs.count == 0
+      return nil
+    else
+      ret = {}
+      ret['irr_hidrogeomorfologia'] = form_irrs.max_by(&:irr_hidrogeomorfologia).irr_hidrogeomorfologia
+      ret['irr_qualidadedaagua'] = form_irrs.max_by(&:irr_qualidadedaagua).irr_qualidadedaagua
+      ret['irr_alteracoesantropicas'] = form_irrs.max_by(&:irr_alteracoesantropicas).irr_alteracoesantropicas
+      ret['irr_corredorecologico'] = form_irrs.max_by(&:irr_corredorecologico).irr_corredorecologico
+      ret['irr_participacaopublica'] = form_irrs.max_by(&:irr_participacaopublica).irr_participacaopublica
+      ret['irr_organizacaoeplaneamento'] = form_irrs.max_by(&:irr_organizacaoeplaneamento).irr_organizacaoeplaneamento
+      ret['irr'] = [ret['irr_hidrogeomorfologia'],ret['irr_qualidadedaagua'],ret['irr_alteracoesantropicas'],
+                          ret['irr_corredorecologico'], ret['irr_participacaopublica'], ret['irr_organizacaoeplaneamento']].max()
+      return ret
+    end
   end
 end
