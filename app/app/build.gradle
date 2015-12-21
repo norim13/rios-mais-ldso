@@ -45,4 +45,7 @@ dependencies {
     compile files('C:/Users/filipe/workspace/LDSO/app/jars/httpmime-4.5.1.jar')
     compile files('C:/Users/filipe/workspace/LDSO/app/jars/httpcore-4.4.3.jar')
     compile files('C:/Users/filipe/workspace/LDSO/app/jars/httpcore-4.3.1.jar')
+    compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
+    compile 'com.nineoldandroids:library:2.4.0+'
+
 }

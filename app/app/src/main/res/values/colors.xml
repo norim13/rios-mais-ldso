@@ -3,6 +3,9 @@
     <color name="colorPrimary">#2196F3</color>
     <color name="colorPrimaryDark">#3086F0</color>
     <color name="colorAccent">#2196F3</color>
+    <color name="primary">#2196F3</color>
+    <color name="fab_colorNormal">#2196F3</color>
+    <color name="fab_olorPressed">#3086F0</color>
 
 
     <color name="colorNegative">#EF636A</color>
