@@ -1,8 +1,6 @@
 package ldso.rios.DataBases;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -16,13 +14,13 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -54,7 +52,6 @@ import ldso.rios.MainActivities.Profile;
 import ldso.rios.MainActivities.ProfileEditActivity;
 import ldso.rios.MainActivities.RotasRios_list;
 import ldso.rios.Mapa_Rotas;
-import ldso.rios.R;
 
 /**
  * Created by filipe on 02/11/2015.
@@ -1423,46 +1420,6 @@ public class DB_functions {
                     JSONObject guardarios= new JSONObject();
                     guardarios.accumulate("guardario", jsonObject);
 
-
-
-                    JSONArray array = new JSONArray();
-
-                    DataOutputStream request = new DataOutputStream(
-                            con.getOutputStream());
-
-                    request.writeBytes(twoHyphens + boundary + crlf);
-                    request.writeBytes("Content-Disposition: form-data; name=\"" +
-                            attachmentName + "\";filename=\"" +
-                            attachmentFileName + "\"" + crlf);
-                    request.writeBytes(crlf);
-
-                    Bitmap bitmap = BitmapFactory.decodeResource(guardaRios_form.getApplicationContext().getResources(),R.drawable.acaros);
-
-                    byte[] pixels = new byte[bitmap.getWidth() * bitmap.getHeight()];
-                    for (int i = 0; i < bitmap.getWidth(); ++i) {
-                        for (int j = 0; j < bitmap.getHeight(); ++j) {
-                            //we're interested only in the MSB of the first byte
-
-                            //since the other 3 bytes are identical for B&W images
-                            pixels[i + j] = (byte) ((bitmap.getPixel(i, j) & 0x80) >> 7);
-                        }
-                    }
-
-                    request.write(pixels);
-
-                    request.writeBytes(crlf);
-                    request.writeBytes(twoHyphens + boundary +
-                            twoHyphens + crlf);
-
-                    request.flush();
-
-                    array.put(pixels.toString());
-                    guardarios.put("images",array);
-
-
-                    Log.w("teste", jsonObject.toString());
-                    Log.e("teste", guardarios.toString());
-
                     OutputStream os = con.getOutputStream();
                     OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
                     osw.write(guardarios.toString());
@@ -2106,7 +2063,7 @@ public class DB_functions {
 
 
 
-    public  static void alternativoGuardarios(final File f,final String email, final String token, final String q1, final String q2, final String q3, final String q4, final ArrayList<Integer> q5, final String q6, final Float lat, final Float lon, final String nomeRio) throws IOException, JSONException {
+    public  static void alternativoGuardarios(final File f,final String email, final String token,final int guardario_id) throws IOException, JSONException {
 
 
 
@@ -2122,6 +2079,7 @@ public class DB_functions {
                     MultipartEntity imageMPentity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
                     try{
+                        imageMPentity.addPart("guardario_id", new StringBody(guardario_id+""));
                         imageMPentity.addPart("image", new FileBody(f));
                         post.setEntity(imageMPentity);
 

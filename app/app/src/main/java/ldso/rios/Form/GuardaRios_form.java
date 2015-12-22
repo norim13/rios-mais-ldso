@@ -3,8 +3,10 @@ package ldso.rios.Form;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.location.Location;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,9 +15,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -23,20 +28,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.Marker;
-
 import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import ldso.rios.Autenticacao.Login;
+import ldso.rios.DataBases.DB_functions;
+import ldso.rios.DataBases.User;
 import ldso.rios.MainActivities.GuardaRios;
-import ldso.rios.MapFfrag;
 import ldso.rios.Mapa_rios;
 import ldso.rios.R;
+import ldso.rios.Utils;
 
 public class GuardaRios_form extends AppCompatActivity {
 
@@ -50,17 +53,13 @@ public class GuardaRios_form extends AppCompatActivity {
     protected EditText question6;
     protected ProgressBar progressbar;
 
+    protected ArrayList<String> arrayListURI;
 
-    private MapFfrag fragment = null;
+    Button buttonTakePic;
+    GridLayout grid;
+    LinearLayout horizontal;
 
-
-    private GoogleMap mMap;
-    GoogleApiClient mGoogleApiClient;
-    Location mLastLocation;
-    TextView tvLatlong;
-    Marker current_loc;
-    Marker select_loc;
-
+    private  static final int CAM_REQUEST=1313;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +75,8 @@ public class GuardaRios_form extends AppCompatActivity {
         linearLayout = (LinearLayout) this.findViewById(R.id.irr_linear);
         frameLayout = (FrameLayout) this.findViewById(R.id.frameLayout);
         progressbar = (ProgressBar) this.findViewById(R.id.progressBar);
+
+        arrayListURI=new ArrayList<String>();
 
         LayoutInflater l = getLayoutInflater();
        // LatLng current_location = this.getLocation();
@@ -151,10 +152,34 @@ public class GuardaRios_form extends AppCompatActivity {
         linearLayout.addView(question6);
 
 
+        buttonTakePic = new Button(getApplicationContext());
+        buttonTakePic.setText("Tirar Fotografia");
+
+        buttonTakePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent,CAM_REQUEST);
+            }
+        });
+
+        linearLayout.addView(buttonTakePic);
+
+        grid= new GridLayout(getApplicationContext());
+        grid.setColumnCount(3);
+
+        horizontal = new LinearLayout(getApplicationContext());
+        horizontal.setOrientation(LinearLayout.HORIZONTAL);
+        linearLayout.addView(horizontal);
+
+
+
         //saveGuardaRios();
 
 
     }
+
+
 
 
     public void saveGuardaRios(View view) throws IOException, JSONException {
@@ -213,7 +238,7 @@ public class GuardaRios_form extends AppCompatActivity {
 
         Log.e("DB","vai entrar na DB");
 
-        //DB_functions.alternativoGuardarios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(),q1, q2, q3, q4, q5, q6, lat,lang,nomeRio);
+        DB_functions.saveGuardaRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(),q1, q2, q3, q4, q5, q6, lat,lang,nomeRio);
     }
 
     public void saveGuardaRiosDB() {
@@ -240,6 +265,7 @@ public class GuardaRios_form extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        //se for a resposta do mapa
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 String result = data.getStringExtra("latlan_current");
@@ -258,6 +284,41 @@ public class GuardaRios_form extends AppCompatActivity {
                 Log.e("resultado", "nao recebeu nada");
 
             }
+        }
+
+        //se for a resposta da camara
+        else if (requestCode== CAM_REQUEST)
+        {
+            Bitmap thumbnail= (Bitmap) data.getExtras().get("data");
+            arrayListURI.add(data.getExtras().get("data").ur);
+            try {
+                Bitmap result=Utils.squareimage(thumbnail);
+                ImageView i= new ImageView(this.getApplicationContext());
+                i.setMaxWidth(200);
+                i.setMaxHeight(200);
+                i.setImageBitmap(result);
+                final LinearLayout novo= new LinearLayout(getApplicationContext());
+                novo.setOrientation(LinearLayout.HORIZONTAL);
+                ImageView cancel= new ImageView(this.getApplicationContext());
+                Bitmap bm = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_action_cancel);
+                cancel.setImageBitmap(bm);
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        novo.removeAllViews();
+                    }
+                });
+                novo.addView(cancel);
+                novo.addView(i);
+                linearLayout.addView(novo);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
         }
     }//onActivityResult
 
@@ -278,5 +339,8 @@ public class GuardaRios_form extends AppCompatActivity {
             startActivity(new Intent(this,Login.class));
         return super.onOptionsItemSelected(item);
     }
+
+
+
 
 }
