@@ -3,9 +3,12 @@ package ldso.rios.Form;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,10 +29,13 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -183,6 +189,16 @@ public class GuardaRios_form extends AppCompatActivity {
 
 
     public void saveGuardaRios(View view) throws IOException, JSONException {
+
+        for (int i=0;i<arrayListURI.size();i++)
+        {
+            File f= new File(arrayListURI.get(i));
+            if(f.exists())
+                Log.e("existe",arrayListURI.get(i));
+            else
+                Log.e("nao existe",arrayListURI.get(i));
+
+        }
         progressbar.setVisibility(View.VISIBLE);
         Integer escolha = Form_functions.getRadioButtonOption(question1);
         Log.e("escolha",escolha+"");
@@ -241,8 +257,8 @@ public class GuardaRios_form extends AppCompatActivity {
         DB_functions.saveGuardaRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(),q1, q2, q3, q4, q5, q6, lat,lang,nomeRio);
     }
 
-    public void saveGuardaRiosDB() {
-        new Thread() {
+    public void saveGuardaRiosDB(String id) throws IOException, JSONException {
+      /*  new Thread() {
             public void run() {
                 GuardaRios_form.this.runOnUiThread(new Runnable() {
                     public void run() {
@@ -255,6 +271,15 @@ public class GuardaRios_form extends AppCompatActivity {
                 });
             }
         }.start();
+        */
+
+        for (int i=0;i<arrayListURI.size();i++)
+        {
+            File file= new File(arrayListURI.get(i));
+            DB_functions.saveImage(file, User.getInstance().getEmail(),User.getInstance().getAuthentication_token(),"guardario",id);
+        }
+
+
     }
 
 
@@ -289,8 +314,31 @@ public class GuardaRios_form extends AppCompatActivity {
         //se for a resposta da camara
         else if (requestCode== CAM_REQUEST)
         {
-            Bitmap thumbnail= (Bitmap) data.getExtras().get("data");
-            arrayListURI.add(data.getExtras().get("data").ur);
+            Log.e("array",arrayListURI.toString());
+            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+
+            File destination = new File(Environment.getExternalStorageDirectory(),
+                    System.currentTimeMillis() + ".jpg");
+            FileOutputStream fo;
+            try {
+                destination.createNewFile();
+                fo = new FileOutputStream(destination);
+                fo.write(bytes.toByteArray());
+                fo.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            arrayListURI.add(destination.getAbsolutePath());
+            Log.e("arrat",arrayListURI.toString());
+
+
+
             try {
                 Bitmap result=Utils.squareimage(thumbnail);
                 ImageView i= new ImageView(this.getApplicationContext());
@@ -322,6 +370,26 @@ public class GuardaRios_form extends AppCompatActivity {
         }
     }//onActivityResult
 
+    public String getImagePath(Uri uri) {
+        String selectedImagePath;
+        // 1:MEDIA GALLERY --- query from MediaStore.Images.Media.DATA
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        if (cursor != null) {
+            int column_index = cursor
+                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            selectedImagePath = cursor.getString(column_index);
+        } else {
+            selectedImagePath = null;
+        }
+
+        if (selectedImagePath == null) {
+            // 2:OI FILE Manager --- call method: uri.getPath()
+            selectedImagePath = uri.getPath();
+        }
+        return selectedImagePath;
+    }
 
 
     //menu action bar

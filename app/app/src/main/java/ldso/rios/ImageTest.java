@@ -10,9 +10,6 @@ import android.util.Log;
 
 import java.io.File;
 
-import ldso.rios.DataBases.DB_functions;
-import ldso.rios.DataBases.User;
-
 public class ImageTest extends AppCompatActivity {
     private static final int SELECT_PHOTO = 100;
     @Override
@@ -45,7 +42,7 @@ public class ImageTest extends AppCompatActivity {
                     Log.e("vai tentar","");
                     try {
                         Log.e("vai tentar","");
-                        DB_functions.alternativoGuardarios(f, User.getInstance().getEmail(),User.getInstance().getAuthentication_token(),9);
+                        //DB_functions.alternativoGuardarios(f, User.getInstance().getEmail(),User.getInstance().getAuthentication_token(),9);
                     } catch (Exception e) {
                         Log.e("erro","erro na DB");
                         e.printStackTrace();

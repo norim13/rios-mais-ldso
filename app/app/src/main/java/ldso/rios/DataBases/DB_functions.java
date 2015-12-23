@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -1440,7 +1441,9 @@ public class DB_functions {
                         //login.login_response(error[0],error_txt[0],authentication_token[0],name,email);
 
                         System.out.println("errozinho:" + sb.toString());
-                        guardaRios_form.saveGuardaRiosDB();
+                        JSONObject object1= new JSONObject(sb.toString());
+                        String id= object1.get("guardario_id").toString();
+                        guardaRios_form.saveGuardaRiosDB(id);
 
                     } else {
                         Log.e("teste","error: "+con.getResponseMessage());
@@ -2063,8 +2066,13 @@ public class DB_functions {
 
 
 
-    public  static void alternativoGuardarios(final File f,final String email, final String token,final int guardario_id) throws IOException, JSONException {
+    public  static void saveImage(final File f,final String email, final String token,final String controller,final String id) throws IOException, JSONException {
 
+        if (!controller.contentEquals("form_irr") &&
+                !controller.contentEquals("guardario") &&
+                !controller.contentEquals("routes") &&
+                !controller.contentEquals("report"))
+            return;
 
 
         new Thread(new Runnable() {
@@ -2073,15 +2081,19 @@ public class DB_functions {
 
 
                 DefaultHttpClient client = new DefaultHttpClient();
-                String url = base_url+"/api/v2/temp_image?user_email="+email+"&user_token="+token;
+                String url = base_url+"/api/v2/image?user_email="+email+"&user_token="+token;
                     Log.e("url",url);
                 HttpPost post = new HttpPost(url);
                     MultipartEntity imageMPentity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
                     try{
-                        imageMPentity.addPart("guardario_id", new StringBody(guardario_id+""));
+                        String controllerPart=controller+"_id";
+                        imageMPentity.addPart(controllerPart, new StringBody(id));
                         imageMPentity.addPart("image", new FileBody(f));
+                        imageMPentity.addPart("form_question", new StringBody(controller));
                         post.setEntity(imageMPentity);
+                        Log.e("setEntity","");
+
 
                     } catch(Exception e){
                         Log.e("error Image Entity", e.getLocalizedMessage(), e);
@@ -2090,6 +2102,11 @@ public class DB_functions {
 
                     try {
                         response = client.execute(post);
+                        Log.e("response",response.getStatusLine().toString());
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
+                        String json = reader.readLine();
+                        Log.e("json",json);
+
                     } catch (ClientProtocolException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -2099,7 +2116,9 @@ public class DB_functions {
                     }
 
                     HttpEntity result = response.getEntity();
+                    String txt=entityToString(result);
 
+                    Log.e("setEntity",txt);
 
                 }
                 catch (Exception e)
@@ -2109,6 +2128,29 @@ public class DB_functions {
 
             }
         }).start();
+    }
+
+
+    public static String entityToString(HttpEntity entity) throws IOException {
+        InputStream is = entity.getContent();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder str = new StringBuilder();
+
+        String line = null;
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                str.append(line + "\n");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                //tough luck...
+            }
+        }
+        return str.toString();
     }
 
     public static boolean haveNetworkConnection(Context c) {
