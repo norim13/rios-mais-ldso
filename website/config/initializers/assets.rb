@@ -23,6 +23,8 @@ Rails.application.config.assets.precompile += %w( footer.js )
 
 Rails.application.config.assets.precompile += %w( external/Chart.min.js )
 Rails.application.config.assets.precompile += %w( external/PageMe.js )
+Rails.application.config.assets.precompile += %w( external/bootstrap-datepicker.js )
+
 Rails.application.config.assets.precompile += %w( form_irr.js )
 Rails.application.config.assets.precompile += %w( form_irr_image.js )
 Rails.application.config.assets.precompile += %w( limpeza.js )
@@ -45,3 +47,4 @@ Rails.application.config.assets.precompile += %w( profile.css )
 Rails.application.config.assets.precompile += %w( admin.css )
 
 Rails.application.config.assets.precompile += %w( external/jquery-ui.min.css )
+Rails.application.config.assets.precompile += %w( external/datepicker.css )

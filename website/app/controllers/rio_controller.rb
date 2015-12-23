@@ -40,8 +40,8 @@ class RioController < ApplicationController
       forms = FormIrr.where(:idRio => params[:rio]).where(validated: true)
                   .where("lat > ? AND lat < ? AND lon > ? AND lon < ?",
                      lat_min, lat_max, lon_min, lon_max).order('updated_at DESC')
-      media = mediaIRR(forms)
-
+      media = mediaIRR(forms) #media com todos os IRR
+      forms = forms[0..4] #return só os primeiros 5 irrs (most recent)
       render :json => {:success => true, :forms => forms, :media => media}
           # :delta_lat => delta_lat, :delta_lon => delta_lon,
           #              :lat_min => lat_min, :lat_max => lat_max,
