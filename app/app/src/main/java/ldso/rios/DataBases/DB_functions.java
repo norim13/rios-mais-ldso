@@ -1405,7 +1405,7 @@ public class DB_functions {
                     con.setRequestMethod("POST");
                     con.connect();
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.accumulate("rio","201.02");
+                    jsonObject.accumulate("rio","PT03DOU0370");
                     jsonObject.accumulate("local",q1);
                     jsonObject.accumulate("voar",q2);
                     jsonObject.accumulate("cantar",q3);
