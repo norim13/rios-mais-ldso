@@ -1,6 +1,7 @@
 <%= render 'common/header' %>
 <%= stylesheet_link_tag "chart-irr" %>
 <%= stylesheet_link_tag "rio" %>
+<%= stylesheet_link_tag "external/datepicker" %>
 </head>
 <body>
 
@@ -56,13 +57,6 @@
 
   <% if @has_irr == 'yes' %>
 
-      <div class="input-group date" data-provide="datepicker">
-        <input type="text" class="form-control">
-        <div class="datepicker input-group-addon">
-          <span class="glyphicon glyphicon-th"></span>
-        </div>
-      </div>
-
     <div class="table-responsive">
       <table class="table" id="irr">
         <tr>
@@ -89,14 +83,47 @@
       </table>
     </div>
     <canvas id="chart-irr"></canvas>
+      <p>Abaixo poderá refinar alguns parâmetros de forma a obter informações sobre o IRR mais específicas. Pode escolher um intervalo de datas, uma localização e um raio à volta dessa localização.</p>
 
-      <p>Pode selecionar abaixo um ponto no mapa, e serão mostrados no gráfico os dados de IRR relativos a esse ponto, e num raio definido por si também.</p>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="start_date_picker">Data Início</label>
+          <div class="col-sm-4">
+            <div class="input-group" id="start_date_picker" data-date="23-12-2015" data-date-format="dd-mm-yyyy" >
+              <input class="form-control" type="text" value="23-12-2015">
+              <span class="input-group-addon "><span class="glyphicon glyphicon-th"></span></span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="start_date_picker">Data Fim</label>
+          <div class="col-sm-4">
+            <div class="input-group" id="end_date_picker" data-date="23-12-2015" data-date-format="dd-mm-yyyy" >
+              <input class="form-control" type="text" value="23-12-2015">
+              <span class="input-group-addon "><span class="glyphicon glyphicon-th"></span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="radius_picker">Raio (m)</label>
+          <div class="col-sm-4" id="radius_picker">
+            <input class="form-control" type="number" value="100">
+          </div>
+        </div>
+      </form>
+
+
+
+
     <div class="col-xs-12" id="map-wrapper">
       <div id="profile-rio-map" class="col-xs-12"></div>
       <div id="over-map-container">
         <button id="current-location-map-btn" class="btn btn-primary" >Ir para localização atual</button>
       </div>
     </div>
+
+
 
   <% else %>
   <i>Não existem dados relativos ao IRR deste rio...</i>
@@ -127,4 +154,6 @@
 
 <%= render 'common/footer' %>
 <%= javascript_include_tag 'external/PageMe.js' %>
+<%= javascript_include_tag "external/bootstrap-datepicker" %>
 <%= javascript_include_tag "rio" %>
+
