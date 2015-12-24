@@ -3,10 +3,8 @@ package ldso.rios.Form;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -22,7 +20,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -62,7 +59,6 @@ public class GuardaRios_form extends AppCompatActivity {
     protected ArrayList<String> arrayListURI;
 
     Button buttonTakePic;
-    GridLayout grid;
     LinearLayout horizontal;
 
     private  static final int CAM_REQUEST=1313;
@@ -74,31 +70,39 @@ public class GuardaRios_form extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Avistamento");
         setSupportActionBar(toolbar);
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         linearLayout = (LinearLayout) this.findViewById(R.id.irr_linear);
         frameLayout = (FrameLayout) this.findViewById(R.id.frameLayout);
         progressbar = (ProgressBar) this.findViewById(R.id.progressBar);
-
         arrayListURI=new ArrayList<String>();
 
-        LayoutInflater l = getLayoutInflater();
-       // LatLng current_location = this.getLocation();
-       // current_loc = googleMap.addMarker(new MarkerOptions().position(current_location).title("Localização Actual"));
+        //Adiciona as perguntas
+        createsQuestions();
 
-        /*
-        MapFfrag map=new MapFfrag();
 
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MapFfrag hello = new MapFfrag();
-        fragmentTransaction.add(frameLayout.getId(), hello, "HELLO");
-        fragmentTransaction.commit();
 
-*/
+        //Adiciona interface para as fotos
 
+        LayoutInflater inflater = getLayoutInflater();
+        View viewInflated = inflater.inflate(R.layout.photo_selection, null);
+        buttonTakePic= (Button) viewInflated.findViewById(R.id.camera);
+
+        buttonTakePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent,CAM_REQUEST);
+            }
+        });
+        linearLayout.addView(viewInflated);
+        horizontal= (LinearLayout) viewInflated.findViewById(R.id.horizontalLinearLayout);
+
+    }
+
+    //Adiciona as questoes a activity
+    public void createsQuestions(){
         Resources r = getResources();
         float px_float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, r.getDisplayMetrics());
         int px = (int) px_float;
@@ -157,37 +161,9 @@ public class GuardaRios_form extends AppCompatActivity {
         question6.setHint("Outro comportamento?");
         linearLayout.addView(question6);
 
-
-        buttonTakePic = new Button(getApplicationContext());
-        buttonTakePic.setText("Tirar Fotografia");
-
-        buttonTakePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent,CAM_REQUEST);
-            }
-        });
-
-        linearLayout.addView(buttonTakePic);
-
-        grid= new GridLayout(getApplicationContext());
-        grid.setColumnCount(3);
-
-        horizontal = new LinearLayout(getApplicationContext());
-        horizontal.setOrientation(LinearLayout.HORIZONTAL);
-        linearLayout.addView(horizontal);
-
-
-
-        //saveGuardaRios();
-
-
     }
 
-
-
-
+    //funcao chamada quando o utilizador quer submeter
     public void saveGuardaRios(View view) throws IOException, JSONException {
 
         for (int i=0;i<arrayListURI.size();i++)
@@ -257,6 +233,7 @@ public class GuardaRios_form extends AppCompatActivity {
         DB_functions.saveGuardaRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(),q1, q2, q3, q4, q5, q6, lat,lang,nomeRio);
     }
 
+    //funcao chamada quando foi submetido o form
     public void saveGuardaRiosDB(String id) throws IOException, JSONException {
       /*  new Thread() {
             public void run() {
@@ -282,7 +259,7 @@ public class GuardaRios_form extends AppCompatActivity {
 
     }
 
-
+    //abre o mapa e modifica
     public void abrirMapa(View view) {
         startActivityForResult(new Intent(this, Mapa_rios.class), 1);
     }
@@ -369,27 +346,6 @@ public class GuardaRios_form extends AppCompatActivity {
 
         }
     }//onActivityResult
-
-    public String getImagePath(Uri uri) {
-        String selectedImagePath;
-        // 1:MEDIA GALLERY --- query from MediaStore.Images.Media.DATA
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
-        if (cursor != null) {
-            int column_index = cursor
-                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            selectedImagePath = cursor.getString(column_index);
-        } else {
-            selectedImagePath = null;
-        }
-
-        if (selectedImagePath == null) {
-            // 2:OI FILE Manager --- call method: uri.getPath()
-            selectedImagePath = uri.getPath();
-        }
-        return selectedImagePath;
-    }
 
 
     //menu action bar

@@ -2,8 +2,6 @@ package ldso.rios.MainActivities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,12 +17,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
 import ldso.rios.DataBases.DB_functions;
 import ldso.rios.Form.GuardaRios_form;
 import ldso.rios.R;
+import ldso.rios.Utils;
 
 public class GuardaRios extends AppCompatActivity {
 
@@ -123,7 +120,7 @@ public class GuardaRios extends AppCompatActivity {
                                                     default:break;
                                                 }
                                                 final ImageView imageView=imageViewTemp;
-                                                final Bitmap b= LoafImageURL(url);
+                                                final Bitmap b= Utils.loadImageURL(url);
 
                                                 new Thread()
                                                 {
@@ -183,56 +180,4 @@ public class GuardaRios extends AppCompatActivity {
 
     }
 
-    public static Bitmap LoafImageURL(String url) throws IOException {
-
-
-        //In case the image is too large
-        URL url_value = new URL(url);
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 8;
-        Bitmap srcBmp = BitmapFactory.decodeStream(url_value.openConnection().getInputStream(), null, options);
-
-
-        Log.e("depois",url);
-
-        Bitmap dstBmp;
-
-        if (srcBmp.getWidth() >= srcBmp.getHeight()){
-
-            dstBmp = Bitmap.createBitmap(
-                    srcBmp,
-                    srcBmp.getWidth()/2 - srcBmp.getHeight()/2,
-                    0,
-                    srcBmp.getHeight(),
-                    srcBmp.getHeight()
-            );
-
-        }else{
-
-            dstBmp = Bitmap.createBitmap(
-                    srcBmp,
-                    0,
-                    srcBmp.getHeight()/2 - srcBmp.getWidth()/2,
-                    srcBmp.getWidth(),
-                    srcBmp.getWidth()
-            );
-        }
-        return dstBmp;
-    }
-
-    public static Drawable LoadImageFromWebOperations(String url) {
-
-
-
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            Log.e("nao nulo","img nao nula");
-            return d;
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("nulo","img nula");
-            return null;
-        }
-    }
 }
