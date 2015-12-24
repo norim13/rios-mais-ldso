@@ -2066,7 +2066,8 @@ public class DB_functions {
 
 
 
-    public  static void saveImage(final File f,final String email, final String token,final String controller,final String id) throws IOException, JSONException {
+    public  static void saveImage(final Object activity, final String path, final String email, final String token, final String controller, final String id) throws IOException, JSONException {
+
 
         if (!controller.contentEquals("form_irr") &&
                 !controller.contentEquals("guardario") &&
@@ -2074,6 +2075,7 @@ public class DB_functions {
                 !controller.contentEquals("report"))
             return;
 
+        final File f= new File(path);
 
         new Thread(new Runnable() {
             public void run() {
@@ -2105,7 +2107,11 @@ public class DB_functions {
                         Log.e("response",response.getStatusLine().toString());
                         BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
                         String json = reader.readLine();
-                        Log.e("json",json);
+                        if (controller.contentEquals("guardario"))
+                        {
+                            GuardaRios_form g= (GuardaRios_form)activity;
+                            g.saveImageDB(path);
+                        }
 
                     } catch (ClientProtocolException e) {
                         // TODO Auto-generated catch block

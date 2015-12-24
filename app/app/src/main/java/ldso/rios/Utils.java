@@ -1,7 +1,11 @@
 package ldso.rios;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 
 import java.io.IOException;
 import java.net.URL;
@@ -73,6 +77,23 @@ public class Utils {
         }
         return dstBmp;
     }
+
+
+    public static String getRealPathFromURI(Uri contentURI, Context context) {
+        String result;
+        Cursor cursor = context.getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }
+
+
 
 
 }

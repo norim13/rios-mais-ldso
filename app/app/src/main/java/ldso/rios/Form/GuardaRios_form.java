@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -26,6 +27,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -59,9 +61,11 @@ public class GuardaRios_form extends AppCompatActivity {
     protected ArrayList<String> arrayListURI;
 
     Button buttonTakePic;
+    Button buttonSelectPic;
     LinearLayout horizontal;
 
-    private  static final int CAM_REQUEST=1313;
+    private  static final int CAM_REQUEST=100;
+    private static final int SELECT_PHOTO = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +91,8 @@ public class GuardaRios_form extends AppCompatActivity {
 
         LayoutInflater inflater = getLayoutInflater();
         View viewInflated = inflater.inflate(R.layout.photo_selection, null);
-        buttonTakePic= (Button) viewInflated.findViewById(R.id.camera);
 
+        buttonTakePic= (Button) viewInflated.findViewById(R.id.camera);
         buttonTakePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,6 +100,17 @@ public class GuardaRios_form extends AppCompatActivity {
                 startActivityForResult(cameraIntent,CAM_REQUEST);
             }
         });
+
+        buttonSelectPic= (Button) viewInflated.findViewById(R.id.galery);
+        buttonSelectPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+            }
+        });
+
         linearLayout.addView(viewInflated);
         horizontal= (LinearLayout) viewInflated.findViewById(R.id.horizontalLinearLayout);
 
@@ -250,10 +265,30 @@ public class GuardaRios_form extends AppCompatActivity {
         }.start();
         */
 
+        if (arrayListURI.size()==0)
+        {
+
+            new Thread() {
+                public void run() {
+                    GuardaRios_form.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            progressbar.setVisibility(View.INVISIBLE);
+                            Toast toast = Toast.makeText(GuardaRios_form.this, "Avistamento submetido", Toast.LENGTH_LONG);
+                            toast.show();
+                            GuardaRios_form.this.finish();
+
+                        }
+                    });
+                }
+            }.start();
+
+
+        }
+
         for (int i=0;i<arrayListURI.size();i++)
         {
-            File file= new File(arrayListURI.get(i));
-            DB_functions.saveImage(file, User.getInstance().getEmail(),User.getInstance().getAuthentication_token(),"guardario",id);
+
+            DB_functions.saveImage(this,arrayListURI.get(i), User.getInstance().getEmail(),User.getInstance().getAuthentication_token(),"guardario",id);
         }
 
 
@@ -317,35 +352,91 @@ public class GuardaRios_form extends AppCompatActivity {
 
 
             try {
-                Bitmap result=Utils.squareimage(thumbnail);
-                ImageView i= new ImageView(this.getApplicationContext());
-                i.setMaxWidth(200);
-                i.setMaxHeight(200);
-                i.setImageBitmap(result);
-                final LinearLayout novo= new LinearLayout(getApplicationContext());
-                novo.setOrientation(LinearLayout.HORIZONTAL);
-                ImageView cancel= new ImageView(this.getApplicationContext());
-                Bitmap bm = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_action_cancel);
-                cancel.setImageBitmap(bm);
 
+                LayoutInflater inflater = getLayoutInflater();
+                View viewInflated = inflater.inflate(R.layout.photo_view, null);
+                final LinearLayout novo= (LinearLayout) viewInflated.findViewById(R.id.novo);
+                ImageView cancel= (ImageView) viewInflated.findViewById(R.id.cancel);
+                ImageView i= (ImageView) viewInflated.findViewById(R.id.photoImageView);
+
+                //poe a imagem tirada
+                Bitmap result=Utils.squareimage(thumbnail);
+                i.setImageBitmap(result);
+
+                //ao carregar em eliminar, tira do ecra e apaga da lista
                 cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         novo.removeAllViews();
                     }
                 });
-                novo.addView(cancel);
-                novo.addView(i);
+
                 linearLayout.addView(novo);
 
 
             } catch (IOException e) {
                 e.printStackTrace();
+                arrayListURI.remove(destination.getAbsolutePath());
             }
 
 
         }
-    }//onActivityResult
+        else if (requestCode == SELECT_PHOTO)
+        {
+            if(resultCode == RESULT_OK){
+                Uri selectedImage = data.getData();
+                String path= Utils.getRealPathFromURI(selectedImage,this.getApplicationContext());
+                File f = new File(Utils.getRealPathFromURI(selectedImage,this.getApplicationContext()));
+
+                if(f.exists())
+                {
+                    try{
+
+                        arrayListURI.add(path);
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                        Bitmap bitmapOtiginal = BitmapFactory.decodeFile(path, options);
+                        //cria um htumbnail com max with de 100 pixeis
+                        int i1 = bitmapOtiginal.getHeight() * 200 / bitmapOtiginal.getWidth();
+                        Bitmap thumbnail = Bitmap.createScaledBitmap(
+                                bitmapOtiginal, 200, i1, false);
+
+
+                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+
+                        LayoutInflater inflater = getLayoutInflater();
+                        View viewInflated = inflater.inflate(R.layout.photo_view, null);
+                        final LinearLayout novo= (LinearLayout) viewInflated.findViewById(R.id.novo);
+                        ImageView cancel= (ImageView) viewInflated.findViewById(R.id.cancel);
+                        ImageView i= (ImageView) viewInflated.findViewById(R.id.photoImageView);
+
+                        //poe a imagem tirada
+                        Bitmap result=Utils.squareimage(thumbnail);
+                        i.setImageBitmap(result);
+
+                        //ao carregar em eliminar, tira do ecra e apaga da lista
+                        cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                novo.removeAllViews();
+                            }
+                        });
+
+                        linearLayout.addView(novo);
+
+                    }
+                    catch(Exception e){
+                        e.printStackTrace();
+                    }
+
+                }
+                else
+                    Log.e("Nao existe","ficheiro nao existe");
+
+            }
+        }
+    }
 
 
     //menu action bar
@@ -365,6 +456,26 @@ public class GuardaRios_form extends AppCompatActivity {
     }
 
 
+    public void saveImageDB(String path) {
+        Log.e("entrou","entrou na funcao");
+        arrayListURI.remove(path);
+        if (arrayListURI.size()==0)
+        {
+            new Thread() {
+                public void run() {
+                    GuardaRios_form.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            progressbar.setVisibility(View.INVISIBLE);
+                            Toast toast = Toast.makeText(GuardaRios_form.this, "Avistamento submetido", Toast.LENGTH_LONG);
+                            toast.show();
+                            GuardaRios_form.this.finish();
+
+                        }
+                    });
+                }
+            }.start();
+        }
 
 
+    }
 }
