@@ -57,6 +57,7 @@
 
   <% if @has_irr == 'yes' %>
 
+      <div id="irr-info">A mostrar informação relativa a todos os formulários IRR que correspondem a este rio. Para refinar a informação mostrada, por favor preencha os campos abaixo do gráfico, e clique em "Atualizar IRR".</div>
     <div class="table-responsive">
       <table class="table" id="irr">
         <tr>
@@ -87,28 +88,36 @@
 
       <form class="form-horizontal">
         <div class="form-group">
-          <label class="control-label col-sm-2" for="start_date_picker">Data Início</label>
+          <label class="control-label col-sm-2 col-sm-offset-2" for="start_date_picker">Data Início</label>
           <div class="col-sm-4">
             <div class="input-group" id="start_date_picker" data-date="23-12-2015" data-date-format="dd-mm-yyyy" >
-              <input class="form-control" type="text" value="23-12-2015">
+              <input class="form-control" type="text" value="23-12-2015" data-date-format="dd-mm-yyyy">
               <span class="input-group-addon "><span class="glyphicon glyphicon-th"></span></span>
             </div>
           </div>
         </div>
         <div class="form-group">
-          <label class="control-label col-sm-2" for="start_date_picker">Data Fim</label>
+          <label class="control-label col-sm-2 col-sm-offset-2" for="start_date_picker">Data Fim</label>
           <div class="col-sm-4">
             <div class="input-group" id="end_date_picker" data-date="23-12-2015" data-date-format="dd-mm-yyyy" >
-              <input class="form-control" type="text" value="23-12-2015">
+              <input class="form-control" type="text" value="23-12-2015" data-date-format="dd-mm-yyyy">
               <span class="input-group-addon "><span class="glyphicon glyphicon-th"></span></span>
             </div>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="control-label col-sm-2" for="radius_picker">Raio (m)</label>
+          <label class="control-label col-sm-2 col-sm-offset-2" for="radius_picker">Raio (m)</label>
           <div class="col-sm-4" id="radius_picker">
-            <input class="form-control" type="number" value="100">
+            <input id="radius-irr" class="form-control" type="number" value="100">
+          </div>
+        </div>
+
+        <div id="erros-update-irr" class="control-label col-sm-8 col-sm-offset-2" style="text-align: center"></div>
+
+        <div class="form-group">
+          <div class="control-label col-sm-2 col-sm-offset-4">
+            <button id="update-irr-btn" class="btn btn-primary">Atualizar IRR</button>
           </div>
         </div>
       </form>

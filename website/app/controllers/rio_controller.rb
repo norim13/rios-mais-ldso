@@ -30,15 +30,15 @@ class RioController < ApplicationController
   # get FormIRR dentro de um raio à volta de lat/lon dados,
   # e dentro de um intervalo de datas especificado
   def getIRRrange
-      delta_lat = params[:raio].to_d/110.574 #Latitude: 1 deg = 110.574 km
-      delta_lon = params[:raio].to_d/(111.320*Math.cos(params[:lat].to_d).abs) #Longitude: 1 deg = 111.320*cos(latitude) km
+      delta_lat = params[:raio].to_d/1000.0/110.574 #Latitude: 1 deg = 110.574 km
+      delta_lon = params[:raio].to_d/1000.0/(111.320*Math.cos(params[:lat].to_d).abs) #Longitude: 1 deg = 111.320*cos(latitude) km
       lat_min = params[:lat].to_d - delta_lat
       lat_max = params[:lat].to_d + delta_lat
       lon_min = params[:lon].to_d - delta_lon
       lon_max = params[:lon].to_d + delta_lon
-
-      forms = FormIrr.where(:idRio => params[:rio]).where(validated: true)
-                  .where("lat > ? AND lat < ? AND lon > ? AND lon < ?",
+      p lat_max
+      forms = FormIrr.where(:idRio => params[:rio]).where(validated: true).where('created_at >= ? AND created_at <= ?',
+                     params[:data_inicio], params[:data_fim]).where("lat > ? AND lat < ? AND lon > ? AND lon < ?",
                      lat_min, lat_max, lon_min, lon_max).order('updated_at DESC')
       media = mediaIRR(forms) #media com todos os IRR
       forms = forms[0..4] #return só os primeiros 5 irrs (most recent)

@@ -5,18 +5,21 @@
 //var base_url = 'http://***REMOVED***:10500/geoserver/rios';
 var base_url = '***REMOVED***/geoserver/rios';
 currentMarker = null;
+currentCircle = null; //marker radius in map
 cod_rio = null;
+
+start_date = null;
+end_date = null;
 //lat_deg = 110.574;//Latitude: 1 deg = 110.574 km
 //lon_deg = 111.320*cos(latitude);//Longitude: 1 deg = 111.320*cos(latitude) km
 //http://stackoverflow.com/questions/1253499/simple-calculations-for-working-with-lat-lon-km-distance
 $(document).ready(function(){
 
-    //$('.datepicker').datepicker();
-
+    // DATE PICKERS
     var nowTemp = new Date();
     var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 
-    var start_date = $('#start_date_picker').datepicker({
+    start_date = $('#start_date_picker input').datepicker({
         onRender: function(date) {
             return date.valueOf() > now.valueOf() ? 'disabled' : '';
         }
@@ -26,17 +29,33 @@ $(document).ready(function(){
             newDate.setDate(newDate.getDate() + 1);
             end_date.setValue(newDate);
         }
+        else end_date.setValue(end_date.date);
+        var newDate = new Date(ev.date)
         start_date.hide();
-        $('#end_date_picker')[0].focus();
+        $('#end_date_picker input')[0].focus();
     }).data('datepicker');
 
-    var end_date = $('#end_date_picker').datepicker({
+    end_date = $('#end_date_picker input').datepicker({
         onRender: function(date) {
             return date.valueOf() < start_date.date.valueOf() || date.valueOf() > now.valueOf() ? 'disabled' : '';
         }
     }).on('changeDate', function(ev) {
-        //end_date.hide();
+        end_date.hide();
     }).data('datepicker');
+    // DATE PICKERS END
+
+    //update radius
+    $("#radius-irr").on('change', function(){
+        var radius = parseInt($(this).val());
+        updateCircle(radius);
+    });
+
+    //update irr btn
+    $("#update-irr-btn").click(function(event) {
+        event.preventDefault();
+        $("#erros-update-irr").html('');
+        requestIRRdata();
+    });
 
     //INFO RIO
     cod_rio = $("#cod-rio").html();
@@ -386,27 +405,58 @@ function placeMarker(location, map) {
     });
     map.panTo(location);
 
+    var radius = parseInt($("#radius-irr").val());
+    updateCircle(radius);
+
     $("#add-gps-point-trip").removeAttr("disabled");
 
-    requestIRRdata(marker);
+    //requestIRRdata();
 
 };
+
+function updateCircle(rad){
+    if(isNaN(rad))
+        return;
+    // Add circle overlay and bind to marker
+    if(currentCircle != null)
+        currentCircle.setMap(null);
+
+    currentCircle = new google.maps.Circle({
+        map: map,
+        radius: rad,
+        fillColor: '#0000AA'
+    });
+    currentCircle.bindTo('center', currentMarker, 'position');
+}
 
 function removeCurrentMarker() {
     currentMarker.setMap(null);
     currentMarker = null;
 };
 
-function requestIRRdata(marker){
+function requestIRRdata(){
+    if(currentMarker == null){
+        $("#erros-update-irr").html("Selecione um ponto no mapa...");
+        return;
+    }
     var obj = {};
-    console.log(marker);
-    obj.lat = marker.position.lat;
-    obj.lon = marker.position.lng;
+    console.log(currentMarker);
+    obj.lat = currentMarker.position.lat;
+    obj.lon = currentMarker.position.lng;
     /*obj.lat = 41.1159570399812;
     obj.lon = -8.5303135134888;*/
     /*obj.lat = 41;
     obj.lon = -8;*/
-    obj.raio = 100;
+    var radius = parseInt($("#radius-irr").val());
+    if(isNaN(radius)){
+        $("#erros-update-irr").html("Raio inválido...");
+        return;
+    }
+    obj.raio = radius;
+
+    obj.data_inicio = $("#start_date_picker input").val();
+    obj.data_fim    = $("#end_date_picker input").val();
+
     obj.rio = cod_rio.trim();
 
 
@@ -416,8 +466,19 @@ function requestIRRdata(marker){
         data: obj,
         success: function(data){
             console.log(data);
+            if(data.media != null) {
+                $("#irr-info").html('A mostrar informação relativa aos formulários IRR preenchidos entre x e x, num raio de ' + obj.raio
+                    + ' metros em torno do ponto selecionado');
+                console.log(currentMarker.getPosition());
+                drawChart(data);
+            }
+            else {
+                $("#irr-info").html('Não existe informação IRR para os parâmetros escolhidos...');
+            }
+            $('html, body').animate({
+                scrollTop: $('#irr-info').offset().top - 70
+            }, 300);
 
-            drawChart(data);
         },
         error: function(err){
             console.log("error");
@@ -426,5 +487,8 @@ function requestIRRdata(marker){
     });
 
 };
+
+
+
 
 `
