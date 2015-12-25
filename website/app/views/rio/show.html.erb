@@ -57,7 +57,7 @@
 
   <% if @has_irr == 'yes' %>
 
-      <div id="irr-info">A mostrar informação relativa a todos os formulários IRR que correspondem a este rio. Para refinar a informação mostrada, por favor preencha os campos abaixo do gráfico, e clique em "Atualizar IRR".</div>
+      <div id="irr-info">Preencha os campos abaixo do gráfico para obter informações relativas ao IRR deste rio.</div>
     <div class="table-responsive">
       <table class="table" id="irr">
         <tr>
@@ -71,20 +71,20 @@
           <th>IRR total</th>
         </tr>
         <tr>
-          <td id="irr_nr_forms"><%= @form_irrs.count %></td>
-          <td id="irr_hidrogeomorfologia"><%= @avg_hidrogeomorfologia %></td>
-          <td id="irr_qualidadedaagua"><%= @avg_qualidadedaagua %></td>
-          <td id="irr_alteracoesantropicas"><%= @avg_alteracoesantropicas %></td>
-          <td id="irr_corredorecologico"><%= @avg_corredorecologico %></td>
-          <td id="irr_participacaopublica"><%= @avg_participacaopublica %></td>
-          <td id="irr_organizacaoeplaneamento"><%= @avg_organizacaoeplaneamento %></td>
-          <td id="irr_avg"><%= @avg_irr %></td>
-          <td id="irr_total"><%= @irr_total %></td>
+          <td id="irr_nr_forms">-</td>
+          <td id="irr_hidrogeomorfologia">-</td>
+          <td id="irr_qualidadedaagua">-</td>
+          <td id="irr_alteracoesantropicas">-</td>
+          <td id="irr_corredorecologico">-</td>
+          <td id="irr_participacaopublica">-</td>
+          <td id="irr_organizacaoeplaneamento">-</td>
+          <td id="irr_total">-</td>
         </tr>
       </table>
     </div>
     <canvas id="chart-irr"></canvas>
-      <p>Abaixo poderá refinar alguns parâmetros de forma a obter informações sobre o IRR mais específicas. Pode escolher um intervalo de datas, uma localização e um raio à volta dessa localização.</p>
+      <p>Abaixo poderá refinar alguns parâmetros de forma a obter informações sobre o IRR mais específicas.
+        Pode escolher um intervalo de datas, uma localização e um raio à volta dessa localização. Após escolher os parâmetros desejados, clique em "Atualizar IRR".</p>
 
       <form class="form-horizontal">
         <div class="form-group">
@@ -92,7 +92,7 @@
           <div class="col-sm-4">
             <div class="input-group" id="start_date_picker" data-date="23-12-2015" data-date-format="dd-mm-yyyy" >
               <input class="form-control" type="text" value="23-12-2015" data-date-format="dd-mm-yyyy">
-              <span class="input-group-addon "><span class="glyphicon glyphicon-th"></span></span>
+              <span class="input-group-addon "><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
           </div>
         </div>
@@ -101,7 +101,7 @@
           <div class="col-sm-4">
             <div class="input-group" id="end_date_picker" data-date="23-12-2015" data-date-format="dd-mm-yyyy" >
               <input class="form-control" type="text" value="23-12-2015" data-date-format="dd-mm-yyyy">
-              <span class="input-group-addon "><span class="glyphicon glyphicon-th"></span></span>
+              <span class="input-group-addon "><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
           </div>
         </div>
@@ -121,9 +121,6 @@
           </div>
         </div>
       </form>
-
-
-
 
     <div class="col-xs-12" id="map-wrapper">
       <div id="profile-rio-map" class="col-xs-12"></div>
