@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.SystemClock;
 import android.util.Log;
 
 import org.apache.http.HttpEntity;
@@ -291,10 +290,10 @@ public class DB_functions {
                         response.accumulate("perfilDeMargens", (int) form_irr.getRespostas().get(2));
 
                         af= (ArrayList<Float>) form_irr.getRespostas().get(3);
-                        response.accumulate("larguraDaSuperficieDaAgua",af.get(0));
-                        response.accumulate("profundidadeMedia",af.get(1));
-                        response.accumulate("velocidadeMedia", af.get(2));
-                        SystemClock.sleep(7000);
+                        Log.e("float",""+af.get(0));
+                        response.accumulate("larguraDaSuperficieDaAgua",Float.parseFloat(af.get(0).toString()));
+                        response.accumulate("profundidadeMedia",Float.parseFloat(af.get(1).toString()));
+                        response.accumulate("velocidadeMedia", Float.parseFloat(af.get(2).toString()));
                         Log.e("formirr", response.toString());
                         Float seccao=Float.parseFloat(String.valueOf(af.get(0)))*Float.parseFloat(String.valueOf(af.get(1)));
                         Float caudal=seccao*Float.parseFloat(String.valueOf(af.get(2)));

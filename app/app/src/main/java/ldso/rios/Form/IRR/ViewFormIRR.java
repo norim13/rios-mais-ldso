@@ -103,7 +103,7 @@ public class ViewFormIRR extends AppCompatActivity {
     se clicar no botão de edit, inicia um FormIRRSwipe para editar o formulário
      */
     public void edit_form(View view){
-        Log.e("vai","vai editar");
+        //Log.e("vai","vai editar");
         Intent i;
         i = new Intent(this, FormIRRSwipe.class);
         i.putExtra("form_irr", form.getRespostas());

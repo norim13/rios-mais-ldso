@@ -49,6 +49,9 @@ public class Form implements Serializable {
     public int margem=1;
     Boolean current_location;
 
+    ArrayList<String> arrayListURI;
+
+
 
 
 
@@ -58,6 +61,7 @@ public class Form implements Serializable {
         lat_curr=lon_curr=lat_sel=lon_sel=0f;
         lat_sel=0f;
         teste="mira";
+        arrayListURI=new ArrayList<String>();
     }
 
 
@@ -114,6 +118,9 @@ public class Form implements Serializable {
         for(int i=0;i<32;i++) {
             try {
                 perguntas.get(i).setAnswer(respostas.get(i + 1), respotas_outros.get(i + 1));
+                String show="";
+                show+="i="+i+" pergunta:"+perguntas.get(i).subtitle;
+                Log.e("",show);
 
             }catch (Exception e){
                 perguntas.get(i).setAnswer(respostas.get(i + 1), "");
@@ -205,13 +212,13 @@ public class Form implements Serializable {
     for (int i=1;i<=this.getPerguntas().size();i++)
             try {
         fillAnswer(i-1);
-        Log.e("resposta", i + "-" + this.respostas.get(i).toString()+"-" + this.other_response.get(i).toString());
+        //Log.e("resposta", i + "-" + this.respostas.get(i).toString()+"-" + this.other_response.get(i).toString());
 
     } catch (Exception e) {
-        Log.e("resposta", i + "-");
+        //Log.e("resposta", i + "-");
 
     }
-    Log.e("resposta","--------");
+    //Log.e("resposta","--------");
 
         ArrayList<Float> arrayLocation = new ArrayList<Float>();
         arrayLocation.add(this.lat_curr);

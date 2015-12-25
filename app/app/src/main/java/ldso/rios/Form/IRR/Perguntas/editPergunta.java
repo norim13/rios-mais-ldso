@@ -2,9 +2,6 @@ package ldso.rios.Form.IRR.Perguntas;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -13,8 +10,8 @@ import android.widget.TextView;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import ldso.rios.Form.IRR.Pergunta;
 import ldso.rios.Form.Form_functions;
+import ldso.rios.Form.IRR.Pergunta;
 
 /**
  * Created by filipe on 24/11/2015.
@@ -55,79 +52,7 @@ public class editPergunta extends Pergunta implements Serializable {
             this.edit_list= Form_functions.createEditText(this.options,this.linearLayout,this.context);
 
 
-        if(this.options[0].equals("Largura da superfície da água (L) (m):"))
-        {
 
-            String[] extra={"Seccao","Caudlal"};
-
-            for(EditText e :this.edit_list)
-            e.setText(""+0);
-
-
-
-
-
-            tv= new TextView(this.context);
-            tv2= new TextView(this.context);
-
-            tv.setText("Mira");
-            tv2.setText("Mira");
-            tv2.setId(tv.getId()+1);
-
-            this.linearLayout.addView(tv);
-            this.linearLayout.addView(tv2);
-
-
-
-
-            for (int i=0;i<this.edit_list.size();i++)
-            {
-                this.edit_list.get(i).addTextChangedListener(new TextWatcher() {
-                    public void afterTextChanged(Editable str) {
-                        Log.e("form", "Editable: " + str.toString());
-                        tv.setText("Olaaaaaaa" + edit_list.get(1).toString());
-
-                        if(edit_list.get(0).toString().length()>0 && edit_list.get(1).toString().length()>0){
-                            //Log.e("form","dentro do if");
-                            try {
-                                Log.e("form","dentro do try "+edit_list.get(0).toString()+" "+edit_list.get(1).toString()+" "+edit_list.get(2).toString());
-                                float s= Float.parseFloat(edit_list.get(0).toString())*Float.parseFloat(edit_list.get(1).toString());
-                                Log.e("form","dentro do try ainda");
-                                tv.setText("Olaaaaaaa");
-                                tv2.setText("olaaaaaaaaaaaaaaaaaaaaaaa");
-
-
-
-                                try {
-                                    if(edit_list.get(2).toString().length()>0)
-                                    {
-                                        float c=s*Float.parseFloat(edit_list.get(2).toString());
-                                        //editText.get(1).setText(Html.fromHtml(c + " m<sup>3</sup>/s"));
-                                    }
-                                }
-                                catch (Exception e){
-                                    e.printStackTrace();
-
-                                }
-                            }
-                            catch (Exception e){
-                                e.printStackTrace();
-
-                            }
-
-                        }
-                        Log.e("form", "entrou no changed");
-                    }
-
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    }
-
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    }
-                });
-            }
-
-        }
 
     }
 
