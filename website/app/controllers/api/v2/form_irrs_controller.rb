@@ -44,7 +44,7 @@ class Api::V2::FormIrrsController < ApplicationController
     user_email = params[:user_email].presence
     user       = user_email && User.find_by_email(user_email)
 
-    render :json => {:success => true, :form_irr_id => form_irr.id }
+    render :json => user.form_irrs.to_json
   end
 
   def get
