@@ -5,7 +5,7 @@ class Api::V2::ImageController < ApplicationController
     user_email = params[:user_email].presence
     user       = user_email && User.find_by_email(user_email)
 
-    controller = params[:controller]
+    controller = params[:form_question]
     
     case controller
       when "form_irr"
