@@ -1,6 +1,8 @@
 package ldso.rios.Form.IRR;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,10 +10,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import ldso.rios.Autenticacao.Login;
@@ -21,6 +26,7 @@ import ldso.rios.Form.Form_functions;
 import ldso.rios.MainActivities.Form_IRR_mainActivity;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.R;
+import ldso.rios.Utils;
 
 /*
 View para mostrar um form irr já preenchido
@@ -62,6 +68,7 @@ public class ViewFormIRR extends AppCompatActivity {
             Log.e("form", "entrou");
             HashMap<Integer,Object> respostas=(HashMap<Integer, Object>) getIntent().getSerializableExtra("form_irr");
             HashMap<Integer,String> outros= (HashMap<Integer, String>) respostas.get(-3);
+            this.form.arrayListURI= (ArrayList<String>) respostas.get(-5);
             this.form.setRespostas(respostas,outros);
             this.form.other_response=outros;
 
@@ -79,6 +86,31 @@ public class ViewFormIRR extends AppCompatActivity {
 
         Form_functions.createTitle("Margem:"+ ((this.form.margem == 1) ? "Esquerda" : "Direita"),linearLayout,this.getApplicationContext());
 
+        Log.e("uri",this.form.arrayListURI.size()+"");
+        for (String uri :this.form.arrayListURI)
+        {
+
+
+            try {
+                ImageView img= new ImageView(getApplicationContext());
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                Bitmap bitmapOtiginal = BitmapFactory.decodeFile(uri, options);
+                int i1 = bitmapOtiginal.getHeight() * 200 / bitmapOtiginal.getWidth();
+                Bitmap thumbnail = Bitmap.createScaledBitmap(
+                        bitmapOtiginal, 200, i1, false);
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                Bitmap result= null;
+                result = Utils.squareimage(thumbnail);
+                img.setImageBitmap(result);
+                linearLayout.addView(img);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
 
 
         for(int i=0;i<=32;i++)
@@ -97,6 +129,25 @@ public class ViewFormIRR extends AppCompatActivity {
 
     }
 
+    public void saveImageDB(String path) {
+        Log.e("entrou","entrou na funcao");
+        form.arrayListURI.remove(path);
+        if (form.arrayListURI.size()==0)
+        {
+            new Thread() {
+                public void run() {
+                    ViewFormIRR.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast toast = Toast.makeText(ViewFormIRR.this, "IRR submetido", Toast.LENGTH_LONG);
+                            toast.show();
+                            ViewFormIRR.this.finish();
+                        }
+                    });
+                }
+            }.start();
+        }
+
+    }
 
 
     /*
@@ -138,14 +189,14 @@ public class ViewFormIRR extends AppCompatActivity {
 
             //Form_IRR.loadFromIRR(this.getApplicationContext());
             this.form.fillAnswers();
-            Form_IRR.uploadFormIRR(this.getApplicationContext(),this.form);
+            Form_IRR.uploadFormIRR(this,this.getApplicationContext(),this.form);
             this.finish();
 
 
             //Log.e("teste","tamanho do array"+Form_IRR.all_from_irrs.size());
         }
         if (id == R.id.navigate_remove){
-            Log.e("delete","entrou");
+            //Log.e("delete","entrou");
             User u = User.getInstance();
             DB_functions.deleteForm(this,this.getIntent().getSerializableExtra("id").toString(),u.getEmail(),u.getAuthentication_token() );
 

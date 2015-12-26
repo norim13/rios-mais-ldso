@@ -40,6 +40,7 @@ import ldso.rios.Autenticacao.Login;
 import ldso.rios.Autenticacao.Register;
 import ldso.rios.Form.Form_functions;
 import ldso.rios.Form.GuardaRios_form;
+import ldso.rios.Form.IRR.FormIRRSwipe;
 import ldso.rios.Form.IRR.Form_IRR;
 import ldso.rios.Form.IRR.Questions;
 import ldso.rios.Form.IRR.ViewFormIRR;
@@ -235,7 +236,7 @@ public class DB_functions {
         }).start();
     }
 
-    public static void saveForm(final String token, final String email, final Form_IRR form_irr) throws IOException, JSONException {
+    public static void saveForm(final Object activity,final String token, final String email, final Form_IRR form_irr) throws IOException, JSONException {
 
         final ArrayList<Integer[]> values_irr= Questions.getValuesIRR();
         Log.e("form","entrou");
@@ -662,7 +663,7 @@ public class DB_functions {
                                 String id=obj.getString("form_irr_id");
                                 for (String uri: form_irr.getArrayListURI())
                                 {
-                                    saveImage(null,uri,email,token,"form_irr",id);
+                                    saveImage(activity,uri,email,token,"form_irr",id);
                                 }
                             }
                             catch (Exception e)
@@ -2125,11 +2126,31 @@ public class DB_functions {
                         Log.e("response",response.getStatusLine().toString());
                         BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
                         String json = reader.readLine();
+                        Log.e("aqui",controller);
+
                         if (controller.contentEquals("guardario"))
                         {
+                            Log.e("guardarios","");
                             GuardaRios_form g= (GuardaRios_form)activity;
                             g.saveImageDB(path);
                         }
+                        else if (controller.contentEquals("form_irr"))
+                        {
+                            Log.e("aqui","");
+                            try {
+                                Log.e("vai tentar","");
+                                FormIRRSwipe act= (FormIRRSwipe) activity;
+                                act.saveImageDB(path);
+
+                            }catch (Exception e)
+                            {
+                                ViewFormIRR act= (ViewFormIRR) activity;
+                                act.saveImageDB(path);
+                                e.printStackTrace();
+
+                            }
+                        }
+                        Log.e("fora do log","");
 
                     } catch (ClientProtocolException e) {
                         // TODO Auto-generated catch block

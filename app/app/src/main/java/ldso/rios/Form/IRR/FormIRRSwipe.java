@@ -143,7 +143,7 @@ public class FormIRRSwipe extends AppCompatActivity {
                 Log.e("form", "entrar na DB");
                 try {
                     if (novo)
-                        DB_functions.saveForm(User.getInstance().getAuthentication_token(),User.getInstance().getEmail(), form);
+                        DB_functions.saveForm(FormIRRSwipe.this,User.getInstance().getAuthentication_token(),User.getInstance().getEmail(), form);
 
                     else
                         DB_functions.updateForm(Form_functions.getUser(getApplicationContext())[0],
@@ -157,6 +157,27 @@ public class FormIRRSwipe extends AppCompatActivity {
 
             }
         });
+
+    }
+
+
+    public void saveImageDB(String path) {
+        Log.e("entrou","entrou na funcao");
+        form.arrayListURI.remove(path);
+        if (form.arrayListURI.size()==0)
+        {
+            new Thread() {
+                public void run() {
+                    FormIRRSwipe.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast toast = Toast.makeText(FormIRRSwipe.this, "IRR submetido", Toast.LENGTH_LONG);
+                            toast.show();
+                            FormIRRSwipe.this.finish();
+                        }
+                    });
+                }
+            }.start();
+        }
 
     }
 
@@ -231,60 +252,59 @@ public class FormIRRSwipe extends AppCompatActivity {
         //se for a resposta da camara
         else if (requestCode== CAM_REQUEST)
         {
-            Log.e("array",this.form.arrayListURI.toString());
-            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+            if (resultCode == Activity.RESULT_OK) {
+                Log.e("array", this.form.arrayListURI.toString());
+                Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
 
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                final File destination = new File(Environment.getExternalStorageDirectory(),
+                        System.currentTimeMillis() + ".jpg");
+                FileOutputStream fo;
+                try {
+                    destination.createNewFile();
+                    fo = new FileOutputStream(destination);
+                    fo.write(bytes.toByteArray());
+                    fo.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-            final File destination = new File(Environment.getExternalStorageDirectory(),
-                    System.currentTimeMillis() + ".jpg");
-            FileOutputStream fo;
-            try {
-                destination.createNewFile();
-                fo = new FileOutputStream(destination);
-                fo.write(bytes.toByteArray());
-                fo.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                this.form.arrayListURI.add(destination.getAbsolutePath());
+                Log.e("arrat", this.form.arrayListURI.toString());
+
+
+                try {
+
+                    LayoutInflater inflater = getLayoutInflater();
+                    View viewInflated = inflater.inflate(R.layout.photo_view, null);
+                    final LinearLayout novo = (LinearLayout) viewInflated.findViewById(R.id.novo);
+                    ImageView cancel = (ImageView) viewInflated.findViewById(R.id.cancel);
+                    ImageView i = (ImageView) viewInflated.findViewById(R.id.photoImageView);
+
+                    //poe a imagem tirada
+                    Bitmap result = Utils.squareimage(thumbnail);
+                    i.setImageBitmap(result);
+
+                    //ao carregar em eliminar, tira do ecra e apaga da lista
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            form.arrayListURI.remove(destination.getAbsolutePath());
+                            novo.removeAllViews();
+                        }
+                    });
+
+                    linearLayout.addView(novo);
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    this.form.arrayListURI.remove(destination.getAbsolutePath());
+                }
             }
-
-            this.form.arrayListURI.add(destination.getAbsolutePath());
-            Log.e("arrat",this.form.arrayListURI.toString());
-
-
-
-            try {
-
-                LayoutInflater inflater = getLayoutInflater();
-                View viewInflated = inflater.inflate(R.layout.photo_view, null);
-                final LinearLayout novo= (LinearLayout) viewInflated.findViewById(R.id.novo);
-                ImageView cancel= (ImageView) viewInflated.findViewById(R.id.cancel);
-                ImageView i= (ImageView) viewInflated.findViewById(R.id.photoImageView);
-
-                //poe a imagem tirada
-                Bitmap result=Utils.squareimage(thumbnail);
-                i.setImageBitmap(result);
-
-                //ao carregar em eliminar, tira do ecra e apaga da lista
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        form.arrayListURI.remove(destination.getAbsolutePath());
-                        novo.removeAllViews();
-                    }
-                });
-
-                linearLayout.addView(novo);
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                this.form.arrayListURI.remove(destination.getAbsolutePath());
-            }
-
 
         }
         else if (requestCode == SELECT_PHOTO)

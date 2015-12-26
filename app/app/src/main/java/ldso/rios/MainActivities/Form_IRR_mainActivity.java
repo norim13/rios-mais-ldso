@@ -202,15 +202,6 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
 
             String idRio = "idrios";
             String date= ""+respostas.get(i).get(-4);
-            HashMap<Integer,String> outras= (HashMap<Integer,String>)respostas.get(i).get(-3);
-            Log.e("tamanho das strings",outras.size()+"");
-            for(int k =0;k<32;k++)
-                try{
-                    Log.e("string-",k+" -"+outras.get(k));
-                }
-                catch (Exception e){
-
-                }
 
 
             LayoutInflater l = getLayoutInflater();
