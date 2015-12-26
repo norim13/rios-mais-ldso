@@ -27,6 +27,7 @@ import ldso.rios.DataBases.User;
 import ldso.rios.Form.Form_functions;
 import ldso.rios.MainActivities.Form_IRR_mainActivity;
 import ldso.rios.MainActivities.GuardaRios;
+import ldso.rios.MainActivities.Homepage;
 import ldso.rios.R;
 
 /*
@@ -195,7 +196,11 @@ public class ViewFormIRR extends AppCompatActivity {
             this.form.fillAnswers();
             Form_IRR.uploadFormIRR(this,this.getApplicationContext(),this.form);
             if (this.form.arrayListURI.size()==0)
-            this.finish();
+            {
+                Intent intent = new Intent(getApplicationContext(), Homepage.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
 
 
             //Log.e("teste","tamanho do array"+Form_IRR.all_from_irrs.size());

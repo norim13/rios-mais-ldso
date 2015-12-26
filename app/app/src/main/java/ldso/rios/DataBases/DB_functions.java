@@ -1521,7 +1521,9 @@ public class DB_functions {
                         br.close();
 
                         System.out.println("errozinho:" + sb.toString());
-                        sos_rios.saveSOSDB();
+                        JSONObject obj = new JSONObject(sb.toString());
+                        String id=  obj.get("report_id").toString();
+                        sos_rios.saveSOSDB(id);
 
                     } else {
                         sos_rios.errorSOSDB(con.getResponseMessage());
@@ -2149,6 +2151,11 @@ public class DB_functions {
                                 e.printStackTrace();
 
                             }
+                        }
+                        else if (controller.contentEquals("report"))
+                        {
+                            Sos_rios sos= (Sos_rios) activity;
+                            sos.saveImageDB(path);
                         }
                         Log.e("fora do log","");
 

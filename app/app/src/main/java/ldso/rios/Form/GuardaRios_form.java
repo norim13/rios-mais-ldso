@@ -327,57 +327,59 @@ public class GuardaRios_form extends AppCompatActivity {
         //se for a resposta da camara
         else if (requestCode== CAM_REQUEST)
         {
-            Log.e("array",arrayListURI.toString());
-            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+            if (resultCode == Activity.RESULT_OK) {
+                Log.e("array", arrayListURI.toString());
+                Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
 
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
-            File destination = new File(Environment.getExternalStorageDirectory(),
-                    System.currentTimeMillis() + ".jpg");
-            FileOutputStream fo;
-            try {
-                destination.createNewFile();
-                fo = new FileOutputStream(destination);
-                fo.write(bytes.toByteArray());
-                fo.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                File destination = new File(Environment.getExternalStorageDirectory(),
+                        System.currentTimeMillis() + ".jpg");
+                FileOutputStream fo;
+                try {
+                    destination.createNewFile();
+                    fo = new FileOutputStream(destination);
+                    fo.write(bytes.toByteArray());
+                    fo.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-            arrayListURI.add(destination.getAbsolutePath());
-            Log.e("arrat",arrayListURI.toString());
-
-
-
-            try {
-
-                LayoutInflater inflater = getLayoutInflater();
-                View viewInflated = inflater.inflate(R.layout.photo_view, null);
-                final LinearLayout novo= (LinearLayout) viewInflated.findViewById(R.id.novo);
-                ImageView cancel= (ImageView) viewInflated.findViewById(R.id.cancel);
-                ImageView i= (ImageView) viewInflated.findViewById(R.id.photoImageView);
-
-                //poe a imagem tirada
-                Bitmap result=Utils.squareimage(thumbnail);
-                i.setImageBitmap(result);
-
-                //ao carregar em eliminar, tira do ecra e apaga da lista
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        novo.removeAllViews();
-                    }
-                });
-
-                linearLayout.addView(novo);
+                arrayListURI.add(destination.getAbsolutePath());
+                Log.e("arrat", arrayListURI.toString());
 
 
-            } catch (IOException e) {
-                e.printStackTrace();
-                arrayListURI.remove(destination.getAbsolutePath());
+                try {
+
+                    LayoutInflater inflater = getLayoutInflater();
+                    View viewInflated = inflater.inflate(R.layout.photo_view, null);
+                    final LinearLayout novo = (LinearLayout) viewInflated.findViewById(R.id.novo);
+                    ImageView cancel = (ImageView) viewInflated.findViewById(R.id.cancel);
+                    ImageView i = (ImageView) viewInflated.findViewById(R.id.photoImageView);
+
+                    //poe a imagem tirada
+                    Bitmap result = Utils.squareimage(thumbnail);
+                    i.setImageBitmap(result);
+
+                    //ao carregar em eliminar, tira do ecra e apaga da lista
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            novo.removeAllViews();
+                        }
+                    });
+
+                    linearLayout.addView(novo);
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    arrayListURI.remove(destination.getAbsolutePath());
+                }
+
             }
 
 
