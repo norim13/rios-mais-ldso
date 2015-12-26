@@ -100,6 +100,7 @@ public class FormIRRSwipe extends AppCompatActivity {
             HashMap<Integer, String> outros = (HashMap<Integer, String>) getIntent().getSerializableExtra("form_irr_other");
             Log.e("setRespostas","-----------inicio");
             this.form.setRespostas(respostas, outros);
+            this.form.arrayListURI= (ArrayList<String>) this.form.respostas.get(-5);
             Log.e("setRespostas","-----------fim");
 
             for (int k = 0; k < 32; k++)
@@ -524,7 +525,6 @@ public class FormIRRSwipe extends AppCompatActivity {
                 this.app.linearLayout= (LinearLayout) rootView.findViewById(R.id.linearLayoutInitial);
                 this.app.linearLayout.addView(viewInflated);
                 this.app.horizontal= (LinearLayout) viewInflated.findViewById(R.id.horizontalLinearLayout);
-
 
 
                 Log.e("array","tamanho do array de URI:"+this.app.form.arrayListURI.size());

@@ -3,10 +3,12 @@ package ldso.rios.Form.IRR;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +28,6 @@ import ldso.rios.Form.Form_functions;
 import ldso.rios.MainActivities.Form_IRR_mainActivity;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.R;
-import ldso.rios.Utils;
 
 /*
 View para mostrar um form irr já preenchido
@@ -96,16 +97,19 @@ public class ViewFormIRR extends AppCompatActivity {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 Bitmap bitmapOtiginal = BitmapFactory.decodeFile(uri, options);
-                int i1 = bitmapOtiginal.getHeight() * 200 / bitmapOtiginal.getWidth();
+                Display display = getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                int width = size.x;
+                int i1 = bitmapOtiginal.getHeight() * width / bitmapOtiginal.getWidth();
                 Bitmap thumbnail = Bitmap.createScaledBitmap(
-                        bitmapOtiginal, 200, i1, false);
+                        bitmapOtiginal, width, i1, false);
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-                Bitmap result= null;
-                result = Utils.squareimage(thumbnail);
-                img.setImageBitmap(result);
+                thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+
+                img.setImageBitmap(thumbnail);
                 linearLayout.addView(img);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -190,6 +194,7 @@ public class ViewFormIRR extends AppCompatActivity {
             //Form_IRR.loadFromIRR(this.getApplicationContext());
             this.form.fillAnswers();
             Form_IRR.uploadFormIRR(this,this.getApplicationContext(),this.form);
+            if (this.form.arrayListURI.size()==0)
             this.finish();
 
 

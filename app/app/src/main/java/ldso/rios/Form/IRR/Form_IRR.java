@@ -610,6 +610,9 @@ public class Form_IRR extends Form implements Serializable {
 
 
 
+
+
+
     public static boolean uploadFormIRR(Object activity,Context c, Form_IRR form_irr){
 
         File f = new File(c.getFilesDir()+File.separator+"filipe");
@@ -624,7 +627,6 @@ public class Form_IRR extends Form implements Serializable {
                     Form_functions.getUser(c)[1],
                     form_irr);
             File file = new File(f.getAbsolutePath(),(String) form_irr.getRespostas().get(-2));
-            boolean deleted = file.delete();
             return true;
         } catch (IOException e) {
             e.printStackTrace();
