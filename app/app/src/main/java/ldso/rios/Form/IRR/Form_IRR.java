@@ -15,8 +15,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import ldso.rios.DataBases.DB_functions;
@@ -516,7 +518,7 @@ public class Form_IRR extends Form implements Serializable {
     public void setDate(){
 
         Calendar calendar = Calendar.getInstance();
-        this.respostas.put(-4,calendar.MINUTE+"-"+calendar.HOUR+"-"+calendar.DAY_OF_MONTH+"-"+calendar.MONTH+"-"+calendar.YEAR);
+        this.respostas.put(-4, DateFormat.getDateTimeInstance().format(new Date()));
 
     }
 

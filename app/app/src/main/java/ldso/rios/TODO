@@ -22,13 +22,13 @@ Form IRR:
                 // Por um EditText com "outros" onde é preciso e entegrar isso no json submetdio
                 //Mapa para escolher sitio onde estamos e margem
                 //Imagens no form irr
-    Quando nao tem net, por a guardar
-    Por a guardar a data dos saved forms direita
+                //Quando nao tem net, por a guardar
+                //Por a guardar a data dos saved forms direita
     Por com campos obrigatorios
 
                 //Adicionar "tirar foto" e "foto de galeria" a todos os formularios
 
-Todos os acessos a base de dados devem verificar se ha ligação à internet
+                //Todos os acessos a base de dados devem verificar se ha ligação à internet
 
                 //Ver Guardarios
 
