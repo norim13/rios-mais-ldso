@@ -3,8 +3,6 @@ package ldso.rios.MainActivities;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -22,7 +20,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import ldso.rios.DataBases.DB_functions;
-import ldso.rios.DataBases.User;
 import ldso.rios.Form.Form_functions;
 import ldso.rios.Form.LimpezaSolucoes;
 import ldso.rios.R;
@@ -238,7 +235,13 @@ public class Limpeza extends AppCompatActivity {
 
 //      String q6 = String.valueOf(question6.getText());
 
+        if(DB_functions.haveNetworkConnection(getApplicationContext()))
         DB_functions.saveLimpeza(this, Form_functions.getUser(this.getApplicationContext())[0],Form_functions.getUser(this.getApplicationContext())[1], q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14,q15,q16,q17);
+        else
+        {
+            Toast toast = Toast.makeText(Limpeza.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     public void saveLimpezaDB(final JSONObject jsonObject) {

@@ -112,7 +112,17 @@ public class Register extends AppCompatActivity {
         }
         if (erro) return;
         try {
-            DB_functions.saveUser(username,email,password,password_confirm,telef,profissao,habilitacoes,formacao,this);
+            if (DB_functions.haveNetworkConnection(getApplicationContext())) {
+                DB_functions.saveUser(username, email, password, password_confirm, telef, profissao, habilitacoes, formacao, this);
+                Intent intent = new Intent(getApplicationContext(), Homepage.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+            else
+            {
+                Toast toast = Toast.makeText(Register.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+                toast.show();
+            }
         } catch (IOException e) {
             Toast.makeText(Register.this, "Erro ao registar utilizador", Toast.LENGTH_LONG).show();
             e.printStackTrace();
@@ -121,9 +131,7 @@ public class Register extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Intent intent = new Intent(getApplicationContext(), Homepage.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+
     }
 
     //menu action bar

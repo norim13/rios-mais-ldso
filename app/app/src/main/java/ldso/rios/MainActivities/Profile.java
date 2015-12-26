@@ -52,8 +52,12 @@ public class Profile extends AppCompatActivity {
 
 
 
-
+        if (DB_functions.haveNetworkConnection(getApplicationContext()))
         DB_functions.getUserData(this, User.getInstance().getEmail(),User.getInstance().getAuthentication_token());
+        else {
+            Toast toast = Toast.makeText(Profile.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+            toast.show();
+        }
 
     }
 

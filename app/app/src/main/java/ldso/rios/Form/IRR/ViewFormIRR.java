@@ -192,24 +192,43 @@ public class ViewFormIRR extends AppCompatActivity {
         if (id == R.id.navigate_upload)
         {
 
-            //Form_IRR.loadFromIRR(this.getApplicationContext());
-            this.form.fillAnswers();
-            Form_IRR.uploadFormIRR(this,this.getApplicationContext(),this.form);
-            if (this.form.arrayListURI.size()==0)
-            {
-                Intent intent = new Intent(getApplicationContext(), Homepage.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+            if (DB_functions.haveNetworkConnection(getApplicationContext())) {
+                //Form_IRR.loadFromIRR(this.getApplicationContext());
+                this.form.fillAnswers();
+                Form_IRR.uploadFormIRR(this, this.getApplicationContext(), this.form);
+                if (this.form.arrayListURI.size() == 0) {
+                    Intent intent = new Intent(getApplicationContext(), Homepage.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
             }
+            else
+            {
+                Toast toast = Toast.makeText(ViewFormIRR.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+                toast.show();
+            }
+
 
 
             //Log.e("teste","tamanho do array"+Form_IRR.all_from_irrs.size());
         }
         if (id == R.id.navigate_remove){
             //Log.e("delete","entrou");
-            User u = User.getInstance();
-            DB_functions.deleteForm(this,this.getIntent().getSerializableExtra("id").toString(),u.getEmail(),u.getAuthentication_token() );
 
+
+            if (DB_functions.haveNetworkConnection(getApplicationContext())) {
+                User u = User.getInstance();
+                DB_functions.deleteForm(this,this.getIntent().getSerializableExtra("id").toString(),u.getEmail(),u.getAuthentication_token() );
+                Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                }
+
+            else
+            {
+                Toast toast = Toast.makeText(ViewFormIRR.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+                toast.show();
+            }
         }
 
         return super.onOptionsItemSelected(item);

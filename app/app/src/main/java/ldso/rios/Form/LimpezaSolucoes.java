@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +49,13 @@ public class LimpezaSolucoes extends AppCompatActivity {
                 Log.e("resposta: ", opcao);
 
                 if(!opcao.equals("") && jsonObject != null) {
+                    if (DB_functions.haveNetworkConnection(getApplicationContext()))
                     DB_functions.getSolucoes(this,opcao);
+                    else
+                    {
+                        Toast toast = Toast.makeText(LimpezaSolucoes.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
                 }
             }
 

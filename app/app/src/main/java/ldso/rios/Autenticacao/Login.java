@@ -45,7 +45,12 @@ public class Login extends AppCompatActivity {
     public void login(View view) throws IOException, JSONException {
         String email_txt=email.getText().toString();
         String password_txt=password.getText().toString();
+        if (DB_functions.haveNetworkConnection(getApplicationContext()))
         DB_functions.login(this,email_txt, password_txt, this);
+        else {
+            Toast toast = Toast.makeText(Login.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     public void register(View view){

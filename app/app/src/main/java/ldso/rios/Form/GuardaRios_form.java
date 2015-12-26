@@ -244,9 +244,12 @@ public class GuardaRios_form extends AppCompatActivity {
 
         String nomeRio=((EditText)this.findViewById(R.id.nomeRio)).getText().toString();
 
-        Log.e("DB","vai entrar na DB");
-
+        if (DB_functions.haveNetworkConnection(getApplicationContext()))
         DB_functions.saveGuardaRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(),q1, q2, q3, q4, q5, q6, lat,lang,nomeRio);
+        else{
+            Toast toast = Toast.makeText(GuardaRios_form.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     //funcao chamada quando foi submetido o form
@@ -289,8 +292,12 @@ public class GuardaRios_form extends AppCompatActivity {
         for (int i=0;i<arrayListURI.size();i++)
         {
             Log.e("uri",arrayListURI.get(i));
-
+            if (DB_functions.haveNetworkConnection(getApplicationContext()))
             DB_functions.saveImage(this,arrayListURI.get(i), User.getInstance().getEmail(),User.getInstance().getAuthentication_token(),"guardario",id);
+            else {
+                Toast toast = Toast.makeText(GuardaRios_form.this, "Sem ligação à Internet. Imagem nao fui enviada.", Toast.LENGTH_LONG);
+                toast.show();
+            }
         }
 
 

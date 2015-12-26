@@ -383,8 +383,14 @@ public class Sos_rios extends AppCompatActivity {
         }
 
         if (!incomplete) {
-            progressbar.setVisibility(View.VISIBLE);
-            DB_functions.saveSOSRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(), q1, q2, q3);
+            if (DB_functions.haveNetworkConnection(getApplicationContext())) {
+                progressbar.setVisibility(View.VISIBLE);
+                DB_functions.saveSOSRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(), q1, q2, q3);
+            }
+            else {
+                Toast toast = Toast.makeText(Sos_rios.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+                toast.show();
+            }
 
         }
     }
@@ -408,8 +414,12 @@ public class Sos_rios extends AppCompatActivity {
         for (int i=0;i<arrayListURI.size();i++)
         {
             Log.e("uri",arrayListURI.get(i));
-
+            if (DB_functions.haveNetworkConnection(getApplicationContext()))
             DB_functions.saveImage(this,arrayListURI.get(i), User.getInstance().getEmail(),User.getInstance().getAuthentication_token(),"report",id);
+            else {
+                Toast toast = Toast.makeText(Sos_rios.this, "Sem ligação à Internet. Imagem não foi enviada.", Toast.LENGTH_LONG);
+                toast.show();
+            }
         }
 
 

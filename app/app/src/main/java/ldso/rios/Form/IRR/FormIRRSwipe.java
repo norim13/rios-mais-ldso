@@ -43,7 +43,6 @@ import java.util.HashMap;
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
-import ldso.rios.Form.Form_functions;
 import ldso.rios.MainActivities.Form_IRR_mainActivity;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.Mapa_rios;
@@ -142,13 +141,41 @@ public class FormIRRSwipe extends AppCompatActivity {
                 form.fillAnswers();
 
                 Log.e("form", "entrar na DB");
+
+
                 try {
                     if (novo)
-                        DB_functions.saveForm(FormIRRSwipe.this,User.getInstance().getAuthentication_token(),User.getInstance().getEmail(), form);
+                    {
 
-                    else
-                        DB_functions.updateForm(Form_functions.getUser(getApplicationContext())[0],
-                                Form_functions.getUser(getApplicationContext())[1], id, form);
+                        if (!DB_functions.haveNetworkConnection(getApplicationContext()))
+                        {
+                            form.fillAnswers();
+                            Form_IRR.saveFormIRR(form, getApplicationContext());
+                            Toast toast = Toast.makeText(FormIRRSwipe.this, "Sem ligação à Internet. IRR guardado.", Toast.LENGTH_LONG);
+                            toast.show();
+                            Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                        else
+                            DB_functions.saveForm(FormIRRSwipe.this,User.getInstance().getAuthentication_token(),User.getInstance().getEmail(), form);
+
+
+                    }
+
+                    else {
+                        if (DB_functions.haveNetworkConnection(getApplicationContext())) {
+                            DB_functions.updateForm(User.getInstance().getAuthentication_token(),User.getInstance().getEmail(), id, form);
+                            Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                        else
+                        {
+                            Toast toast = Toast.makeText(FormIRRSwipe.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -202,7 +229,7 @@ public class FormIRRSwipe extends AppCompatActivity {
                 //Form_IRR.loadFromIRR(this.getApplicationContext());
                 form.fillAnswers();
                 Form_IRR.saveFormIRR(form, this.getApplicationContext());
-                Toast toast = Toast.makeText(FormIRRSwipe.this, "Formulário de limpeza guardado", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(FormIRRSwipe.this, "Formulário IRR guardado", Toast.LENGTH_LONG);
                 toast.show();
                 Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
