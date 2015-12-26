@@ -7,7 +7,7 @@ var base_url = '***REMOVED***/geoserver/rios';
 currentMarker = null;
 currentCircle = null; //marker radius in map
 cod_rio = null;
-
+botao_load = '<button class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> A carregar...</button>';
 start_date = null;
 end_date = null;
 //lat_deg = 110.574;//Latitude: 1 deg = 110.574 km
@@ -42,6 +42,15 @@ $(document).ready(function(){
     }).on('changeDate', function(ev) {
         end_date.hide();
     }).data('datepicker');
+
+    //quando clica no span à direita (icon), abre o calendário respectivo
+    $('#start_date_picker .input-group-addon').click(function(){
+        $('#start_date_picker input')[0].focus();
+    });
+    $('#end_date_picker .input-group-addon').click(function(){
+        $('#end_date_picker input')[0].focus();
+    });
+
     // DATE PICKERS END
 
     //update radius
@@ -216,7 +225,7 @@ $(document).ready(function(){
         });
     }
 
-    drawChart(null);
+    drawChart(null, true);
 
 
     // MAP
@@ -250,8 +259,11 @@ function convertDataForChart(data_array){
 
 /**
  *  if data = null, vai buscar os valores IRR globais do rio. senao recebe a resposta da query ao controller
+ * if firstTime = true -> primeira vez a desenhar. Só interessa quando data = null. Mostrar mensagem informativa se for a primeira vez. Senão mostra msg a dizer que não há IRR
  */
-function drawChart(data){
+function drawChart(data, firstTime){
+
+    var graph_labels = ["Hidrogeomorfologia", "Qualidade da Água", "Alterações Antrópicas", "Corredor Ecológico", "Participação Pública", "Organização e Planeamento", "Total"];
     // CHART IRR
     if ($("#chart-irr").length){
         ctx = $("#chart-irr").get(0).getContext("2d");
@@ -265,21 +277,27 @@ function drawChart(data){
         var irr_total = null;
 
         var data_set = [];
+        var data_chart;
 
-        if (data == null){
-            var temp = [];
-            temp.push(parseInt($('#irr_hidrogeomorfologia').html()));
-            temp.push(parseInt($('#irr_qualidadedaagua').html()));
-            temp.push(parseInt($('#irr_alteracoesantropicas').html()));
-            temp.push(parseInt($('#irr_corredorecologico').html()));
-            temp.push(parseInt($('#irr_participacaopublica').html()));
-            temp.push(parseInt($('#irr_organizacaoeplaneamento').html()));
-            temp.push(parseInt($('#irr_total').html()));
-            temp = convertDataForChart(temp);
-            data_set.push(temp);
-        }
-        else{
-            for(var i in data['forms']){
+        if (data != null) {
+
+            //fill IRR table
+            $("#irr-info").html('A mostrar informação relativa aos formulários IRR preenchidos entre '+data.data_inicio+
+                ' e '+data.data_fim+', num raio de ' + obj.raio
+                + ' metros em torno do ponto selecionado. No gráfico são mostradas informações sobre as últimas 5 avaliações feitas,'
+                + ' e linha azul representa um IRR "geral", correspondente ao pior valor para cada categoria.');
+
+            $("#irr_nr_forms").html(data.forms.length);
+            $("#irr_hidrogeomorfologia").html(data.media['irr_hidrogeomorfologia']);
+            $("#irr_qualidadedaagua").html(data.media['irr_qualidadedaagua']);
+            $("#irr_alteracoesantropicas").html(data.media['irr_alteracoesantropicas']);
+            $("#irr_corredorecologico").html(data.media['irr_corredorecologico']);
+            $("#irr_participacaopublica").html(data.media['irr_participacaopublica']);
+            $("#irr_organizacaoeplaneamento").html(data.media['irr_organizacaoeplaneamento']);
+            $("#irr_total").html(data.media['irr']);
+
+            //fill chart
+            for (var i in data['forms']) {
                 var temp = [];
                 temp.push(data['forms'][i]['irr_hidrogeomorfologia']);
                 temp.push(data['forms'][i]['irr_qualidadedaagua']);
@@ -302,37 +320,63 @@ function drawChart(data){
             temp = convertDataForChart(temp);
             data_set.push(temp);
 
-        }
 
-        var data_sets_for_chart = [];
-        var colors_transparent = ["rgba(150,243,33,0.2)", "rgba(33,243,150,0.2)", "rgba(243,150,33,0.2)", "rgba(243,33,150,0.2)", "rgba(150,33,243,0.2)", "rgba(33,150,243,0.6)"];
-        var colors = ["rgba(150,243,33,1)", "rgba(33,243,150,1)", "rgba(243,150,33,1)", "rgba(243,33,150,1)", "rgba(150,33,243,1)", "rgba(33,150,243,1)"];
-        for(var i in data_set)
-        {
-            var obj = {
-                label: "Dataset "+i,
-                fillColor: colors_transparent[i],
-                strokeColor: colors[i],
-                pointColor: colors[i],
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
-                data: data_set[i]
+            var data_sets_for_chart = [];
+            var colors_transparent = ["rgba(150,243,33,0.2)", "rgba(33,243,150,0.2)", "rgba(243,150,33,0.2)", "rgba(243,33,150,0.2)", "rgba(150,33,243,0.2)", "rgba(33,150,243,0.6)"];
+            var colors = ["rgba(150,243,33,1)", "rgba(33,243,150,1)", "rgba(243,150,33,1)", "rgba(243,33,150,1)", "rgba(150,33,243,1)", "rgba(33,150,243,1)"];
+            for (var i in data_set) {
+                var obj = {
+                    label: "Dataset " + i,
+                    fillColor: colors_transparent[i],
+                    strokeColor: colors[i],
+                    pointColor: colors[i],
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: data_set[i]
+                }
+                data_sets_for_chart.push(obj);
             }
-            data_sets_for_chart.push(obj);
+            //force last element to have the last color (avg is always blue)
+            data_sets_for_chart[data_sets_for_chart.length - 1].fillColor = colors_transparent[colors_transparent.length - 1];
+            data_sets_for_chart[data_sets_for_chart.length - 1].strokeColor = colors[colors.length - 1];
+            data_sets_for_chart[data_sets_for_chart.length - 1].pointColor = colors[colors.length - 1];
+
+
+            data_chart = {
+                labels: graph_labels,
+                datasets: data_sets_for_chart
+            };
         }
-        //force last element to have the last color (avg is always blue)
-        data_sets_for_chart[data_sets_for_chart.length - 1].fillColor = colors_transparent[colors_transparent.length-1];
-        data_sets_for_chart[data_sets_for_chart.length - 1].strokeColor = colors[colors.length-1];
-        data_sets_for_chart[data_sets_for_chart.length - 1].pointColor = colors[colors.length-1];
+        else{
+            data_chart = {
+                labels: graph_labels,
+                datasets: [{
+                    label: "Dataset " + i,
+                    fillColor: "rgba(33,150,243,0.6)",
+                    strokeColor: "rgba(33,150,243,0.6)",
+                    pointColor: "rgba(33,150,243,0.6)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: [0,0,0,0,0,0,0]
+                }]
+            };
 
+            if(!firstTime){ //se for a 1ª vez, isto já está tudo preenchido
+                $("#irr-info").html('Não existe informação IRR para os parâmetros escolhidos...');
+                $("#irr_nr_forms").html('-');
+                $("#irr_hidrogeomorfologia").html('-');
+                $("#irr_qualidadedaagua").html('-');
+                $("#irr_alteracoesantropicas").html('-');
+                $("#irr_corredorecologico").html('-');
+                $("#irr_participacaopublica").html('-');
+                $("#irr_organizacaoeplaneamento").html('-');
+                $("#irr_total").html('-');
+            }
+        }
 
-        var data = {
-            labels: ["Hidrogeomorfologia", "Alterações Antrópicas", "Corredor Ecológico", "Qualidade da Água", "Participação Pública", "Organização e Planeamento", "Total"],
-            datasets: data_sets_for_chart
-        };
-
-        var myLineChart = new Chart(ctx).Line(data, {
+        var myLineChart = new Chart(ctx).Line(data_chart, {
             bezierCurve: false,
             //scaleBeginAtZero : true,
             scaleOverride:true,
@@ -454,11 +498,20 @@ function requestIRRdata(){
     }
     obj.raio = radius;
 
-    obj.data_inicio = $("#start_date_picker input").val();
-    obj.data_fim    = $("#end_date_picker input").val();
+    obj.data_inicio = convertDateToPostgres($("#start_date_picker input").val());
+    obj.data_fim    = convertDateToPostgres($("#end_date_picker input").val());
+    if(obj.data_inicio == null || obj.data_fim == null){
+        $("#erros-update-irr").html("Formato de data inválido...");
+        return;
+    }
 
     obj.rio = cod_rio.trim();
 
+    $('#update-irr-btn').attr('disabled', 'disabled');
+    $('html, body').animate({
+        scrollTop: $('#irr-info').offset().top - 70
+    }, 300);
+    $("#irr-info").html(botao_load);
 
     $.ajax({
         type: 'GET',
@@ -467,28 +520,31 @@ function requestIRRdata(){
         success: function(data){
             console.log(data);
             if(data.media != null) {
-                $("#irr-info").html('A mostrar informação relativa aos formulários IRR preenchidos entre x e x, num raio de ' + obj.raio
-                    + ' metros em torno do ponto selecionado');
-                console.log(currentMarker.getPosition());
-                drawChart(data);
+                drawChart(data, false);
             }
             else {
-                $("#irr-info").html('Não existe informação IRR para os parâmetros escolhidos...');
+                drawChart(null, false);
             }
-            $('html, body').animate({
-                scrollTop: $('#irr-info').offset().top - 70
-            }, 300);
-
+            $('#update-irr-btn').removeAttr('disabled');
         },
         error: function(err){
             console.log("error");
             console.log(err);
+            $('#update-irr-btn').removeAttr('disabled');
         }
     });
 
 };
 
+// converte a data do formato dd-mm-aaaa para aaaa-mm-dd para ser aceite na query do postgresql
+function convertDateToPostgres(date){
+    var splitted = date.split('-');
+    if(splitted.length != 3)
+        return null;
+    return splitted[2]+'-'+splitted[1]+'-'+splitted[0];
+}
 
+//'idRio' = 'PT03DOU0370' AND 'created_at' >= '2015-12-01' AND 'created_at' < '2015-12-24'
 
 
 `

@@ -2,7 +2,12 @@ package ldso.rios.Form.IRR;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -17,7 +22,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -25,17 +32,23 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
+import ldso.rios.DataBases.User;
 import ldso.rios.Form.Form_functions;
 import ldso.rios.MainActivities.Form_IRR_mainActivity;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.Mapa_rios;
 import ldso.rios.R;
+import ldso.rios.Utils;
 
 /*
 Class para mostrar um formulario irr (novo ou editar)
@@ -56,6 +69,15 @@ public class FormIRRSwipe extends AppCompatActivity {
     private Boolean novo;                               //se true é um novo formulairo, se é falso, é um edit
     Float lat_curr,lon_curr;
     Float lat_sel,lon_sel;
+    LinearLayout horizontal;
+    LinearLayout linearLayout;
+
+
+
+
+    private  static final int CAM_REQUEST=100;
+    private static final int SELECT_PHOTO = 200;
+
     int margem;
 
     /**
@@ -79,13 +101,13 @@ public class FormIRRSwipe extends AppCompatActivity {
             this.form.setRespostas(respostas, outros);
             for (int k = 0; k < 32; k++)
                 try {
-                    Log.e("string-", k + " -" + outros.get(k));
+                    //Log.e("string-", k + " -" + outros.get(k));
                 } catch (Exception e) {
 
                 }
         }
 
-        Log.e("teste", this.form.toString());
+        //Log.e("teste", this.form.toString());
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -118,8 +140,7 @@ public class FormIRRSwipe extends AppCompatActivity {
                 Log.e("form", "entrar na DB");
                 try {
                     if (novo)
-                        DB_functions.saveForm(Form_functions.getUser(getApplicationContext())[0],
-                                Form_functions.getUser(getApplicationContext())[1], form);
+                        DB_functions.saveForm(User.getInstance().getAuthentication_token(),User.getInstance().getEmail(), form);
 
                     else
                         DB_functions.updateForm(Form_functions.getUser(getApplicationContext())[0],
@@ -178,6 +199,7 @@ public class FormIRRSwipe extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        Log.e("requestCode",""+requestCode+"-"+resultCode);
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 String result = data.getStringExtra("latlan_current");
@@ -199,6 +221,121 @@ public class FormIRRSwipe extends AppCompatActivity {
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
                 Log.e("resultado", "nao recebeu nada");
+
+            }
+        }
+
+        //se for a resposta da camara
+        else if (requestCode== CAM_REQUEST)
+        {
+            Log.e("array",this.form.arrayListURI.toString());
+            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+
+            final File destination = new File(Environment.getExternalStorageDirectory(),
+                    System.currentTimeMillis() + ".jpg");
+            FileOutputStream fo;
+            try {
+                destination.createNewFile();
+                fo = new FileOutputStream(destination);
+                fo.write(bytes.toByteArray());
+                fo.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            this.form.arrayListURI.add(destination.getAbsolutePath());
+            Log.e("arrat",this.form.arrayListURI.toString());
+
+
+
+            try {
+
+                LayoutInflater inflater = getLayoutInflater();
+                View viewInflated = inflater.inflate(R.layout.photo_view, null);
+                final LinearLayout novo= (LinearLayout) viewInflated.findViewById(R.id.novo);
+                ImageView cancel= (ImageView) viewInflated.findViewById(R.id.cancel);
+                ImageView i= (ImageView) viewInflated.findViewById(R.id.photoImageView);
+
+                //poe a imagem tirada
+                Bitmap result=Utils.squareimage(thumbnail);
+                i.setImageBitmap(result);
+
+                //ao carregar em eliminar, tira do ecra e apaga da lista
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        form.arrayListURI.remove(destination.getAbsolutePath());
+                        novo.removeAllViews();
+                    }
+                });
+
+                linearLayout.addView(novo);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                this.form.arrayListURI.remove(destination.getAbsolutePath());
+            }
+
+
+        }
+        else if (requestCode == SELECT_PHOTO)
+        {
+            if(resultCode == RESULT_OK){
+                Uri selectedImage = data.getData();
+                String path= Utils.getRealPathFromURI(selectedImage,this.getApplicationContext());
+                File f = new File(Utils.getRealPathFromURI(selectedImage,this.getApplicationContext()));
+
+                if(f.exists())
+                {
+                    try{
+
+                        this.form.arrayListURI.add(path);
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                        Bitmap bitmapOtiginal = BitmapFactory.decodeFile(path, options);
+                        //cria um htumbnail com max with de 100 pixeis
+                        int i1 = bitmapOtiginal.getHeight() * 200 / bitmapOtiginal.getWidth();
+                        Bitmap thumbnail = Bitmap.createScaledBitmap(
+                                bitmapOtiginal, 200, i1, false);
+
+
+                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+
+                        LayoutInflater inflater = getLayoutInflater();
+                        View viewInflated = inflater.inflate(R.layout.photo_view, null);
+                        final LinearLayout novo= (LinearLayout) viewInflated.findViewById(R.id.novo);
+                        ImageView cancel= (ImageView) viewInflated.findViewById(R.id.cancel);
+                        ImageView i= (ImageView) viewInflated.findViewById(R.id.photoImageView);
+
+                        //poe a imagem tirada
+                        Bitmap result=Utils.squareimage(thumbnail);
+                        i.setImageBitmap(result);
+
+                        //ao carregar em eliminar, tira do ecra e apaga da lista
+                        cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                novo.removeAllViews();
+                            }
+                        });
+
+                        linearLayout.addView(novo);
+
+                    }
+                    catch(Exception e){
+                        e.printStackTrace();
+                    }
+
+                }
+                else
+                    Log.e("Nao existe","ficheiro nao existe");
 
             }
         }
@@ -270,6 +407,7 @@ public class FormIRRSwipe extends AppCompatActivity {
         private RadioButton currLoc;
         private RadioButton selctLoc;
         FormIRRSwipe app;
+        LayoutInflater inflaterSaved;
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -294,8 +432,10 @@ public class FormIRRSwipe extends AppCompatActivity {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+
+            this.inflaterSaved=inflater;
 
             int number = getArguments().getInt(ARG_SECTION_NUMBER);
             progessbar.setProgress(number);
@@ -336,6 +476,103 @@ public class FormIRRSwipe extends AppCompatActivity {
                     this.app.form.margDireita.setChecked(true);
 
 
+                //Adiciona interface para as fotos
+                View viewInflated = inflater.inflate(R.layout.photo_selection, null);
+
+                Button buttonTakePic= (Button) viewInflated.findViewById(R.id.camera);
+                buttonTakePic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        getActivity().startActivityForResult(cameraIntent,CAM_REQUEST);
+                    }
+                });
+
+                Button buttonSelectPic= (Button) viewInflated.findViewById(R.id.galery);
+                buttonSelectPic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                        photoPickerIntent.setType("image/*");
+                        getActivity().startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+                    }
+                });
+
+                this.app.linearLayout= (LinearLayout) rootView.findViewById(R.id.linearLayoutInitial);
+                this.app.linearLayout.addView(viewInflated);
+                this.app.horizontal= (LinearLayout) viewInflated.findViewById(R.id.horizontalLinearLayout);
+
+
+
+                Log.e("array","tamanho do array de URI:"+this.app.form.arrayListURI.size());
+
+                //ver se tem fotos ja guardadas
+
+
+                    Thread timer = new Thread() {
+                        @Override
+                        public void run() {
+                            //do something
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    for (final String uri : app.form.arrayListURI)
+                                    {
+                                    Log.e("forr",uri);
+                                    try {
+                                        Log.e("forr","try1");
+
+                                        BitmapFactory.Options options = new BitmapFactory.Options();
+                                        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                                        Bitmap bitmapOtiginal = BitmapFactory.decodeFile(uri, options);
+                                        //cria um htumbnail com max with de 100 pixeis
+                                        int i1 = bitmapOtiginal.getHeight() * 200 / bitmapOtiginal.getWidth();
+                                        Bitmap thumbnail = Bitmap.createScaledBitmap(
+                                                bitmapOtiginal, 200, i1, false);
+
+
+                                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                                        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+
+                                        View viewInflatedPhoto = inflater.inflate(R.layout.photo_view, null);
+                                        final LinearLayout novo= (LinearLayout) viewInflatedPhoto.findViewById(R.id.novo);
+                                        ImageView cancel= (ImageView) viewInflatedPhoto.findViewById(R.id.cancel);
+                                        ImageView i= (ImageView) viewInflatedPhoto.findViewById(R.id.photoImageView);
+
+                                        //poe a imagem tirada
+                                        Bitmap result=Utils.squareimage(thumbnail);
+                                        i.setImageBitmap(result);
+
+                                        //ao carregar em eliminar, tira do ecra e apaga da lista
+                                        cancel.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                app.form.arrayListURI.remove(uri);
+                                                novo.removeAllViews();
+                                            }
+                                        });
+
+                                        app.linearLayout.addView(novo);
+                                        Log.e("forr","try2");
+
+
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                        Log.e("forr","erro");
+                                    }
+                                }
+
+                                }
+                            });
+                        }
+                    };
+                    timer.start();
+
+
+
+
+
+
 
             } else {
                 rootView = inflater.inflate(R.layout.fragment_form_irrswipe, container, false);
@@ -372,6 +609,7 @@ public class FormIRRSwipe extends AppCompatActivity {
 
                 }
             }
+
         }//onActivityResult
 
 

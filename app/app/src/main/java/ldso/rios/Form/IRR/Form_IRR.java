@@ -71,6 +71,8 @@ public class Form_IRR extends Form implements Serializable {
         this.perguntas= new ArrayList<Pergunta>();
         this.respostas= new HashMap<Integer,Object>();
         this.other_response= new HashMap<Integer,String>();
+        arrayListURI=new ArrayList<String>();
+
         //{main_title , sub_title , type , required , options , max,value_irr}
         for(int i=1;i<=33;i++)
         {

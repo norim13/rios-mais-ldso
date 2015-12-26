@@ -287,6 +287,7 @@ public class GuardaRios_form extends AppCompatActivity {
 
         for (int i=0;i<arrayListURI.size();i++)
         {
+            Log.e("uri",arrayListURI.get(i));
 
             DB_functions.saveImage(this,arrayListURI.get(i), User.getInstance().getEmail(),User.getInstance().getAuthentication_token(),"guardario",id);
         }

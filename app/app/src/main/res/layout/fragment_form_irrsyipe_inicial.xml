@@ -8,8 +8,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/scrollView6"
         android:layout_above="@+id/frameLayout4"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:fillViewport="false">
         <RelativeLayout
+            android:id="@id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -136,6 +138,13 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
             </RadioGroup>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/linearLayout3"
+                android:id="@+id/linearLayoutInitial"></LinearLayout>
 
 
         </RelativeLayout>
