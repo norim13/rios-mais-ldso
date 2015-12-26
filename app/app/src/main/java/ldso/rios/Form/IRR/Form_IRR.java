@@ -591,6 +591,7 @@ public class Form_IRR extends Form implements Serializable {
 
         form_irr.respostas.put(-2, files.getName());
         form_irr.respostas.put(-3, form_irr.other_response);
+        form_irr.respostas.put(-5,form_irr.getArrayListURI());
 
 
 
@@ -609,7 +610,7 @@ public class Form_IRR extends Form implements Serializable {
 
 
 
-    public static boolean uploadFormIRR(Context c, Form_IRR form_irr){
+    public static boolean uploadFormIRR(Object activity,Context c, Form_IRR form_irr){
 
         File f = new File(c.getFilesDir()+File.separator+"filipe");
         if(!f.exists())
@@ -619,7 +620,7 @@ public class Form_IRR extends Form implements Serializable {
 
 
         try {
-            DB_functions.saveForm(Form_functions.getUser(c)[0],
+            DB_functions.saveForm(activity,Form_functions.getUser(c)[0],
                     Form_functions.getUser(c)[1],
                     form_irr);
             File file = new File(f.getAbsolutePath(),(String) form_irr.getRespostas().get(-2));

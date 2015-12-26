@@ -2,6 +2,7 @@ package ldso.rios.Form.IRR.Perguntas;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -85,21 +86,24 @@ public class editPergunta extends Pergunta implements Serializable {
     @Override
     public void getAnswer() {
         if (this.edit_list==null || Form_functions.getEditTexts(this.edit_list).get(0)==null){
+            Log.e("getAnswerEdit","entrou no null---------");
             ArrayList<Float> resposta_null=new ArrayList<Float>();
-            if(range){
-                for(Float[] f :minmax)
-                    resposta_null.add(f[0]);
+            if(this.response==null) {
+                if (range) {
+                    for (Float[] f : minmax)
+                        resposta_null.add(f[0]);
 
+                } else {
+                    for (String s : options)
+                        resposta_null.add(0f);
+
+                }
+
+                this.response = resposta_null;
             }
-            else {
-                for (String s : options)
-                    resposta_null.add(0f);
-
-            }
-
-            this.response= resposta_null;
         }
         else {
+            Log.e("getAnswerEdit","nao entrou no null---------");
             this.response = Form_functions.getEditTexts(this.edit_list);
         }
 

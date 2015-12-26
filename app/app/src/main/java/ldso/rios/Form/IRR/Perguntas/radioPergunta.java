@@ -70,9 +70,11 @@ public class radioPergunta extends Pergunta implements Serializable {
     public void getAnswer() {
         if (this.radio_list==null){
             //Log.e("é nulla a radio lisr","fica a nula");
-            this.response=0;
-            if (other_option)
-                this.other_text="";
+            if (this.response==null) {
+                this.response = 0;
+                if (other_option)
+                    this.other_text = "";
+            }
         }
 
         else {
