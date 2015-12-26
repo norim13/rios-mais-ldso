@@ -527,7 +527,10 @@ public class FormIRRSwipe extends AppCompatActivity {
                 this.app.horizontal= (LinearLayout) viewInflated.findViewById(R.id.horizontalLinearLayout);
 
 
+                if (this.app.form.arrayListURI==null)
+                    this.app.form.arrayListURI=new ArrayList<String>();
                 Log.e("array","tamanho do array de URI:"+this.app.form.arrayListURI.size());
+
 
                 //ver se tem fotos ja guardadas
 

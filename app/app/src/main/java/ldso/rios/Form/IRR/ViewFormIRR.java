@@ -216,8 +216,7 @@ public class ViewFormIRR extends AppCompatActivity {
     }
 
     public void apagaou() {
-        Toast toast = Toast.makeText(ViewFormIRR.this, "Formulário apagado", Toast.LENGTH_LONG);
-        toast.show();
+
         Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

@@ -3,12 +3,16 @@ package ldso.rios;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
@@ -18,11 +22,16 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 
 import ldso.rios.Autenticacao.Login;
+import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.MainActivities.Profile;
@@ -33,6 +42,7 @@ public class RotaPoint_show extends FillGap2BaseActivity<ObservableScrollView> i
         return R.layout.activity_fillgapscrollview;
     }
 
+    LinearLayout linearLayout;
 
     @Override
     protected ObservableScrollView createScrollable() {
@@ -98,9 +108,97 @@ public class RotaPoint_show extends FillGap2BaseActivity<ObservableScrollView> i
 
         thread.start();
 
+        linearLayout= (LinearLayout) this.findViewById(R.id.linearLayout);
+
+
+        try {
+            generateImages((String) this.getIntent().getSerializableExtra("imagens"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 
+
+    public void generateImages(String s) throws JSONException {
+        Log.e("imagemns",s);
+        final JSONArray array= new JSONArray(s);
+
+        for (int i = 0; i < array.length(); i++) {
+
+            if (i+1==(int) this.getIntent().getSerializableExtra("ordem_ponto"))
+            {
+                final int finalI = i;
+                Thread thread = new Thread(new Runnable(){
+                    @Override
+                    public void run() {
+                        try {
+                            JSONArray object= (JSONArray) array.get(finalI);
+                            Log.e("array",object.toString());
+                            JSONObject imageObj= (JSONObject) object.get(0);
+                            Log.e("object",imageObj.toString());
+                            JSONObject image= (JSONObject) imageObj.get("image");
+                            String url= DB_functions.base_url+image.getString("url");
+
+                            try {
+                                URL url_value = new URL(url);
+                                BitmapFactory.Options options = new BitmapFactory.Options();
+                                options.inSampleSize = 4;
+                                final Bitmap b = BitmapFactory.decodeStream(url_value.openConnection().getInputStream(), null, options);
+
+                                Display display = getWindowManager().getDefaultDisplay();
+                                Point size = new Point();
+                                display.getSize(size);
+                                int width = size.x;
+                                int i1 = b.getHeight() * width / b.getWidth();
+                                final Bitmap thumbnail = Bitmap.createScaledBitmap(
+                                        b, width, i1, false);
+
+
+
+
+                                new Thread()
+                                {
+                                    public void run()
+                                    {
+                                        RotaPoint_show.this.runOnUiThread(new Runnable()
+                                        {
+                                            public void run() {
+                                                Log.e("entrou","entrou");
+
+                                                ImageView img= new ImageView(getApplicationContext());
+                                                img.setImageBitmap(thumbnail);
+                                                linearLayout.addView(img);
+
+
+
+                                            }
+                                        });
+                                    }
+                                }.start();
+
+                            }
+                            catch (Exception e){
+                                e.printStackTrace();
+                            }
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                thread.start();
+            }
+
+
+
+
+
+        }
+
+    }
 
 
     public static Bitmap getGoogleMapThumbnail(double lati, double longi) throws IOException {
