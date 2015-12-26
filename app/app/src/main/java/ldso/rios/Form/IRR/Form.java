@@ -49,6 +49,10 @@ public class Form implements Serializable {
     public int margem=1;
     Boolean current_location;
 
+    public ArrayList<String> getArrayListURI() {
+        return arrayListURI;
+    }
+
     ArrayList<String> arrayListURI;
 
 
