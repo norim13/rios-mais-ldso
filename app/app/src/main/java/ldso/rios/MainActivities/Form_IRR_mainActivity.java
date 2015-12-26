@@ -162,6 +162,7 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
                                         form_irr.respostas.put(-3, form_irr.getOther_response());
                                         Log.e("tamanho", form_irr.getOther_response().size() + "");
                                         i.putExtra("form_irr",form_irr.getRespostas());
+                                        i.putExtra("form_irr_id",id);
                                         startActivity(i);
 
 

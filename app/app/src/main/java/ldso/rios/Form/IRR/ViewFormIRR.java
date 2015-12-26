@@ -14,10 +14,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -33,9 +39,11 @@ import ldso.rios.R;
 /*
 View para mostrar um form irr já preenchido
  */
+
 public class ViewFormIRR extends AppCompatActivity {
 
     LinearLayout linearLayout;
+    LinearLayout linearLayoutPhotos;
     Form_IRR form;
     String id;
 
@@ -118,6 +126,15 @@ public class ViewFormIRR extends AppCompatActivity {
         }
 
 
+
+        linearLayoutPhotos = new LinearLayout(getApplicationContext());
+        linearLayout.addView(linearLayoutPhotos);
+
+        String id= (String) getIntent().getSerializableExtra("form_irr_id");
+        if (id!=null)
+         getImagesSite(id);
+
+
         for(int i=0;i<=32;i++)
         {
             try {
@@ -153,6 +170,8 @@ public class ViewFormIRR extends AppCompatActivity {
         }
 
     }
+
+
 
 
     /*
@@ -239,5 +258,123 @@ public class ViewFormIRR extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    public void getImagesSite(String id) {
+
+        DB_functions.getForm(this,User.getInstance().getAuthentication_token(),User.getInstance().getEmail(),id);
+
+    }
+
+    public void processImages(String s) throws JSONException {
+
+        JSONObject json=new JSONObject(s);
+
+        final JSONArray array= json.getJSONArray("images");
+        final ProgressBar progressBar;
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        if (array.length()==0)
+        {
+            new Thread()
+            {
+                public void run()
+                {
+                    ViewFormIRR.this.runOnUiThread(new Runnable()
+                    {
+                        public void run() {
+                            progressBar.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                }
+            }.start();
+        }
+
+        for (int i=0;i<array.length();i++)
+        {
+            final int finalI = i;
+            Thread thread = new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    try {
+                        JSONObject imageObj= (JSONObject) array.get(0);
+                        Log.e("object",imageObj.toString());
+                        JSONObject image= (JSONObject) imageObj.get("image");
+                        String url= DB_functions.base_url+image.getString("url");
+                        Log.e("url",url);
+
+                        try {
+                            URL url_value = new URL(url);
+                            BitmapFactory.Options options = new BitmapFactory.Options();
+                            options.inSampleSize = 4;
+                            final Bitmap b = BitmapFactory.decodeStream(url_value.openConnection().getInputStream(), null, options);
+
+                            Display display = getWindowManager().getDefaultDisplay();
+                            Point size = new Point();
+                            display.getSize(size);
+                            int width = size.x;
+                            int i1 = b.getHeight() * width / b.getWidth();
+                            final Bitmap thumbnail = Bitmap.createScaledBitmap(
+                                    b, width, i1, false);
+
+
+
+
+                            new Thread()
+                            {
+                                public void run()
+                                {
+                                    ViewFormIRR.this.runOnUiThread(new Runnable()
+                                    {
+                                        public void run() {
+                                            Log.e("image","entrou");
+
+                                            ImageView img= new ImageView(getApplicationContext());
+                                            img.setImageBitmap(thumbnail);
+                                            linearLayoutPhotos.addView(img);
+
+                                            int count = linearLayoutPhotos.getChildCount();
+                                            View v = null;
+                                            for(int i=0; i<count; i++) {
+                                                v = linearLayoutPhotos.getChildAt(i);
+                                                //do something with your child element
+                                            }
+                                            if (count==array.length())
+                                                progressBar.setVisibility(View.INVISIBLE);
+                                            Log.e("count",count+"-"+array.length());
+
+
+
+                                        }
+                                    });
+                                }
+                            }.start();
+
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
+                            new Thread()
+                            {
+                                public void run()
+                                {
+                                    ViewFormIRR.this.runOnUiThread(new Runnable()
+                                    {
+                                        public void run() {
+                                            progressBar.setVisibility(View.INVISIBLE);
+                                        }
+                                    });
+                                }
+                            }.start();
+                        }
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            thread.start();
+        }
+
     }
 }
