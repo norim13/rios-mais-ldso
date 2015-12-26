@@ -2221,4 +2221,6 @@ public class DB_functions {
         }
         return haveConnectedWifi || haveConnectedMobile;
     }
+
+
 }

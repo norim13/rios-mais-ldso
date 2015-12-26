@@ -62,6 +62,8 @@ public class Sos_rios extends AppCompatActivity {
     private  static final int CAM_REQUEST=100;
     private static final int SELECT_PHOTO = 200;
 
+    TextView tv1,tv2;
+
 
 
     @Override
@@ -97,7 +99,7 @@ public class Sos_rios extends AppCompatActivity {
 
         LinearLayout ll=new LinearLayout(this);
         ll.setLayoutParams(radioParams);
-        TextView tv1=new TextView(this);
+        tv1=new TextView(this);
         tv1.setText("Categoria");
 
         tv1.setLayoutParams(radioParams);
@@ -115,7 +117,7 @@ public class Sos_rios extends AppCompatActivity {
         "Presença de espécies exóticas e invasoras"};
         question1= Form_functions.createRadioButtons(options, linearLayout, this);
 
-        TextView tv2=new TextView(this);
+        tv2=new TextView(this);
         tv2.setText("Motivo");
         tv2.setLayoutParams(radioParams);
         linearLayout.addView(tv2);
@@ -351,13 +353,33 @@ public class Sos_rios extends AppCompatActivity {
     }
 
     public void saveSOSRios(View view) {
-        progressbar.setVisibility(View.VISIBLE);
         String q1=Form_functions.getRadioButtonOption_string(question1);
         String q2=Form_functions.getRadioButtonOption_string(question2);
         String q3=question3.getText().toString();
 
-        DB_functions.saveSOSRios(this, User.getInstance().getEmail(),User.getInstance().getAuthentication_token(),q1,q2,q3);
+        Boolean incomplete=false;
 
+        if (q1.contentEquals(""))
+        {
+            incomplete=true;
+            tv1.setError("Campo vaizo");
+        }
+        if (q2.contentEquals(""))
+        {
+            incomplete=true;
+           tv2.setError("Campo vaizo");
+        }
+        if (q3.contentEquals(""))
+        {
+            incomplete=true;
+            question3.setError("Campo vaizo");
+        }
+
+        if (!incomplete) {
+            progressbar.setVisibility(View.VISIBLE);
+            DB_functions.saveSOSRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(), q1, q2, q3);
+
+        }
     }
 
     public void saveSOSDB(String id) throws IOException, JSONException {
