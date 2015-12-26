@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
+import ldso.rios.DataBases.User;
 import ldso.rios.Mapa_Rotas;
 import ldso.rios.R;
 
@@ -147,7 +148,13 @@ public class RotasRios_list extends AppCompatActivity {
         if(id==R.id.navigate_guardarios)
             startActivity(new Intent(this,GuardaRios.class));
         if(id==R.id.navigate_account)
-            startActivity(new Intent(this,Login.class));
+        {
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 

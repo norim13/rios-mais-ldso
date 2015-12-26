@@ -22,6 +22,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.IOException;
 import java.io.InputStream;
 
+import ldso.rios.Autenticacao.Login;
+import ldso.rios.DataBases.User;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.MainActivities.Profile;
 
@@ -146,7 +148,12 @@ public class RotaPoint_show extends FillGap2BaseActivity<ObservableScrollView> i
             startActivity(new Intent(this,GuardaRios.class));
 
         if(id==R.id.navigate_account) {
-            startActivity(new Intent(this, Profile.class));
+
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
         }
 
         return super.onOptionsItemSelected(item);

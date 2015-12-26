@@ -42,6 +42,7 @@ import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
 import ldso.rios.MainActivities.GuardaRios;
+import ldso.rios.MainActivities.Profile;
 import ldso.rios.Mapa_rios;
 import ldso.rios.R;
 import ldso.rios.Utils;
@@ -454,7 +455,13 @@ public class GuardaRios_form extends AppCompatActivity {
         if(id==R.id.navigate_guardarios)
             startActivity(new Intent(this,GuardaRios.class));
         if(id==R.id.navigate_account)
-            startActivity(new Intent(this,Login.class));
+        {
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 

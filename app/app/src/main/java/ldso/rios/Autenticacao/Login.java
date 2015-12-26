@@ -45,7 +45,7 @@ public class Login extends AppCompatActivity {
     public void login(View view) throws IOException, JSONException {
         String email_txt=email.getText().toString();
         String password_txt=password.getText().toString();
-        DB_functions.login(email_txt, password_txt, this);
+        DB_functions.login(this,email_txt, password_txt, this);
     }
 
     public void register(View view){

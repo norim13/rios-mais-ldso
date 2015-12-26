@@ -36,6 +36,8 @@ public class Homepage extends AppCompatActivity{
         setSupportActionBar(toolbar);
 
         setUser();
+
+
     }
 
     private void setUser() {

@@ -1209,7 +1209,7 @@ public class DB_functions {
         }).start();
     }
 
-    public static void login(final String email, final String password, final Login login) throws IOException, JSONException {
+    public static void login(Login login1, final String email, final String password, final Login login) throws IOException, JSONException {
 
         new Thread(new Runnable() {
             public void run() {

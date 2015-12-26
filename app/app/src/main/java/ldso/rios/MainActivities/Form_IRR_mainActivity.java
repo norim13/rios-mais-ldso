@@ -26,6 +26,7 @@ import java.util.HashMap;
 
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
+import ldso.rios.DataBases.User;
 import ldso.rios.Form.IRR.FormIRRSwipe;
 import ldso.rios.Form.IRR.Form_IRR;
 import ldso.rios.Form.IRR.ViewFormIRR;
@@ -255,7 +256,13 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
         if(id==R.id.navigate_guardarios)
             startActivity(new Intent(this,GuardaRios.class));
         if(id==R.id.navigate_account)
-            startActivity(new Intent(this,Login.class));
+        {
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 
