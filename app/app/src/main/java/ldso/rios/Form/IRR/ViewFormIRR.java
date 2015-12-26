@@ -63,6 +63,10 @@ public class ViewFormIRR extends AppCompatActivity {
         linearLayout.setFocusable(false);
         linearLayout.setClickable(false);
 
+        ProgressBar progressBar= (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
+
+
 
 
         this.form = new Form_IRR();
