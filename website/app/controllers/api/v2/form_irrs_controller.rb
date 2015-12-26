@@ -43,7 +43,17 @@ class Api::V2::FormIrrsController < ApplicationController
   def getMyForms
     user_email = params[:user_email].presence
     user       = user_email && User.find_by_email(user_email)
-    render :json => user.form_irrs.to_json
+
+    render :json => {:success => true, :form_irr_id => form_irr.id }
+  end
+
+  def get
+    form_irr = FormIrr.find(params[:id])
+    if !form_irr.nil?
+      render :json => {:success => "true", :form_irr => form_irr, :images => form_irr.form_irr_images}
+    else
+      render :json => {:success => "false"}
+    end
   end
 
   def authenticate_user_from_token!

@@ -1,34 +1,14 @@
 LDSO
 	- acabar os webservices
 	- permissoes
-	- dar fix aos forms do fil
-		- por labels nos forms do fil
-		- por required nos forms do fil
-			+ report 
-			+ guardarios
-		+ imgs 
-		- permissoes
 	- por pesquisa onde aparece um mapa (por ex no form irr)
 	- fazer disable do mapa no show/edit etc
-	
-	- por somehow uma cena visual ao escolher o rio, e ao mostrar no mapa (location tipo google maps)
 		
 	- perfil dum rio
 		- por mapa ja selecionado
 	- ordenar search	
 		
-	!!!!!!!!
-	nao calcular o IRR no show!!
-	
 	- no chart, dar fix ao numero que aparece
-	/- no perfil dum rio se nao tiver afluencia/afluentes, dizer que n tem e esconder a tabela
-	
-	+ por imagens como sinf
-		+ mostrar filename
-		
-	+ adicionar formulario id do user que editou por ultimo
-	
-	+ por cursor a aparecer como link no "?" das imagens do form irr
 	
 	- fazer refresh do access token
 	

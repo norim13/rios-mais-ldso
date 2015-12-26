@@ -76,6 +76,7 @@ Rails.application.routes.draw do
     namespace :v2 do
       post "/form_irrs", :to => 'form_irrs#create'
       get "/form_irrs", :to => 'form_irrs#getMyForms'
+      get "/form_irrs/:id", :to => 'form_irrs#get'
       put "/form_irrs/:id", :to => 'form_irrs#update'
       delete "/form_irrs/:id", :to => 'form_irrs#destroy'
 
