@@ -91,9 +91,11 @@ public class Form implements Serializable {
     }
 
     public void setRespostas(HashMap<Integer, Object> respostas,HashMap<Integer, String> respotas_outros) {
+        Log.e("entrou aqui","");
         this.respostas = respostas;
         this.other_response=respotas_outros;
 
+        Log.e("setLocation","");
         ArrayList<Float> arrayLocation = (ArrayList<Float>) respostas.get(0);
         if(arrayLocation!=null) {
             this.lat_curr = arrayLocation.get(0);
@@ -109,22 +111,28 @@ public class Form implements Serializable {
                 this.current_location = false;
         }
 
+        Log.e("setNome e Margem","");
         ArrayList<Object> arrayNomeEMargem = (ArrayList<Object>) respostas.get(-1);
         if(arrayNomeEMargem!=null) {
             this.nomeRio = (String) arrayNomeEMargem.get(0);
             this.margem = (int) arrayNomeEMargem.get(1);
         }
 
+        Log.e("setPerguntas","");
+
         for(int i=0;i<32;i++) {
+            String show="";
+            show+="i="+i+" pergunta:"+perguntas.get(i).subtitle;
+
             try {
+                Log.e("entrou no for","");
                 perguntas.get(i).setAnswer(respostas.get(i + 1), respotas_outros.get(i + 1));
-                String show="";
-                show+="i="+i+" pergunta:"+perguntas.get(i).subtitle;
-                Log.e("",show);
+
 
             }catch (Exception e){
                 perguntas.get(i).setAnswer(respostas.get(i + 1), "");
             }
+            Log.e("",show);
         }
         Log.e("acbou","");
     }

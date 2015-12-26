@@ -98,7 +98,10 @@ public class FormIRRSwipe extends AppCompatActivity {
         if (getIntent().getSerializableExtra("form_irr") != null) {
             HashMap<Integer, Object> respostas = (HashMap<Integer, Object>) getIntent().getSerializableExtra("form_irr");
             HashMap<Integer, String> outros = (HashMap<Integer, String>) getIntent().getSerializableExtra("form_irr_other");
+            Log.e("setRespostas","-----------inicio");
             this.form.setRespostas(respostas, outros);
+            Log.e("setRespostas","-----------fim");
+
             for (int k = 0; k < 32; k++)
                 try {
                     //Log.e("string-", k + " -" + outros.get(k));

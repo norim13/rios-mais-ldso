@@ -74,18 +74,20 @@ public class checkPergunta extends Pergunta implements Serializable {
 
     @Override
     public void getAnswer() {
-        if (check_list==null)
+        if (check_list==null && this.response!=null)
         {
             ArrayList<Integer> resposta_nula= new ArrayList<Integer>();
             for(String o :this.options)
                 resposta_nula.add(0);
             this.response= resposta_nula;
+            Log.e(this.subtitle,"null");
         }
         else {
             this.response = Form_functions.getCheckboxes(check_list);
             this.other_text=this.other.getText().toString();
-            Log.e("outra",this.other_text);
+            Log.e(this.subtitle,"nao null");
         }
+
     }
 
     @Override
