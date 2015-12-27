@@ -2,8 +2,6 @@ package ldso.rios.MainActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,6 +23,7 @@ import java.util.ArrayList;
 
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
+import ldso.rios.DataBases.User;
 import ldso.rios.Mapa_Rotas;
 import ldso.rios.R;
 
@@ -40,21 +40,19 @@ public class RotasRios_list extends AppCompatActivity {
         toolbar.setTitle("Rotas Rios+");
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         rotas= new ArrayList<Rota>();
         linearLayout= (LinearLayout) this.findViewById(R.id.linearLayout);
 
         try {
+            if (DB_functions.haveNetworkConnection(getApplicationContext()))
             DB_functions.getRotasList(this);
+            else {
+                Toast toast = Toast.makeText(RotasRios_list.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+                toast.show();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -147,7 +145,13 @@ public class RotasRios_list extends AppCompatActivity {
         if(id==R.id.navigate_guardarios)
             startActivity(new Intent(this,GuardaRios.class));
         if(id==R.id.navigate_account)
-            startActivity(new Intent(this,Login.class));
+        {
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 

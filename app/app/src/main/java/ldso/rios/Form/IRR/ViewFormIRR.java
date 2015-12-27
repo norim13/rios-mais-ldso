@@ -3,19 +3,27 @@ package ldso.rios.Form.IRR;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,15 +33,17 @@ import ldso.rios.DataBases.User;
 import ldso.rios.Form.Form_functions;
 import ldso.rios.MainActivities.Form_IRR_mainActivity;
 import ldso.rios.MainActivities.GuardaRios;
+import ldso.rios.MainActivities.Homepage;
 import ldso.rios.R;
-import ldso.rios.Utils;
 
 /*
 View para mostrar um form irr já preenchido
  */
+
 public class ViewFormIRR extends AppCompatActivity {
 
     LinearLayout linearLayout;
+    LinearLayout linearLayoutPhotos;
     Form_IRR form;
     String id;
 
@@ -43,6 +53,7 @@ public class ViewFormIRR extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_form_irr);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Formulário IRR");
         setSupportActionBar(toolbar);
 
 
@@ -52,6 +63,10 @@ public class ViewFormIRR extends AppCompatActivity {
 
         linearLayout.setFocusable(false);
         linearLayout.setClickable(false);
+
+        ProgressBar progressBar= (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
+
 
 
 
@@ -96,21 +111,33 @@ public class ViewFormIRR extends AppCompatActivity {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 Bitmap bitmapOtiginal = BitmapFactory.decodeFile(uri, options);
-                int i1 = bitmapOtiginal.getHeight() * 200 / bitmapOtiginal.getWidth();
+                Display display = getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                int width = size.x;
+                int i1 = bitmapOtiginal.getHeight() * width / bitmapOtiginal.getWidth();
                 Bitmap thumbnail = Bitmap.createScaledBitmap(
-                        bitmapOtiginal, 200, i1, false);
+                        bitmapOtiginal, width, i1, false);
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-                Bitmap result= null;
-                result = Utils.squareimage(thumbnail);
-                img.setImageBitmap(result);
+                thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+
+                img.setImageBitmap(thumbnail);
                 linearLayout.addView(img);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
 
         }
+
+
+
+        linearLayoutPhotos = new LinearLayout(getApplicationContext());
+        linearLayout.addView(linearLayoutPhotos);
+
+        String id= (String) getIntent().getSerializableExtra("form_irr_id");
+        if (id!=null)
+         getImagesSite(id);
 
 
         for(int i=0;i<=32;i++)
@@ -150,6 +177,8 @@ public class ViewFormIRR extends AppCompatActivity {
     }
 
 
+
+
     /*
     se clicar no botão de edit, inicia um FormIRRSwipe para editar o formulário
      */
@@ -187,29 +216,170 @@ public class ViewFormIRR extends AppCompatActivity {
         if (id == R.id.navigate_upload)
         {
 
-            //Form_IRR.loadFromIRR(this.getApplicationContext());
-            this.form.fillAnswers();
-            Form_IRR.uploadFormIRR(this,this.getApplicationContext(),this.form);
-            this.finish();
+            if (DB_functions.haveNetworkConnection(getApplicationContext())) {
+                //Form_IRR.loadFromIRR(this.getApplicationContext());
+                this.form.fillAnswers();
+                Form_IRR.uploadFormIRR(this, this.getApplicationContext(), this.form);
+                if (this.form.arrayListURI.size() == 0) {
+                    Intent intent = new Intent(getApplicationContext(), Homepage.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            }
+            else
+            {
+                Toast toast = Toast.makeText(ViewFormIRR.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+                toast.show();
+            }
+
 
 
             //Log.e("teste","tamanho do array"+Form_IRR.all_from_irrs.size());
         }
         if (id == R.id.navigate_remove){
             //Log.e("delete","entrou");
-            User u = User.getInstance();
-            DB_functions.deleteForm(this,this.getIntent().getSerializableExtra("id").toString(),u.getEmail(),u.getAuthentication_token() );
 
+
+            if (DB_functions.haveNetworkConnection(getApplicationContext())) {
+                User u = User.getInstance();
+                DB_functions.deleteForm(this,this.getIntent().getSerializableExtra("id").toString(),u.getEmail(),u.getAuthentication_token() );
+                Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                }
+
+            else
+            {
+                Toast toast = Toast.makeText(ViewFormIRR.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+                toast.show();
+            }
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     public void apagaou() {
-        Toast toast = Toast.makeText(ViewFormIRR.this, "Formulário apagado", Toast.LENGTH_LONG);
-        toast.show();
+
         Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    public void getImagesSite(String id) {
+
+        DB_functions.getForm(this,User.getInstance().getAuthentication_token(),User.getInstance().getEmail(),id);
+
+    }
+
+    public void processImages(String s) throws JSONException {
+
+        JSONObject json=new JSONObject(s);
+
+        final JSONArray array= json.getJSONArray("images");
+        final ProgressBar progressBar;
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        if (array.length()==0)
+        {
+            new Thread()
+            {
+                public void run()
+                {
+                    ViewFormIRR.this.runOnUiThread(new Runnable()
+                    {
+                        public void run() {
+                            progressBar.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                }
+            }.start();
+        }
+
+        for (int i=0;i<array.length();i++)
+        {
+            final int finalI = i;
+            Thread thread = new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    try {
+                        JSONObject imageObj= (JSONObject) array.get(0);
+                        Log.e("object",imageObj.toString());
+                        JSONObject image= (JSONObject) imageObj.get("image");
+                        String url= DB_functions.base_url+image.getString("url");
+                        Log.e("url",url);
+
+                        try {
+                            URL url_value = new URL(url);
+                            BitmapFactory.Options options = new BitmapFactory.Options();
+                            options.inSampleSize = 4;
+                            final Bitmap b = BitmapFactory.decodeStream(url_value.openConnection().getInputStream(), null, options);
+
+                            Display display = getWindowManager().getDefaultDisplay();
+                            Point size = new Point();
+                            display.getSize(size);
+                            int width = size.x;
+                            int i1 = b.getHeight() * width / b.getWidth();
+                            final Bitmap thumbnail = Bitmap.createScaledBitmap(
+                                    b, width, i1, false);
+
+
+
+
+                            new Thread()
+                            {
+                                public void run()
+                                {
+                                    ViewFormIRR.this.runOnUiThread(new Runnable()
+                                    {
+                                        public void run() {
+                                            Log.e("image","entrou");
+
+                                            ImageView img= new ImageView(getApplicationContext());
+                                            img.setImageBitmap(thumbnail);
+                                            linearLayoutPhotos.addView(img);
+
+                                            int count = linearLayoutPhotos.getChildCount();
+                                            View v = null;
+                                            for(int i=0; i<count; i++) {
+                                                v = linearLayoutPhotos.getChildAt(i);
+                                                //do something with your child element
+                                            }
+                                            if (count==array.length())
+                                                progressBar.setVisibility(View.INVISIBLE);
+                                            Log.e("count",count+"-"+array.length());
+
+
+
+                                        }
+                                    });
+                                }
+                            }.start();
+
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
+                            new Thread()
+                            {
+                                public void run()
+                                {
+                                    ViewFormIRR.this.runOnUiThread(new Runnable()
+                                    {
+                                        public void run() {
+                                            progressBar.setVisibility(View.INVISIBLE);
+                                        }
+                                    });
+                                }
+                            }.start();
+                        }
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            thread.start();
+        }
+
     }
 }

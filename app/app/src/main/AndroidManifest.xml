@@ -211,7 +211,16 @@
         <activity
             android:name=".RotaPoint_show"
             android:label="@string/title_activity_rota_point_show"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SelectRioWebview"
+            android:label="@string/title_activity_select_rio_webview"
+            android:parentActivityName=".MainActivities.Homepage"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ldso.rios.MainActivities.Homepage" />
+        </activity>
     </application>
 
 </manifest>

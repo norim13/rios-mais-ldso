@@ -8,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +25,7 @@ import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.MainActivities.Homepage;
+import ldso.rios.MainActivities.Profile;
 import ldso.rios.R;
 
 import static ldso.rios.MainActivities.Homepage.PREFS_NAME;
@@ -112,7 +112,17 @@ public class Register extends AppCompatActivity {
         }
         if (erro) return;
         try {
-            DB_functions.saveUser(username,email,password,password_confirm,telef,profissao,habilitacoes,formacao,this);
+            if (DB_functions.haveNetworkConnection(getApplicationContext())) {
+                DB_functions.saveUser(username, email, password, password_confirm, telef, profissao, habilitacoes, formacao, this);
+                Intent intent = new Intent(getApplicationContext(), Homepage.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+            else
+            {
+                Toast toast = Toast.makeText(Register.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+                toast.show();
+            }
         } catch (IOException e) {
             Toast.makeText(Register.this, "Erro ao registar utilizador", Toast.LENGTH_LONG).show();
             e.printStackTrace();
@@ -121,9 +131,7 @@ public class Register extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Intent intent = new Intent(getApplicationContext(), Homepage.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+
     }
 
     //menu action bar
@@ -139,7 +147,13 @@ public class Register extends AppCompatActivity {
         if(id==R.id.navigate_guardarios)
             startActivity(new Intent(this,GuardaRios.class));
         if(id==R.id.navigate_account)
-            startActivity(new Intent(this,Login.class));
+        {
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ldso.rios.Autenticacao.Login;
+import ldso.rios.DataBases.User;
 import ldso.rios.PlaceHolder_AboutDocs;
 import ldso.rios.R;
 
@@ -69,7 +70,13 @@ public class Information extends AppCompatActivity {
         if(id==R.id.navigate_guardarios)
             startActivity(new Intent(this,GuardaRios.class));
         if(id==R.id.navigate_account)
-            startActivity(new Intent(this,Login.class));
+        {
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 
