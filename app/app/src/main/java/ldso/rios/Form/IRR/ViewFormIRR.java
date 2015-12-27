@@ -53,6 +53,7 @@ public class ViewFormIRR extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_form_irr);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Formulário IRR");
         setSupportActionBar(toolbar);
 
 
