@@ -1,0 +1,62 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/<%= bootstrap_version %>/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-xs-12" style="margin-bottom: 20px">
+          <label for="codigo-rio">Código do rio:</label>
+          <input id="codigo-rio" class="text_field form-control" readonly="readonly" placeholder="Clique em cima do rio para selecionar" required="required" type="text">
+        </div>
+        <div class="col-md-6 col-xs-12" style="margin-bottom: 20px">
+          <label for="nome-rio">Nome do rio:</label>
+          <input id="nome-rio" class="text_field form-control" readonly="readonly" placeholder="Clique em cima do rio para selecionar" required="required" type="text">
+        </div>
+      </div>
+      <%= render 'mapa/mapa' %>
+
+        <div id="erro" style="width: 100%; margin: 20px; text-align: center";></div>
+
+        <div class="container-fluid" style="margin-top: 20px; margin-bottom: 20px">
+          <div class="row">
+            <div class="col-md-3 col-md-offset-3 col-xs-12">
+              <button id="select-rio-submit" style="width: 100%; margin-bottom: 20px" class="btn btn-primary">Selecionar Rio</button>
+            </div>
+            <div class="col-md-3 col-xs-12">
+              <button id="select-rio-quit" style="width: 100%; margin-bottom: 20px" class="btn btn-danger">Sair</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <%= javascript_include_tag '//www.openlayers.org/api/OpenLayers.js' %>
+    <%= javascript_include_tag 'application' %>
+    <script>
+      $(document).ready(function(){
+        $("#select-rio-submit").click(function(){
+          var codRio = $("#codigo-rio").val();
+          var nomeRio = $("#nome-rio").val();
+          if(codRio != '' && nomeRio != ''){
+            Android.setRio(codRio, nomeRio);
+          }
+          else{
+            $("#erro").html('Por favor, selecione um rio clicando no mapa');
+          }
+        });
+
+        $("#select-rio-quit").click(function(){
+          Android.closeWebView();
+        });
+
+      });
+
+      function done() {
+
+
+      }
+
+    </script>
+  </body>
+</html>
