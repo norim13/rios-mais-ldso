@@ -9,7 +9,14 @@ Rails.application.routes.draw do
   get 'concelhos' => 'concelho#getConcelhosFromDistrito'
   get 'limpeza' => 'limpeza#show'
   get 'respostas' => 'limpeza#getRespostas'
-  get 'adminpanel' => 'admin#index'
+
+
+  get 'adminpanel' => 'admin#index' #users index
+  get 'adminpanel/form_irrs' => 'admin#form_irrs', :as => :index_form_irrs
+  get 'adminpanel/sos_rios' => 'admin#reports', :as => :index_reports
+  get 'adminpanel/rotas' => 'admin#rotas', :as => :index_rotas
+  get 'adminpanel/trips' => 'admin#trips', :as => :index_trips
+
   post 'submitProblemasAction' => 'limpeza#submitProblemas'
   post 'changePermissions' => 'users#updatepermissions'
 

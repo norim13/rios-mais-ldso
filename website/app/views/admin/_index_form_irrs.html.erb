@@ -1,10 +1,5 @@
-<%= render 'common/header' %>
-</head>
-<body>
-<%= render 'common/navbar' %>
-
-<div class="container">
-  <h1>Meus formulários <%= link_to "Novo formulário", new_form_irr_path, class: "btn btn-primary" %></h1>
+<div>
+  <h2>Formulários IRR</h2>
 
   <div class="table-responsive">
     <table class="table table-hover table-striped">
@@ -42,5 +37,3 @@
   </div>
   <%= will_paginate @form_irrs, :previous_label => 'Anterior', :next_label => 'Seguinte' %>
 </div>
-
-<%= render 'common/footer' %>
