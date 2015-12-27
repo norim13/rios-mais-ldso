@@ -42,7 +42,7 @@ class RioController < ApplicationController
                      lat_min, lat_max, lon_min, lon_max).order('updated_at DESC')
       media = mediaIRR(forms) #media com todos os IRR
       forms = forms[0..4] #return só os primeiros 5 irrs (most recent)
-      render :json => {:success => true, :forms => forms, :media => media, :data_inicio => params[:data_inicio], :data_fim => params[:data_fim]}
+      render :json => {:success => true, :forms => forms, :media => media, :data_inicio => params[:data_inicio], :data_fim => params[:data_fim], :raio => params[:raio]}
           # :delta_lat => delta_lat, :delta_lon => delta_lon,
           #              :lat_min => lat_min, :lat_max => lat_max,
           #              :lon_min => lon_min, :lon_max => lon_max,

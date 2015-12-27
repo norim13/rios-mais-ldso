@@ -283,7 +283,7 @@ function drawChart(data, firstTime){
 
             //fill IRR table
             $("#irr-info").html('A mostrar informação relativa aos formulários IRR preenchidos entre '+data.data_inicio+
-                ' e '+data.data_fim+', num raio de ' + obj.raio
+                ' e '+data.data_fim+', num raio de ' + data.raio
                 + ' metros em torno do ponto selecionado. No gráfico são mostradas informações sobre as últimas 5 avaliações feitas,'
                 + ' e linha azul representa um IRR "geral", correspondente ao pior valor para cada categoria.');
 
