@@ -121,7 +121,12 @@ public class ProfileEditActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 current_password = input.getText().toString();
+                if (DB_functions.haveNetworkConnection(getApplicationContext()))
                 DB_functions.editUser(profileEditActivity, User.getInstance().getEmail(),User.getInstance().getAuthentication_token());
+                else {
+                    Toast toast = Toast.makeText(ProfileEditActivity.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+                    toast.show();
+                }
             }
         });
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

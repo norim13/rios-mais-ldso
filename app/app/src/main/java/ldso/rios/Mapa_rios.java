@@ -38,7 +38,9 @@ import java.util.List;
 import java.util.Locale;
 
 import ldso.rios.Autenticacao.Login;
+import ldso.rios.DataBases.User;
 import ldso.rios.MainActivities.GuardaRios;
+import ldso.rios.MainActivities.Profile;
 
 public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -331,8 +333,13 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
         int id = item.getItemId();
         if(id==R.id.navigate_guardarios)
             startActivity(new Intent(this,GuardaRios.class));
-        if(id==R.id.navigate_account)
-            startActivity(new Intent(this,Login.class));
+        if(id==R.id.navigate_account){
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 

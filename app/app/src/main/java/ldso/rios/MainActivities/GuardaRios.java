@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +43,13 @@ public class GuardaRios extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         try {
+            if (DB_functions.haveNetworkConnection(getApplicationContext()))
             DB_functions.getGuardaRios(this);
+            else
+            {
+                Toast toast = Toast.makeText(GuardaRios.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+                toast.show();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {

@@ -7,10 +7,9 @@ Permissoes:
     por a bloquear algumas coisas com as permissoes
 
 Login
-    Forgot password
     por a dar erro especifico de password errada por exemplo
                 //Editar ainda nao esta a dar
-    Por a verificar aceso à internet
+                Por a verificar aceso à internet
 
 
                 //Nos formulários do guardarios e irr, por no inicio, a activity dos maps para escolher sitio
@@ -20,20 +19,18 @@ Form IRR:
                 // Guardar Offline um formulário
                 // Ao clicar no submeter, preencher autometicamente todas as opcoes para nao dar erro
                 // Por um EditText com "outros" onde é preciso e entegrar isso no json submetdio
-    Grafico com o valor do irr
                 //Mapa para escolher sitio onde estamos e margem
                 //Imagens no form irr
-    Quando nao tem net, por a guardar
-    Por a guardar a data dos saved forms direita
+                //Quando nao tem net, por a guardar
+                //Por a guardar a data dos saved forms direita
     Por com campos obrigatorios
 
-Adicionar "tirar foto" e "foto de galeria" a todos os formularios
+                //Adicionar "tirar foto" e "foto de galeria" a todos os formularios
 
-Todos os acessos a base de dados devem verificar se ha ligação à internet
+                //Todos os acessos a base de dados devem verificar se ha ligação à internet
 
-VEr Guardarios
+                //Ver Guardarios
 
 Trips (tudo)
 
                 //Limpeza de Rios
-

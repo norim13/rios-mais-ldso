@@ -98,6 +98,8 @@ public class Form implements Serializable {
         Log.e("entrou aqui","");
         this.respostas = respostas;
         this.other_response=respotas_outros;
+        if(arrayListURI==null)
+            arrayListURI=new ArrayList<String>();
 
         Log.e("setLocation","");
         ArrayList<Float> arrayLocation = (ArrayList<Float>) respostas.get(0);

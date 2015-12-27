@@ -42,6 +42,7 @@ import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
 import ldso.rios.MainActivities.GuardaRios;
+import ldso.rios.MainActivities.Profile;
 import ldso.rios.Mapa_rios;
 import ldso.rios.R;
 import ldso.rios.Utils;
@@ -243,9 +244,12 @@ public class GuardaRios_form extends AppCompatActivity {
 
         String nomeRio=((EditText)this.findViewById(R.id.nomeRio)).getText().toString();
 
-        Log.e("DB","vai entrar na DB");
-
+        if (DB_functions.haveNetworkConnection(getApplicationContext()))
         DB_functions.saveGuardaRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(),q1, q2, q3, q4, q5, q6, lat,lang,nomeRio);
+        else{
+            Toast toast = Toast.makeText(GuardaRios_form.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     //funcao chamada quando foi submetido o form
@@ -288,8 +292,12 @@ public class GuardaRios_form extends AppCompatActivity {
         for (int i=0;i<arrayListURI.size();i++)
         {
             Log.e("uri",arrayListURI.get(i));
-
+            if (DB_functions.haveNetworkConnection(getApplicationContext()))
             DB_functions.saveImage(this,arrayListURI.get(i), User.getInstance().getEmail(),User.getInstance().getAuthentication_token(),"guardario",id);
+            else {
+                Toast toast = Toast.makeText(GuardaRios_form.this, "Sem ligação à Internet. Imagem nao fui enviada.", Toast.LENGTH_LONG);
+                toast.show();
+            }
         }
 
 
@@ -327,57 +335,59 @@ public class GuardaRios_form extends AppCompatActivity {
         //se for a resposta da camara
         else if (requestCode== CAM_REQUEST)
         {
-            Log.e("array",arrayListURI.toString());
-            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+            if (resultCode == Activity.RESULT_OK) {
+                Log.e("array", arrayListURI.toString());
+                Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
 
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
-            File destination = new File(Environment.getExternalStorageDirectory(),
-                    System.currentTimeMillis() + ".jpg");
-            FileOutputStream fo;
-            try {
-                destination.createNewFile();
-                fo = new FileOutputStream(destination);
-                fo.write(bytes.toByteArray());
-                fo.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                File destination = new File(Environment.getExternalStorageDirectory(),
+                        System.currentTimeMillis() + ".jpg");
+                FileOutputStream fo;
+                try {
+                    destination.createNewFile();
+                    fo = new FileOutputStream(destination);
+                    fo.write(bytes.toByteArray());
+                    fo.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-            arrayListURI.add(destination.getAbsolutePath());
-            Log.e("arrat",arrayListURI.toString());
-
-
-
-            try {
-
-                LayoutInflater inflater = getLayoutInflater();
-                View viewInflated = inflater.inflate(R.layout.photo_view, null);
-                final LinearLayout novo= (LinearLayout) viewInflated.findViewById(R.id.novo);
-                ImageView cancel= (ImageView) viewInflated.findViewById(R.id.cancel);
-                ImageView i= (ImageView) viewInflated.findViewById(R.id.photoImageView);
-
-                //poe a imagem tirada
-                Bitmap result=Utils.squareimage(thumbnail);
-                i.setImageBitmap(result);
-
-                //ao carregar em eliminar, tira do ecra e apaga da lista
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        novo.removeAllViews();
-                    }
-                });
-
-                linearLayout.addView(novo);
+                arrayListURI.add(destination.getAbsolutePath());
+                Log.e("arrat", arrayListURI.toString());
 
 
-            } catch (IOException e) {
-                e.printStackTrace();
-                arrayListURI.remove(destination.getAbsolutePath());
+                try {
+
+                    LayoutInflater inflater = getLayoutInflater();
+                    View viewInflated = inflater.inflate(R.layout.photo_view, null);
+                    final LinearLayout novo = (LinearLayout) viewInflated.findViewById(R.id.novo);
+                    ImageView cancel = (ImageView) viewInflated.findViewById(R.id.cancel);
+                    ImageView i = (ImageView) viewInflated.findViewById(R.id.photoImageView);
+
+                    //poe a imagem tirada
+                    Bitmap result = Utils.squareimage(thumbnail);
+                    i.setImageBitmap(result);
+
+                    //ao carregar em eliminar, tira do ecra e apaga da lista
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            novo.removeAllViews();
+                        }
+                    });
+
+                    linearLayout.addView(novo);
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    arrayListURI.remove(destination.getAbsolutePath());
+                }
+
             }
 
 
@@ -452,7 +462,13 @@ public class GuardaRios_form extends AppCompatActivity {
         if(id==R.id.navigate_guardarios)
             startActivity(new Intent(this,GuardaRios.class));
         if(id==R.id.navigate_account)
-            startActivity(new Intent(this,Login.class));
+        {
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -89,7 +89,12 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
         Log.e("Vai entrar na DB", "DB");
 
         try {
+            if (DB_functions.haveNetworkConnection(getApplicationContext()))
             DB_functions.getRotasList(this, this.id);
+            else {
+                Toast toast = Toast.makeText(Mapa_Rotas.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+                toast.show();
+            }
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("erro", "erroDB1");
