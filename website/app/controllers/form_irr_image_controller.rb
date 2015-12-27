@@ -9,6 +9,7 @@ class FormIrrImageController < ApplicationController
 		if @img.save
 			render :json => @img
 		else
+			p @img.errors
 			render :json => @img.errors
 		end
 	end
