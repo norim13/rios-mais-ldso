@@ -37,7 +37,7 @@ class RioController < ApplicationController
       lon_min = params[:lon].to_d - delta_lon
       lon_max = params[:lon].to_d + delta_lon
       p lat_max
-      forms = FormIrr.where(:idRio => params[:rio]).where(validated: true).where('created_at >= ? AND created_at <= ?',
+      forms = FormIrr.where(:idRio => params[:rio]).where(validated: true).where('created_at >= ? AND created_at <= ( DATE ? + INTEGER \'1\' ) ',
                      params[:data_inicio], params[:data_fim]).where("lat > ? AND lat < ? AND lon > ? AND lon < ?",
                      lat_min, lat_max, lon_min, lon_max).order('updated_at DESC')
       media = mediaIRR(forms) #media com todos os IRR

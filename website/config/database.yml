@@ -24,3 +24,13 @@ development:
   host: ***REMOVED***
   port: 5432
   database: ***REMOVED***
+
+production:
+  adapter: postgresql
+  encoding: utf-8
+  pool: 5
+  username: ***REMOVED***
+  password: ***REMOVED***
+  host: ***REMOVED***
+  port: 5432
+  database: ***REMOVED***
