@@ -108,4 +108,7 @@ Rails.application.routes.draw do
       get "/routes/:id", :to => 'routes#show'
     end
   end
+
+  #web views for app
+  get 'rios_mapa_webview' => 'application_web_view#showMapa'
 end
