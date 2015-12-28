@@ -471,6 +471,9 @@ function updateCircle(rad){
         fillColor: '#0000AA'
     });
     currentCircle.bindTo('center', currentMarker, 'position');
+    google.maps.event.addListener(currentCircle, "click", function(event){
+        google.maps.event.trigger(map, 'click', event);
+    });
 }
 
 function removeCurrentMarker() {

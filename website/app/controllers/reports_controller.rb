@@ -30,16 +30,14 @@ class ReportsController < ApplicationController
     @report = Report.new(report_params)
     @report.user_id = current_user.id
 
-    UserMailer.reports_email(@report).deliver_now
-
-
     respond_to do |format|
       if @report.save
         if params[:images]
           params[:images].each { |image|
-            ReportImage.create(image: image, report: @report.id)
+            ReportImage.create(image: image, report_id: @report.id)
           }
         end
+        UserMailer.reports_email(@report).deliver_now
         format.html { redirect_to @report, notice: 'Denúncia enviada.' }
         format.json { render :show, status: :created, location: @report }
       else
@@ -67,6 +65,6 @@ class ReportsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def report_params
-    params.require(:report).permit(:rio, :categoria, :motivo, :descricao, :local, {images: []})
+    params.require(:report).permit(:rio, :nome_rio, :lat, :lon, :categoria, :motivo, :descricao, :local, {images: []})
   end
 end

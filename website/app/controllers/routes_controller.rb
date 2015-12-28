@@ -5,7 +5,7 @@ class RoutesController < ApplicationController
   def custom_auth!
     if authenticate_user!
       @permissoes = current_user.permissoes
-      if current_user.permissoes > 3
+      if current_user.permissoes > 4
         return true
       else
         render 'common/noaccess'
@@ -18,7 +18,20 @@ class RoutesController < ApplicationController
   # GET /routes
   # GET /routes.json
   def index
-    @routes = Route.all
+    @routes = Route.paginate(:page => params[:page], :per_page => 6).order('created_at')
+    @images = []
+    @routes.each do |route|
+      image = nil
+      rps = route.rota_points
+      rps.each do |rp|
+        rpi = rp.rota_point_images.take
+        if !rpi.nil?
+          image = rpi
+          break
+        end
+      end
+      @images.push(image)
+    end
   end
 
   # GET /routes/1
