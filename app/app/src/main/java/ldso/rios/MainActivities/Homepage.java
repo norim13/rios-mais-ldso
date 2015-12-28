@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -16,9 +17,9 @@ import java.io.IOException;
 
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.User;
+import ldso.rios.Form.Sos_rios;
 import ldso.rios.ImageTest;
 import ldso.rios.R;
-import ldso.rios.SelectRioWebview;
 
 public class Homepage extends AppCompatActivity{
 
@@ -74,17 +75,29 @@ public class Homepage extends AppCompatActivity{
     }
 
     public void sosRios(View view){
-        //startActivity(new Intent(this, Sos_rios.class));
-        startActivity(new Intent(this, SelectRioWebview.class));
+        if(User.getInstance().getAuthentication_token().contentEquals(""))
+            startActivity(new Intent(this, Sos_rios.class));
+        else {
+            Toast.makeText(getApplicationContext(), "Atentique-se para poder aceder a este conteúdo.", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
     public void form_irr(View view) throws IOException, JSONException {
-        startActivity(new Intent(this, Form_IRR_mainActivity.class));
+
+        if(User.getInstance().getAuthentication_token().contentEquals(""))
+            startActivity(new Intent(this, Form_IRR_mainActivity.class));
+        else {
+            Toast.makeText(getApplicationContext(), "Atentique-se para poder aceder a este conteúdo.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void limpeza(View view){
-        startActivity(new Intent(this, Limpeza.class));
+        if(User.getInstance().getAuthentication_token().contentEquals(""))
+            startActivity(new Intent(this, Limpeza.class));
+        else {
+            Toast.makeText(getApplicationContext(), "Atentique-se para poder aceder a este conteúdo.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void about(View view)  {

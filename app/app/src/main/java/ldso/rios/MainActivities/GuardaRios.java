@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import ldso.rios.DataBases.DB_functions;
+import ldso.rios.DataBases.User;
 import ldso.rios.Form.GuardaRios_form;
 import ldso.rios.R;
 import ldso.rios.Utils;
@@ -80,8 +81,16 @@ public class GuardaRios extends AppCompatActivity {
     }
 
     public void form_guardarios(View view){
-        startActivity(new Intent(this, GuardaRios_form.class));
-        this.finish();
+
+
+        if(User.getInstance().getAuthentication_token().contentEquals(""))
+        {
+            startActivity(new Intent(this, GuardaRios_form.class));
+            this.finish();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Atentique-se para poder aceder a este conteúdo.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
