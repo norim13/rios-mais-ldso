@@ -50,6 +50,7 @@ public class Homepage extends AppCompatActivity{
 
         u.setId(Integer.parseInt(settings.getString("id","-1")));
         u.setAuthentication_token(settings.getString("token","-1"));
+
         u.setName(settings.getString("name",""));
         u.setEmail(settings.getString("email",""));
 

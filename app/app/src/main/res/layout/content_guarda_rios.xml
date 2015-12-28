@@ -57,30 +57,6 @@
 
             </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/more_info"
-                        android:id="@+id/more_info_guardarios"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true"
-                        android:background="@null"
-                        android:backgroundTint="@null"
-                        android:enabled="false"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textAllCaps="false"/>
-                </RelativeLayout>
-            </TableRow>
-
         </LinearLayout>
 
         <TableRow
@@ -92,7 +68,9 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Avistamentos Recentes:"
-                android:id="@+id/textView2" />
+                android:id="@+id/textView2"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black" />
         </TableRow>
 
         <ScrollView

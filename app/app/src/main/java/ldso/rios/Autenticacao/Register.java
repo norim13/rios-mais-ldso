@@ -4,12 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,9 +19,7 @@ import java.io.IOException;
 
 import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
-import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.MainActivities.Homepage;
-import ldso.rios.MainActivities.Profile;
 import ldso.rios.R;
 
 import static ldso.rios.MainActivities.Homepage.PREFS_NAME;
@@ -53,14 +47,6 @@ public class Register extends AppCompatActivity {
         toolbar.setTitle("Registo");
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //init
@@ -134,28 +120,6 @@ public class Register extends AppCompatActivity {
 
     }
 
-    //menu action bar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_homepage, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id==R.id.navigate_guardarios)
-            startActivity(new Intent(this,GuardaRios.class));
-        if(id==R.id.navigate_account)
-        {
-            if(User.getInstance().getAuthentication_token().contentEquals(""))
-                startActivity(new Intent(this, Login.class));
-            else {
-                startActivity(new Intent(this, Profile.class));
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     public void register_response(final Boolean error, final String error_txt, final Register reg, final JSONObject obj) {
 
