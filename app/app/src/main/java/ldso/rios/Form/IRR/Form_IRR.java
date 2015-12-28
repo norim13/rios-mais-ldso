@@ -124,7 +124,7 @@ public class Form_IRR extends Form implements Serializable {
 
         this.lat_sel= Float.parseFloat(jsonObject.get("lat").toString());
         this.lon_sel=  Float.parseFloat( jsonObject.get("lon").toString());
-        this.nomeRio= (String) jsonObject.get("nomeRio");
+        this.nomeRio= (String) jsonObject.get("nomeRio") +" id:"+ jsonObject.get("id").toString();
 
         ArrayList<Float> arrayLocation = new ArrayList<Float>();
         arrayLocation.add(0f);
@@ -137,7 +137,7 @@ public class Form_IRR extends Form implements Serializable {
         this.margem=jsonObject.getInt("margem");
 
         ArrayList<Object> arrayNomeEMargem= new ArrayList<Object>();
-        arrayNomeEMargem.add(jsonObject.get("nomeRio").toString());
+        arrayNomeEMargem.add((String) jsonObject.get("nomeRio") +" id:"+jsonObject.get("id").toString());
         arrayNomeEMargem.add(jsonObject.getInt("margem"));
 
         this.respostas.put(-1,arrayNomeEMargem);

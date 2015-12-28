@@ -778,14 +778,18 @@ public class DB_functions {
                     ArrayList<Integer> arrayList_OrganizacaoPlaneamento = new ArrayList<Integer>();
 
                     try {
-                        response.accumulate("idRio", "201.04");
+                        String[] temp=form_irr.nomeRio.split(" id:");
+                        String nome=temp[0];
+                        String codigo=temp[1];
+
+                        response.accumulate("idRio", codigo);
                         if(form_irr.margem==0)
                             response.accumulate("margem", 1+"");
                         else
                             response.accumulate("margem", form_irr.margem+"");
                         response.accumulate("lat", form_irr.lat_final+"");
                         response.accumulate("lon", form_irr.lon_final+"");
-                        response.accumulate("nomeRio", form_irr.nomeRio);
+                        response.accumulate("nomeRio", nome);
 
                         response.accumulate("tipoDeVale", (int) form_irr.getRespostas().get(1));
 

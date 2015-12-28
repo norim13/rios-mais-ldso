@@ -150,22 +150,31 @@ public class FormIRRSwipe extends AppCompatActivity {
                     {
 
                         if (!DB_functions.haveNetworkConnection(getApplicationContext()))
-                        {
-                            if (form.nomeRioEditText.getText()!=null && !form.nomeRioEditText.getText().toString().contentEquals("")) {
-                                form.fillAnswers();
+                        {   form.fillAnswers();
                                 Form_IRR.saveFormIRR(form, getApplicationContext());
                                 Toast toast = Toast.makeText(FormIRRSwipe.this, "Sem ligação à Internet. IRR guardado.", Toast.LENGTH_LONG);
                                 toast.show();
                                 Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
+                        }
+                        else
+                        {
+                            if (form.nomeRioEditText.getText()!=null && !form.nomeRioEditText.getText().toString().contentEquals("")) {
+                                DB_functions.saveForm(FormIRRSwipe.this,User.getInstance().getAuthentication_token(),User.getInstance().getEmail(), form);
+
+                                if (form.arrayListURI.size()==0) {
+                                    Toast toast = Toast.makeText(FormIRRSwipe.this, "IRR submetido", Toast.LENGTH_LONG);
+                                    toast.show();
+                                    Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                }
                             }
                             else {
                                 Toast.makeText(getApplicationContext(), "Selecione um rio", Toast.LENGTH_SHORT).show();
                             }
                         }
-                        else
-                            DB_functions.saveForm(FormIRRSwipe.this,User.getInstance().getAuthentication_token(),User.getInstance().getEmail(), form);
 
 
                     }
@@ -293,7 +302,7 @@ public class FormIRRSwipe extends AppCompatActivity {
 
             }
         }
- 
+
         else if (requestCode==SELECT_RIO)
         {
             if (resultCode == Activity.RESULT_OK) {
