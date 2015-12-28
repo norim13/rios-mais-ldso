@@ -217,14 +217,25 @@ public class ViewFormIRR extends AppCompatActivity {
         {
 
             if (DB_functions.haveNetworkConnection(getApplicationContext())) {
-                //Form_IRR.loadFromIRR(this.getApplicationContext());
-                this.form.fillAnswers();
-                Form_IRR.uploadFormIRR(this, this.getApplicationContext(), this.form);
-                if (this.form.arrayListURI.size() == 0) {
-                    Intent intent = new Intent(getApplicationContext(), Homepage.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+
+
+                try{
+                    String[] temp=form.nomeRio.split(" id:");
+                    String nome=temp[0];
+                    String codigo=temp[1];
+                    //Form_IRR.loadFromIRR(this.getApplicationContext());
+                    this.form.fillAnswers();
+                    Form_IRR.uploadFormIRR(this, this.getApplicationContext(), this.form);
+                    if (this.form.arrayListURI.size() == 0) {
+                        Intent intent = new Intent(getApplicationContext(), Homepage.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
+                }catch (Exception e)
+                {
+
                 }
+
             }
             else
             {

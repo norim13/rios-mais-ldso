@@ -30,9 +30,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/nomeRio"
+                android:editable="false"
                 android:layout_below="@+id/textView5"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/button4"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
 
@@ -42,11 +44,10 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Localização:"
                 android:id="@+id/textView6"
-                android:layout_below="@+id/nomeRio"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:paddingTop="10dp"
-                android:layout_marginTop="20dp" />
+                android:layout_below="@+id/button9"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -145,6 +146,21 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/linearLayout3"
                 android:id="@+id/linearLayoutInitial"></LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Escolher Rio"
+                android:id="@+id/button9"
+                android:background="@null"
+                android:textColor="#2397f3"
+                android:layout_gravity="right"
+                android:onClick="abrirWebView"
+                android:layout_below="@+id/nomeRio"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
 
         </RelativeLayout>

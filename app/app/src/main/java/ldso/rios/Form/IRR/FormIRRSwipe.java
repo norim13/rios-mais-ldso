@@ -47,6 +47,7 @@ import ldso.rios.MainActivities.Form_IRR_mainActivity;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.Mapa_rios;
 import ldso.rios.R;
+import ldso.rios.SelectRioWebview;
 import ldso.rios.Utils;
 
 /*
@@ -76,6 +77,7 @@ public class FormIRRSwipe extends AppCompatActivity {
 
     private  static final int CAM_REQUEST=100;
     private static final int SELECT_PHOTO = 200;
+    private static final int SELECT_RIO=300;
 
     int margem;
 
@@ -149,13 +151,18 @@ public class FormIRRSwipe extends AppCompatActivity {
 
                         if (!DB_functions.haveNetworkConnection(getApplicationContext()))
                         {
-                            form.fillAnswers();
-                            Form_IRR.saveFormIRR(form, getApplicationContext());
-                            Toast toast = Toast.makeText(FormIRRSwipe.this, "Sem ligação à Internet. IRR guardado.", Toast.LENGTH_LONG);
-                            toast.show();
-                            Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
+                            if (form.nomeRioEditText.getText()!=null && !form.nomeRioEditText.getText().toString().contentEquals("")) {
+                                form.fillAnswers();
+                                Form_IRR.saveFormIRR(form, getApplicationContext());
+                                Toast toast = Toast.makeText(FormIRRSwipe.this, "Sem ligação à Internet. IRR guardado.", Toast.LENGTH_LONG);
+                                toast.show();
+                                Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
+                            else {
+                                Toast.makeText(getApplicationContext(), "Selecione um rio", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         else
                             DB_functions.saveForm(FormIRRSwipe.this,User.getInstance().getAuthentication_token(),User.getInstance().getEmail(), form);
@@ -165,10 +172,16 @@ public class FormIRRSwipe extends AppCompatActivity {
 
                     else {
                         if (DB_functions.haveNetworkConnection(getApplicationContext())) {
-                            DB_functions.updateForm(User.getInstance().getAuthentication_token(),User.getInstance().getEmail(), id, form);
-                            Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
+
+                            if (form.nomeRioEditText.getText()!=null && !form.nomeRioEditText.getText().toString().contentEquals("")) {
+                                DB_functions.updateForm(User.getInstance().getAuthentication_token(),User.getInstance().getEmail(), id, form);
+                                Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
+                            else {
+                                Toast.makeText(getApplicationContext(), "Selecione um rio", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         else
                         {
@@ -248,6 +261,10 @@ public class FormIRRSwipe extends AppCompatActivity {
         startActivityForResult(new Intent(this, Mapa_rios.class), 1);
     }
 
+    public void abrirWebView(View view) {
+        startActivityForResult(new Intent(this, SelectRioWebview.class), SELECT_RIO);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -274,6 +291,13 @@ public class FormIRRSwipe extends AppCompatActivity {
                 //Write your code if there's no result
                 Log.e("resultado", "nao recebeu nada");
 
+            }
+        }
+
+        else if (requestCode==SELECT_RIO)
+        {
+            if (resultCode == Activity.RESULT_OK) {
+                this.form.nomeRioEditText.setText(data.getStringExtra("nomeRio")+" id:"+data.getStringExtra("codigoRio"));
             }
         }
 
