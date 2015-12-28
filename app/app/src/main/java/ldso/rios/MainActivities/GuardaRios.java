@@ -82,7 +82,7 @@ public class GuardaRios extends AppCompatActivity {
 
     public void form_guardarios(View view){
 
-        if(User.getInstance().getAuthentication_token().contentEquals("")) {
+        if(!User.getInstance().getAuthentication_token().contentEquals("") && !User.getInstance().getAuthentication_token().contentEquals("-1")  ) {
             startActivity(new Intent(this, GuardaRios_form.class));
             this.finish();
         }

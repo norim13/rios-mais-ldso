@@ -1421,6 +1421,10 @@ public class DB_functions {
                     String twoHyphens = "--";
                     String boundary =  "*****";
 
+                    String[] temp=nomeRio.split(" id:");
+                    String nome=temp[0];
+                    String codigo=temp[1];
+
 
                     String url = base_url+"/api/v2/guardarios?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
@@ -1432,7 +1436,7 @@ public class DB_functions {
                     con.setRequestMethod("POST");
                     con.connect();
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.accumulate("rio","PT03DOU0370");
+                    jsonObject.accumulate("rio",codigo);
                     jsonObject.accumulate("local",q1);
                     jsonObject.accumulate("voar",q2);
                     jsonObject.accumulate("cantar",q3);
@@ -1444,7 +1448,7 @@ public class DB_functions {
                     jsonObject.accumulate("outro",q6);
                     jsonObject.accumulate("lat", lat);
                     jsonObject.accumulate("lon",lon);
-                    jsonObject.accumulate("nomeRio",nomeRio);
+                    jsonObject.accumulate("nomeRio",nome);
                     JSONObject guardarios= new JSONObject();
                     guardarios.accumulate("guardario", jsonObject);
 
