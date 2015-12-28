@@ -32,12 +32,10 @@ public class Homepage extends AppCompatActivity{
         setContentView(R.layout.activity_homepage);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Inicio");
+        toolbar.setTitle("Início");
         setSupportActionBar(toolbar);
 
         setUser();
-
-
     }
 
     private void setUser() {
@@ -48,7 +46,7 @@ public class Homepage extends AppCompatActivity{
         Log.e("token", ": " + token);
 
         u.setId(Integer.parseInt(settings.getString("id","-1")));
-        u.setAuthentication_token(settings.getString("token","-1"));
+        u.setAuthentication_token(settings.getString("token",""));
         u.setName(settings.getString("name",""));
         u.setEmail(settings.getString("email",""));
 

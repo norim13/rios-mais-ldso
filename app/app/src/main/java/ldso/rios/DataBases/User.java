@@ -20,7 +20,7 @@ public class User extends _Default {
     private int id;
     private String name;
     private String email;
-    private String authentication_token;
+    private String authentication_token ="";
     private String telef;
     private String distrito;
     private String concelho;
