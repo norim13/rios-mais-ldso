@@ -225,6 +225,8 @@ public class DB_functions {
                     user.setHabilitacoes(user_json.getString("habilitacoes"));
                     user.setFormacao(Boolean.valueOf(user_json.getString("formacao")));
 
+                    user.setPermissoes(Integer.parseInt(user_json.getString("permissoes")));
+
                     Log.e("profile","a seguir ao set user todo");
 
                     profile.afterGetUserData();
@@ -1296,6 +1298,8 @@ public class DB_functions {
                                 user.setHabilitacoes(user_json.getString("habilitacoes"));
                                 user.setFormacao(Boolean.valueOf(user_json.getString("formacao")));
 
+                                user.setPermissoes(Integer.parseInt(user_json.getString("permissoes")));
+
                                 Log.e("profile","a seguir ao set user todo");
                             }
                         } catch (JSONException e) {
@@ -1699,8 +1703,6 @@ public class DB_functions {
         }).start();
     }
 
-
-
     public static void editUser(final ProfileEditActivity profileEditActivity, final String email, final String token) {
         new Thread(new Runnable() {
             public void run() {
@@ -1726,8 +1728,6 @@ public class DB_functions {
                         jsonObject.accumulate("habilitacoes", profileEditActivity.getHabilitacoes().getText());
                         jsonObject.accumulate("profissao", profileEditActivity.getProfissao().getText());
                         jsonObject.accumulate("formacao", profileEditActivity.getFormacao().isChecked()?"True":"False");
-                        //jsonObject.accumulate("distrito_id", "");
-                        //jsonObject.accumulate("concelho_id", "");
 
                         user.accumulate("user", jsonObject);
                     } catch (JSONException e) {
@@ -1842,7 +1842,6 @@ public class DB_functions {
             }
         }).start();
     }
-
 
     public static void getRotasList(final RotasRios_list rotas) throws IOException, JSONException {
 
@@ -2009,12 +2008,7 @@ public class DB_functions {
         }).start();
     }
 
-
-
-
     public static void getGuardaRios(final GuardaRios guardaRios) throws IOException, JSONException {
-
-
         new Thread(new Runnable() {
             public void run() {
 
@@ -2089,11 +2083,7 @@ public class DB_functions {
         }).start();
     }
 
-
-
     public  static void saveImage(final Object activity, final String path, final String email, final String token, final String controller, final String id) throws IOException, JSONException {
-
-
         if (!controller.contentEquals("form_irr") &&
                 !controller.contentEquals("guardario") &&
                 !controller.contentEquals("routes") &&
@@ -2186,7 +2176,6 @@ public class DB_functions {
         }).start();
     }
 
-
     public static String entityToString(HttpEntity entity) throws IOException {
         InputStream is = entity.getContent();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
@@ -2226,14 +2215,12 @@ public class DB_functions {
         return haveConnectedWifi || haveConnectedMobile;
     }
 
-
     public static void getForm(final ViewFormIRR viewFormIRR, final String token, final String email, final String id) {
         new Thread(new Runnable() {
             public void run() {
 
                 String url = base_url+"/api/v2/form_irrs/" +id+
                         "?user_email="+email+"&user_token="+token;
-
 
                 URL obj = null;
                 try {

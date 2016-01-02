@@ -2,6 +2,7 @@ package ldso.rios.MainActivities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,8 @@ public class Profile extends AppCompatActivity {
     TextView profissao;
     TextView habilitacoes;
 
+    TextView perm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,15 +53,12 @@ public class Profile extends AppCompatActivity {
         //progressBar.setIndeterminate(true);
         updateProfileView();
 
-
-
         if (DB_functions.haveNetworkConnection(getApplicationContext()))
         DB_functions.getUserData(this, User.getInstance().getEmail(),User.getInstance().getAuthentication_token());
         else {
             Toast toast = Toast.makeText(Profile.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
             toast.show();
         }
-
     }
 
     @Override
@@ -88,6 +88,9 @@ public class Profile extends AppCompatActivity {
 
         name = (TextView) findViewById(R.id.nameTextProfile);
         name.setText(u.getName());
+
+        perm = (TextView) findViewById(R.id.permissoesTextProfile);
+        perm.setText("Permissões: "+ u.getPermissoes());
 
         email = (TextView) findViewById(R.id.emailTextProfile);
         email.setText(u.getEmail());
@@ -130,13 +133,37 @@ public class Profile extends AppCompatActivity {
                                 !u.getEmail().equals(email.getText())) {
 
                             updateProfileView();
+                            updateSharedPreferencesUser();
                             Log.e("profile","dados diferentes!");
-                            //progressBar.setIndeterminate(false);
                         }
-                       // progressBar.setIndeterminate(false);
                     }
                 });
             }
         }.start();
+    }
+
+    public void updateSharedPreferencesUser() {
+        User u = User.getInstance();
+
+        // We need an Editor object to make preference changes.
+        // All objects are from android.context.Context
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("id",String.valueOf(u.getId()));
+        editor.putString("token",u.getAuthentication_token());
+        editor.putString("name",u.getName());
+        editor.putString("email",u.getEmail());
+
+        editor.putString("telef",u.getTelef());
+        editor.putString("profissao",u.getProfissao());
+        editor.putString("habilitacoes",u.getHabilitacoes());
+        editor.putString("formacao", String.valueOf(u.getFormacao()));
+        editor.putString("distrito",u.getDistrito());
+        editor.putString("concelho",u.getConcelho());
+
+        editor.putString("permissoes",u.getPermissoes().toString());
+
+        // Commit the edits!
+        editor.commit();
     }
 }

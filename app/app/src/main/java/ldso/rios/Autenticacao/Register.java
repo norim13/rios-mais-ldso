@@ -43,7 +43,6 @@ public class Register extends AppCompatActivity {
     protected Switch mFormacao;
 
     protected Button mRegisterButton;
-    private static final int REQUEST_READ_CONTACTS = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,7 +177,7 @@ public class Register extends AppCompatActivity {
                             toast.show();
 
                             try {
-                                login_response_after_register(error,error_txt,obj.get("authentication_token").toString(),obj.get("nome").toString(),obj.get("email").toString());
+                                login_response_after_register(error,error_txt,obj.get("authentication_token").toString(),obj.get("nome").toString(),obj.get("email").toString(),obj.get("permissoes").toString());
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -189,7 +188,7 @@ public class Register extends AppCompatActivity {
         }.start();
     }
 
-    public void login_response_after_register(final Boolean error, final String error_txt, final String authentication, final String nome, final String email) {
+    public void login_response_after_register(final Boolean error, final String error_txt, final String authentication, final String nome, final String email, final String permissoes) {
 
         new Thread()
         {
@@ -216,6 +215,7 @@ public class Register extends AppCompatActivity {
                             editor.putString("token",authentication);
                             editor.putString("name",nome);
                             editor.putString("email",email);
+                            editor.putString("permissoes",permissoes);
 
                             // Commit the edits!
                             editor.commit();
