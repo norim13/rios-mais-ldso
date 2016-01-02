@@ -5,21 +5,30 @@
 
       <%= f.input :rio, :label => 'Código do rio', :input_html => {:id => 'codigo-rio'}, :readonly => true, :placeholder => 'Clique em cima do rio para selecionar',
           :required => true %>
+      <%= f.input :nome_rio, :label => 'Nome do rio', :input_html => {:id => 'nome-rio'}, :readonly => true, :placeholder => 'Clique em cima do rio para selecionar',
+                  :required => true, :class => "form-control" %>
 
-      <%= f.label :categoria, "Categoria" %><br/>
-      <%= f.select :categoria, ['Erosão', 'Poluição', 'Acidente', 'Desflorestação', 'Pesca e caça ilegal',
-                                'Cheia', 'Incêndio', 'Vandalismo', 'Presença de espécies exóticas e invasoras'], {:include_blank => 'Selecione uma categoria'},
-                   :required => true %>
-      <br/><br/>
+      <%= f.hidden_field :lat %>
+      <%= f.hidden_field :lon %>
 
-      <%= f.label :motivo, "Motivo" %><br/>
-      <%= f.select :motivo, ['Preocupado com a situação a nível ambiental',
-                             'Preocupado com a situação a nível Pessoal',
-                             'Má Vizinhança',
-                             'Necessida de informação adicional',
-                             'Demora do processo de esclarecimento/resolução'], {:include_blank => 'Selecione o motivo'},
-                   :required => true %>
-      <br/><br/>
+
+      <div class="form-group <%= field_class(@report, :categoria)%>">
+        <%= f.label :categoria, "Categoria", :class => 'control-label' %>
+        <%= f.select :categoria, ['Erosão', 'Poluição', 'Acidente', 'Desflorestação', 'Pesca e caça ilegal',
+                                  'Cheia', 'Incêndio', 'Vandalismo', 'Presença de espécies exóticas e invasoras'], {:include_blank => 'Selecione uma categoria'},
+                     {:required => true, :class => "form-control"} %>
+      </div>
+
+
+      <div class="form-group <%= field_class(@report, :motivo)%>">
+        <%= f.label :motivo, "Motivo", :class => 'control-label' %>
+        <%= f.select :motivo, ['Preocupado com a situação a nível ambiental',
+                               'Preocupado com a situação a nível Pessoal',
+                               'Má Vizinhança',
+                               'Necessida de informação adicional',
+                               'Demora do processo de esclarecimento/resolução'], {:include_blank => 'Selecione o motivo'},
+                     {:required => true, :class => "form-control"} %>
+      </div>
 
       <%= f.input :descricao, :label => 'Descrição', :required => true %><br/>
 

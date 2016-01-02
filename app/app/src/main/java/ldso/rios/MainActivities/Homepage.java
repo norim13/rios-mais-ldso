@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -17,9 +16,9 @@ import java.io.IOException;
 
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.User;
-import ldso.rios.Form.Sos_rios;
 import ldso.rios.ImageTest;
 import ldso.rios.R;
+import ldso.rios.SelectRioWebview;
 
 public class Homepage extends AppCompatActivity{
 
@@ -33,12 +32,10 @@ public class Homepage extends AppCompatActivity{
         setContentView(R.layout.activity_homepage);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Inicio");
+        toolbar.setTitle("Início");
         setSupportActionBar(toolbar);
 
         setUser();
-
-
     }
 
     private void setUser() {
@@ -49,8 +46,7 @@ public class Homepage extends AppCompatActivity{
         Log.e("token", ": " + token);
 
         u.setId(Integer.parseInt(settings.getString("id","-1")));
-        u.setAuthentication_token(settings.getString("token","-1"));
-
+        u.setAuthentication_token(settings.getString("token",""));
         u.setName(settings.getString("name",""));
         u.setEmail(settings.getString("email",""));
 
@@ -76,29 +72,17 @@ public class Homepage extends AppCompatActivity{
     }
 
     public void sosRios(View view){
-        if(!User.getInstance().getAuthentication_token().contentEquals(""))
-            startActivity(new Intent(this, Sos_rios.class));
-        else {
-            Toast.makeText(getApplicationContext(), "Atentique-se para poder aceder a este conteúdo.", Toast.LENGTH_SHORT).show();
-        }
+        //startActivity(new Intent(this, Sos_rios.class));
+        startActivity(new Intent(this, SelectRioWebview.class));
 
     }
 
     public void form_irr(View view) throws IOException, JSONException {
-
-        if(!User.getInstance().getAuthentication_token().contentEquals(""))
-            startActivity(new Intent(this, Form_IRR_mainActivity.class));
-        else {
-            Toast.makeText(getApplicationContext(), "Atentique-se para poder aceder a este conteúdo.", Toast.LENGTH_SHORT).show();
-        }
+        startActivity(new Intent(this, Form_IRR_mainActivity.class));
     }
 
     public void limpeza(View view){
-        if(!User.getInstance().getAuthentication_token().contentEquals(""))
-            startActivity(new Intent(this, Limpeza.class));
-        else {
-            Toast.makeText(getApplicationContext(), "Atentique-se para poder aceder a este conteúdo.", Toast.LENGTH_SHORT).show();
-        }
+        startActivity(new Intent(this, Limpeza.class));
     }
 
     public void about(View view)  {
@@ -119,10 +103,8 @@ public class Homepage extends AppCompatActivity{
             token = settings.getString("token","-1");
             String email = settings.getString("email","-1");
 
-            if(token.equals("-1")||token.equals("")) {
-                Log.e("login",token);
+            if(token.equals("-1"))
                 startActivity(new Intent(this, Login.class));
-            }
             else {
                 User u = User.getInstance();
                 u.setEmail(email);

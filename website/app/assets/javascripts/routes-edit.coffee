@@ -7,6 +7,8 @@ markerCount = 1;
 edit = false;
 route_id = -1;
 
+numberOfImagesToUpload = 0;
+
 images = new Array();
 $(document).ready(function(){
     $(document).on('click', '.btn-add-img-rota-point', function(){
@@ -74,13 +76,18 @@ $(document).ready(function(){
             dataType: 'json',
             data: obj,
             success: function(data){
+		            console.log(data);
 		            if(data.success == 'true') {
                     for (i = 0; i < data.points.length; i++) {
-		                    if(images[i].image != "no img")
-                          uploadImages(images[i].image, data.points[i].id);
+		                    if(images[i].image != "no img"){
+                            console.log("uma imagem");
+				                    numberOfImagesToUpload++;
+				                    uploadImages(images[i].image, data.points[i].id);
+		                    }
                     }
+				            if(numberOfImagesToUpload == 0)
+                        window.location.href = "/routes";
                 }
-                window.location.href = "/routes";
             },
             error: function(err){
                 console.log(err);
@@ -125,6 +132,9 @@ function uploadImages(img,rp_id) {
         processData: false,
         type: 'POST',
         success: function (data) {
+		        numberOfImagesToUpload--;
+		        if(numberOfImagesToUpload == 0)
+                window.location.href = "/routes";
 		        //console.log("Imagem inserida");
         }
     });

@@ -147,6 +147,9 @@ window.onload = function () {
 														$("#form_irr_lat").val(latLon_r.lat);
                             $("#form_irr_lon").val(latLon_r.lon);
 
+                            $("#report_lat").val(latLon_r.lat);
+                            $("#report_lon").val(latLon_r.lon);
+
                             map.addPopup(new OpenLayers.Popup.FramedCloud(
                                 "chicken",
                                 latLon,

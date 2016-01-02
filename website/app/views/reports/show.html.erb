@@ -44,12 +44,12 @@
   </table>
 
   <h3>Fotografias</h3>
-  <% if !@report['images'].nil? %>
+  <% if !@imgs.nil? %>
       <div id="show-form_irr-imgs">
         <div class="row">
-          <% @report['images'].each do |img| %>
+          <% @imgs.each do |img| %>
               <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                <%= image_tag("#{@img_path}#{img}", :class => 'img-responsive') %>
+                <%= image_tag(img.image, :class => 'img-responsive') %>
               </div>
           <% end %>
         </div>
@@ -62,4 +62,3 @@
 
 
 <%= render 'common/footer' %>
-<%= javascript_include_tag 'guardarios' %>

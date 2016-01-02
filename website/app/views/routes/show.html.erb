@@ -64,8 +64,7 @@
 
   </div>
 
-  <%= link_to 'Editar', edit_route_path(@route) %>
-  <%= link_to 'Voltar atrás', routes_path %>
+  <% if user_signed_in? and current_user.permissoes > 4 %><%= link_to 'Editar', edit_route_path(@route) %> | <% end %><%= link_to 'Voltar para o índice de rotas', routes_path %>
 </div>
 
 <%= render 'common/footer' %>

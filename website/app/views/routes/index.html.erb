@@ -1,40 +1,46 @@
 <%= render 'common/header' %>
+<%= stylesheet_link_tag "routes" %>
 </head>
 <body>
 <%= render 'common/navbar' %>
 
 <div class="container">
-  <h1>Rotas Rios+ <%= link_to "Nova Rota", new_route_path, class: "btn btn-primary" %></h1>
+  <h1>Rotas Rios+ <% if user_signed_in? and current_user.permissoes > 4 %><%= link_to "Nova Rota", new_route_path, class: "btn btn-primary" %> <% end %></h1>
 
   <% if !flash[:notice].blank? %>
       <div id="notice" class="alert alert-success"> <%= notice %> </div>
   <% else %>
   <% end %>
+  <% left = true %>
+  <% @routes.each_with_index {|route, index| %>
+      <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-0">
+        <div class="card routes-index-item">
+          <div class="card-image">
 
-  <div class="table-responsive">
-    <table class="table table-hover table-striped">
-      <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Zona</th>
-        <th>Data de criação</th>
-        <th>Ver</th>
-        <th>Editar</th>
-        <th>Apagar</th>
-      </tr>
-      <% @routes.each do |route| %>
-          <tr>
-            <td><%= route.id %></td>
-            <td><%= route.nome %></td>
-            <td><%= route.zona %></td>
-            <td><%= route.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
-            <td><%= link_to 'Ver', route_path(route) %></td>
-            <td><%= link_to 'Editar', edit_route_path(route) %></td>
-            <td><%= link_to 'Apagar', route_path(route), method: :delete, data: {:confirm => "Tem a certeza que quer apagar a rota?"} %></td>
-          </tr>
-      <% end %>
-    </table>
-  </div>
+            <% if !@images[index].nil? %>
+              <%= link_to image_tag(@images[index].image, :class => 'img-responsive', :alt => "Imagem de #{route.nome}"), route_path(route)  %>
+            <% else %>
+                <%= link_to image_tag("http://material-design.storage.googleapis.com/publish/v_2/material_ext_publish/0Bx4BSt6jniD7TDlCYzRROE84YWM/materialdesign_introduction.png", :class => 'img-responsive', :alt => "Imagem de #{route.nome}"), route_path(route)  %>
+            <% end %>
+            <!--<span class="card-title">Material Cards</span>-->
+          </div>
+
+          <div class="card-content">
+            <h4><%= link_to route.nome, route_path(route) %></h4>
+            <p class="descricao"><%= route.descricao %></p>
+          </div>
+
+          <div class="card-action">
+            <p><b>Zona:</b> <%= route.zona %></p>
+          </div>
+        </div>
+      </div>
+
+  <% } %>
+  <%= will_paginate @routes, :previous_label => 'Anterior', :next_label => 'Seguinte' %>
 </div>
 
 <%= render 'common/footer' %>
+<%= javascript_include_tag 'external/jquery.autoellipsis-1.0.10.min' %>
+<%= javascript_include_tag 'routes-index' %>
+
