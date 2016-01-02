@@ -45,6 +45,7 @@ import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.MainActivities.Profile;
 import ldso.rios.Mapa_rios;
 import ldso.rios.R;
+import ldso.rios.SelectRioWebview;
 import ldso.rios.Utils;
 
 public class GuardaRios_form extends AppCompatActivity {
@@ -67,6 +68,8 @@ public class GuardaRios_form extends AppCompatActivity {
 
     private  static final int CAM_REQUEST=100;
     private static final int SELECT_PHOTO = 200;
+    private static final int SELECT_RIO=300;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,9 +247,15 @@ public class GuardaRios_form extends AppCompatActivity {
 
         String nomeRio=((EditText)this.findViewById(R.id.nomeRio)).getText().toString();
 
-        if (DB_functions.haveNetworkConnection(getApplicationContext()))
-        DB_functions.saveGuardaRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(),q1, q2, q3, q4, q5, q6, lat,lang,nomeRio);
-        else{
+        if (DB_functions.haveNetworkConnection(getApplicationContext())) {
+            if (nomeRio!=null && !nomeRio.contentEquals("")) {
+                DB_functions.saveGuardaRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(), q1, q2, q3, q4, q5, q6, lat, lang, nomeRio);
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "Selecione um rio", Toast.LENGTH_SHORT).show();
+            }
+        }
+            else{
             Toast toast = Toast.makeText(GuardaRios_form.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
             toast.show();
         }
@@ -308,6 +317,10 @@ public class GuardaRios_form extends AppCompatActivity {
         startActivityForResult(new Intent(this, Mapa_rios.class), 1);
     }
 
+    public void abrirWebView(View view) {
+        startActivityForResult(new Intent(this, SelectRioWebview.class), SELECT_RIO);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -329,6 +342,12 @@ public class GuardaRios_form extends AppCompatActivity {
                 //Write your code if there's no result
                 Log.e("resultado", "nao recebeu nada");
 
+            }
+        }
+        else if (requestCode==SELECT_RIO)
+        {
+            if (resultCode == Activity.RESULT_OK) {
+                ((EditText)findViewById(R.id.nomeRio)).setText(data.getStringExtra("nomeRio")+" id:"+data.getStringExtra("codigoRio"));
             }
         }
 

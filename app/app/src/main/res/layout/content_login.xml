@@ -68,14 +68,4 @@
         android:layout_centerHorizontal="true"
         android:src="@mipmap/logo" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lembrar-me"
-        android:id="@+id/checkBox"
-        android:layout_below="@+id/password_login"
-        android:layout_alignRight="@+id/password_login"
-        android:layout_alignEnd="@+id/password_login"
-        android:checked="false" />
-
 </RelativeLayout>
