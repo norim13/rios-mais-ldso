@@ -91,7 +91,11 @@ public class Profile extends AppCompatActivity {
         name.setText(u.getName());
 
         perm = (TextView) findViewById(R.id.permissoesTextProfile);
-        perm.setText("Permissões: "+ u.getPermissoes());
+
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.permissoes_array, android.R.layout.simple_spinner_item);
+        String permS = (String) adapter2.getItem(u.getPermissoes()-1);
+        perm.setText("Permissões: " + permS);
 
         email = (TextView) findViewById(R.id.emailTextProfile);
         email.setText(u.getEmail());
