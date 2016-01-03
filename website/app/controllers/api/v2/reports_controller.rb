@@ -57,6 +57,6 @@ class Api::V2::ReportsController < ApplicationController
 
 	private
 	def report_params
-		params.require(:report).permit(:rio, :categoria, :motivo, :descricao, :local)
+		params.require(:report).permit(:rio, :nome_rio, :categoria, :motivo, :descricao, :local, :lat, :lon)
 	end
 end

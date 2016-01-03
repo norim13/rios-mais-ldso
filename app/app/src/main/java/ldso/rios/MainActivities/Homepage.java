@@ -18,6 +18,7 @@ import java.io.IOException;
 
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.User;
+import ldso.rios.Form.Sos_rios;
 import ldso.rios.ImageTest;
 import ldso.rios.R;
 import ldso.rios.SelectRioWebview;
@@ -75,8 +76,8 @@ public class Homepage extends AppCompatActivity{
     }
 
     public void sosRios(View view){
-        //startActivity(new Intent(this, Sos_rios.class));
-        startActivity(new Intent(this, SelectRioWebview.class));
+        startActivity(new Intent(this, Sos_rios.class));
+        //startActivity(new Intent(this, SelectRioWebview.class));
     }
 
     public void form_irr(View view) throws IOException, JSONException {
