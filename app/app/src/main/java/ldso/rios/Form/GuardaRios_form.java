@@ -194,7 +194,6 @@ public class GuardaRios_form extends AppCompatActivity {
                 Log.e("nao existe",arrayListURI.get(i));
 
         }
-        progressbar.setVisibility(View.VISIBLE);
         Integer escolha = Form_functions.getRadioButtonOption(question1);
         Log.e("escolha",escolha+"");
         String q1="";
@@ -249,6 +248,7 @@ public class GuardaRios_form extends AppCompatActivity {
 
         if (DB_functions.haveNetworkConnection(getApplicationContext())) {
             if (nomeRio!=null && !nomeRio.contentEquals("")) {
+                progressbar.setVisibility(View.VISIBLE);
                 DB_functions.saveGuardaRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(), q1, q2, q3, q4, q5, q6, lat, lang, nomeRio);
             }
             else {
