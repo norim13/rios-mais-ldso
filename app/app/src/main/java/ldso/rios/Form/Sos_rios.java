@@ -369,17 +369,17 @@ public class Sos_rios extends AppCompatActivity {
         if (q1.contentEquals(""))
         {
             incomplete=true;
-            tv1.setError("Campo vaizo");
+            tv1.setError("Campo vazio");
         }
         if (q2.contentEquals(""))
         {
             incomplete=true;
-           tv2.setError("Campo vaizo");
+           tv2.setError("Campo vazio");
         }
         if (q3.contentEquals(""))
         {
             incomplete=true;
-            question3.setError("Campo vaizo");
+            question3.setError("Campo vazio");
         }
 
         if (!incomplete) {

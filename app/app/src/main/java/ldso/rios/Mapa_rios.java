@@ -84,6 +84,7 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
         }
+        this.setTitle("Mapa");
     }
 
 
