@@ -514,6 +514,25 @@ public class Form_IRR extends Form implements Serializable {
     }
 
 
+    public String requiered(){
+        if (this.nomeRio.contentEquals("") || this.nomeRio==null)
+            return "Nome do Rio";
+
+        if (this.lat_final==0f || this.lon_sel==0f)
+        {
+            return "Localização";
+        }
+
+        for(int i=0;i<this.perguntas.size();i++)
+        {
+            if (this.perguntas.get(i) instanceof radioPergunta)
+            {
+                if((int)this.respostas.get(i+1)==0)
+                    return this.perguntas.get(i).subtitle;
+            }
+        }
+        return "";
+    }
 
     public void setDate(){
 
@@ -576,6 +595,8 @@ public class Form_IRR extends Form implements Serializable {
 
 
 
+
+
     public static void saveFormIRR(Form_IRR form_irr, Context c) throws IOException {
 
 
@@ -609,9 +630,6 @@ public class Form_IRR extends Form implements Serializable {
                 e.printStackTrace();
         }
     }
-
-
-
 
 
 

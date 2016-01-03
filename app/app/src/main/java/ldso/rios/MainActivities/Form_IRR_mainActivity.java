@@ -123,7 +123,7 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
                             for (int i = 0; i < jsonarray.length(); i++) {
                                 final JSONObject form_irr_json = jsonarray.getJSONObject(i);
 
-                                String idRio = form_irr_json.getString("idRio");
+                                String idRio = form_irr_json.getString("nomeRio");
                                 String irr = form_irr_json.getString("irr");
                                 final String id = form_irr_json.getString("id");
                                 String margem = form_irr_json.getString("margem");
@@ -203,6 +203,17 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
         for (int i = 0; i < respostas.size(); i++) {
 
             String idRio = "idrios";
+
+            idRio=((ArrayList<Object>)respostas.get(i).get(-1)).get(0).toString();
+            if (idRio.contentEquals(""))
+            {
+                idRio="Não especificado";
+            }
+            else {
+                String[] temp=idRio.split(" id:");
+                idRio=temp[0];
+            }
+
             String date= ""+respostas.get(i).get(-4);
 
 
