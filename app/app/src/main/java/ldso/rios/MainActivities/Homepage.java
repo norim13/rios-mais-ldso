@@ -1,5 +1,6 @@
 package ldso.rios.MainActivities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -57,6 +59,7 @@ public class Homepage extends AppCompatActivity{
         u.setDistrito(settings.getString("distrito",""));
         u.setConcelho(settings.getString("concelho",""));
 
+        u.setPermissoes(Integer.parseInt(settings.getString("permissoes","0")));
     }
 
     public void rotasRios(View view){
@@ -74,11 +77,17 @@ public class Homepage extends AppCompatActivity{
     public void sosRios(View view){
         //startActivity(new Intent(this, Sos_rios.class));
         startActivity(new Intent(this, SelectRioWebview.class));
-
     }
 
     public void form_irr(View view) throws IOException, JSONException {
-        startActivity(new Intent(this, Form_IRR_mainActivity.class));
+        Log.e("permissoes",User.getInstance().getPermissoes().toString());
+        if(User.getInstance().getPermissoes() > 1)
+            startActivity(new Intent(this, Form_IRR_mainActivity.class));
+        else {
+            Context context = getApplicationContext();
+            Toast toast = Toast.makeText(context, "Não tem permissões suficientes", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     public void limpeza(View view){

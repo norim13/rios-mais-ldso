@@ -27,6 +27,7 @@ public class User extends _Default {
     private String profissao;
     private String habilitacoes;
     private Boolean formacao;
+    private Integer permissoes;
 
     private User(){
         super();
@@ -44,6 +45,7 @@ public class User extends _Default {
         this.profissao = "";
         this.habilitacoes = "";
         this.formacao = false;
+        this.permissoes = 0;
     }
 
     /* Static 'instance' method */
@@ -135,5 +137,14 @@ public class User extends _Default {
 
     public void setFormacao(Boolean formacao) {
         this.formacao = formacao;
+    }
+
+    public Integer getPermissoes() {
+        return permissoes;
+    }
+
+    public void setPermissoes(Integer permissoes) {
+        Log.e("perm profile", permissoes.toString());
+        this.permissoes = permissoes;
     }
 }

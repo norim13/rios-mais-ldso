@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="AveiroConcelhos">
+		<item>ÁGUEDA</item>
+		<item>ALBERGARIA-A-VELHA</item>
+		<item>ANADIA</item>
+		<item>AROUCA</item>
+		<item>AVEIRO</item>
+		<item>CASTELO DE PAIVA</item>
+		<item>ESPINHO</item>
+		<item>ESTARREJA</item>
+		<item>SANTA MARIA DA FEIRA</item>
+		<item>ÍLHAVO</item>
+		<item>MEALHADA</item>
+		<item>MURTOSA</item>
+		<item>OLIVEIRA DE AZEMÉIS</item>
+		<item>OLIVEIRA DO BAIRRO</item>
+		<item>OVAR</item>
+		<item>SÃO JOÃO DA MADEIRA</item>
+		<item>SEVER DO VOUGA</item>
+		<item>VAGOS</item>
+		<item>VALE DE CAMBRA</item>
+	</string-array>
+
+	<string-array name="BejaConcelhos">
+		<item>ALJUSTREL</item>
+		<item>ALMODÔVAR</item>
+		<item>ALVITO</item>
+		<item>BARRANCOS</item>
+		<item>BEJA</item>
+		<item>CASTRO VERDE</item>
+		<item>CUBA</item>
+		<item>FERREIRA DO ALENTEJO</item>
+		<item>MÉRTOLA</item>
+		<item>MOURA</item>
+		<item>ODEMIRA</item>
+		<item>OURIQUE</item>
+		<item>SERPA</item>
+		<item>VIDIGUEIRA</item>
+	</string-array>
+	
+	<string-array name="BragaConcelhos">
+		<item>AMARES</item>
+		<item>BARCELOS</item>
+		<item>BRAGA</item>
+		<item>CABECEIRAS DE BASTO</item>
+		<item>CELORICO DE BASTO</item>
+		<item>ESPOSENDE</item>
+		<item>FAFE</item>
+		<item>GUIMARÃES</item>
+		<item>PÓVOA DE LANHOSO</item>
+		<item>TERRAS DE BOURO</item>
+		<item>VIEIRA DO MINHO</item>
+		<item>VILA NOVA DE FAMALICÃO</item>
+		<item>VILA VERDE</item>
+		<item>VIZELA</item>
+	</string-array>
+
+	<string-array name="BragancaConcelhos">
+		<item>ALFÂNDEGA DA FÉ</item>
+		<item>BRAGANÇA</item>
+		<item>CARRAZEDA DE ANSIÃES</item>
+		<item>FREIXO DE ESPADA À CINTA</item>
+		<item>MACEDO DE CAVALEIROS</item>
+		<item>MIRANDA DO DOURO</item>
+		<item>MIRANDELA</item>
+		<item>MOGADOURO</item>
+		<item>TORRE DE MONCORVO</item>
+		<item>VILA FLOR</item>
+		<item>VIMIOSO</item>
+		<item>VINHAIS</item>
+	</string-array>
+	
+	<string-array name="CasteloBrancoConcelhos">
+		<item>BELMONTE</item>
+		<item>CASTELO BRANCO</item>
+		<item>COVILHÃ</item>
+		<item>FUNDÃO</item>
+		<item>IDANHA-A-NOVA</item>
+		<item>OLEIROS</item>
+		<item>PENAMACOR</item>
+		<item>PROENÇA-A-NOVA</item>
+		<item>SERTÃ</item>
+		<item>VILA DE REI</item>
+		<item>VILA VELHA DE RÓDÃO</item>
+	</string-array>
+	
+	<string-array name="CoimbraConcelhos">
+		<item>ARGANIL</item>
+		<item>CANTANHEDE</item>
+		<item>COIMBRA</item>
+		<item>CONDEIXA-A-NOVA</item>
+		<item>FIGUEIRA DA FOZ</item>
+		<item>GÓIS</item>
+		<item>LOUSÃ</item>
+		<item>MIRA</item>
+		<item>MIRANDA DO CORVO</item>
+		<item>MONTEMOR-O-VELHO</item>
+		<item>OLIVEIRA DO HOSPITAL</item>
+		<item>PAMPILHOSA DA SERRA</item>
+		<item>PENACOVA</item>
+		<item>PENELA</item>
+		<item>SOURE</item>
+		<item>TÁBUA</item>
+		<item>VILA NOVA DE POIARES</item>
+	</string-array>
+	
+	<string-array name="EvoraConcelhos">
+		<item>ALANDROAL</item>
+		<item>ARRAIOLOS</item>
+		<item>BORBA</item>
+		<item>ESTREMOZ</item>
+		<item>ÉVORA</item>
+		<item>MONTEMOR-O-NOVO</item>
+		<item>MORA</item>
+		<item>MOURÃO</item>
+		<item>PORTEL</item>
+		<item>REDONDO</item>
+		<item>REGUENGOS DE MONSARAZ</item>
+		<item>VENDAS NOVAS</item>
+		<item>VIANA DO ALENTEJO</item>
+		<item>VILA VIÇOSA</item>
+	</string-array>
+	
+	<string-array name="FaroConcelhos">
+		<item>ALBUFEIRA</item>
+		<item>ALCOUTIM</item>
+		<item>ALJEZUR</item>
+		<item>CASTRO MARIM</item>
+		<item>FARO</item>
+		<item>LAGOA</item>
+		<item>LAGOS</item>
+		<item>LOULÉ</item>
+		<item>MONCHIQUE</item>
+		<item>OLHÃO</item>
+		<item>PORTIMÃO</item>
+		<item>SÃO BRÁS DE ALPORTEL</item>
+		<item>SILVES</item>
+		<item>TAVIRA</item>
+		<item>VILA DO BISPO</item>
+		<item>VILA REAL DE SANTO ANTÓNIO</item>
+	</string-array>
+	
+	<string-array name="GuardaConcelhos">
+		<item>AGUIAR DA BEIRA</item>
+		<item>ALMEIDA</item>
+		<item>CELORICO DA BEIRA</item>
+		<item>FIGUEIRA DE CASTELO RODRIGO</item>
+		<item>FORNOS DE ALGODRES</item>
+		<item>GOUVEIA</item>
+		<item>GUARDA</item>
+		<item>MANTEIGAS</item>
+		<item>MÊDA</item>
+		<item>PINHEL</item>
+		<item>SABUGAL</item>
+		<item>SEIA</item>
+		<item>TRANCOSO</item>
+		<item>VILA NOVA DE FOZ CÔA</item>
+	</string-array>
+	
+	<string-array name="LeiriaConcelhos">
+		<item>ALCOBAÇA</item>
+		<item>ALVAIÁZERE</item>
+		<item>ANSIÃO</item>
+		<item>BATALHA</item>
+		<item>BOMBARRAL</item>
+		<item>CALDAS DA RAINHA</item>
+		<item>CASTANHEIRA DE PÊRA</item>
+		<item>FIGUEIRÓ DOS VINHOS</item>
+		<item>LEIRIA</item>
+		<item>MARINHA GRANDE</item>
+		<item>NAZARÉ</item>
+		<item>ÓBIDOS</item>
+		<item>PEDRÓGÃO GRANDE</item>
+		<item>PENICHE</item>
+		<item>POMBAL</item>
+		<item>PORTO DE MÓS</item>
+	</string-array>
+	
+	<string-array name="LisboaConcelhos">
+		<item>ALENQUER</item>
+		<item>ARRUDA DOS VINHOS</item>
+		<item>AZAMBUJA</item>
+		<item>CADAVAL</item>
+		<item>CASCAIS</item>
+		<item>LISBOA</item>
+		<item>LOURES</item>
+		<item>LOURINHÃ</item>
+		<item>MAFRA</item>
+		<item>OEIRAS</item>
+		<item>SINTRA</item>
+		<item>SOBRAL DE MONTE AGRAÇO</item>
+		<item>TORRES VEDRAS</item>
+		<item>VILA FRANCA DE XIRA</item>
+		<item>AMADORA</item>
+		<item>ODIVELAS</item>
+	</string-array>
+	
+	<string-array name="PortalegreConcelhos">
+		<item>ALTER DO CHÃO</item>
+		<item>ARRONCHES</item>
+		<item>AVIS</item>
+		<item>CAMPO MAIOR</item>
+		<item>CASTELO DE VIDE</item>
+		<item>CRATO</item>
+		<item>ELVAS</item>
+		<item>FRONTEIRA</item>
+		<item>GAVIÃO</item>
+		<item>MARVÃO</item>
+		<item>MONFORTE</item>
+		<item>NISA</item>
+		<item>PONTE DE SOR</item>
+		<item>PORTALEGRE</item>
+		<item>SOUSEL</item>
+	</string-array>
+	
+	<string-array name="PortoConcelhos">
+		<item>AMARANTE</item>
+		<item>BAIÃO</item>
+		<item>FELGUEIRAS</item>
+		<item>GONDOMAR</item>
+		<item>LOUSADA</item>
+		<item>MAIA</item>
+		<item>MARCO DE CANAVESES</item>
+		<item>MATOSINHOS</item>
+		<item>PAÇOS DE FERREIRA</item>
+		<item>PAREDES</item>
+		<item>PENAFIEL</item>
+		<item>PORTO</item>
+		<item>PÓVOA DE VARZIM</item>
+		<item>SANTO TIRSO</item>
+		<item>VALONGO</item>
+		<item>VILA DO CONDE</item>
+		<item>VILA NOVA DE GAIA</item>
+		<item>TROFA</item>
+	</string-array>
+	
+	<string-array name="SantaremConcelhos">
+		<item>ABRANTES</item>
+		<item>ALCANENA</item>
+		<item>ALMEIRIM</item>
+		<item>ALPIARÇA</item>
+		<item>BENAVENTE</item>
+		<item>CARTAXO</item>
+		<item>CHAMUSCA</item>
+		<item>CONSTÂNCIA</item>
+		<item>CORUCHE</item>
+		<item>ENTRONCAMENTO</item>
+		<item>FERREIRA DO ZÊZERE</item>
+		<item>GOLEGÃ</item>
+		<item>MAÇÃO</item>
+		<item>RIO MAIOR</item>
+		<item>SALVATERRA DE MAGOS</item>
+		<item>SANTARÉM</item>
+		<item>SARDOAL</item>
+		<item>TOMAR</item>
+		<item>TORRES NOVAS</item>
+		<item>VILA NOVA DA BARQUINHA</item>
+		<item>OURÉM</item>
+	</string-array>
+	
+	<string-array name="SetubalConcelhos">
+		<item>ALCÁCER DO SAL</item>
+		<item>ALCOCHETE</item>
+		<item>ALMADA</item>
+		<item>BARREIRO</item>
+		<item>GRÂNDOLA</item>
+		<item>MOITA</item>
+		<item>MONTIJO</item>
+		<item>PALMELA</item>
+		<item>SANTIAGO DO CACÉM</item>
+		<item>SEIXAL</item>
+		<item>SESIMBRA</item>
+		<item>SETÚBAL</item>
+		<item>SINES</item>
+	</string-array>
+	
+	<string-array name="VianaDoCasteloConcelhos">
+		<item>ARCOS DE VALDEVEZ</item>
+		<item>CAMINHA</item>
+		<item>MELGAÇO</item>
+		<item>MONÇÃO</item>
+		<item>PAREDES DE COURA</item>
+		<item>PONTE DA BARCA</item>
+		<item>PONTE DE LIMA</item>
+		<item>VALENÇA</item>
+		<item>VIANA DO CASTELO</item>
+		<item>VILA NOVA DE CERVEIRA</item>
+	</string-array>
+	
+	<string-array name="VilaRealConcelhos">
+		<item>ALIJÓ</item>
+		<item>BOTICAS</item>
+		<item>CHAVES</item>
+		<item>MESÃO FRIO</item>
+		<item>MONDIM DE BASTO</item>
+		<item>MONTALEGRE</item>
+		<item>MURÇA</item>
+		<item>PESO DA RÉGUA</item>
+		<item>RIBEIRA DE PENA</item>
+		<item>SABROSA</item>
+		<item>SANTA MARTA DE PENAGUIÃO</item>
+		<item>VALPAÇOS</item>
+		<item>VILA POUCA DE AGUIAR</item>
+		<item>VILA REAL</item>
+	</string-array>
+	
+	<string-array name="ViseuConcelhos">
+		<item>ARMAMAR</item>
+		<item>CARREGAL DO SAL</item>
+		<item>CASTRO DAIRE</item>
+		<item>CINFÃES</item>
+		<item>LAMEGO</item>
+		<item>MANGUALDE</item>
+		<item>MOIMENTA DA BEIRA</item>
+		<item>MORTÁGUA</item>
+		<item>NELAS</item>
+		<item>OLIVEIRA DE FRADES</item>
+		<item>PENALVA DO CASTELO</item>
+		<item>PENEDONO</item>
+		<item>RESENDE</item>
+		<item>SANTA COMBA DÃO</item>
+		<item>SÃO JOÃO DA PESQUEIRA</item>
+		<item>SÃO PEDRO DO SUL</item>
+		<item>SÁTÃO</item>
+		<item>SERNANCELHE</item>
+		<item>TABUAÇO</item>
+		<item>TAROUCA</item>
+		<item>TONDELA</item>
+		<item>VILA NOVA DE PAIVA</item>
+		<item>VISEU</item>
+		<item>VOUZELA</item>
+	</string-array>
+	
+	<string-array name="IlhaDaMadeiraConcelhos">
+		<item>CALHETA</item>
+		<item>CAMARA DE LOBOS</item>
+		<item>FUNCHAL</item>
+		<item>MACHICO</item>
+		<item>PONTA DO SOL</item>
+		<item>PORTO MONIZ</item>
+		<item>RIBEIRA BRAVA</item>
+		<item>SANTA CRUZ</item>
+		<item>SANTANA</item>
+		<item>SÃO VICENTE</item>
+	</string-array>
+	
+	<string-array name="IlhaDePortoSantoConcelhos">
+		<item>PORTO SANTO</item>
+	</string-array>
+	
+	<string-array name="IlhaDeSantaMariaConcelhos">
+		<item>VILA DO PORTO</item>
+	</string-array>
+	
+	<string-array name="IlhaDeSaoMiguelConcelhos">
+		<item>NORDESTE</item>
+		<item>PONTA DELGADA</item>
+		<item>POVOAÇÃO</item>
+		<item>RIBEIRA GRANDE</item>
+		<item>VILA FRANCA DO CAMPO</item>
+	</string-array>
+	
+	<string-array name="IlhaTerceiraConcelhos">
+		<item>ANGRA DO HEROÍSMO</item>
+		<item>PRAIA DA VITÓRIA</item>
+	</string-array>
+	
+	<string-array name="IlhaDaGraciosaConcelhos">
+		<item>SANTA CRUZ DA GRACIOSA</item>
+	</string-array>
+	
+	<string-array name="IlhaDeSaoJorgeConcelhos">
+		<item>CALHETA DE SÃO JORGE</item>
+		<item>VELAS</item>
+	</string-array>
+	
+	<string-array name="IlhaDoPicoConcelhos">
+		<item>LAJES DO PICO</item>
+		<item>MADALENA</item>
+		<item>SÃO ROQUE DO PICO</item>
+	</string-array>
+	
+	<string-array name="IlhaDoFaialConcelhos">
+		<item>HORTA</item>
+	</string-array>
+	
+	<string-array name="IlhaDasFloresConcelhos">
+		<item>LAJES DAS FLORES</item>
+		<item>SANTA CRUZ DAS FLORES</item>
+	</string-array>
+
+	<string-array name="IlhaDoCorvoConcelhos">
+		<item>CORVO</item>
+	</string-array>
+</resources>

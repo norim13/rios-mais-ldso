@@ -20,4 +20,5 @@
 
     <include layout="@layout/content_register" />
 
+
 </android.support.design.widget.CoordinatorLayout>

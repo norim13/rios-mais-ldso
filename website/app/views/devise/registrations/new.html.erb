@@ -1,5 +1,5 @@
 <%= render 'common/header' %>
-
+<%= stylesheet_link_tag "profile" %>
 </head>
 <body>
 <%= render 'common/navbar' %>
@@ -19,10 +19,10 @@
     <%= f.input :password_confirmation, :label => "Confirmação da password" , required:true %>
 
     <%= f.label :distrito_id %>
-    <%= f.select :distrito_id, Distrito.all.collect {|d| [ d.nome, d.id ] },{:include_blank => 'Escolha o distrito'} %>
+    <%= f.select :distrito_id, Distrito.all.collect {|d| [ d.nome, d.id ] },{:include_blank => 'Escolha o distrito'}, required:true %>
 
     <%= f.label :concelho_id %>
-    <%= f.select :concelho_id, [],{:include_blank => 'Escolha o concelho'} %>
+    <%= f.select :concelho_id, [],{:include_blank => 'Escolha o concelho'}, required:true %>
 
     <%= f.input :telef, :label => "Telefone/Telemóvel" %>
 

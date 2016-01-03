@@ -78,24 +78,8 @@ public class Login extends AppCompatActivity {
                             toast = Toast.makeText(context, "Bem vindo "+u.getName(), Toast.LENGTH_LONG);
                             toast.show();
 
-                            // We need an Editor object to make preference changes.
-                            // All objects are from android.context.Context
-                            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-                            SharedPreferences.Editor editor = settings.edit();
-                            editor.putString("id",String.valueOf(u.getId()));
-                            editor.putString("token",u.getAuthentication_token());
-                            editor.putString("name",u.getName());
-                            editor.putString("email",u.getEmail());
+                            updateSharedPreferencesUser();
 
-                            editor.putString("telef",u.getTelef());
-                            editor.putString("profissao",u.getProfissao());
-                            editor.putString("habilitacoes",u.getHabilitacoes());
-                            editor.putString("formacao", String.valueOf(u.getFormacao()));
-                            editor.putString("distrito",u.getDistrito());
-                            editor.putString("concelho",u.getConcelho());
-
-                            // Commit the edits!
-                            editor.commit();
                             finish();
                         }
                     }
@@ -103,6 +87,31 @@ public class Login extends AppCompatActivity {
             }
         }.start();
 
+    }
+
+    public void updateSharedPreferencesUser() {
+        User u = User.getInstance();
+
+        // We need an Editor object to make preference changes.
+        // All objects are from android.context.Context
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("id",String.valueOf(u.getId()));
+        editor.putString("token",u.getAuthentication_token());
+        editor.putString("name",u.getName());
+        editor.putString("email",u.getEmail());
+
+        editor.putString("telef",u.getTelef());
+        editor.putString("profissao",u.getProfissao());
+        editor.putString("habilitacoes",u.getHabilitacoes());
+        editor.putString("formacao", String.valueOf(u.getFormacao()));
+        editor.putString("distrito",u.getDistrito());
+        editor.putString("concelho",u.getConcelho());
+
+        editor.putString("permissoes",u.getPermissoes().toString());
+
+        // Commit the edits!
+        editor.commit();
     }
 
     @Override

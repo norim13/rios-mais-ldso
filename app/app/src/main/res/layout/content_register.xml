@@ -77,6 +77,46 @@
                 android:layout_alignRight="@+id/PasswordRegisterEditText"
                 android:layout_alignEnd="@+id/PasswordRegisterEditText" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Distrito:"
+                android:id="@+id/DistritoTextView"
+                android:layout_below="@+id/PasswordConfirmRegisterEditText"
+                android:layout_alignLeft="@+id/PasswordConfirmRegisterEditText"
+                android:layout_alignStart="@+id/PasswordConfirmRegisterEditText"
+                android:layout_alignEnd="@+id/PasswordConfirmRegisterEditText"
+                android:textSize="20dp" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/DistritoSpinner"
+                android:layout_below="@+id/DistritoTextView"
+                android:layout_alignLeft="@+id/DistritoTextView"
+                android:layout_alignStart="@+id/DistritoTextView"
+                android:layout_alignEnd="@+id/DistritoTextView"  />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Concelho:"
+                android:id="@+id/ConcelhoTextView"
+                android:layout_below="@+id/DistritoSpinner"
+                android:layout_alignLeft="@+id/DistritoSpinner"
+                android:layout_alignStart="@+id/DistritoSpinner"
+                android:layout_alignEnd="@+id/DistritoSpinner"
+                android:textSize="20dp" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ConcelhoSpinner"
+                android:layout_below="@+id/ConcelhoTextView"
+                android:layout_alignLeft="@+id/ConcelhoTextView"
+                android:layout_alignStart="@+id/ConcelhoTextView"
+                android:layout_alignEnd="@+id/ConcelhoTextView"  />
+
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,11 +124,11 @@
                 android:ems="10"
                 android:hint="Telefone"
                 android:id="@+id/TelefoneRegisterEditText"
-                android:layout_below="@+id/PasswordConfirmRegisterEditText"
-                android:layout_alignLeft="@+id/PasswordConfirmRegisterEditText"
-                android:layout_alignStart="@+id/PasswordConfirmRegisterEditText"
-                android:layout_alignRight="@+id/PasswordConfirmRegisterEditText"
-                android:layout_alignEnd="@+id/PasswordConfirmRegisterEditText" />
+                android:layout_below="@+id/ConcelhoSpinner"
+                android:layout_alignLeft="@+id/ConcelhoSpinner"
+                android:layout_alignStart="@+id/ConcelhoSpinner"
+                android:layout_alignRight="@+id/ConcelhoSpinner"
+                android:layout_alignEnd="@+id/ConcelhoSpinner" />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -133,6 +173,8 @@
                 android:checked="false"
                 android:layout_below="@+id/HabilitacoesRegisterEditText"
                 android:layout_centerHorizontal="true" />
+
+
 
         </RelativeLayout>
     </ScrollView>
