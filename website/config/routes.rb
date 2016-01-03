@@ -106,6 +106,9 @@ Rails.application.routes.draw do
 
 	    get "/routes", :to => 'routes#index'
       get "/routes/:id", :to => 'routes#show'
+
+      get "/distritos", :to => 'localidades#getDistritos'
+      get "/distritos/:distrito", :to => 'localidades#getConcelhos'
     end
   end
 
