@@ -18,7 +18,7 @@ class RoutesController < ApplicationController
   # GET /routes
   # GET /routes.json
   def index
-    @routes = Route.paginate(:page => params[:page], :per_page => 6).order('created_at')
+    @routes = Route.where(:publicada => true).paginate(:page => params[:page], :per_page => 6).order('created_at')
     @images = []
     @routes.each do |route|
       image = nil
