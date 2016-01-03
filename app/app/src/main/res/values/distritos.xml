@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="distritos_array">
+        <item>AVEIRO</item>
+        <item>BEJA</item>
+        <item>BRAGA</item>
+        <item>BRAGANÇA</item>
+        <item>CASTELO BRANCO</item>
+        <item>COIMBRA</item>
+        <item>ÉVORA</item>
+        <item>FARO</item>
+        <item>GUARDA</item>
+        <item>LEIRIA</item>
+        <item>LISBOA</item>
+        <item>PORTALEGRE</item>
+        <item>PORTO</item>
+        <item>SANTARÉM</item>
+        <item>SETÚBAL</item>
+        <item>VIANA DO CASTELO</item>
+        <item>VILA REAL</item>
+        <item>VISEU</item>
+        <item>ILHA DA MADEIRA (MADEIRA)</item>
+        <item>ILHA DE PORTO SANTO (MADEIRA)</item>
+        <item>ILHA DE SANTA MARIA (AÇORES)</item>
+        <item>ILHA DE SÃO MIGUEL (AÇORES)</item>
+        <item>ILHA TERCEIRA (AÇORES)</item>
+        <item>ILHA DA GRACIOSA (AÇORES)</item>
+        <item>ILHA DE SÃO JORGE (AÇORES)</item>
+        <item>ILHA DO PICO (AÇORES)</item>
+        <item>ILHA DO FAIAL (AÇORES)</item>
+        <item>ILHA DAS FLORES (AÇORES)</item>
+        <item>ILHA DO CORVO (AÇORES)</item>
+    </string-array>
+</resources>

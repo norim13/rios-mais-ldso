@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -96,10 +97,13 @@ public class Profile extends AppCompatActivity {
         email.setText(u.getEmail());
 
         distrito = (TextView) findViewById(R.id.distritoTextProfile);
-        distrito.setText(u.getDistrito());
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.distritos_array, android.R.layout.simple_spinner_item);
+        distrito.setText(adapter.getItem(Integer.parseInt(u.getDistrito()) - 1));
 
         concelho = (TextView) findViewById(R.id.concelhoTextProfile);
-        concelho.setText(u.getConcelho());
+        concelho.setText(getConcelhoByDistritoAndConcelhoId(Integer.parseInt(u.getDistrito()), Integer.parseInt(u.getConcelho())));
 
         telef = (TextView) findViewById(R.id.telefTextProfile);
         telef.setText(u.getTelef());
@@ -112,6 +116,135 @@ public class Profile extends AppCompatActivity {
 
         habilitacoes = (TextView) findViewById(R.id.habilitacoesTextProfile);
         habilitacoes.setText(u.getHabilitacoes());
+    }
+
+    public String getConcelhoByDistritoAndConcelhoId(int distritoId, int concelhoId){
+        ArrayAdapter<CharSequence> unit_adapter = null;
+        switch (distritoId-1) {
+            case 0:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.AveiroConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 1:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.BejaConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 2:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.BragaConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 3:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.BragancaConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 4:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.CasteloBrancoConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 5:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.CoimbraConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 6:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.EvoraConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 7:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.FaroConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 8:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.GuardaConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 9:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.LeiriaConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 10:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.LisboaConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 11:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.PortalegreConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 12:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.PortoConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 13:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.SantaremConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 14:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.SetubalConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 15:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.VianaDoCasteloConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 16:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.VilaRealConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 17:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.ViseuConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 18:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.IlhaDaMadeiraConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 19:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.IlhaDePortoSantoConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 20:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.IlhaDeSantaMariaConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 21:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.IlhaDeSaoMiguelConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 22:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.IlhaTerceiraConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 23:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.IlhaDaGraciosaConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 24:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.IlhaDeSaoJorgeConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 25:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.IlhaDoPicoConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 26:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.IlhaDoFaialConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 27:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.IlhaDasFloresConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            case 28:
+                unit_adapter = ArrayAdapter.createFromResource(
+                        this, R.array.IlhaDoCorvoConcelhos, android.R.layout.simple_spinner_item);
+                break;
+            default:
+                break;
+        }
+        int[] primeiroConcelhoId = {1,20,34,48,60,71,88,102,118,132,148,164,179,197,218,231,
+                241,255,279,289,290,291,296,298,299,301,304,305,307};
+        int index = concelhoId - primeiroConcelhoId[distritoId-1];
+        String concelhoValue = (String) unit_adapter.getItem(index);
+        return concelhoValue;
     }
 
     public void afterGetUserData(){

@@ -63,7 +63,9 @@ public class DB_functions {
 
     public static String base_url="http://riosmais.herokuapp.com";
 
-    public static void saveUser(final String nome, final String email, final String password, final String password_confirmation, final String telef, final String profissao, final String habilitacoes, final Boolean formacao, final Register register_class) throws IOException, JSONException {
+    public static void saveUser(final String nome, final String email, final String password, final String password_confirmation, final String telef,
+                                final String profissao, final String habilitacoes, final Boolean formacao,
+                                final int distrito, final int concelho, final Register register_class) throws IOException, JSONException {
 
         new Thread(new Runnable() {
             public void run() {
@@ -87,8 +89,8 @@ public class DB_functions {
                         jsonObject.accumulate("habilitacoes", habilitacoes);
                         jsonObject.accumulate("profissao", profissao);
                         jsonObject.accumulate("formacao", formacao.toString());
-                        jsonObject.accumulate("distrito_id", "");
-                        jsonObject.accumulate("concelho_id", "");
+                        jsonObject.accumulate("distrito_id", distrito);
+                        jsonObject.accumulate("concelho_id", concelho);
 
                         user.accumulate("user", jsonObject);
                     } catch (JSONException e) {
