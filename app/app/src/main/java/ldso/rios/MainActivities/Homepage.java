@@ -56,8 +56,8 @@ public class Homepage extends AppCompatActivity{
         u.setProfissao(settings.getString("profissao",""));
         u.setHabilitacoes(settings.getString("habilitacoes",""));
         u.setFormacao(Boolean.parseBoolean(settings.getString("formacao","false")));
-        u.setDistrito(settings.getString("distrito",""));
-        u.setConcelho(settings.getString("concelho",""));
+        u.setDistrito(settings.getString("distrito","1"));
+        u.setConcelho(settings.getString("concelho","1"));
 
         u.setPermissoes(Integer.parseInt(settings.getString("permissoes","0")));
     }

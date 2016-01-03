@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="permissoes_array">
+        <item>Geral</item>
+        <item>Técnico/Estudante Univ.</item>
+        <item>Chefia Municípios</item>
+        <item>Multimunicípios</item>
+        <item>Técnico Engenho e Rio</item>
+        <item>Administração Engenho e Rio</item>
+    </string-array>
+</resources>
