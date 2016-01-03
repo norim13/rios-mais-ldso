@@ -55,7 +55,7 @@
           <% img = p.rota_point_images.first %>
           <% if !img.nil? %>
             <div class="col-md-3 col-xs-12">
-                <%= label_tag "image_#{img}", image_tag(img.image, :class => 'img-responsive'), :class => 'img-label' %>
+              <%= link_to image_tag(img.image, :class => 'img-responsive', :alt => "Imagem de #{@route.nome}"), "#{img.image}"  %>
             </div>
           <%end%>
         </div>
