@@ -44,8 +44,6 @@ $(document).ready(function(){
     });
     $( "#route-points-sortable" ).disableSelection();
 
-		$("#test-order-points").click(getPointsOrdered);
-
     $(document).on('input', 'input[name="nome"]', function(){
         var class_nomes = this.id.replace('input-nome','nome-ponto');
         var new_name = $(this).val();
