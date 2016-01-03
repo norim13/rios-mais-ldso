@@ -1496,7 +1496,7 @@ public class DB_functions {
         }).start();
     }
 
-    public static void saveSOSRios(final Sos_rios sos_rios,final String email,final String token,final String q1,final String q2,final String q3) {
+    public static void saveSOSRios(final Sos_rios sos_rios, final String email, final String token, final String q1, final String q2, final String q3, final String nomeRio, final Float lat, final Float lang) {
 
         new Thread(new Runnable() {
             public void run() {
@@ -1510,11 +1510,19 @@ public class DB_functions {
                     con.setRequestProperty("Content-Type", "application/json");
                     con.setRequestMethod("POST");
                     con.connect();
+                    String[] temp=nomeRio.split(" id:");
+                    String nome=temp[0];
+                    String codigo=temp[1];
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.accumulate("rio", "201.02");
+                    jsonObject.accumulate("rio", codigo);
+                    jsonObject.accumulate("nome_rio", nome);
                     jsonObject.accumulate("categoria",q1);
                     jsonObject.accumulate("motivo",q2);
                     jsonObject.accumulate("descricao", q3);
+                    jsonObject.accumulate("lat", lat);
+                    jsonObject.accumulate("lon", lang);
+
+
 
                     JSONObject guardarios= new JSONObject();
                     guardarios.accumulate("report", jsonObject);

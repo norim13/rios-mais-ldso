@@ -29,7 +29,7 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/nomeRio"
+                android:id="@+id/nomeRioEditText"
                 android:editable="false"
                 android:layout_below="@+id/textView5"
                 android:layout_alignParentLeft="true"
@@ -156,7 +156,7 @@
                 android:textColor="#2397f3"
                 android:layout_gravity="right"
                 android:onClick="abrirWebView"
-                android:layout_below="@+id/nomeRio"
+                android:layout_below="@+id/nomeRioEditText"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentRight="true"

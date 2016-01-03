@@ -527,7 +527,7 @@ public class FormIRRSwipe extends AppCompatActivity {
             if (number == 0) {
                 rootView = inflater.inflate(R.layout.fragment_form_irrsyipe_inicial, container, false);
 
-                this.app.form.nomeRioEditText= (EditText) rootView.findViewById(R.id.nomeRio);
+                this.app.form.nomeRioEditText= (EditText) rootView.findViewById(R.id.nomeRioEditText);
                 this.app.form.nomeRioEditText.setText(this.app.form.nomeRio);
 
 

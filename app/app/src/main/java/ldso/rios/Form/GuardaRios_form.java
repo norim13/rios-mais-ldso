@@ -244,12 +244,13 @@ public class GuardaRios_form extends AppCompatActivity {
             lat=lang=0f;
         }
 
-        String nomeRio=((EditText)this.findViewById(R.id.nomeRio)).getText().toString();
+        String nomeRio=((EditText)this.findViewById(R.id.nomeRioEditText)).getText().toString();
 
         if (DB_functions.haveNetworkConnection(getApplicationContext())) {
             if (nomeRio!=null && !nomeRio.contentEquals("")) {
                 progressbar.setVisibility(View.VISIBLE);
-                DB_functions.saveGuardaRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(), q1, q2, q3, q4, q5, q6, lat, lang, nomeRio);
+                String nome=((EditText)findViewById(R.id.nomeRioEditText)).getText().toString();
+                DB_functions.saveGuardaRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(), q1, q2, q3, q4, q5, q6, lat, lang, nome);
             }
             else {
                 Toast.makeText(getApplicationContext(), "Selecione um rio", Toast.LENGTH_SHORT).show();
@@ -347,7 +348,7 @@ public class GuardaRios_form extends AppCompatActivity {
         else if (requestCode==SELECT_RIO)
         {
             if (resultCode == Activity.RESULT_OK) {
-                ((EditText)findViewById(R.id.nomeRio)).setText(data.getStringExtra("nomeRio")+" id:"+data.getStringExtra("codigoRio"));
+                ((EditText)findViewById(R.id.nomeRioEditText)).setText(data.getStringExtra("nomeRio")+" id:"+data.getStringExtra("codigoRio"));
             }
         }
 

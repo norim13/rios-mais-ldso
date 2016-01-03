@@ -43,6 +43,7 @@ import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.MainActivities.Profile;
 import ldso.rios.Mapa_rios;
 import ldso.rios.R;
+import ldso.rios.SelectRioWebview;
 import ldso.rios.Utils;
 
 public class Sos_rios extends AppCompatActivity {
@@ -62,6 +63,8 @@ public class Sos_rios extends AppCompatActivity {
 
     private  static final int CAM_REQUEST=100;
     private static final int SELECT_PHOTO = 200;
+    private static final int SELECT_RIO=300;
+
 
     TextView tv1,tv2;
 
@@ -173,6 +176,11 @@ public class Sos_rios extends AppCompatActivity {
         startActivityForResult(new Intent(this, Mapa_rios.class), 1);
     }
 
+
+    public void abrirWebView(View view) {
+        startActivityForResult(new Intent(this, SelectRioWebview.class), SELECT_RIO);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -257,6 +265,15 @@ public class Sos_rios extends AppCompatActivity {
 
 
         }
+
+        else if (requestCode==SELECT_RIO)
+        {
+            if (resultCode == Activity.RESULT_OK) {
+                ((EditText)this.findViewById(R.id.editText)).setText(data.getStringExtra("nomeRio")+" id:"+data.getStringExtra("codigoRio"));
+            }
+        }
+
+
         else if (requestCode == SELECT_PHOTO)
         {
             if(resultCode == RESULT_OK){
@@ -313,6 +330,8 @@ public class Sos_rios extends AppCompatActivity {
             }
         }
     }
+
+
 
 
     public void saveImageDB(String path) {
@@ -381,11 +400,41 @@ public class Sos_rios extends AppCompatActivity {
             incomplete=true;
             question3.setError("Campo vaizo");
         }
+        if (((EditText)this.findViewById(R.id.editText)).getText().toString().contentEquals(""))
+        {
+            incomplete=true;
+            ((EditText)this.findViewById(R.id.editText)).setError("Campo vaizo");
+        }
+
+        Float lat,lang;
+
+        RadioButton r1= ((RadioButton)this.findViewById(R.id.currLocRadioButton));
+        RadioButton r2=((RadioButton)this.findViewById(R.id.selctLocRadioButton));
+
+        if (r1.isChecked())
+        {
+            lat = Float.valueOf(r1.getText().toString().split("Atual: ")[1].split(";")[0]);
+            lang = Float.valueOf(r1.getText().toString().split("Atual: ")[1].split(";")[1]);
+        }
+        else if(r2.isChecked())
+        {
+            lat = Float.valueOf(r2.getText().toString().split("Escolhida: ")[1].split(";")[0]);
+            lang = Float.valueOf(r2.getText().toString().split("Escolhida: ")[1].split(";")[1]);
+        }
+        else
+        {
+            lat=lang=0f;
+        }
+
+
+
+
 
         if (!incomplete) {
             if (DB_functions.haveNetworkConnection(getApplicationContext())) {
                 progressbar.setVisibility(View.VISIBLE);
-                DB_functions.saveSOSRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(), q1, q2, q3);
+                String nomeRio=((EditText)this.findViewById(R.id.editText)).getText().toString();
+                DB_functions.saveSOSRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(), q1, q2, q3,nomeRio,lat,lang);
             }
             else {
                 Toast toast = Toast.makeText(Sos_rios.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
