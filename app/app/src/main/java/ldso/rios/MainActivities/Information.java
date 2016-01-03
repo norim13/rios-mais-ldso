@@ -71,7 +71,8 @@ public class Information extends AppCompatActivity {
             startActivity(new Intent(this,GuardaRios.class));
         if(id==R.id.navigate_account)
         {
-            if(User.getInstance().getAuthentication_token().contentEquals(""))
+            if(User.getInstance().getAuthentication_token().contentEquals("")||
+                    User.getInstance().getAuthentication_token().contentEquals("-1"))
                 startActivity(new Intent(this, Login.class));
             else {
                 startActivity(new Intent(this, Profile.class));

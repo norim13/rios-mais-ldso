@@ -782,14 +782,18 @@ public class DB_functions {
                     ArrayList<Integer> arrayList_OrganizacaoPlaneamento = new ArrayList<Integer>();
 
                     try {
-                        response.accumulate("idRio", "201.04");
+                        String[] temp=form_irr.nomeRio.split(" id:");
+                        String nome=temp[0];
+                        String codigo=temp[1];
+
+                        response.accumulate("idRio", codigo);
                         if(form_irr.margem==0)
                             response.accumulate("margem", 1+"");
                         else
                             response.accumulate("margem", form_irr.margem+"");
                         response.accumulate("lat", form_irr.lat_final+"");
                         response.accumulate("lon", form_irr.lon_final+"");
-                        response.accumulate("nomeRio", form_irr.nomeRio);
+                        response.accumulate("nomeRio", nome);
 
                         response.accumulate("tipoDeVale", (int) form_irr.getRespostas().get(1));
 
@@ -1423,6 +1427,10 @@ public class DB_functions {
                     String twoHyphens = "--";
                     String boundary =  "*****";
 
+                    String[] temp=nomeRio.split(" id:");
+                    String nome=temp[0];
+                    String codigo=temp[1];
+
 
                     String url = base_url+"/api/v2/guardarios?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
@@ -1434,7 +1442,7 @@ public class DB_functions {
                     con.setRequestMethod("POST");
                     con.connect();
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.accumulate("rio","PT03DOU0370");
+                    jsonObject.accumulate("rio",codigo);
                     jsonObject.accumulate("local",q1);
                     jsonObject.accumulate("voar",q2);
                     jsonObject.accumulate("cantar",q3);
@@ -1446,7 +1454,7 @@ public class DB_functions {
                     jsonObject.accumulate("outro",q6);
                     jsonObject.accumulate("lat", lat);
                     jsonObject.accumulate("lon",lon);
-                    jsonObject.accumulate("nomeRio",nomeRio);
+                    jsonObject.accumulate("nomeRio",nome);
                     JSONObject guardarios= new JSONObject();
                     guardarios.accumulate("guardario", jsonObject);
 
