@@ -231,6 +231,10 @@ public class FormIRRSwipe extends AppCompatActivity {
                         public void run() {
                             Toast toast = Toast.makeText(FormIRRSwipe.this, "IRR submetido", Toast.LENGTH_LONG);
                             toast.show();
+                            Intent intent  = new Intent(FormIRRSwipe.this,Form_IRR_mainActivity.class); // need to set your Intent View here
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            FormIRRSwipe.this.startActivity(intent);
                             FormIRRSwipe.this.finish();
                         }
                     });
