@@ -43,6 +43,9 @@ public class ProfileEditActivity extends AppCompatActivity {
         updateEditProfileView();
     }
 
+    /**
+     * Faz update do profile quando recebe novas informacoes pelo servidor
+     */
     private void updateEditProfileView() {
         User u = User.getInstance();
 
@@ -68,6 +71,10 @@ public class ProfileEditActivity extends AppCompatActivity {
         formacao.setChecked(u.getFormacao());
     }
 
+    /**
+     * Faz edit do profile
+     * @param view
+     **/
     public void editProfile(View view) {
         //get form
         String username = name.getText().toString().trim();
@@ -105,6 +112,10 @@ public class ProfileEditActivity extends AppCompatActivity {
         //DB_functions.editUser(this, User.getInstance().getEmail(),User.getInstance().getAuthentication_token());
     }
 
+    /**
+     * Abre popup a pedir a confirmacao da password para confirmar edit do perfil
+     * @param profileEditActivity
+     */
     public void showInputPasswordDialog(final ProfileEditActivity profileEditActivity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirme a password atual para confirmar a edição");

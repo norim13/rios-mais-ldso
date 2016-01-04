@@ -13,22 +13,22 @@ import java.net.URL;
 /**
  * Created by filipe on 22/12/2015.
  */
-public class Utils {
+public class Utils_Image {
 
+    /**
+     * Faz load de uma imagem de um URL (e faz resize)
+     * @param url
+     * @return Bitmap resized
+     * @throws IOException
+     */
     public static Bitmap loadImageURL(String url) throws IOException {
-
-
         //In case the image is too large
         URL url_value = new URL(url);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 8;
         Bitmap srcBmp = BitmapFactory.decodeStream(url_value.openConnection().getInputStream(), null, options);
-
-
         Bitmap dstBmp;
-
         if (srcBmp.getWidth() >= srcBmp.getHeight()){
-
             dstBmp = Bitmap.createBitmap(
                     srcBmp,
                     srcBmp.getWidth()/2 - srcBmp.getHeight()/2,
@@ -36,9 +36,7 @@ public class Utils {
                     srcBmp.getHeight(),
                     srcBmp.getHeight()
             );
-
         }else{
-
             dstBmp = Bitmap.createBitmap(
                     srcBmp,
                     0,
@@ -50,13 +48,15 @@ public class Utils {
         return dstBmp;
     }
 
+    /**
+     * Recorta uma imagem num quadrado
+     * @param srcBmp Bitmap Original
+     * @return Bitmap cropped
+     * @throws IOException
+     */
     public static Bitmap squareimage(Bitmap srcBmp) throws IOException {
-
-
         Bitmap dstBmp;
-
         if (srcBmp.getWidth() >= srcBmp.getHeight()){
-
             dstBmp = Bitmap.createBitmap(
                     srcBmp,
                     srcBmp.getWidth()/2 - srcBmp.getHeight()/2,
@@ -64,9 +64,7 @@ public class Utils {
                     srcBmp.getHeight(),
                     srcBmp.getHeight()
             );
-
         }else{
-
             dstBmp = Bitmap.createBitmap(
                     srcBmp,
                     0,
@@ -78,7 +76,12 @@ public class Utils {
         return dstBmp;
     }
 
-
+    /**
+     * Retorna o path no dispositivo de um determinado URI
+     * @param contentURI
+     * @param context
+     * @return
+     */
     public static String getRealPathFromURI(Uri contentURI, Context context) {
         String result;
         Cursor cursor = context.getContentResolver().query(contentURI, null, null, null, null);

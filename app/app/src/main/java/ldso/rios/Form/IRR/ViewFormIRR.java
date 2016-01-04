@@ -34,6 +34,7 @@ import ldso.rios.Form.Form_functions;
 import ldso.rios.MainActivities.Form_IRR_mainActivity;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.MainActivities.Homepage;
+import ldso.rios.MainActivities.Profile;
 import ldso.rios.R;
 
 /*
@@ -57,58 +58,39 @@ public class ViewFormIRR extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         linearLayout = (LinearLayout) this.findViewById(R.id.linerLayout);
 
         linearLayout.setFocusable(false);
         linearLayout.setClickable(false);
 
-        ProgressBar progressBar= (ProgressBar) findViewById(R.id.progressBar);
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
-
-
 
 
         this.form = new Form_IRR();
         this.form.generate();
         try {
             this.id = ((int) this.getIntent().getSerializableExtra("id")) + "";
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 
         }
 
-        if(getIntent().getSerializableExtra("form_irr")!= null) {
-            Log.e("form", "entrou");
-            HashMap<Integer,Object> respostas=(HashMap<Integer, Object>) getIntent().getSerializableExtra("form_irr");
-            HashMap<Integer,String> outros= (HashMap<Integer, String>) respostas.get(-3);
-            this.form.arrayListURI= (ArrayList<String>) respostas.get(-5);
-            this.form.setRespostas(respostas,outros);
-            this.form.other_response=outros;
+        if (getIntent().getSerializableExtra("form_irr") != null) {
+            HashMap<Integer, Object> respostas = (HashMap<Integer, Object>) getIntent().getSerializableExtra("form_irr");
+            HashMap<Integer, String> outros = (HashMap<Integer, String>) respostas.get(-3);
+            this.form.arrayListURI = (ArrayList<String>) respostas.get(-5);
+            this.form.setRespostas(respostas, outros);
+            this.form.other_response = outros;
 
         }
 
+        Form_functions.createTitle("Rio:" + this.form.nomeRio, linearLayout, this.getApplicationContext());
+        Form_functions.createTitle("Margem:" + ((this.form.margem == 1) ? "Esquerda" : "Direita"), linearLayout, this.getApplicationContext());
 
-
-        Form_functions.createTitle("Rio:"+this.form.nomeRio,linearLayout,this.getApplicationContext());
-        /*
-        if (this.form.current_location==null)
-        Form_functions.createTitle("Localização:"+0+";"+0,linearLayout,this.getApplicationContext());
-        else if (this.form.current_location)
-            Form_functions.createTitle("Localização:"+this.form.lat_curr+";"+this.form.lon_curr,linearLayout,this.getApplicationContext());
-        else
-            Form_functions.createTitle("Localização:"+this.form.lat_sel+";"+this.form.lon_sel,linearLayout,this.getApplicationContext());
-        */
-        Form_functions.createTitle("Margem:"+ ((this.form.margem == 1) ? "Esquerda" : "Direita"),linearLayout,this.getApplicationContext());
-
-        Log.e("uri",this.form.arrayListURI.size()+"");
-        for (String uri :this.form.arrayListURI)
-        {
-
-
+        for (String uri : this.form.arrayListURI) {
             try {
-                ImageView img= new ImageView(getApplicationContext());
+                ImageView img = new ImageView(getApplicationContext());
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 Bitmap bitmapOtiginal = BitmapFactory.decodeFile(uri, options);
@@ -127,22 +109,15 @@ public class ViewFormIRR extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
         }
-
-
 
         linearLayoutPhotos = new LinearLayout(getApplicationContext());
         linearLayout.addView(linearLayoutPhotos);
 
-        String id= (String) getIntent().getSerializableExtra("form_irr_id");
-        if (id!=null)
-         getImagesSite(id);
-
-
-        for(int i=0;i<=32;i++)
-        {
+        String id = (String) getIntent().getSerializableExtra("form_irr_id");
+        if (id != null)
+            getImagesSite(id);
+        for (int i = 0; i <= 32; i++) {
             try {
                 this.form.getPerguntas().get(i).generateView(linearLayout, this);
             } catch (IOException e) {
@@ -150,25 +125,23 @@ public class ViewFormIRR extends AppCompatActivity {
             }
             this.form.getPerguntas().get(i).setAnswer();
         }
-
-
-
-
-
     }
 
+    /**
+     * Funcao Chamada sempre que é feito uplaod de uma imagem. Quando forem todas, termina a activity
+     * @param path
+     */
     public void saveImageDB(String path) {
-        Log.e("entrou","entrou na funcao");
+        Log.e("entrou", "entrou na funcao");
         form.arrayListURI.remove(path);
-        if (form.arrayListURI.size()==0)
-        {
+        if (form.arrayListURI.size() == 0) {
             new Thread() {
                 public void run() {
                     ViewFormIRR.this.runOnUiThread(new Runnable() {
                         public void run() {
                             Toast toast = Toast.makeText(ViewFormIRR.this, "IRR submetido", Toast.LENGTH_LONG);
                             toast.show();
-                            Intent intent  = new Intent(ViewFormIRR.this,Form_IRR_mainActivity.class); // need to set your Intent View here
+                            Intent intent = new Intent(ViewFormIRR.this, Form_IRR_mainActivity.class); // need to set your Intent View here
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             ViewFormIRR.this.startActivity(intent);
@@ -181,129 +154,55 @@ public class ViewFormIRR extends AppCompatActivity {
 
     }
 
-
-
-
-    /*
-    se clicar no botão de edit, inicia um FormIRRSwipe para editar o formulário
+    /**
+     * Se clicar no botão de edit, inicia um FormIRR_Swipe para editar o formulário
+     * @param view
      */
-    public void edit_form(View view){
+    public void edit_form(View view) {
         //Log.e("vai","vai editar");
         Intent i;
-        i = new Intent(this, FormIRRSwipe.class);
+        i = new Intent(this, FormIRR_Swipe.class);
         i.putExtra("form_irr", form.getRespostas());
-        i.putExtra("form_irr_other",form.other_response);
+        i.putExtra("form_irr_other", form.other_response);
         i.putExtra("id", id);
         startActivity(i);
-
     }
 
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        if(this.getIntent().getSerializableExtra("saved")!=null)
-            getMenuInflater().inflate(R.menu.menu_form_upload, menu);
-        else
-            getMenuInflater().inflate(R.menu.menu_form_irrview, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.navigate_guardarios)
-            startActivity(new Intent(this, GuardaRios.class));
-        if (id == R.id.navigate_account)
-            startActivity(new Intent(this, Login.class));
-        if (id == R.id.navigate_upload)
-        {
-
-            if (DB_functions.haveNetworkConnection(getApplicationContext())) {
-
-
-                try{
-                    String[] temp=form.nomeRio.split(" id:");
-                    String nome=temp[0];
-                    String codigo=temp[1];
-                    //Form_IRR.loadFromIRR(this.getApplicationContext());
-                    this.form.fillAnswers();
-                    Form_IRR.uploadFormIRR(this, this.getApplicationContext(), this.form);
-                    if (this.form.arrayListURI.size() == 0) {
-                        Intent intent = new Intent(getApplicationContext(), Homepage.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                    }
-                }catch (Exception e)
-                {
-
-                }
-
-            }
-            else
-            {
-                Toast toast = Toast.makeText(ViewFormIRR.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
-                toast.show();
-            }
-
-
-
-            //Log.e("teste","tamanho do array"+Form_IRR.all_from_irrs.size());
-        }
-        if (id == R.id.navigate_remove){
-            //Log.e("delete","entrou");
-
-
-            if (DB_functions.haveNetworkConnection(getApplicationContext())) {
-                User u = User.getInstance();
-                DB_functions.deleteForm(this,this.getIntent().getSerializableExtra("id").toString(),u.getEmail(),u.getAuthentication_token() );
-                Toast toast = Toast.makeText(ViewFormIRR.this, "IRR apagado", Toast.LENGTH_LONG);
-                toast.show();
-                Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                }
-
-            else
-            {
-                Toast toast = Toast.makeText(ViewFormIRR.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
-                toast.show();
-            }
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
+    /**
+     * Função chamada quando é verificado que um Form foi apagado
+     */
     public void apagaou() {
-
         Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
+    /**
+     * Vai buscar as imagens de um Form com id
+     * @param id id do form irr
+     */
     public void getImagesSite(String id) {
 
-        DB_functions.getForm(this,User.getInstance().getAuthentication_token(),User.getInstance().getEmail(),id);
+        DB_functions.getForm(this, User.getInstance().getAuthentication_token(), User.getInstance().getEmail(), id);
 
     }
 
+    /**
+     * Recebe o Json com o array de imagens e mostra no ecra do dispositivo
+     * @param s
+     * @throws JSONException
+     */
     public void processImages(String s) throws JSONException {
 
-        JSONObject json=new JSONObject(s);
+        JSONObject json = new JSONObject(s);
 
-        final JSONArray array= json.getJSONArray("images");
+        final JSONArray array = json.getJSONArray("images");
         final ProgressBar progressBar;
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        if (array.length()==0)
-        {
-            new Thread()
-            {
-                public void run()
-                {
-                    ViewFormIRR.this.runOnUiThread(new Runnable()
-                    {
+        if (array.length() == 0) {
+            new Thread() {
+                public void run() {
+                    ViewFormIRR.this.runOnUiThread(new Runnable() {
                         public void run() {
                             progressBar.setVisibility(View.INVISIBLE);
                         }
@@ -312,18 +211,15 @@ public class ViewFormIRR extends AppCompatActivity {
             }.start();
         }
 
-        for (int i=0;i<array.length();i++)
-        {
+        for (int i = 0; i < array.length(); i++) {
             final int finalI = i;
-            Thread thread = new Thread(new Runnable(){
+            Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        JSONObject imageObj= (JSONObject) array.get(0);
-                        Log.e("object",imageObj.toString());
-                        JSONObject image= (JSONObject) imageObj.get("image");
-                        String url= DB_functions.base_url+image.getString("url");
-                        Log.e("url",url);
+                        JSONObject imageObj = (JSONObject) array.get(0);
+                        JSONObject image = (JSONObject) imageObj.get("image");
+                        String url = DB_functions.base_url + image.getString("url");
 
                         try {
                             URL url_value = new URL(url);
@@ -340,47 +236,30 @@ public class ViewFormIRR extends AppCompatActivity {
                                     b, width, i1, false);
 
 
-
-
-                            new Thread()
-                            {
-                                public void run()
-                                {
-                                    ViewFormIRR.this.runOnUiThread(new Runnable()
-                                    {
+                            new Thread() {
+                                public void run() {
+                                    ViewFormIRR.this.runOnUiThread(new Runnable() {
                                         public void run() {
-                                            Log.e("image","entrou");
-
-                                            ImageView img= new ImageView(getApplicationContext());
+                                            ImageView img = new ImageView(getApplicationContext());
                                             img.setImageBitmap(thumbnail);
                                             linearLayoutPhotos.addView(img);
-
                                             int count = linearLayoutPhotos.getChildCount();
                                             View v = null;
-                                            for(int i=0; i<count; i++) {
+                                            for (int i = 0; i < count; i++) {
                                                 v = linearLayoutPhotos.getChildAt(i);
-                                                //do something with your child element
                                             }
-                                            if (count==array.length())
+                                            if (count == array.length())
                                                 progressBar.setVisibility(View.INVISIBLE);
-                                            Log.e("count",count+"-"+array.length());
-
-
-
                                         }
                                     });
                                 }
                             }.start();
 
-                        }
-                        catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
-                            new Thread()
-                            {
-                                public void run()
-                                {
-                                    ViewFormIRR.this.runOnUiThread(new Runnable()
-                                    {
+                            new Thread() {
+                                public void run() {
+                                    ViewFormIRR.this.runOnUiThread(new Runnable() {
                                         public void run() {
                                             progressBar.setVisibility(View.INVISIBLE);
                                         }
@@ -388,16 +267,82 @@ public class ViewFormIRR extends AppCompatActivity {
                                 }
                             }.start();
                         }
-
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             });
-
             thread.start();
         }
 
     }
+
+
+    //--TOOLBAR
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        if (this.getIntent().getSerializableExtra("saved") != null)
+            getMenuInflater().inflate(R.menu.menu_form_upload, menu);
+        else
+            getMenuInflater().inflate(R.menu.menu_form_irrview, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.navigate_guardarios)
+            startActivity(new Intent(this, GuardaRios.class));
+        if (id == R.id.navigate_account)
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            };
+        if (id == R.id.navigate_upload) {
+
+            if (DB_functions.haveNetworkConnection(getApplicationContext())) {
+
+
+                try {
+                    String[] temp = form.nomeRio.split(" id:");
+                    String nome = temp[0];
+                    String codigo = temp[1];
+                    //Form_IRR.loadFromIRR(this.getApplicationContext());
+                    this.form.fillAnswers();
+                    Form_IRR.uploadFormIRR(this, this.getApplicationContext(), this.form);
+                    if (this.form.arrayListURI.size() == 0) {
+                        Intent intent = new Intent(getApplicationContext(), Homepage.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
+                } catch (Exception e) {
+
+                }
+
+            } else {
+                Toast toast = Toast.makeText(ViewFormIRR.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+                toast.show();
+            }
+
+        }
+        if (id == R.id.navigate_remove) {
+            if (DB_functions.haveNetworkConnection(getApplicationContext())) {
+                User u = User.getInstance();
+                DB_functions.deleteForm(this, this.getIntent().getSerializableExtra("id").toString(), u.getEmail(), u.getAuthentication_token());
+                Toast toast = Toast.makeText(ViewFormIRR.this, "IRR apagado", Toast.LENGTH_LONG);
+                toast.show();
+                Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            } else {
+                Toast toast = Toast.makeText(ViewFormIRR.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    //--TOOLBAR
 }

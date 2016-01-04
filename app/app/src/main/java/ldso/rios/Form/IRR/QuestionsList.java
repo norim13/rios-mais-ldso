@@ -7,7 +7,7 @@ import ldso.rios.R;
 /**
  * Created by filipe on 17/11/2015.
  */
-public class Questions {
+public class QuestionsList {
 
 
     private static ArrayList<Integer[]> valuesIRR;
@@ -712,7 +712,7 @@ public class Questions {
 
 
     /**
-     * retorna um arraylist com todos os valores de cada questão no form IRR
+     * Retorna um arraylist com todos os valores de cada questão no form IRR
      * @return
      */
     public static ArrayList<Integer[]> getValuesIRR() {

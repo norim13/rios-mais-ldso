@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ldso.rios;
+package ldso.rios.Extras;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -36,6 +36,8 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
+
+import ldso.rios.R;
 
 
 public class CollapsingTitleLayout extends FrameLayout {

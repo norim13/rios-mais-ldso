@@ -16,7 +16,7 @@ import ldso.rios.Form.Form_functions;
 /**
  * Created by filipe on 24/11/2015.
  */
-public class seekPergunta extends Pergunta implements Serializable {
+public class SeekPergunta extends Pergunta implements Serializable {
 
     private static final long serialVersionUID = -531160956609753528L;
     int min;
@@ -24,7 +24,18 @@ public class seekPergunta extends Pergunta implements Serializable {
     protected ArrayList<SeekBar> seekList;
     protected ArrayList<TextView> seekListText;
 
-    public seekPergunta(String[] options,int[] images, String title, String subtitle, Boolean obly, Boolean other_option, int min, int max) {
+    /**
+     * Cria uma pergunta com sliders com um range min max
+     * @param options
+     * @param images
+     * @param title
+     * @param subtitle
+     * @param obly
+     * @param other_option
+     * @param min
+     * @param max
+     */
+    public SeekPergunta(String[] options, int[] images, String title, String subtitle, Boolean obly, Boolean other_option, int min, int max) {
         super(options,images, title, subtitle, obly, other_option);
         this.min = min;
         this.max = max;

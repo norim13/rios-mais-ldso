@@ -18,13 +18,22 @@ import ldso.rios.Form.Form_functions;
 /**
  * Created by filipe on 24/11/2015.
  */
-public class checkPergunta extends Pergunta implements Serializable {
+public class CheckPergunta extends Pergunta implements Serializable {
 
 
     private static final long serialVersionUID = -3522050436780683216L;
     protected ArrayList<CheckBox> check_list;
 
-    public checkPergunta(String[] options, int[] images,String title, String subtitle, Boolean obly, Boolean other_option) {
+    /**
+     * Cria uma pergunta de checkboxes
+     * @param options
+     * @param images
+     * @param title
+     * @param subtitle
+     * @param obly
+     * @param other_option
+     */
+    public CheckPergunta(String[] options, int[] images, String title, String subtitle, Boolean obly, Boolean other_option) {
         super(options,images, title, subtitle, obly, other_option);
 
     }

@@ -52,7 +52,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Mapa_rios"
+            android:name=".Maps.Mapa_rios"
             android:label="@string/title_activity_mapa_rios"
             android:screenOrientation="portrait">
             <meta-data
@@ -83,7 +83,9 @@
             android:name=".Autenticacao.Register"
             android:label="@string/title_activity_blank"
             android:parentActivityName=".Autenticacao.Login"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:screenOrientation="portrait"
@@ -111,6 +113,7 @@
         </activity>
         <activity
             android:name=".Form.GuardaRios_form"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_guarda_rios_form"
             android:parentActivityName=".MainActivities.GuardaRios"
             android:theme="@style/AppTheme.NoActionBar">
@@ -121,6 +124,7 @@
         <activity
             android:name=".Form.Sos_rios"
             android:label="@string/title_activity_sos_rios"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivities.GuardaRios"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -130,6 +134,7 @@
         <activity
             android:name=".MainActivities.Form_IRR_mainActivity"
             android:label="@string/title_activity_form_irr"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivities.Homepage"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -137,7 +142,7 @@
                 android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
         <activity
-            android:name=".Form.IRR.FormIRRSwipe"
+            android:name=".Form.IRR.FormIRR_Swipe"
             android:label="@string/title_activity_form_irrswipe"
             android:parentActivityName=".MainActivities.Homepage"
             android:screenOrientation="portrait"
@@ -149,6 +154,7 @@
         <activity
             android:name=".Form.IRR.ViewFormIRR"
             android:label="@string/title_activity_view_form_irr"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivities.Form_IRR_mainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -158,6 +164,7 @@
         <activity
             android:name=".MainActivities.Limpeza"
             android:label="@string/title_activity_limpeza"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivities.Homepage"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -167,6 +174,7 @@
         <activity
             android:name=".Form.LimpezaSolucoes"
             android:label="@string/title_activity_limpeza_solucoes"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivities.Limpeza"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -176,6 +184,7 @@
         <activity
             android:name=".MainActivities.ProfileEditActivity"
             android:label="@string/title_activity_profile_edit"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivities.Profile"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -185,6 +194,7 @@
         <activity
             android:name=".MainActivities.RotasRios_list"
             android:label="@string/title_activity_rotas_rios_list"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivities.Homepage"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -192,8 +202,9 @@
                 android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
         <activity
-            android:name=".Mapa_Rotas"
+            android:name=".Maps.Mapa_Rotas"
             android:label="@string/title_activity_mapa__rotas"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -204,12 +215,14 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".RotaPoint_show"
+            android:name=".Maps.RotaPoint_show"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_rota_point_show"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SelectRioWebview"
+            android:name=".Maps.SelectRioWebview"
             android:label="@string/title_activity_select_rio_webview"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

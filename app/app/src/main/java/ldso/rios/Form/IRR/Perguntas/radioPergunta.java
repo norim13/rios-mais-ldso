@@ -15,15 +15,21 @@ import java.util.ArrayList;
 import ldso.rios.Form.Form_functions;
 import ldso.rios.Form.IRR.Pergunta;
 
-/**
- * Created by filipe on 24/11/2015.
- */
-public class radioPergunta extends Pergunta implements Serializable {
+public class RadioPergunta extends Pergunta implements Serializable {
 
     private static final long serialVersionUID = 1325410386287654205L;
     protected ArrayList<RadioButton> radio_list;
 
-    public radioPergunta(String[] options, int[] images, String title, String subtitle, Boolean obly, Boolean other_option) {
+    /**
+     * Cria uma pergunta com radioButtons
+     * @param options
+     * @param images
+     * @param title
+     * @param subtitle
+     * @param obly
+     * @param other_option
+     */
+    public RadioPergunta(String[] options, int[] images, String title, String subtitle, Boolean obly, Boolean other_option) {
         super(options, images, title, subtitle, obly, other_option);
     }
 

@@ -1,4 +1,4 @@
-package ldso.rios;
+package ldso.rios.MainActivities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import ldso.rios.R;
 
 
 /**
@@ -39,6 +41,7 @@ public class PlaceHolder_AboutDocs extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
 
     public PlaceHolder_AboutDocs() {
     }

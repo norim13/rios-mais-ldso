@@ -1,4 +1,4 @@
-package ldso.rios;
+package ldso.rios.Maps;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -33,14 +33,12 @@ import java.net.URL;
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
+import ldso.rios.Extras.FillGap2BaseActivity;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.MainActivities.Profile;
+import ldso.rios.R;
 
 public class RotaPoint_show extends FillGap2BaseActivity<ObservableScrollView> implements ObservableScrollViewCallbacks {
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_fillgapscrollview;
-    }
 
     LinearLayout linearLayout;
 
@@ -50,7 +48,6 @@ public class RotaPoint_show extends FillGap2BaseActivity<ObservableScrollView> i
         scrollView.setScrollViewCallbacks(this);
         return scrollView;
     }
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,7 +116,11 @@ public class RotaPoint_show extends FillGap2BaseActivity<ObservableScrollView> i
 
     }
 
-
+    /**
+     * Mostra a imagem do ponto da rota
+     * @param s
+     * @throws JSONException
+     */
     public void generateImages(String s) throws JSONException {
         Log.e("imagemns",s);
         final JSONArray array= new JSONArray(s);
@@ -200,7 +201,13 @@ public class RotaPoint_show extends FillGap2BaseActivity<ObservableScrollView> i
 
     }
 
-
+    /**
+     * Vai buscar a imagem do mapa do local do ponto da rota
+     * @param lati
+     * @param longi
+     * @return
+     * @throws IOException
+     */
     public static Bitmap getGoogleMapThumbnail(double lati, double longi) throws IOException {
         String URL = "http://maps.google.com/maps/api/staticmap?center=" +lati + "," + longi + "&zoom=15&size=600x600&" +
                 "&markers=color:red%7C"+lati+","+longi+"&sensor=true";
@@ -227,17 +234,12 @@ public class RotaPoint_show extends FillGap2BaseActivity<ObservableScrollView> i
         return bmp;
     }
 
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_fillgapscrollview;
+    }
 
-
-
-
-
-
-
-
-
-
-
+    //--TOOLBAR
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -256,16 +258,13 @@ public class RotaPoint_show extends FillGap2BaseActivity<ObservableScrollView> i
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_homepage, menu);
         return true;
     }
-
+    //--TOOLBAR
 
 
 

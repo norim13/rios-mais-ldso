@@ -6,6 +6,8 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,13 +18,17 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
+import ldso.rios.DataBases.User;
+import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.MainActivities.Homepage;
+import ldso.rios.MainActivities.Profile;
 import ldso.rios.R;
 
 public class LimpezaSolucoes extends AppCompatActivity {
-    LinearLayout layoutLimpezaSolucoes;
 
+    LinearLayout layoutLimpezaSolucoes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +74,10 @@ public class LimpezaSolucoes extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Mostra no ecra as solucoes recebidas por json
+     * @param s
+     */
     public void solucoesForLimpeza(final String s) {
 
         new Thread()
@@ -114,8 +123,36 @@ public class LimpezaSolucoes extends AppCompatActivity {
         }.start();
     }
 
+    /**
+     * Termina a activity
+     * @param view
+     */
     public void moveOn(View view) {
         Intent intent = new Intent(getApplicationContext(),Homepage.class);
         startActivity(intent);
     }
+
+    //--TOOLBAR
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_homepage, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.navigate_guardarios)
+            startActivity(new Intent(this,GuardaRios.class));
+        if(id==R.id.navigate_account)
+        {
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    //--TOOLBAR
+
 }

@@ -1,11 +1,10 @@
-package ldso.rios;
+package ldso.rios.Maps;
 
-import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -23,7 +22,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -34,75 +32,40 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import ldso.rios.Autenticacao.Login;
-import ldso.rios.DataBases.DB_functions;
+import ldso.rios.DataBases.User;
 import ldso.rios.MainActivities.GuardaRios;
-import ldso.rios.MainActivities.PointRota;
-import ldso.rios.MainActivities.Rota;
+import ldso.rios.MainActivities.Profile;
+import ldso.rios.R;
 
-public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+
     private GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     TextView tvLatlong;
-    Integer id;
-    Rota rota;
-    Boolean connected=false;
-    Boolean onMapready=false;
-    String imagens;
-
-    ArrayList<Marker> pontos;
-
-    Marker markerClicked=null;
+    Marker current_loc;
+    Marker select_loc;
+    Integer type;
 
     private boolean isPotentialLongPress;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (this.getIntent().getSerializableExtra("id") != null)
-            id = (Integer) this.getIntent().getSerializableExtra("id");
-        setContentView(R.layout.activity_mapa__rotas);
+        if(this.getIntent().getSerializableExtra("type")!=null)
+            type= (Integer) this.getIntent().getSerializableExtra("type");
+        setContentView(R.layout.activity_mapa_rios);
         mLastLocation = null;
         mGoogleApiClient = null;
-        pontos= new ArrayList<Marker>();
-        markerClicked=null;
-
-        Log.e("Vai entrar na DB", "DB");
-
-        try {
-            if (DB_functions.haveNetworkConnection(getApplicationContext()))
-            DB_functions.getRotasList(this, this.id);
-            else {
-                Toast toast = Toast.makeText(Mapa_Rotas.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
-                toast.show();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("erro", "erroDB1");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.e("erro", "erroDB2");
-        }
-
+        select_loc = null;
+        current_loc = null;
 
         if (!isLocationServiceEnabled()) {
             Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -115,97 +78,13 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
             } else
                 Toast.makeText(this, "Not connected...", Toast.LENGTH_SHORT).show();
 
-
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
         }
-
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        this.setTitle("Mapa");
     }
-
-
-    public void route(final String resposta) throws JSONException {
-        new Thread()
-        {
-            public void run()
-            {
-                Mapa_Rotas.this.runOnUiThread(new Runnable()
-                {
-                    public void run() {
-                        try {
-                            JSONObject resposta_json = new JSONObject(resposta);
-
-                            JSONObject rota_json = (JSONObject) resposta_json.get("route");
-                            JSONArray arrayImagens=(JSONArray) resposta_json.get("images");
-                            imagens=arrayImagens.toString();
-
-                            rota = new Rota(rota_json.getInt("id"),
-                                    rota_json.getString("nome"),
-                                    rota_json.getString("descricao"),
-                                    rota_json.getString("zona"),
-                                    rota_json.getString("created_at"),
-                                    rota_json.getString("updated_at"),
-                                    rota_json.getBoolean("publicada"));
-
-                            Log.e("acabou", "acabou");
-
-                            JSONArray rotas_array = (JSONArray) resposta_json.get("points");
-
-                            for (int i = 0; i < rotas_array.length(); i++) {
-                                final JSONObject point_json = rotas_array.getJSONObject(i);
-                                rota.addPontos(point_json.getInt("id"),
-                                        point_json.getString("nome"),
-                                        point_json.getString("descricao"),
-                                        Float.parseFloat(point_json.get("lat").toString()),
-                                        Float.parseFloat(point_json.get("lon").toString()),
-                                        point_json.getInt("ordem"),
-                                        point_json.getInt("route_id"));
-                            }
-
-                            Log.e("tamanho",rota.getPontos().size()+"");
-
-
-                            if(connected && onMapready)
-                            {
-                                // Instantiates a new Polyline object and adds points to define a rectangle
-                                PolylineOptions rectOptions = new PolylineOptions();
-                                rectOptions.color(Color.GREEN);
-
-// Get back the mutable Polyline
-
-                                for (int i =0;i<rota.getPontos().size();i++)
-                                {
-                                    Log.e("teste","lat:"+rota.getPontos().get(i).getLat());
-                                    LatLng current_location = new LatLng(rota.getPontos().get(i).getLat(), rota.getPontos().get(i).getLon());
-                                    //LatLng current_location = new LatLng(0,0);
-                                    Marker marker = mMap.addMarker(new MarkerOptions().position(current_location).title(rota.getPontos().get(i).getNome()).snippet("Clique novamente para ver"));
-                                    pontos.add(marker);
-                                    // pontos.add( mMap.addMarker(new MarkerOptions().position(current_location).title(this.rota.getPontos().get(i).getNome())));
-                                    rectOptions.add(current_location);
-
-                                    if(i==0)
-                                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current_location, 14.0f));
-
-                                }
-
-                                Polyline polyline = mMap.addPolyline(rectOptions);
-                                polyline.setColor(Color.BLUE);
-                            }
-
-                        } catch (Exception e){
-
-                        }
-                    }
-                });
-            }
-        }.start();
-    }
-
 
     //maps
 
@@ -221,7 +100,6 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        onMapready=true;
 
         // Add a marker in Sydney and move the camera
 
@@ -231,6 +109,10 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
         */
     }
 
+    /**
+     * Verifica se a localização esta activa
+     * @return
+     */
     public boolean isLocationServiceEnabled() {
         LocationManager locationManager = null;
         boolean gps_enabled = false, network_enabled = false;
@@ -250,7 +132,6 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
         }
 
         return gps_enabled || network_enabled;
-
     }
 
     public void onResume() {
@@ -263,7 +144,6 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
             } else
                 Toast.makeText(this, "Not connected...", Toast.LENGTH_SHORT).show();
 
-
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map);
@@ -271,7 +151,6 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                     mGoogleApiClient);
         }
-
     }
 
     @Override
@@ -283,44 +162,24 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
             Log.e("location", "Latitude: " + String.valueOf(mLastLocation.getLatitude()) + "Longitude: " +
                     String.valueOf(mLastLocation.getLongitude()));
         }
+        if(current_loc!=null)
+            current_loc.remove();
 
-/*
+        LatLng current_location = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+        current_loc = mMap.addMarker(new MarkerOptions().position(current_location).title("Localização Actual"));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current_location, 12.0f));
+
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
             @Override
             public void onMapClick(LatLng arg0) {
+                if (select_loc != null) select_loc.remove();
+                Log.d("arg0", arg0.latitude + "-" + arg0.longitude);
+                LatLng current_location = new LatLng(arg0.latitude, arg0.longitude);
+                select_loc = mMap.addMarker(new MarkerOptions().position(current_location).title("Localização escolhida"));
+                //mMap.moveCamera(CameraUpdateFactory.newLatLng(current_location));
             }
         });
-        */
-
-        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(Marker marker) {
-                PointRota p;
-
-                int i;
-                for (i =0;i<pontos.size();i++)
-                {
-                    if (pontos.get(i).equals(marker))
-                        break;
-                }
-
-                Intent intent= new Intent(Mapa_Rotas.this, RotaPoint_show.class);
-                intent.putExtra("nome_rota",rota.getNome());
-                intent.putExtra("rota_id",rota.getId());
-                intent.putExtra("nome_ponto",rota.getPontos().get(i).getNome());
-                intent.putExtra("descricao_ponto",rota.getPontos().get(i).getDescricao());
-                intent.putExtra("ordem_ponto",rota.getPontos().get(i).getOrdem());
-                intent.putExtra("lat",rota.getPontos().get(i).getLat());
-                intent.putExtra("lon",rota.getPontos().get(i).getLon());
-
-                intent.putExtra("imagens",imagens);
-
-                startActivity(intent);
-            }
-        });
-
-        connected=true;
     }
 
     @Override
@@ -364,7 +223,7 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
             bestProvider = String.valueOf(locationManager.getBestProvider(criteria, true)).toString();
 
             //You can still do this if you like, you might get lucky:
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
                 // here to request the missing permissions, and then overriding
@@ -380,13 +239,16 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
                 Log.e("TAG", "GPS is on");
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
-                Toast.makeText(Mapa_Rotas.this, "latitude:" + latitude + " longitude:" + longitude, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Mapa_rios.this, "latitude:" + latitude + " longitude:" + longitude, Toast.LENGTH_SHORT).show();
                 //searchNearestPlace(voice2text);
-            } else {
+            }
+            else{
                 //This is what you need:
                 locationManager.requestLocationUpdates(bestProvider, 1000, 0, (LocationListener) this);
             }
-        } else {
+        }
+        else
+        {
             //prompt user to enable location....
             //.................
         }
@@ -400,7 +262,45 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
                 .build();
     }
 
-    public void goto_next(View view) {}
+    public void goto_next(View view)  {
+        Intent returnIntent = new Intent();
+        if (current_loc!=null) {
+            returnIntent.putExtra("latlan_current",current_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
+            /*
+            if (DB_functions.haveNetworkConnection(this.getApplicationContext()))
+                returnIntent.putExtra("latlan_current", this.getLocationName(current_loc.getPosition()));
+            else
+                returnIntent.putExtra("latlan_current", current_loc.getPosition().latitude + ";" + current_loc.getPosition().longitude);
+                */
+        }
+
+        else
+            returnIntent.putExtra("latlan_current","0");
+
+        if (select_loc!=null)
+        {
+            returnIntent.putExtra("latlan_picked",select_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
+            /*
+            if (DB_functions.haveNetworkConnection(this.getApplicationContext()))
+                returnIntent.putExtra("latlan_picked",this.getLocationName(select_loc.getPosition()));
+            else
+                returnIntent.putExtra("latlan_picked",select_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
+                */
+        }
+        else
+            returnIntent.putExtra("latlan_picked","0");
+
+
+        setResult(Activity.RESULT_OK,returnIntent);
+        finish();
+
+        if(type==null)
+            return;
+
+      //  i.putExtra("latlan_current",current_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
+       // i.putExtra("latlan_picked",select_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
+       // startActivity(new Intent(this, FormIRR_Swipe.class));
+    }
 
     //menu action bar
     @Override
@@ -408,29 +308,33 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
         getMenuInflater().inflate(R.menu.menu_homepage, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.navigate_guardarios)
-            startActivity(new Intent(this, GuardaRios.class));
-        if (id == R.id.navigate_account)
-            startActivity(new Intent(this, Login.class));
+        if(id==R.id.navigate_guardarios)
+            startActivity(new Intent(this,GuardaRios.class));
+        if(id==R.id.navigate_account){
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 
-    public String getLocationName(LatLng locations) {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+    public String getLocationName(LatLng locations){
+        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         String provider = locationManager.getBestProvider(new Criteria(), true);
 
         List<String> providerList = locationManager.getAllProviders();
-        if (null != locations && null != providerList && providerList.size() > 0) {
+        if(null!=locations && null!=providerList && providerList.size()>0){
             double longitude = locations.longitude;
             double latitude = locations.latitude;
             Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
             try {
                 List<Address> listAddresses = geocoder.getFromLocation(latitude, longitude, 1);
-                if (null != listAddresses && listAddresses.size() > 0) {
+                if(null!=listAddresses&&listAddresses.size()>0){
                     String _Location = listAddresses.get(0).getAddressLine(0);
                     return _Location;
                 }

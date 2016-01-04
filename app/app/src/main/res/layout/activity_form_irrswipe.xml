@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_content"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:fitsSystemWindows="true" tools:context=".Form.IRR.FormIRRSwipe"
+    android:fitsSystemWindows="true" tools:context=".Form.IRR.FormIRR_Swipe"
     android:background="@color/white">
 
     <android.support.design.widget.AppBarLayout android:id="@+id/appbar"
