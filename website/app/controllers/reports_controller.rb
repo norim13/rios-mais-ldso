@@ -2,6 +2,7 @@ class ReportsController < ApplicationController
   before_filter :authenticate_user!, except: [:info]
   before_action :set_report, only: [:show, :destroy]
 
+  # Mostrar uma página geral de informações sobre denúncias
   def info
     render 'info'
   end
@@ -37,6 +38,8 @@ class ReportsController < ApplicationController
             ReportImage.create(image: image, report_id: @report.id)
           }
         end
+
+        #Envia um email a todos os adminsitradores da respectiva denúncia
         UserMailer.reports_email(@report).deliver_now
         format.html { redirect_to @report, notice: 'Denúncia enviada.' }
         format.json { render :show, status: :created, location: @report }
@@ -58,12 +61,10 @@ class ReportsController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
   def set_report
     @report = Report.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def report_params
     params.require(:report).permit(:rio, :nome_rio, :lat, :lon, :categoria, :motivo, :descricao, :local, {images: []})
   end
