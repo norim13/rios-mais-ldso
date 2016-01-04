@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,9 +18,7 @@ import java.io.IOException;
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.User;
 import ldso.rios.Form.Sos_rios;
-import ldso.rios.ImageTest;
 import ldso.rios.R;
-import ldso.rios.SelectRioWebview;
 
 public class Homepage extends AppCompatActivity{
 
@@ -45,8 +42,7 @@ public class Homepage extends AppCompatActivity{
         User u = User.getInstance();
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        token=settings.getString("token","-1");
-        Log.e("token", ": " + token);
+        token = settings.getString("token","-1");
 
         u.setId(Integer.parseInt(settings.getString("id","-1")));
         u.setAuthentication_token(settings.getString("token",""));
@@ -67,21 +63,11 @@ public class Homepage extends AppCompatActivity{
         startActivity(new Intent(this, RotasRios_list.class));
     }
 
-    public void mapas_init(View view){
-        startActivity(new Intent(this, ImageTest.class));
-    }
-
-    public void uploadImagens(View view){
-        startActivity(new Intent(this, ImageTest.class));
-    }
-
     public void sosRios(View view){
         startActivity(new Intent(this, Sos_rios.class));
-        //startActivity(new Intent(this, SelectRioWebview.class));
     }
 
     public void form_irr(View view) throws IOException, JSONException {
-        Log.e("permissoes",User.getInstance().getPermissoes().toString());
         if(User.getInstance().getPermissoes() > 1)
             startActivity(new Intent(this, Form_IRR_mainActivity.class));
         else {
@@ -98,8 +84,6 @@ public class Homepage extends AppCompatActivity{
     public void about(View view)  {
         startActivity(new Intent(this, Information.class));
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -122,11 +106,8 @@ public class Homepage extends AppCompatActivity{
                 startActivity(new Intent(this, Profile.class));
             }
         }
-
         return super.onOptionsItemSelected(item);
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -136,4 +117,3 @@ public class Homepage extends AppCompatActivity{
     }
 
 }
-

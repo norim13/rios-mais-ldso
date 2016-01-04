@@ -137,10 +137,6 @@
                 android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
         <activity
-            android:name=".TesteChart"
-            android:label="@string/title_activity_teste_chart"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".Form.IRR.FormIRRSwipe"
             android:label="@string/title_activity_form_irrswipe"
             android:parentActivityName=".MainActivities.Homepage"
@@ -186,7 +182,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ldso.rios.MainActivities.Profile" />
         </activity>
-        <activity android:name=".ImageTest" />
         <activity
             android:name=".MainActivities.RotasRios_list"
             android:label="@string/title_activity_rotas_rios_list"

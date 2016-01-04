@@ -50,9 +50,7 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         linearLayout = (LinearLayout) findViewById(R.id.linear_irr);
 
-
         progressBar= (ProgressBar) findViewById(R.id.progressBar);
-
 
         //vai buscar o token e email da sessão
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -75,13 +73,9 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
         else
             progressBar.setVisibility(View.INVISIBLE);
-
-
-
     }
 
     /*
@@ -171,14 +165,6 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
 
                                 linearLayout.addView(v);
                             }
-
-
-
-
-
-
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -186,10 +172,6 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
                     });
                 }
             }.start();
-
-
-
-
     }
 
     public void formsFormUserSaved() throws IOException {
@@ -216,7 +198,6 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
 
             String date= ""+respostas.get(i).get(-4);
 
-
             LayoutInflater l = getLayoutInflater();
             View v = l.inflate(R.layout.form_irr_cardview, null);
             CardView c= (CardView) v.findViewById(R.id.card_view);
@@ -226,9 +207,7 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
             tv= (TextView) v.findViewById(R.id.id_rota);
             tv.setText("Date: "+date);
 
-
             final int finalI = i;
-
 
             if(respostas.get(i)==null)
                 Log.e("teste","a resposta é nula");
@@ -238,23 +217,17 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Log.e("form", "clicou");
 
-
-                    Log.e("form","clicou");
                     Intent i;
                     i = new Intent(v.getContext(), ViewFormIRR.class);
                     i.putExtra("saved",(String) respostas.get(finalI).get(-2));
                     i.putExtra("form_irr",respostas.get(finalI));
                     startActivity(i);
-
-
-
                 }
             });
 
             linearLayout.addView(v);
         }
     }
-
 
     //menu action bar
     @Override
@@ -277,6 +250,5 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }

@@ -27,11 +27,7 @@ import ldso.rios.Utils;
 
 public class GuardaRios extends AppCompatActivity {
 
-
     GridLayout gridLayout;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

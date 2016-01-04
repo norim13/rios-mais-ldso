@@ -105,7 +105,6 @@ public class Limpeza extends AppCompatActivity {
                 "Penachos"};
         question4 = Form_functions.createRadioButtons(options4, layoutLimpeza, this);
 
-
         TextView text5 = new TextView(this);
         text5.setText("Espécies aquáticas Autóctones");
         text5.setLayoutParams(radioParams);
@@ -277,7 +276,5 @@ public class Limpeza extends AppCompatActivity {
         }.start();
 
     }
-
-
 
 }
