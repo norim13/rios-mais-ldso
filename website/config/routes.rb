@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   get 'limpeza' => 'limpeza#show'
   get 'respostas' => 'limpeza#getRespostas'
 
-
   get 'adminpanel' => 'admin#index' #users index
   get 'adminpanel/form_irrs' => 'admin#form_irrs', :as => :index_form_irrs
   get 'adminpanel/sos_rios' => 'admin#reports', :as => :index_reports
@@ -37,14 +36,12 @@ Rails.application.routes.draw do
   get 'participacao_publica/info' => 'participacao_publica#info'
   get 'projetos/info' => 'projetos#info'
 
-  #all
+  #show all
   get 'form_irrs/all' => 'form_irrs#all'
   get 'trips/all' => 'trips#all'
 
   get 'rio/irrrange' => 'rio#getIRRrange'
   get 'rio/:id' => 'rio#show', as: :rio, :id => /.*/
-
-
 
   resources :form_irr_image
   resources :reabilitacaos
@@ -59,9 +56,6 @@ Rails.application.routes.draw do
   patch 'validate_form_irrs/:id' => 'form_irrs#validate', :as => :validate_form_irr
   get 'validate_form_irrs' => 'form_irrs#validate_index'
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
   devise_for :users, :controllers => {registrations: 'registrations'}
 
   devise_scope :user do
@@ -70,6 +64,7 @@ Rails.application.routes.draw do
 
   root 'home#homepage'
 
+  # rotas da API, usadas pela app
   namespace :api do
     namespace :v1 do
       resources :problems

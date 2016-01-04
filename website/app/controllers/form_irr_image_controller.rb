@@ -3,6 +3,7 @@ class FormIrrImageController < ApplicationController
 		@img = FormIrrImage.new
 	end
 
+	# Cria uma imagem na base de dados
 	def create
 		@img = FormIrrImage.new(img_params)
 
@@ -14,6 +15,7 @@ class FormIrrImageController < ApplicationController
 		end
 	end
 
+	# Apaga uma imagem da base de dados
 	def destroy
 		img = FormIrrImage.find(params[:id])
 		img.destroy

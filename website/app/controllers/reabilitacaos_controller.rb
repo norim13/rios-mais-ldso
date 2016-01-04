@@ -26,11 +26,13 @@ class ReabilitacaosController < ApplicationController
   def edit
   end
 
+  # Funcao para calcular o progresso de um plano de reabilitação
   def calculateProgress(id)
     @reabilitacao = Reabilitacao.find(id)
     @trues = []
     @falses = []
 
+    #Percorre uma determinada reabilitação e vê (colocando num array) todos os atributos a "TRUE" e todos a "FALSE" noutro
     @reabilitacao.attributes.each do |attr_name, attr_value|
       if attr_value == true
         @trues.push(attr_name)
@@ -40,6 +42,7 @@ class ReabilitacaosController < ApplicationController
       end
     end
 
+    # Calcula a percentagem de passos marcados como feitos
     @valor = (@trues.size.to_f/(@trues.size + @falses.size).to_f)*100
     return @valor.round
   end
@@ -86,12 +89,10 @@ class ReabilitacaosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_reabilitacao
       @reabilitacao = Reabilitacao.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def reabilitacao_params
       params.require(:reabilitacao).permit(:definicao, :diagnostico, :prioritizacao, :objectivos, :solucoes, :elaboracao, :implementacao, :monitorizacao, :beber, :cacar,
       :avaliacao, :correcao, :ppublica, :parcerias, :legislacao, :lei_agua, :directiva_agua, :directiva_inundacoes, :custo, :cronograma, :formacao, :emergencia, :reabilitacao, :revisao)

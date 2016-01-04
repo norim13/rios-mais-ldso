@@ -3,6 +3,7 @@ class TripImageController < ApplicationController
 		@img = TripImage.new
 	end
 
+	# Cria uma imagem na base de dados
 	def create
 		@img = TripImage.new(img_params)
 
@@ -13,6 +14,7 @@ class TripImageController < ApplicationController
 		end
 	end
 
+	# Apaga uma imagem da base de dados
 	def destroy
 		@img = TripImage.find(params[:id])
 		@img.destroy

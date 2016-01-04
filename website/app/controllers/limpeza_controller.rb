@@ -1,6 +1,9 @@
+
 class LimpezaController < ApplicationController
   before_filter :authenticate_user!, except: :info
 
+
+  # Mostrar a página de problemas de limpezas, com opções por cada categoria (vindas da base de dados)
   def show
     @limpeza = Limpeza.select(:categoria,:categoria_id).group(:categoria,:categoria_id).order(:categoria_id)
 
@@ -13,15 +16,19 @@ class LimpezaController < ApplicationController
     end
   end
 
+  # Mostrar uma página geral de informações sobre limpeza de rios
   def info
     render 'info'
   end
 
+  # Vai à base de dados buscar a sugestão/resposta para o problema com o id enviado por parametro. Esta função é utilizada
+  # no pedido ajax
   def getRespostas
       @resposta = Limpeza.find(params[:id])
       render :json => @resposta
   end
 
+  # Cria na base de dados uma entrada com os problemas submetidos pelo utilizador (para efeitos meramente estatísticos)
   def submitProblemas
     @loglimpeza = LogLimpeza.new(limpeza_params)
     @loglimpeza.user_id = current_user.id
