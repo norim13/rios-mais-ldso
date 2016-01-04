@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -138,8 +137,6 @@ public class FormIRRSwipe extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Validating your action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 form.fillAnswers();
 
                 Log.e("form", "entrar na DB");
@@ -160,19 +157,31 @@ public class FormIRRSwipe extends AppCompatActivity {
                         }
                         else
                         {
-                            if (form.nomeRioEditText.getText()!=null && !form.nomeRioEditText.getText().toString().contentEquals("")) {
-                                DB_functions.saveForm(FormIRRSwipe.this,User.getInstance().getAuthentication_token(),User.getInstance().getEmail(), form);
+                            String required=form.requiered();
+                            if(required.contentEquals("")) {
 
-                                if (form.arrayListURI.size()==0) {
-                                    Toast toast = Toast.makeText(FormIRRSwipe.this, "IRR submetido", Toast.LENGTH_LONG);
-                                    toast.show();
-                                    Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(intent);
+                                if (form.nomeRioEditText.getText()!=null && !form.nomeRioEditText.getText().toString().contentEquals("")) {
+
+                                    DB_functions.saveForm(FormIRRSwipe.this,User.getInstance().getAuthentication_token(),User.getInstance().getEmail(), form);
+
+                                    if (form.arrayListURI.size()==0) {
+                                        Toast toast = Toast.makeText(FormIRRSwipe.this, "IRR submetido", Toast.LENGTH_LONG);
+                                        toast.show();
+                                        Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                    }
                                 }
+                                else {
+                                    Toast.makeText(getApplicationContext(), "Selecione um rio", Toast.LENGTH_SHORT).show();
+                                }
+
                             }
                             else {
-                                Toast.makeText(getApplicationContext(), "Selecione um rio", Toast.LENGTH_SHORT).show();
+
+                                Toast toast = Toast.makeText(FormIRRSwipe.this, "Falta preencher "+required, Toast.LENGTH_LONG);
+                                toast.show();
+
                             }
                         }
 
