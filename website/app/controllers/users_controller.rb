@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # Atualiza as permissões dos utilizadores (apenas pelo admin)
   def updatepermissions
     @users = User.find(params[:user_ids])
     @permissoes = params[:permissoes]

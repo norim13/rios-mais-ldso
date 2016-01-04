@@ -3,6 +3,7 @@ class GuardarioImageController < ApplicationController
 		@img = GuardarioImage.new
 	end
 
+	# Cria uma imagem na base de dados
 	def create
 		@img = GuardarioImage.new(img_params)
 
@@ -13,6 +14,7 @@ class GuardarioImageController < ApplicationController
 		end
 	end
 
+	# Apaga uma imagem da base de dados
 	def destroy
 		img = GuardarioImage.find(params[:id])
 		img.destroy
