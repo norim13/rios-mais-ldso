@@ -137,10 +137,6 @@
                 android:value="ldso.rios.MainActivities.Homepage" />
         </activity>
         <activity
-            android:name=".TesteChart"
-            android:label="@string/title_activity_teste_chart"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".Form.IRR.FormIRRSwipe"
             android:label="@string/title_activity_form_irrswipe"
             android:parentActivityName=".MainActivities.Homepage"
@@ -153,7 +149,7 @@
         <activity
             android:name=".Form.IRR.ViewFormIRR"
             android:label="@string/title_activity_view_form_irr"
-            android:parentActivityName=".MainActivities.Homepage"
+            android:parentActivityName=".MainActivities.Form_IRR_mainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -171,7 +167,7 @@
         <activity
             android:name=".Form.LimpezaSolucoes"
             android:label="@string/title_activity_limpeza_solucoes"
-            android:parentActivityName=".MainActivities.Homepage"
+            android:parentActivityName=".MainActivities.Limpeza"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -186,7 +182,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ldso.rios.MainActivities.Profile" />
         </activity>
-        <activity android:name=".ImageTest" />
         <activity
             android:name=".MainActivities.RotasRios_list"
             android:label="@string/title_activity_rotas_rios_list"
@@ -215,7 +210,6 @@
         <activity
             android:name=".SelectRioWebview"
             android:label="@string/title_activity_select_rio_webview"
-            android:parentActivityName=".MainActivities.Homepage"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

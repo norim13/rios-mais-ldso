@@ -518,12 +518,42 @@ public class Form_IRR extends Form implements Serializable {
         if (this.nomeRio.contentEquals("") || this.nomeRio==null)
             return "Nome do Rio";
 
-        if (this.lat_final==0f || this.lon_sel==0f)
+
+        try {
+            if(currLoc.isChecked() || selctLoc.isChecked())
+            {
+                if (currLoc.isChecked())
+                {
+                    lat_final = Float.valueOf(currLoc.getText().toString().split("Atual: ")[1].split(";")[0]);
+                    lon_final = Float.valueOf(currLoc.getText().toString().split("Atual: ")[1].split(";")[1]);
+                    current_location=true;
+
+                }
+                else {
+                    Log.e("lat_sel",(selctLoc.getText().toString()));
+                    lat_final = Float.valueOf(selctLoc.getText().toString().split("Escolhida: ")[1].split(";")[0]);
+                    lon_final = Float.valueOf(selctLoc.getText().toString().split("Escolhida: ")[1].split(";")[1]);
+                    current_location=false;
+                }
+            }
+            else {
+                lat_curr=lon_curr=lat_sel=lon_sel=lat_final=lon_final=0f;
+                current_location=null;
+
+            }
+        }
+        catch (Exception e){
+
+        }
+
+        Log.e("loc",lat_final+"-"+lon_final);
+        if (this.lat_final==0f || this.lon_final==0f)
         {
+            Log.e("loc","aqui");
             return "Localização";
         }
 
-        for(int i=0;i<this.perguntas.size();i++)
+        for(int i=0;i<this.perguntas.size()-1;i++)
         {
             if (this.perguntas.get(i) instanceof radioPergunta)
             {
@@ -599,6 +629,34 @@ public class Form_IRR extends Form implements Serializable {
 
     public static void saveFormIRR(Form_IRR form_irr, Context c) throws IOException {
 
+        try {
+            if(form_irr.currLoc.isChecked() || form_irr.selctLoc.isChecked())
+            {
+                if (form_irr.currLoc.isChecked())
+                {
+                    form_irr.lat_curr = Float.valueOf(form_irr.currLoc.getText().toString().split("Atual: ")[1].split(";")[0]);
+                    form_irr.lon_curr = Float.valueOf(form_irr.currLoc.getText().toString().split("Atual: ")[1].split(";")[1]);
+                    form_irr.current_location=true;
+
+                }
+                else {
+                    Log.e("lat_sel",(form_irr.selctLoc.getText().toString()));
+                    form_irr.lat_sel = Float.valueOf(form_irr.selctLoc.getText().toString().split("Escolhida: ")[1].split(";")[0]);
+                    form_irr.lon_sel = Float.valueOf(form_irr.selctLoc.getText().toString().split("Escolhida: ")[1].split(";")[1]);
+                    form_irr.current_location=false;
+                }
+            }
+            else {
+                form_irr.lat_curr=form_irr.lon_curr=form_irr.lat_sel=form_irr.lon_sel=0f;
+                form_irr.current_location=null;
+
+            }
+
+
+        }
+        catch (Exception e){
+
+        }
 
         File f = new File(c.getFilesDir()+File.separator+"irrs");
         if(!f.exists())
@@ -632,6 +690,16 @@ public class Form_IRR extends Form implements Serializable {
     }
 
 
+    public static void deleteFormIRRFile(Context c,String file_name)
+    {
+        File f = new File(c.getFilesDir()+File.separator+"irrs");
+        if(!f.exists())
+            f.mkdirs();
+
+        File file = new File(f.getAbsolutePath(),file_name);
+        file.delete();
+
+    }
 
     public static boolean uploadFormIRR(Object activity,Context c, Form_IRR form_irr){
 

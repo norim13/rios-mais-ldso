@@ -32,9 +32,6 @@ public class Rota {
         pontos.add(p);
     }
 
-
-
-
     //GETTERS
 
     public Integer getId() {

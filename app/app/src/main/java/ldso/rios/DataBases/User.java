@@ -13,7 +13,7 @@ import ldso.rios.MainActivities.Homepage;
 /**
  * Created by filipe on 26/10/2015.
  */
-public class User extends _Default {
+public class User {
 
     private static User user_singleton = new User( );
 
@@ -144,7 +144,6 @@ public class User extends _Default {
     }
 
     public void setPermissoes(Integer permissoes) {
-        Log.e("perm profile", permissoes.toString());
         this.permissoes = permissoes;
     }
 }

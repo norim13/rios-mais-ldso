@@ -1182,8 +1182,6 @@ public class DB_functions {
                         br.close();
                         Log.e("teste","sb:"+sb.toString());
 
-                        Log.e("teste", "fodeu");
-
                         StringBuilder builder = new StringBuilder();
                         builder.append(con.getResponseCode())
                                 .append(" ")

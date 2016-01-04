@@ -164,7 +164,13 @@ public class FormIRRSwipe extends AppCompatActivity {
 
                                     DB_functions.saveForm(FormIRRSwipe.this,User.getInstance().getAuthentication_token(),User.getInstance().getEmail(), form);
 
+
                                     if (form.arrayListURI.size()==0) {
+                                        if(!form.respostas.get(-2).toString().contentEquals(""))
+                                        {
+                                            Form_IRR.deleteFormIRRFile(getApplicationContext(),form.respostas.get(-2).toString());
+                                            Log.e("ficheiro","apagado");
+                                        }
                                         Toast toast = Toast.makeText(FormIRRSwipe.this, "IRR submetido", Toast.LENGTH_LONG);
                                         toast.show();
                                         Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
@@ -229,8 +235,17 @@ public class FormIRRSwipe extends AppCompatActivity {
                 public void run() {
                     FormIRRSwipe.this.runOnUiThread(new Runnable() {
                         public void run() {
+                            if(!form.respostas.get(-2).toString().contentEquals(""))
+                            {
+                                Form_IRR.deleteFormIRRFile(getApplicationContext(),form.respostas.get(-2).toString());
+                                Log.e("ficheiro","apagado");
+                            }
                             Toast toast = Toast.makeText(FormIRRSwipe.this, "IRR submetido", Toast.LENGTH_LONG);
                             toast.show();
+                            Intent intent  = new Intent(FormIRRSwipe.this,Form_IRR_mainActivity.class); // need to set your Intent View here
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            FormIRRSwipe.this.startActivity(intent);
                             FormIRRSwipe.this.finish();
                         }
                     });
@@ -259,6 +274,11 @@ public class FormIRRSwipe extends AppCompatActivity {
             try {
                 //Form_IRR.loadFromIRR(this.getApplicationContext());
                 form.fillAnswers();
+                if(!form.respostas.get(-2).toString().contentEquals(""))
+                {
+                    Form_IRR.deleteFormIRRFile(this.getApplicationContext(),form.respostas.get(-2).toString());
+                    Log.e("ficheiro","apagado");
+                }
                 Form_IRR.saveFormIRR(form, this.getApplicationContext());
                 Toast toast = Toast.makeText(FormIRRSwipe.this, "Formulário IRR guardado", Toast.LENGTH_LONG);
                 toast.show();

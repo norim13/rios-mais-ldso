@@ -75,8 +75,6 @@ public class PlaceHolder_AboutDocs extends Fragment {
             link.setMovementMethod(LinkMovementMethod.getInstance());
             link=(TextView) rootView.findViewById(R.id.link_docs_other_7);
             link.setMovementMethod(LinkMovementMethod.getInstance());
-
-
         }
         return rootView;
     }

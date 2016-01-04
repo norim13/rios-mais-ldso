@@ -40,7 +40,6 @@ public class RotasRios_list extends AppCompatActivity {
         toolbar.setTitle("Rotas Rios+");
         setSupportActionBar(toolbar);
 
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         rotas= new ArrayList<Rota>();
@@ -104,17 +103,10 @@ public class RotasRios_list extends AppCompatActivity {
                                         i = new Intent(v.getContext(), Mapa_Rotas.class);
                                         i.putExtra("id",r.getId());
                                         startActivity(i);
-
                                     }
                                 });
 
-
                                 linearLayout.addView(v);
-
-
-
-
-
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -123,15 +115,7 @@ public class RotasRios_list extends AppCompatActivity {
                 });
             }
         }.start();
-
-
-
     }
-
-
-
-
-
 
     //menu action bar
     @Override

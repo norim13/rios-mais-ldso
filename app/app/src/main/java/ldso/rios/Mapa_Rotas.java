@@ -197,20 +197,13 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
                                 polyline.setColor(Color.BLUE);
                             }
 
-
-
                         } catch (Exception e){
 
                         }
-
-
-
                     }
                 });
             }
         }.start();
-
-
     }
 
 
@@ -229,8 +222,6 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         onMapready=true;
-
-
 
         // Add a marker in Sydney and move the camera
 
@@ -281,7 +272,6 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
                     mGoogleApiClient);
         }
 
-
     }
 
     @Override
@@ -293,8 +283,6 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
             Log.e("location", "Latitude: " + String.valueOf(mLastLocation.getLatitude()) + "Longitude: " +
                     String.valueOf(mLastLocation.getLongitude()));
         }
-
-
 
 /*
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -328,16 +316,9 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
 
                 intent.putExtra("imagens",imagens);
 
-
                 startActivity(intent);
-
-
-
-
             }
         });
-
-
 
         connected=true;
     }
@@ -345,15 +326,12 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
     @Override
     public void onConnectionSuspended(int i) {
         Toast.makeText(this, "Connection suspended...", Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Toast.makeText(this, "Failed to connect...", Toast.LENGTH_SHORT).show();
-
     }
-
 
     public void current(View view) {
 
@@ -368,16 +346,12 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
             } else
                 Toast.makeText(this, "Not connected...", Toast.LENGTH_SHORT).show();
 
-
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
         }
-
-
     }
-
 
     @TargetApi(Build.VERSION_CODES.M)
     protected void getLocation() {
@@ -426,12 +400,7 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
                 .build();
     }
 
-
-    public void goto_next(View view) {
-
-
-    }
-
+    public void goto_next(View view) {}
 
     //menu action bar
     @Override
@@ -449,7 +418,6 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
             startActivity(new Intent(this, Login.class));
         return super.onOptionsItemSelected(item);
     }
-
 
     public String getLocationName(LatLng locations) {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -470,11 +438,8 @@ public class Mapa_Rotas extends AppCompatActivity implements OnMapReadyCallback,
                 e.printStackTrace();
                 return "";
             }
-
         }
         return "";
     }
-
-
 
 }

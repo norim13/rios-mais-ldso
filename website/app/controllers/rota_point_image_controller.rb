@@ -3,6 +3,7 @@ class RotaPointImageController < ApplicationController
 		@img = RotaPointImage.new
 	end
 
+	# Cria uma imagem na base de dados
 	def create
 		@img = RotaPointImage.new(img_params)
 
@@ -13,6 +14,7 @@ class RotaPointImageController < ApplicationController
 		end
 	end
 
+	# Apaga uma imagem da base de dados
 	def destroy
 		@img = RotaPointImage.find(params[:id])
 		@img.destroy

@@ -54,9 +54,7 @@ public class Information extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
     }
-
 
     //menu action bar
     @Override
@@ -81,8 +79,6 @@ public class Information extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -97,7 +93,6 @@ public class Information extends AppCompatActivity {
         public Fragment getItem(int position) {
             return PlaceHolder_AboutDocs.newInstance(position);
         }
-
 
         @Override
         public int getCount() {

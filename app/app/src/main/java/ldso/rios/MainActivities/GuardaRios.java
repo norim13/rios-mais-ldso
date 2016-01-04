@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
 import ldso.rios.Form.GuardaRios_form;
@@ -27,11 +28,7 @@ import ldso.rios.Utils;
 
 public class GuardaRios extends AppCompatActivity {
 
-
     GridLayout gridLayout;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,16 +66,21 @@ public class GuardaRios extends AppCompatActivity {
     }
 
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                this.finish();
-                return true;
+        int id = item.getItemId();
+        if(id==R.id.navigate_account)
+        {
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     public void form_guardarios(View view){
 

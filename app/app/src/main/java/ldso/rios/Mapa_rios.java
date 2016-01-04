@@ -52,7 +52,6 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
     Marker select_loc;
     Integer type;
 
-
     private boolean isPotentialLongPress;
 
     @Override
@@ -78,7 +77,6 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
             } else
                 Toast.makeText(this, "Not connected...", Toast.LENGTH_SHORT).show();
 
-
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map);
@@ -86,9 +84,6 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
         }
         this.setTitle("Mapa");
     }
-
-
-
 
     //maps
 
@@ -113,7 +108,6 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
         */
     }
 
-
     public boolean isLocationServiceEnabled() {
         LocationManager locationManager = null;
         boolean gps_enabled = false, network_enabled = false;
@@ -133,7 +127,6 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
         }
 
         return gps_enabled || network_enabled;
-
     }
 
     public void onResume() {
@@ -146,7 +139,6 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
             } else
                 Toast.makeText(this, "Not connected...", Toast.LENGTH_SHORT).show();
 
-
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map);
@@ -154,8 +146,6 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                     mGoogleApiClient);
         }
-
-
     }
 
     @Override
@@ -190,15 +180,12 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
     @Override
     public void onConnectionSuspended(int i) {
         Toast.makeText(this, "Connection suspended...", Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Toast.makeText(this, "Failed to connect...", Toast.LENGTH_SHORT).show();
-
     }
-
 
     public void current(View view) {
 
@@ -213,16 +200,12 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
             } else
                 Toast.makeText(this, "Not connected...", Toast.LENGTH_SHORT).show();
 
-
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
         }
-
-
     }
-
 
     @TargetApi(Build.VERSION_CODES.M)
     protected void getLocation() {
@@ -274,12 +257,7 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
                 .build();
     }
 
-
-
-
-
     public void goto_next(View view)  {
-        //startActivity(new Intent(this, TesteChart.class));
         Intent returnIntent = new Intent();
         if (current_loc!=null) {
             returnIntent.putExtra("latlan_current",current_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
@@ -317,11 +295,7 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
       //  i.putExtra("latlan_current",current_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
        // i.putExtra("latlan_picked",select_loc.getPosition().latitude+";"+current_loc.getPosition().longitude);
        // startActivity(new Intent(this, FormIRRSwipe.class));
-
     }
-
-
-
 
     //menu action bar
     @Override
@@ -344,10 +318,6 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
         return super.onOptionsItemSelected(item);
     }
 
-
-
-
-
     public String getLocationName(LatLng locations){
         LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         String provider = locationManager.getBestProvider(new Criteria(), true);
@@ -367,10 +337,8 @@ public class Mapa_rios extends AppCompatActivity implements OnMapReadyCallback, 
                 e.printStackTrace();
                 return "";
             }
-
         }
         return "";
     }
-
 
 }

@@ -3,6 +3,7 @@ class ReportImageController < ApplicationController
 		@img = ReportImage.new
 	end
 
+	# Cria uma imagem na base de dados
 	def create
 		@img = ReportImage.new(img_params)
 
@@ -13,6 +14,7 @@ class ReportImageController < ApplicationController
 		end
 	end
 
+	# Apaga uma imagem da base de dados
 	def destroy
 		@img = ReportImage.find(params[:id])
 		@img.destroy
