@@ -9,6 +9,7 @@ class GuardariosController < ApplicationController
     @guardarios_img = GuardarioImage.last(9).reverse
   end
 
+  # Vai buscar à base de dados apenas os rios do utilizador loggado
   def getMine
     @guardarios = current_user.guardarios
     render 'myguardarios'
@@ -82,12 +83,10 @@ class GuardariosController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_guardario
     @guardario = Guardario.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def guardario_params
     params.require(:guardario).permit(:rio, :nomeRio, :lat, :lon, :local, :voar, :cantar, :parado, :beber, :cacar, :cuidarcrias, :alimentar, :outro, {images: []})
   end
