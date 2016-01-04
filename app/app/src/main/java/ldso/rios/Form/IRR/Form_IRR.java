@@ -518,8 +518,10 @@ public class Form_IRR extends Form implements Serializable {
         if (this.nomeRio.contentEquals("") || this.nomeRio==null)
             return "Nome do Rio";
 
-        if (this.lat_final==0f || this.lon_sel==0f)
+        Log.e("loc",lat_final+"-"+lon_final);
+        if (this.lat_final==0f || this.lon_final==0f)
         {
+            Log.e("loc","aqui");
             return "Localização";
         }
 
