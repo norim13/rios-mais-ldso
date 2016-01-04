@@ -263,6 +263,11 @@ public class FormIRRSwipe extends AppCompatActivity {
             try {
                 //Form_IRR.loadFromIRR(this.getApplicationContext());
                 form.fillAnswers();
+                if(!form.respostas.get(-2).toString().contentEquals(""))
+                {
+                    Form_IRR.deleteFormIRRFile(this.getApplicationContext(),form.respostas.get(-2).toString());
+                    Log.e("ficheiro","apagado");
+                }
                 Form_IRR.saveFormIRR(form, this.getApplicationContext());
                 Toast toast = Toast.makeText(FormIRRSwipe.this, "Formulário IRR guardado", Toast.LENGTH_LONG);
                 toast.show();

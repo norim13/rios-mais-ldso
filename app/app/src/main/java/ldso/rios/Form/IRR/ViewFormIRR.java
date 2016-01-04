@@ -92,13 +92,14 @@ public class ViewFormIRR extends AppCompatActivity {
 
 
         Form_functions.createTitle("Rio:"+this.form.nomeRio,linearLayout,this.getApplicationContext());
+        /*
         if (this.form.current_location==null)
         Form_functions.createTitle("Localização:"+0+";"+0,linearLayout,this.getApplicationContext());
         else if (this.form.current_location)
             Form_functions.createTitle("Localização:"+this.form.lat_curr+";"+this.form.lon_curr,linearLayout,this.getApplicationContext());
         else
             Form_functions.createTitle("Localização:"+this.form.lat_sel+";"+this.form.lon_sel,linearLayout,this.getApplicationContext());
-
+        */
         Form_functions.createTitle("Margem:"+ ((this.form.margem == 1) ? "Esquerda" : "Direita"),linearLayout,this.getApplicationContext());
 
         Log.e("uri",this.form.arrayListURI.size()+"");
@@ -167,6 +168,10 @@ public class ViewFormIRR extends AppCompatActivity {
                         public void run() {
                             Toast toast = Toast.makeText(ViewFormIRR.this, "IRR submetido", Toast.LENGTH_LONG);
                             toast.show();
+                            Intent intent  = new Intent(ViewFormIRR.this,Form_IRR_mainActivity.class); // need to set your Intent View here
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            ViewFormIRR.this.startActivity(intent);
                             ViewFormIRR.this.finish();
                         }
                     });
@@ -254,6 +259,8 @@ public class ViewFormIRR extends AppCompatActivity {
             if (DB_functions.haveNetworkConnection(getApplicationContext())) {
                 User u = User.getInstance();
                 DB_functions.deleteForm(this,this.getIntent().getSerializableExtra("id").toString(),u.getEmail(),u.getAuthentication_token() );
+                Toast toast = Toast.makeText(ViewFormIRR.this, "IRR apagado", Toast.LENGTH_LONG);
+                toast.show();
                 Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

@@ -690,6 +690,16 @@ public class Form_IRR extends Form implements Serializable {
     }
 
 
+    public static void deleteFormIRRFile(Context c,String file_name)
+    {
+        File f = new File(c.getFilesDir()+File.separator+"irrs");
+        if(!f.exists())
+            f.mkdirs();
+
+        File file = new File(f.getAbsolutePath(),file_name);
+        file.delete();
+
+    }
 
     public static boolean uploadFormIRR(Object activity,Context c, Form_IRR form_irr){
 
