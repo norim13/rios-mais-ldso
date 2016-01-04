@@ -149,7 +149,7 @@
         <activity
             android:name=".Form.IRR.ViewFormIRR"
             android:label="@string/title_activity_view_form_irr"
-            android:parentActivityName=".MainActivities.Homepage"
+            android:parentActivityName=".MainActivities.Form_IRR_mainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -167,7 +167,7 @@
         <activity
             android:name=".Form.LimpezaSolucoes"
             android:label="@string/title_activity_limpeza_solucoes"
-            android:parentActivityName=".MainActivities.Homepage"
+            android:parentActivityName=".MainActivities.Limpeza"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -210,7 +210,6 @@
         <activity
             android:name=".SelectRioWebview"
             android:label="@string/title_activity_select_rio_webview"
-            android:parentActivityName=".MainActivities.Homepage"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.widget.Toast;
@@ -31,23 +30,7 @@ public class SelectRioWebview extends AppCompatActivity {
 
     }
 
-    public void exit(View view){
-        Intent returnIntent = new Intent();
-        if (this.nome!=null && this.codigo!=null) {
-            returnIntent.putExtra("nomeRio", this.nome);
-            returnIntent.putExtra("codigoRio", this.codigo);
-            setResult(Activity.RESULT_OK, returnIntent);
-            finish();
-        }
-        else
-            Toast.makeText(this.getApplicationContext(),"Selecione um rio primeiro." , Toast.LENGTH_SHORT).show();
 
-
-
-
-
-
-    }
 
     public class WebAppInterface {
         SelectRioWebview mContext;
@@ -65,6 +48,16 @@ public class SelectRioWebview extends AppCompatActivity {
             this.mContext.nome=nomeRio;
             Log.e("setRio",codRio);
             Toast.makeText(mContext, codRio+"-"+nomeRio, Toast.LENGTH_SHORT).show();
+
+           Intent returnIntent = new Intent();
+                returnIntent.putExtra("nomeRio", nomeRio);
+                returnIntent.putExtra("codigoRio", codRio);
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
+
+
+
+
         }
 
     }
