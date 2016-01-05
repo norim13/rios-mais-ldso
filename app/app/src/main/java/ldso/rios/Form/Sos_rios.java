@@ -41,10 +41,10 @@ import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.MainActivities.Profile;
-import ldso.rios.Mapa_rios;
+import ldso.rios.Maps.Mapa_rios;
 import ldso.rios.R;
-import ldso.rios.SelectRioWebview;
-import ldso.rios.Utils;
+import ldso.rios.Maps.SelectRioWebview;
+import ldso.rios.Utils_Image;
 
 public class Sos_rios extends AppCompatActivity {
 
@@ -53,22 +53,14 @@ public class Sos_rios extends AppCompatActivity {
     protected ArrayList<RadioButton> question2;
     protected EditText question3;
     protected ProgressBar progressbar;
-
-
     protected ArrayList<String> arrayListURI;
-
     Button buttonTakePic;
     Button buttonSelectPic;
     LinearLayout horizontal;
-
     private  static final int CAM_REQUEST=100;
     private static final int SELECT_PHOTO = 200;
     private static final int SELECT_RIO=300;
-
-
     TextView tv1,tv2;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,16 +163,28 @@ public class Sos_rios extends AppCompatActivity {
 
     }
 
-    //abre o mapa e modifica
+    /**
+     * Abre o Mapa
+     * @param view
+     */
     public void abrirMapa(View view) {
         startActivityForResult(new Intent(this, Mapa_rios.class), 1);
     }
 
-
+    /**
+     * Abre a webview para escolher o rio
+     * @param view
+     */
     public void abrirWebView(View view) {
         startActivityForResult(new Intent(this, SelectRioWebview.class), SELECT_RIO);
     }
 
+    /**
+     * Funcao que trata dos Activity on result (Camera,MApa,WebView)
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -242,7 +246,7 @@ public class Sos_rios extends AppCompatActivity {
                     ImageView i = (ImageView) viewInflated.findViewById(R.id.photoImageView);
 
                     //poe a imagem tirada
-                    Bitmap result = Utils.squareimage(thumbnail);
+                    Bitmap result = Utils_Image.squareimage(thumbnail);
                     i.setImageBitmap(result);
 
                     //ao carregar em eliminar, tira do ecra e apaga da lista
@@ -278,8 +282,8 @@ public class Sos_rios extends AppCompatActivity {
         {
             if(resultCode == RESULT_OK){
                 Uri selectedImage = data.getData();
-                String path= Utils.getRealPathFromURI(selectedImage,this.getApplicationContext());
-                File f = new File(Utils.getRealPathFromURI(selectedImage,this.getApplicationContext()));
+                String path= Utils_Image.getRealPathFromURI(selectedImage,this.getApplicationContext());
+                File f = new File(Utils_Image.getRealPathFromURI(selectedImage,this.getApplicationContext()));
 
                 if(f.exists())
                 {
@@ -305,7 +309,7 @@ public class Sos_rios extends AppCompatActivity {
                         ImageView i= (ImageView) viewInflated.findViewById(R.id.photoImageView);
 
                         //poe a imagem tirada
-                        Bitmap result=Utils.squareimage(thumbnail);
+                        Bitmap result= Utils_Image.squareimage(thumbnail);
                         i.setImageBitmap(result);
 
                         //ao carregar em eliminar, tira do ecra e apaga da lista
@@ -331,9 +335,10 @@ public class Sos_rios extends AppCompatActivity {
         }
     }
 
-
-
-
+    /**
+     * Funcao Chamada sempre que é feito uplaod de uma imagem. Quando forem todas, termina a activity
+     * @param path
+     */
     public void saveImageDB(String path) {
         arrayListURI.remove(path);
         if (arrayListURI.size()==0)
@@ -356,28 +361,10 @@ public class Sos_rios extends AppCompatActivity {
 
     }
 
-    //menu action bar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_homepage, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id==R.id.navigate_guardarios)
-            startActivity(new Intent(this,GuardaRios.class));
-        if(id==R.id.navigate_account)
-        {
-            if(User.getInstance().getAuthentication_token().contentEquals(""))
-                startActivity(new Intent(this, Login.class));
-            else {
-                startActivity(new Intent(this, Profile.class));
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
+    /**
+     * Guarda um SOSRios
+     * @param view
+     */
     public void saveSOSRios(View view) {
         String q1=Form_functions.getRadioButtonOption_string(question1);
         String q2=Form_functions.getRadioButtonOption_string(question2);
@@ -444,6 +431,12 @@ public class Sos_rios extends AppCompatActivity {
         }
     }
 
+    /**
+     * Funcao chamada quando acaba de submeter SOSRios
+     * @param id
+     * @throws IOException
+     * @throws JSONException
+     */
     public void saveSOSDB(String id) throws IOException, JSONException {
         if (arrayListURI.size()==0) {
             new Thread() {
@@ -474,6 +467,10 @@ public class Sos_rios extends AppCompatActivity {
 
     }
 
+    /**
+     * Funcao quando ha um erro na submisson
+     * @param responseMessage
+     */
     public void errorSOSDB(final String responseMessage){
         new Thread()
         {
@@ -491,4 +488,27 @@ public class Sos_rios extends AppCompatActivity {
         }.start();
 
     }
+
+    //--TOOLBAR
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_homepage, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.navigate_guardarios)
+            startActivity(new Intent(this,GuardaRios.class));
+        if(id==R.id.navigate_account)
+        {
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    //--TOOLBAR
 }

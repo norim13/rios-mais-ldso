@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
-import ldso.rios.Mapa_Rotas;
+import ldso.rios.Maps.Mapa_Rotas;
 import ldso.rios.R;
 
 public class RotasRios_list extends AppCompatActivity {
@@ -39,9 +38,7 @@ public class RotasRios_list extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Rotas Rios+");
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         rotas= new ArrayList<Rota>();
         linearLayout= (LinearLayout) this.findViewById(R.id.linearLayout);
 
@@ -59,6 +56,10 @@ public class RotasRios_list extends AppCompatActivity {
         }
     }
 
+    /**
+     * Mostra no ecra uma lista de rotas
+     * @param resposta
+     */
     public void routeList(final String resposta) {
 
         new Thread()
@@ -70,10 +71,8 @@ public class RotasRios_list extends AppCompatActivity {
                     public void run() {
                         try {
                             JSONArray jsonarray = new JSONArray(resposta);
-
                             for (int i = 0; i < jsonarray.length(); i++) {
                                 final JSONObject rota_json = jsonarray.getJSONObject(i);
-
                                 final Rota r= new Rota(rota_json.getInt("id"),
                                                 rota_json.getString("nome"),
                                                 rota_json.getString("descricao"),
@@ -81,16 +80,13 @@ public class RotasRios_list extends AppCompatActivity {
                                                 rota_json.getString("created_at"),
                                                 rota_json.getString("updated_at"),
                                                 rota_json.getBoolean("publicada"));
-
                                 LayoutInflater l = getLayoutInflater();
                                 View v = l.inflate(R.layout.rotas_cardview, null);
                                 CardView c= (CardView) v.findViewById(R.id.card_view);
-
                                 TextView nome=(TextView) v.findViewById(R.id.nome_rota);
                                 TextView id=(TextView) v.findViewById(R.id.id_rota);
                                 TextView zona=(TextView) v.findViewById(R.id.zona_rota);
                                 TextView tempo=(TextView) v.findViewById(R.id.tempo_rota);
-
                                 nome.setText("Nome: "+r.getNome());
                                 id.setText("ID: "+r.getId());
                                 zona.setText("Zona: "+r.getZona());
@@ -98,14 +94,12 @@ public class RotasRios_list extends AppCompatActivity {
                                 c.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Log.e("clicou","clicou");
                                         Intent i;
                                         i = new Intent(v.getContext(), Mapa_Rotas.class);
                                         i.putExtra("id",r.getId());
                                         startActivity(i);
                                     }
                                 });
-
                                 linearLayout.addView(v);
                             }
                         } catch (JSONException e) {
@@ -117,7 +111,7 @@ public class RotasRios_list extends AppCompatActivity {
         }.start();
     }
 
-    //menu action bar
+    //--TOOLBAR
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_homepage, menu);
@@ -139,5 +133,7 @@ public class RotasRios_list extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    //--TOOLBAR
+
 
 }

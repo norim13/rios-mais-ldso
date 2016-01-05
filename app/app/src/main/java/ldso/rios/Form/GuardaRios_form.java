@@ -43,10 +43,10 @@ import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
 import ldso.rios.MainActivities.GuardaRios;
 import ldso.rios.MainActivities.Profile;
-import ldso.rios.Mapa_rios;
+import ldso.rios.Maps.Mapa_rios;
 import ldso.rios.R;
-import ldso.rios.SelectRioWebview;
-import ldso.rios.Utils;
+import ldso.rios.Maps.SelectRioWebview;
+import ldso.rios.Utils_Image;
 
 public class GuardaRios_form extends AppCompatActivity {
 
@@ -66,9 +66,9 @@ public class GuardaRios_form extends AppCompatActivity {
     Button buttonSelectPic;
     LinearLayout horizontal;
 
-    private  static final int CAM_REQUEST=100;
+    private static final int CAM_REQUEST = 100;
     private static final int SELECT_PHOTO = 200;
-    private static final int SELECT_RIO=300;
+    private static final int SELECT_RIO = 300;
 
 
     @Override
@@ -84,11 +84,10 @@ public class GuardaRios_form extends AppCompatActivity {
         linearLayout = (LinearLayout) this.findViewById(R.id.irr_linear);
         frameLayout = (FrameLayout) this.findViewById(R.id.frameLayout);
         progressbar = (ProgressBar) this.findViewById(R.id.progressBar);
-        arrayListURI=new ArrayList<String>();
+        arrayListURI = new ArrayList<String>();
 
         //Adiciona as perguntas
         createsQuestions();
-
 
 
         //Adiciona interface para as fotos
@@ -96,16 +95,16 @@ public class GuardaRios_form extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View viewInflated = inflater.inflate(R.layout.photo_selection, null);
 
-        buttonTakePic= (Button) viewInflated.findViewById(R.id.camera);
+        buttonTakePic = (Button) viewInflated.findViewById(R.id.camera);
         buttonTakePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent,CAM_REQUEST);
+                startActivityForResult(cameraIntent, CAM_REQUEST);
             }
         });
 
-        buttonSelectPic= (Button) viewInflated.findViewById(R.id.galery);
+        buttonSelectPic = (Button) viewInflated.findViewById(R.id.galery);
         buttonSelectPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,12 +115,14 @@ public class GuardaRios_form extends AppCompatActivity {
         });
 
         linearLayout.addView(viewInflated);
-        horizontal= (LinearLayout) viewInflated.findViewById(R.id.horizontalLinearLayout);
+        horizontal = (LinearLayout) viewInflated.findViewById(R.id.horizontalLinearLayout);
 
     }
 
-    //Adiciona as questoes a activity
-    public void createsQuestions(){
+    /**
+     * Adiciona as questoes a activity
+     */
+    public void createsQuestions() {
         Resources r = getResources();
         float px_float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, r.getDisplayMetrics());
         int px = (int) px_float;
@@ -182,87 +183,85 @@ public class GuardaRios_form extends AppCompatActivity {
 
     }
 
-    //funcao chamada quando o utilizador quer submeter
+    /**
+     * Funcao chamada quando o utilizador quer submeter
+     *
+     * @param view
+     * @throws IOException
+     * @throws JSONException
+     */
     public void saveGuardaRios(View view) throws IOException, JSONException {
 
-        for (int i=0;i<arrayListURI.size();i++)
-        {
-            File f= new File(arrayListURI.get(i));
-            if(f.exists())
-                Log.e("existe",arrayListURI.get(i));
-            else
-                Log.e("nao existe",arrayListURI.get(i));
+        for (int i = 0; i < arrayListURI.size(); i++) {
+            File f = new File(arrayListURI.get(i));
 
         }
         Integer escolha = Form_functions.getRadioButtonOption(question1);
-        Log.e("escolha",escolha+"");
-        String q1="";
-        switch (escolha){
+        String q1 = "";
+        switch (escolha) {
             case 1:
-                q1="arvores";
+                q1 = "arvores";
                 break;
             case 2:
-                q1="pedra";
+                q1 = "pedra";
                 break;
             case 3:
-                q1="solo";
+                q1 = "solo";
                 break;
             case 4:
-                q1="mergulhar";
+                q1 = "mergulhar";
                 break;
             case 5:
-                q1="ninho";
+                q1 = "ninho";
                 break;
             default:
-                q1="";
+                q1 = "";
                 break;
         }
-        Log.e("saiu","saiu do switch");
         String q2 = Form_functions.getRadioButtonOption_string(question2);
         String q3 = Form_functions.getRadioButtonOption_string(question3);
         String q4 = Form_functions.getRadioButtonOption_string(question4);
         ArrayList<Integer> q5 = Form_functions.getCheckboxes(question5);
         String q6 = String.valueOf(question6.getText());
 
-        RadioButton r1= (RadioButton) findViewById(R.id.currLocRadioButton);
-        RadioButton r2= (RadioButton) findViewById(R.id.selctLocRadioButton);
+        RadioButton r1 = (RadioButton) findViewById(R.id.currLocRadioButton);
+        RadioButton r2 = (RadioButton) findViewById(R.id.selctLocRadioButton);
 
-        Float lat,lang;
+        Float lat, lang;
 
-        if (r1.isChecked())
-        {
+        if (r1.isChecked()) {
             lat = Float.valueOf(r1.getText().toString().split("Atual: ")[1].split(";")[0]);
             lang = Float.valueOf(r1.getText().toString().split("Atual: ")[1].split(";")[1]);
-        }
-        else if(r2.isChecked())
-        {
+        } else if (r2.isChecked()) {
             lat = Float.valueOf(r2.getText().toString().split("Escolhida: ")[1].split(";")[0]);
             lang = Float.valueOf(r2.getText().toString().split("Escolhida: ")[1].split(";")[1]);
-        }
-        else
-        {
-            lat=lang=0f;
+        } else {
+            lat = lang = 0f;
         }
 
-        String nomeRio=((EditText)this.findViewById(R.id.nomeRioEditText)).getText().toString();
+        String nomeRio = ((EditText) this.findViewById(R.id.nomeRioEditText)).getText().toString();
 
         if (DB_functions.haveNetworkConnection(getApplicationContext())) {
-            if (nomeRio!=null && !nomeRio.contentEquals("")) {
+            if (nomeRio != null && !nomeRio.contentEquals("")) {
                 progressbar.setVisibility(View.VISIBLE);
-                String nome=((EditText)findViewById(R.id.nomeRioEditText)).getText().toString();
+                String nome = ((EditText) findViewById(R.id.nomeRioEditText)).getText().toString();
                 DB_functions.saveGuardaRios(this, User.getInstance().getEmail(), User.getInstance().getAuthentication_token(), q1, q2, q3, q4, q5, q6, lat, lang, nome);
-            }
-            else {
+            } else {
                 Toast.makeText(getApplicationContext(), "Selecione um rio", Toast.LENGTH_SHORT).show();
             }
-        }
-            else{
+        } else {
             Toast toast = Toast.makeText(GuardaRios_form.this, "Sem ligação à Internet", Toast.LENGTH_LONG);
             toast.show();
         }
     }
 
-    //funcao chamada quando foi submetido o form
+    /**
+     * Funcao chamada quando foi submetido o form
+     *
+     * @param id
+     * @throws IOException
+     * @throws JSONException
+     */
     public void saveGuardaRiosDB(String id) throws IOException, JSONException {
       /*  new Thread() {
             public void run() {
@@ -279,8 +278,7 @@ public class GuardaRios_form extends AppCompatActivity {
         }.start();
         */
 
-        if (arrayListURI.size()==0)
-        {
+        if (arrayListURI.size() == 0) {
 
             new Thread() {
                 public void run() {
@@ -299,11 +297,9 @@ public class GuardaRios_form extends AppCompatActivity {
 
         }
 
-        for (int i=0;i<arrayListURI.size();i++)
-        {
-            Log.e("uri",arrayListURI.get(i));
+        for (int i = 0; i < arrayListURI.size(); i++) {
             if (DB_functions.haveNetworkConnection(getApplicationContext()))
-            DB_functions.saveImage(this,arrayListURI.get(i), User.getInstance().getEmail(),User.getInstance().getAuthentication_token(),"guardario",id);
+                DB_functions.saveImage(this, arrayListURI.get(i), User.getInstance().getEmail(), User.getInstance().getAuthentication_token(), "guardario", id);
             else {
                 Toast toast = Toast.makeText(GuardaRios_form.this, "Sem ligação à Internet. Imagem nao fui enviada.", Toast.LENGTH_LONG);
                 toast.show();
@@ -313,15 +309,29 @@ public class GuardaRios_form extends AppCompatActivity {
 
     }
 
-    //abre o mapa e modifica
+    /**
+     * Abre o Mapa
+     *
+     * @param view
+     */
     public void abrirMapa(View view) {
         startActivityForResult(new Intent(this, Mapa_rios.class), 1);
     }
 
+    /**
+     * Abre a webview para escolher o rio
+     * @param view
+     */
     public void abrirWebView(View view) {
         startActivityForResult(new Intent(this, SelectRioWebview.class), SELECT_RIO);
     }
 
+    /**
+     * Funcao que trata dos Activity on result (Camera,MApa,WebView)
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -330,38 +340,27 @@ public class GuardaRios_form extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 String result = data.getStringExtra("latlan_current");
                 if (!result.contentEquals("0")) {
-                    ((RadioButton)this.findViewById(R.id.currLocRadioButton)).setText("Atual: " + result);
+                    ((RadioButton) this.findViewById(R.id.currLocRadioButton)).setText("Atual: " + result);
                 }
-
                 result = data.getStringExtra("latlan_picked");
                 if (!result.contentEquals("0")) {
-                    ((RadioButton)this.findViewById(R.id.selctLocRadioButton)).setText("Escolhida: " + result);
+                    ((RadioButton) this.findViewById(R.id.selctLocRadioButton)).setText("Escolhida: " + result);
                 }
-                // Log.e("resultado",result);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                //Write your code if there's no result
-                Log.e("resultado", "nao recebeu nada");
-
             }
-        }
-        else if (requestCode==SELECT_RIO)
-        {
+        } else if (requestCode == SELECT_RIO) {
             if (resultCode == Activity.RESULT_OK) {
-                ((EditText)findViewById(R.id.nomeRioEditText)).setText(data.getStringExtra("nomeRio")+" id:"+data.getStringExtra("codigoRio"));
+                ((EditText) findViewById(R.id.nomeRioEditText)).setText(data.getStringExtra("nomeRio") + " id:" + data.getStringExtra("codigoRio"));
             }
         }
 
         //se for a resposta da camara
-        else if (requestCode== CAM_REQUEST)
-        {
+        else if (requestCode == CAM_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
-                Log.e("array", arrayListURI.toString());
                 Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                 thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-
                 File destination = new File(Environment.getExternalStorageDirectory(),
                         System.currentTimeMillis() + ".jpg");
                 FileOutputStream fo;
@@ -375,23 +374,16 @@ public class GuardaRios_form extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
                 arrayListURI.add(destination.getAbsolutePath());
-                Log.e("arrat", arrayListURI.toString());
-
-
                 try {
-
                     LayoutInflater inflater = getLayoutInflater();
                     View viewInflated = inflater.inflate(R.layout.photo_view, null);
                     final LinearLayout novo = (LinearLayout) viewInflated.findViewById(R.id.novo);
                     ImageView cancel = (ImageView) viewInflated.findViewById(R.id.cancel);
                     ImageView i = (ImageView) viewInflated.findViewById(R.id.photoImageView);
-
                     //poe a imagem tirada
-                    Bitmap result = Utils.squareimage(thumbnail);
+                    Bitmap result = Utils_Image.squareimage(thumbnail);
                     i.setImageBitmap(result);
-
                     //ao carregar em eliminar, tira do ecra e apaga da lista
                     cancel.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -399,30 +391,19 @@ public class GuardaRios_form extends AppCompatActivity {
                             novo.removeAllViews();
                         }
                     });
-
                     linearLayout.addView(novo);
-
-
                 } catch (IOException e) {
                     e.printStackTrace();
                     arrayListURI.remove(destination.getAbsolutePath());
                 }
-
             }
-
-
-        }
-        else if (requestCode == SELECT_PHOTO)
-        {
-            if(resultCode == RESULT_OK){
+        } else if (requestCode == SELECT_PHOTO) {
+            if (resultCode == RESULT_OK) {
                 Uri selectedImage = data.getData();
-                String path= Utils.getRealPathFromURI(selectedImage,this.getApplicationContext());
-                File f = new File(Utils.getRealPathFromURI(selectedImage,this.getApplicationContext()));
-
-                if(f.exists())
-                {
-                    try{
-
+                String path = Utils_Image.getRealPathFromURI(selectedImage, this.getApplicationContext());
+                File f = new File(Utils_Image.getRealPathFromURI(selectedImage, this.getApplicationContext()));
+                if (f.exists()) {
+                    try {
                         arrayListURI.add(path);
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
@@ -431,21 +412,16 @@ public class GuardaRios_form extends AppCompatActivity {
                         int i1 = bitmapOtiginal.getHeight() * 200 / bitmapOtiginal.getWidth();
                         Bitmap thumbnail = Bitmap.createScaledBitmap(
                                 bitmapOtiginal, 200, i1, false);
-
-
                         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-
                         LayoutInflater inflater = getLayoutInflater();
                         View viewInflated = inflater.inflate(R.layout.photo_view, null);
-                        final LinearLayout novo= (LinearLayout) viewInflated.findViewById(R.id.novo);
-                        ImageView cancel= (ImageView) viewInflated.findViewById(R.id.cancel);
-                        ImageView i= (ImageView) viewInflated.findViewById(R.id.photoImageView);
-
+                        final LinearLayout novo = (LinearLayout) viewInflated.findViewById(R.id.novo);
+                        ImageView cancel = (ImageView) viewInflated.findViewById(R.id.cancel);
+                        ImageView i = (ImageView) viewInflated.findViewById(R.id.photoImageView);
                         //poe a imagem tirada
-                        Bitmap result=Utils.squareimage(thumbnail);
+                        Bitmap result = Utils_Image.squareimage(thumbnail);
                         i.setImageBitmap(result);
-
                         //ao carregar em eliminar, tira do ecra e apaga da lista
                         cancel.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -453,51 +429,23 @@ public class GuardaRios_form extends AppCompatActivity {
                                 novo.removeAllViews();
                             }
                         });
-
                         linearLayout.addView(novo);
-
-                    }
-                    catch(Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }
-                else
-                    Log.e("Nao existe","ficheiro nao existe");
-
             }
         }
     }
 
-
-    //menu action bar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_homepage, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id==R.id.navigate_guardarios)
-            startActivity(new Intent(this,GuardaRios.class));
-        if(id==R.id.navigate_account)
-        {
-            if(User.getInstance().getAuthentication_token().contentEquals(""))
-                startActivity(new Intent(this, Login.class));
-            else {
-                startActivity(new Intent(this, Profile.class));
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
+    /**
+     * Funcao Chamada sempre que é feito uplaod de uma imagem. Quando forem todas, termina a activity
+     * @param path
+     */
     public void saveImageDB(String path) {
-        Log.e("entrou","entrou na funcao");
+        Log.e("entrou", "entrou na funcao");
         arrayListURI.remove(path);
-        if (arrayListURI.size()==0)
-        {
+        if (arrayListURI.size() == 0) {
             new Thread() {
                 public void run() {
                     GuardaRios_form.this.runOnUiThread(new Runnable() {
@@ -515,4 +463,27 @@ public class GuardaRios_form extends AppCompatActivity {
 
 
     }
+
+    //--TOOLBAR
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_homepage, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.navigate_guardarios)
+            startActivity(new Intent(this, GuardaRios.class));
+        if (id == R.id.navigate_account) {
+            if (User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    //--TOOLBAR
 }

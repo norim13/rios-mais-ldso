@@ -25,6 +25,15 @@ public abstract class Pergunta implements Serializable {
     protected Context context;                      //context do layout (activity)
     protected int[] images;
 
+    /**
+     * Cria pergunta
+     * @param options Array de string de opções
+     * @param images Array de int (R.drawable.X) de imagens
+     * @param title String Titulo
+     * @param subtitle String subtitulo
+     * @param obly Booleano utilizador par averificar se uma pergunta é obrigatoria
+     * @param other_option  Booleano para verificar se ha um campo extra para input de texto "outros"
+     */
     public Pergunta(String[] options, int[] images,String title, String subtitle, Boolean obly, Boolean other_option) {
         this.options = options;
         this.title = title;
@@ -34,23 +43,66 @@ public abstract class Pergunta implements Serializable {
         this.images=images;
     }
 
+    /**
+     * Gera os componentes no ecra de uma pergunta no ecra de responder/editar
+     * @param linearLayout
+     * @param context
+     * @throws IOException
+     */
     public abstract void generate(LinearLayout linearLayout,Context context) throws IOException;           //generates the activity and questions
+
+    /**
+     * Gera os componentes no ecra de uma pergunta no ecra de ver
+     * @param linearLayout
+     * @param context
+     * @throws IOException
+     */
     public abstract void generateView(LinearLayout linearLayout,Context context) throws IOException;       //generates the activity and questions
 
+    /**
+     * Retorna as repsostas
+     */
     public abstract void getAnswer();                                                    //gets the answers
+
+    /**
+     * Força a resposta a uma pergunta
+     */
     public abstract void forceresponse();                                               //forces the answers
+
+    /**
+     *
+     * @return list of edittex/radiobuttons/checkboxes/seek/complex
+     */
     public abstract Object getList();                                                   //return list of edittex/radiobuttons/checkboxes/seek/complex
 
+    /**
+     * Obter resposta de uma pergunta
+     * @return Resposta
+     */
     public Object getResponse(){
         this.getAnswer();
      //   Log.e("respota no pergunta",this.response.toString());
         return this.response;
-    }                                                     //returns the answers
+    }
+
+    /**
+     * Devolve as opcoes de uma pergunta
+     * @return Opcoes de uma pergunta
+     */
     public String[] getOptions(){
         return this.options;
     }
 
+    /**
+     * setAnswer
+     */
     public abstract void setAnswer();                                                   //set the answers (for edit forms porpuses)
+
+    /**
+     * setAnswers
+     * @param o repsota
+     * @param other "other"
+     */
     public void setAnswer(Object o, String other){
         this.response=o;
         this.other_text=other;

@@ -6,8 +6,6 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -23,97 +21,69 @@ import java.util.HashMap;
 
 import ldso.rios.DataBases.DB_functions;
 import ldso.rios.Form.Form_functions;
-import ldso.rios.Form.IRR.Perguntas.checkPergunta;
-import ldso.rios.Form.IRR.Perguntas.complexPergunta;
-import ldso.rios.Form.IRR.Perguntas.editPergunta;
-import ldso.rios.Form.IRR.Perguntas.radioPergunta;
-import ldso.rios.Form.IRR.Perguntas.seekPergunta;
+import ldso.rios.Form.IRR.Perguntas.CheckPergunta;
+import ldso.rios.Form.IRR.Perguntas.ComplexPergunta;
+import ldso.rios.Form.IRR.Perguntas.EditPergunta;
+import ldso.rios.Form.IRR.Perguntas.RadioPergunta;
+import ldso.rios.Form.IRR.Perguntas.SeekPergunta;
 
 /**
  * Created by filipe on 25/11/2015.
  */
 public class Form_IRR extends Form implements Serializable {
 
-
     private static final long serialVersionUID = -622335515469057949L;
-
     String file_name;
 
-    public void setLat_curr(Float lat_curr) {
-        this.lat_curr = lat_curr;
-    }
 
-    public void setLon_curr(Float lon_curr) {
-        this.lon_curr = lon_curr;
-    }
-
-    public void setLat_sel(Float lat_sel) {
-        this.lat_sel = lat_sel;
-    }
-
-    public void setLon_sel(Float lon_sel) {
-        this.lon_sel = lon_sel;
-    }
-//public static ArrayList<Form_IRR> all_from_irrs;
-
-
-    @Override
-    public String toString() {
-        String s="";
-        s+="Perguntas:";
-        if(this.perguntas==null)
-            return s;
-        for(Pergunta p: this.perguntas)
-            s+=" "+p.getOptions()[0].toString()+",";
-        s+="\n";
-        return s;
-    }
-
+    /**
+     * Gera as perguntas no form irr
+     */
     public void generate(){
         this.perguntas= new ArrayList<Pergunta>();
         this.respostas= new HashMap<Integer,Object>();
         this.other_response= new HashMap<Integer,String>();
         arrayListURI=new ArrayList<String>();
-
         //{main_title , sub_title , type , required , options , max,value_irr}
         for(int i=1;i<=33;i++)
         {
-            ArrayList<Object> options = Questions.getOptions(i);
+            ArrayList<Object> options = QuestionsList.getOptions(i);
             Pergunta nova = null;
             ArrayList<Float[]> maxmin= (ArrayList<Float[]>) options.get(7);
             switch ((int)options.get(2))
             {
                 case 0:
-                    nova= new radioPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),(Boolean)options.get(9));
+                    nova= new RadioPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),(Boolean)options.get(9));
                     break;
                 case 1:
                     String [] options_txt= (String[]) options.get(4);
                     if(options_txt[0].equals("-"))
                     {
-                        nova=new complexPergunta(options_txt,(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),(Boolean)options.get(9));
+                        nova=new ComplexPergunta(options_txt,(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),(Boolean)options.get(9));
 
                     }
                     else
-                        nova= new checkPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),(Boolean)options.get(9));
+                        nova= new CheckPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),(Boolean)options.get(9));
                     break;
                 case 2:
                     if(maxmin.size()==0)
-                    nova= new editPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),(Boolean)options.get(9));
+                    nova= new EditPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),(Boolean)options.get(9));
                     else
-                    nova= new editPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),maxmin,(Boolean)options.get(9));
+                    nova= new EditPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),maxmin,(Boolean)options.get(9));
 
                     break;
                 case 3:
-                    nova= new seekPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),(Boolean)options.get(9),1,5);
+                    nova= new SeekPergunta((String[]) options.get(4),(int[]) options.get(8),(String) options.get(0),(String)options.get(1),(Boolean) options.get(3),(Boolean)options.get(9),1,5);
             }
             this.perguntas.add(nova);
-
         }
-
-
     }
 
-
+    /**
+     * Le um Json Object para FormIRR e guarda todas as respostas no form
+     * @param jsonObject    jsonObjet para fazer parse
+     * @throws JSONException
+     */
     public void readResponseJson(JSONObject jsonObject) throws JSONException {
 
         respostas=new HashMap<Integer, Object>();
@@ -148,7 +118,7 @@ public class Form_IRR extends Form implements Serializable {
         //Perfil de margens
         this.respostas.put(2, jsonObject.get("perfilDeMargens"));
 
-        //Volume de Água
+        //Volume de Agua
         as.add((String) jsonObject.get("larguraDaSuperficieDaAgua").toString());
         as.add((String) jsonObject.get("profundidadeMedia").toString());
         as.add((String) jsonObject.get("velocidadeMedia").toString());
@@ -178,7 +148,7 @@ public class Form_IRR extends Form implements Serializable {
         ai=new ArrayList<Integer>();
 
 
-        //Estado geral da linha de água
+        //Estado geral da linha de agua
         this.respostas.put(6, jsonObject.getInt("estadoGeraldaLinhadeAgua"));
 
         //Erosão
@@ -190,7 +160,7 @@ public class Form_IRR extends Form implements Serializable {
         this.respostas.put(7, ai);
         ai=new ArrayList<Integer>();
 
-        //Sedimentação
+        //Sedimentacao
         ai.add(jsonObject.getBoolean("sedimentacao_ausente") ? 1 : 0);
         ai.add(jsonObject.getBoolean("sedimentacao_decomposicao")? 1:0);
         ai.add(jsonObject.getBoolean("sedimentacao_mouchoes")? 1:0);
@@ -202,7 +172,7 @@ public class Form_IRR extends Form implements Serializable {
         this.respostas.put(8, ai);
         ai=new ArrayList<Integer>();
 
-        //Qualidade da água
+        //Qualidade da agua
         af.add(Float.parseFloat(jsonObject.get("pH").toString()));
         af.add(Float.parseFloat(jsonObject.get("condutividade").toString()));
         af.add(Float.parseFloat(jsonObject.get("temperatura").toString()));
@@ -215,7 +185,7 @@ public class Form_IRR extends Form implements Serializable {
         af=new ArrayList<Float>();
         Log.e("parse","passou "+9);
 
-        //Indícios na água
+        //Indícios na agua
         ai.add(jsonObject.getBoolean("oleo")? 1:0);
         ai.add(jsonObject.getBoolean("espuma")? 1:0);
         ai.add(jsonObject.getBoolean("esgotos")? 1:0);
@@ -229,10 +199,10 @@ public class Form_IRR extends Form implements Serializable {
         Log.e("parse","passou "+10);
 
 
-        //A cor da água
+        //A cor da agua
         this.respostas.put(11, jsonObject.getInt("corDaAgua"));
 
-        //O odor (cheiro) da água
+        //O odor (cheiro) da agua
         this.respostas.put(12, jsonObject.getInt("odorDaAgua"));
 
         //Corredor Ecologico
@@ -292,7 +262,7 @@ public class Form_IRR extends Form implements Serializable {
 
         this.respostas.put(13, all);
 
-        //Intervenções presentes
+        //Intervencoes presentes
         ai.add(jsonObject.getBoolean("intervencoes_edificios")?1:0);
         ai.add(jsonObject.getBoolean("intervencoes_pontes")?1:0);
         ai.add(jsonObject.getBoolean("intervencoes_limpezasDasMargens")?1:0);
@@ -311,7 +281,7 @@ public class Form_IRR extends Form implements Serializable {
         this.other_response.put(14,jsonObject.getString("intervencoes_outras"));
         ai=new ArrayList<Integer>();
 
-        //Ocupação das margens [<10 m]
+        //Ocupacao das margens [<10 m]
         ai.add(jsonObject.getBoolean("ocupacao_florestaNatural")?1:0);
         ai.add(jsonObject.getBoolean("ocupacao_florestaPlantadas")?1:0);
         ai.add(jsonObject.getBoolean("ocupacao_matoAlto")?1:0);
@@ -327,7 +297,7 @@ public class Form_IRR extends Form implements Serializable {
         this.respostas.put(15, ai);
         ai=new ArrayList<Integer>();
 
-        //Património edificado Leito/margem [estado de conservação: 1 - Bom a 5- Mau]
+        //Patrimonio edificado Leito/margem [estado de conservação: 1 - Bom a 5- Mau]
         ai.add(jsonObject.getInt("patrimonio_moinho"));
         ai.add(jsonObject.getInt("patrimonio_acude"));
         ai.add(jsonObject.getInt("patrimonio_microAcude1"));
@@ -355,7 +325,7 @@ public class Form_IRR extends Form implements Serializable {
         this.respostas.put(16, ai);
         ai=new ArrayList<Integer>();
 
-        //Poluição
+        //Poluicao
         ai.add(jsonObject.getBoolean("poluicao_descargasDomesticas")?1:0);
         ai.add(jsonObject.getBoolean("poluicao_descargasETAR")?1:0);
         ai.add(jsonObject.getBoolean("poluicao_descargasIndustriais")?1:0);
@@ -372,7 +342,7 @@ public class Form_IRR extends Form implements Serializable {
         this.respostas.put(17, ai);
         ai=new ArrayList<Integer>();
 
-        //Fauna - Anfíbios autoctones
+        //Fauna - Anfibios autoctones
         ai.add(jsonObject.getBoolean("salamandraLusitanica")?1:0);
         ai.add(jsonObject.getBoolean("salamandraPintasAmarelas")?1:0);
         ai.add(jsonObject.getBoolean("tritaoVentreLaranja")?1:0);
@@ -382,7 +352,7 @@ public class Form_IRR extends Form implements Serializable {
         this.respostas.put(18, ai);
         ai=new ArrayList<Integer>();
 
-        //Fauna - Répteis Autoctones
+        //Fauna - Repteis Autoctones
         ai.add(jsonObject.getBoolean("lagartoDeAgua")?1:0);
         ai.add(jsonObject.getBoolean("cobraAguaDeColar")?1:0);
         ai.add(jsonObject.getBoolean("cagado")?1:0);
@@ -500,20 +470,10 @@ public class Form_IRR extends Form implements Serializable {
 
     }
 
-    public  static  byte[] serialize(Object obj) throws IOException {
-        ByteArrayOutputStream b= new ByteArrayOutputStream();
-        ObjectOutputStream o = new ObjectOutputStream(b);
-        o.writeObject(o);
-        return b.toByteArray();
-    }
-
-    public static Object deserialize (byte[] bytes) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream b = new ByteArrayInputStream(bytes);
-        ObjectInputStream o= new ObjectInputStream(b);
-        return o.readObject();
-    }
-
-
+    /**
+     * Verifica se o form_irr esta todo preenchido
+     * @return "" se estiver tudo preenchido, ou "X" da primeira coisa que encontra que é obrigatoria responder e nao está preenchida
+     */
     public String requiered(){
         if (this.nomeRio.contentEquals("") || this.nomeRio==null)
             return "Nome do Rio";
@@ -555,7 +515,7 @@ public class Form_IRR extends Form implements Serializable {
 
         for(int i=0;i<this.perguntas.size()-1;i++)
         {
-            if (this.perguntas.get(i) instanceof radioPergunta)
+            if (this.perguntas.get(i) instanceof RadioPergunta)
             {
                 if((int)this.respostas.get(i+1)==0)
                     return this.perguntas.get(i).subtitle;
@@ -564,6 +524,9 @@ public class Form_IRR extends Form implements Serializable {
         return "";
     }
 
+    /**
+     * Gera o nome do ficheiro para guardar no dispositivo baseado na data
+     */
     public void setDate(){
 
         Calendar calendar = Calendar.getInstance();
@@ -572,7 +535,7 @@ public class Form_IRR extends Form implements Serializable {
     }
 
     /**
-     * retorna um arraylist de todos os forms
+     * Retorna um arraylist de todos os forms
      * @param c
      * @return
      * @throws IOException
@@ -624,9 +587,12 @@ public class Form_IRR extends Form implements Serializable {
     }
 
 
-
-
-
+    /**
+     * Guarda um form no dispositivo
+     * @param form_irr  form a guardar
+     * @param c Contexto
+     * @throws IOException
+     */
     public static void saveFormIRR(Form_IRR form_irr, Context c) throws IOException {
 
         try {
@@ -690,6 +656,11 @@ public class Form_IRR extends Form implements Serializable {
     }
 
 
+    /**
+     * Apaga um determinado ficheiro de um form_irr
+     * @param c
+     * @param file_name
+     */
     public static void deleteFormIRRFile(Context c,String file_name)
     {
         File f = new File(c.getFilesDir()+File.separator+"irrs");
@@ -701,6 +672,13 @@ public class Form_IRR extends Form implements Serializable {
 
     }
 
+    /**
+     * Faz uplaod de um FormIRR guardado
+     * @param activity
+     * @param c
+     * @param form_irr
+     * @return
+     */
     public static boolean uploadFormIRR(Object activity,Context c, Form_IRR form_irr){
 
         File f = new File(c.getFilesDir()+File.separator+"irrs");
@@ -724,4 +702,41 @@ public class Form_IRR extends Form implements Serializable {
         }
         return false;
     }
+
+
+    //sets
+
+    public void setLat_curr(Float lat_curr) {
+        this.lat_curr = lat_curr;
+    }
+
+    public void setLon_curr(Float lon_curr) {
+        this.lon_curr = lon_curr;
+    }
+
+    public void setLat_sel(Float lat_sel) {
+        this.lat_sel = lat_sel;
+    }
+
+    public void setLon_sel(Float lon_sel) {
+        this.lon_sel = lon_sel;
+    }
+
+
+    /**
+     * Mostra um Form_IRR
+     * @return
+     */
+    @Override
+    public String toString() {
+        String s="";
+        s+="Perguntas:";
+        if(this.perguntas==null)
+            return s;
+        for(Pergunta p: this.perguntas)
+            s+=" "+p.getOptions()[0].toString()+",";
+        s+="\n";
+        return s;
+    }
+
 }

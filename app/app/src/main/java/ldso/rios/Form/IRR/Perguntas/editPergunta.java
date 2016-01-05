@@ -17,7 +17,7 @@ import ldso.rios.Form.IRR.Pergunta;
 /**
  * Created by filipe on 24/11/2015.
  */
-public class editPergunta extends Pergunta implements Serializable {
+public class EditPergunta extends Pergunta implements Serializable {
 
     private static final long serialVersionUID = -6544844231796807804L;
     ArrayList<Float[]> minmax;
@@ -27,13 +27,31 @@ public class editPergunta extends Pergunta implements Serializable {
     TextView tv2;
 
 
-
-    public editPergunta(String[] options,int[]images, String title, String subtitle, Boolean obly, Boolean other_option) {
+    /**
+     * Cria uma EditPergunta sem minmax
+     * @param options
+     * @param images
+     * @param title
+     * @param subtitle
+     * @param obly
+     * @param other_option
+     */
+    public EditPergunta(String[] options, int[]images, String title, String subtitle, Boolean obly, Boolean other_option) {
         super(options,images, title, subtitle, obly, other_option);
         range=false;
     }
 
-    public editPergunta(String[] options, int[] images, String title, String subtitle, Boolean obly, ArrayList<Float[]> minmax, boolean other_option) {
+    /**
+     * Cria uma edit pergunta com valores min e max de range
+     * @param options
+     * @param images
+     * @param title
+     * @param subtitle
+     * @param obly
+     * @param minmax    ArrayList<Float[min,max]>
+     * @param other_option
+     */
+    public EditPergunta(String[] options, int[] images, String title, String subtitle, Boolean obly, ArrayList<Float[]> minmax, boolean other_option) {
         super(options,images, title, subtitle, obly, other_option);
         range=true;
         this.minmax=minmax;
@@ -74,7 +92,7 @@ public class editPergunta extends Pergunta implements Serializable {
             edit.setEnabled(false);
     }
 
-    public editPergunta(String[] options,int[] images, String title, String subtitle, Boolean obly, Boolean other_option, ArrayList<Float[]> minmax) {
+    public EditPergunta(String[] options, int[] images, String title, String subtitle, Boolean obly, Boolean other_option, ArrayList<Float[]> minmax) {
         super(options, images, title,subtitle, obly, other_option);
         this.minmax = minmax;
         range=true;

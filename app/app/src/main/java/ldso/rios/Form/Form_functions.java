@@ -32,6 +32,8 @@ import ldso.rios.MainActivities.Homepage;
  * Class para guardar todas as funcoes relativas a criar e ler um formulário
  */
 public class Form_functions {
+    //Funcoes Create -> Criam no ecra no layout linearLayout com as opcoes em Stirng[]array
+    //Algumas recebem um int[] images com R.drawable.X relativo a imagem de uma opcao
 
     //CREATE
 
@@ -282,8 +284,6 @@ public class Form_functions {
 
     };
 
-
-
     public static void createTitleSubtitle(String title,String subtitle, LinearLayout linearLayout,Context context){
         LinearLayout.LayoutParams radioParams;
         radioParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -304,7 +304,6 @@ public class Form_functions {
         linearLayout.addView(textView1);
     }
 
-
     public static void createTitle(String title, LinearLayout linearLayout,Context context){
         LinearLayout.LayoutParams radioParams;
         radioParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -317,7 +316,10 @@ public class Form_functions {
         linearLayout.addView(textView);
 
     }
+
+
     //READ
+    //Devolve as respostas dos vários tipos de perguntas
 
     public static int getRadioButtonOption(ArrayList<RadioButton> arrayList){
         for (int i=0;i<arrayList.size();i++){
@@ -366,8 +368,6 @@ public class Form_functions {
         return al;
 
     }
-
-
 
     //CALCULAR IRR
 

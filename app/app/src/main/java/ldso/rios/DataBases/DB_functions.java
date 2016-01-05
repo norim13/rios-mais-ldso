@@ -40,9 +40,9 @@ import ldso.rios.Autenticacao.Login;
 import ldso.rios.Autenticacao.Register;
 import ldso.rios.Form.Form_functions;
 import ldso.rios.Form.GuardaRios_form;
-import ldso.rios.Form.IRR.FormIRRSwipe;
+import ldso.rios.Form.IRR.FormIRR_Swipe;
 import ldso.rios.Form.IRR.Form_IRR;
-import ldso.rios.Form.IRR.Questions;
+import ldso.rios.Form.IRR.QuestionsList;
 import ldso.rios.Form.IRR.ViewFormIRR;
 import ldso.rios.Form.LimpezaSolucoes;
 import ldso.rios.Form.Sos_rios;
@@ -52,7 +52,7 @@ import ldso.rios.MainActivities.Limpeza;
 import ldso.rios.MainActivities.Profile;
 import ldso.rios.MainActivities.ProfileEditActivity;
 import ldso.rios.MainActivities.RotasRios_list;
-import ldso.rios.Mapa_Rotas;
+import ldso.rios.Maps.Mapa_Rotas;
 
 /**
  * Created by filipe on 02/11/2015.
@@ -63,6 +63,7 @@ public class DB_functions {
 
     public static String base_url="http://riosmais.herokuapp.com";
 
+    //USER      ----------------------------------------------------------------------------------------------------
     public static void saveUser(final String nome, final String email, final String password, final String password_confirmation, final String telef,
                                 final String profissao, final String habilitacoes, final Boolean formacao,
                                 final int distrito, final int concelho, final Register register_class) throws IOException, JSONException {
@@ -240,9 +241,363 @@ public class DB_functions {
         }).start();
     }
 
+    public static void login(Login login1, final String email, final String password, final Login login) throws IOException, JSONException {
+
+        new Thread(new Runnable() {
+            public void run() {
+
+                try {
+                    String url = base_url+"/api/v1/sign_in";
+                    URL object = null;
+                    object = new URL(url);
+                    HttpURLConnection con = null;
+                    con = (HttpURLConnection) object.openConnection();
+                    con.setDoOutput(true);
+                    con.setDoInput(true);
+                    con.setRequestProperty("Content-Type", "application/json");
+                    con.setRequestMethod("POST");
+                    con.connect();
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.accumulate("user_login", email);
+                        jsonObject.accumulate("password", password);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.w("teste", jsonObject.toString());
+
+                    OutputStream os = null;
+                    os = con.getOutputStream();
+                    OutputStreamWriter osw = null;
+                    osw = new OutputStreamWriter(os, "UTF-8");
+                    osw.write(jsonObject.toString());
+                    osw.flush();
+                    osw.close();
+                    int HttpResult = 0;
+                    StringBuilder sb=null;
+                    sb= new StringBuilder();
+                    HttpResult = con.getResponseCode();
+                    if (HttpResult == HttpURLConnection.HTTP_OK) {
+                        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
+                        String line = null;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line).append("\n");
+                        }
+
+                        br.close();
+
+                        String authentication_token = "";
+                        String error_txt = "";
+                        Boolean error = false;
+
+                        /*{"id":2,"nome":"Filipe Miranda","access":null,"created_at":"2015-11-11T19:21:13.255Z",
+                        "updated_at":"2015-11-11T19:21:13.255Z","email":"fil.fmiranda@gmail.com",
+                        "authentication_token":"muWniRNBN-NSdF5vJdHy","distrito":null,"concelho":null,
+                        "telef":null,"habilitacoes":null,"profissao":null,"formacao":null}
+                         */
+
+                        try {
+                            JSONObject user_json = new JSONObject(sb.toString());
+                            if(user_json.has("error"))
+                                error_txt = user_json.getString("error");
+
+                            if(!error_txt.equals(""))
+                                error = true;
+
+                            if(!error) {
+                                authentication_token = user_json.getString("authentication_token");
+
+                                User user = User.getInstance();
+                                user.setId(Integer.parseInt(user_json.getString("id")));
+                                user.setName(user_json.getString("nome"));
+                                user.setEmail(user_json.getString("email"));
+                                user.setAuthentication_token(user_json.getString("authentication_token"));
+                                user.setTelef(user_json.getString("telef"));
+
+                                String distrito_id = user_json.getString("distrito_id");
+                                String concelho_id = user_json.getString("concelho_id");
+                                user.setDistrito(distrito_id);
+                                user.setConcelho(concelho_id);
+
+                                user.setProfissao(user_json.getString("profissao"));
+                                user.setHabilitacoes(user_json.getString("habilitacoes"));
+                                user.setFormacao(Boolean.valueOf(user_json.getString("formacao")));
+
+                                user.setPermissoes(Integer.parseInt(user_json.getString("permissoes")));
+
+                                Log.e("profile","a seguir ao set user todo");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Log.e("resposta:","a meio error:"+ error_txt +" autenticacao:"+ authentication_token);
+                        login.login_response(error,error_txt);
+
+                        System.out.println("errozinho:" + sb.toString());
+
+                    } else {
+                        Log.e("teste","error: "+con.getResponseMessage());
+                        System.out.println(con.getResponseMessage());
+                    }
+                } catch (IOException e) {
+                    Log.e("teste","stacktrace");
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public static void editUser(final ProfileEditActivity profileEditActivity, final String email, final String token) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String url = base_url+"/api/v2/users?user_email=" + email + "&user_token=" + token;
+                    Log.e("link",url);
+                    URL object = new URL(url);
+                    HttpURLConnection con = (HttpURLConnection) object.openConnection();
+                    con.setDoOutput(true);
+                    con.setDoInput(true);
+                    con.setRequestProperty("Content-Type", "application/json");
+                    con.setRequestMethod("PUT");
+                    con.connect();
+                    JSONObject jsonObject = new JSONObject();
+                    JSONObject user = new JSONObject();
+                    try {
+                        jsonObject.accumulate("nome", profileEditActivity.getName().getText());
+                        jsonObject.accumulate("email", profileEditActivity.getEmail().getText());
+                        jsonObject.accumulate("current_password", profileEditActivity.getCurrentPassword());
+                        jsonObject.accumulate("password", profileEditActivity.getPassword().getText());
+                        jsonObject.accumulate("password_confirmation", profileEditActivity.getPasswordConfirmation().getText());
+                        jsonObject.accumulate("telef", profileEditActivity.getTelef().getText());
+                        jsonObject.accumulate("habilitacoes", profileEditActivity.getHabilitacoes().getText());
+                        jsonObject.accumulate("profissao", profileEditActivity.getProfissao().getText());
+                        jsonObject.accumulate("formacao", profileEditActivity.getFormacao().isChecked()?"True":"False");
+
+                        user.accumulate("user", jsonObject);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.e("user todo: ", user.toString());
+
+                    OutputStream os = con.getOutputStream();
+                    OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+                    osw.write(user.toString());
+                    osw.flush();
+                    osw.close();
+                    StringBuilder sb = new StringBuilder();
+                    int HttpResult = con.getResponseCode();
+                    if (HttpResult == HttpURLConnection.HTTP_OK) {
+                        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
+                        String line = null;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line + "\n");
+                        }
+
+                        Log.e("register", "resposta da api:" + sb.toString());
+
+                        final String[] error_txt = {""};
+                        final Boolean[] error = {false};
+
+                        JSONObject obj = null;
+                        try {
+                            obj = new JSONObject(sb.toString());
+                            error_txt[0] = obj.getString("error");
+                            error[0] = true;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("JSON Exception", "exception getting response on register");
+                        }
+
+                        profileEditActivity.edit_response(error[0], error_txt[0]);
+
+                        br.close();
+
+                        System.out.println(sb.toString());
+
+                    } else {
+                        Log.e("register", "Resposta da api n foi OK");
+                        System.out.println(con.getResponseMessage());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+
+
+    //FORMIRR   ----------------------------------------------------------------------------------------------------
+    public static void getForms(final String token,final String email, final Form_IRR_mainActivity formIRR) throws IOException, JSONException {
+
+
+        new Thread(new Runnable() {
+            public void run() {
+
+                String url = base_url+"/api/v2/form_irrs?user_email="+email+"&user_token="+token;
+
+                URL obj = null;
+                try {
+                    obj = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                HttpURLConnection con = null;
+                try {
+                    con = (HttpURLConnection) obj.openConnection();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // optional default is GET
+                try {
+                    con.setRequestMethod("GET");
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                }
+
+                //add request header
+                con.setRequestProperty("Content-Type", "application/json");
+
+                int responseCode = 0;
+                try {
+                    responseCode = con.getResponseCode();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("\nSending 'GET' request to URL : " + url);
+                System.out.println("Response Code : " + responseCode);
+
+                BufferedReader in = null;
+                try {
+                    in = new BufferedReader(
+                            new InputStreamReader(con.getInputStream()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                try {
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //print result
+                System.out.println(response.toString());
+                Log.e("teste", response.toString());
+
+                formIRR.formsFromUser(response.toString());
+                try {
+                    JSONArray jsonarray  = new JSONArray(response.toString());
+
+                    Log.e("teste","tamanh:"+jsonarray.length());
+                    for(int i=0; i<jsonarray.length(); i++){
+                        JSONObject form_irr_json = jsonarray.getJSONObject(i);
+
+                        String name = form_irr_json.getString("name");
+
+                        System.out.println(name);
+                        System.out.println(url);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }
+
+    public static void getForm(final ViewFormIRR viewFormIRR, final String token, final String email, final String id) {
+        new Thread(new Runnable() {
+            public void run() {
+
+                String url = base_url+"/api/v2/form_irrs/" +id+
+                        "?user_email="+email+"&user_token="+token;
+
+                URL obj = null;
+                try {
+                    obj = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                HttpURLConnection con = null;
+                try {
+                    con = (HttpURLConnection) obj.openConnection();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // optional default is GET
+                try {
+                    con.setRequestMethod("GET");
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                }
+
+                //add request header
+                con.setRequestProperty("Content-Type", "application/json");
+
+                int responseCode = 0;
+                try {
+                    responseCode = con.getResponseCode();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("\nSending 'GET' request to URL : " + url);
+                System.out.println("Response Code : " + responseCode);
+
+                BufferedReader in = null;
+                try {
+                    in = new BufferedReader(
+                            new InputStreamReader(con.getInputStream()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                try {
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //print result
+                System.out.println(response.toString());
+                Log.e("teste", response.toString());
+
+                try {
+                    viewFormIRR.processImages(response.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+
+    }
+
     public static void saveForm(final Object activity,final String token, final String email, final Form_IRR form_irr) throws IOException, JSONException {
 
-        final ArrayList<Integer[]> values_irr= Questions.getValuesIRR();
+        final ArrayList<Integer[]> values_irr= QuestionsList.getValuesIRR();
         Log.e("form","entrou");
         Log.e("form","values_irr_size:"+values_irr.size());
         String values="";
@@ -738,7 +1093,7 @@ public class DB_functions {
 
     public static void updateForm(final String token, final String email, final String id, final Form_IRR form_irr) throws IOException, JSONException {
 
-        final ArrayList<Integer[]> values_irr= Questions.getValuesIRR();
+        final ArrayList<Integer[]> values_irr= QuestionsList.getValuesIRR();
         Log.e("form","entrou");
         Log.e("form","values_irr_size:"+values_irr.size());
         String values="";
@@ -1219,351 +1574,70 @@ public class DB_functions {
         }).start();
     }
 
-    public static void login(Login login1, final String email, final String password, final Login login) throws IOException, JSONException {
-
+    public static void deleteForm(final ViewFormIRR viewformirr,final String id, final String email, final String token) {
         new Thread(new Runnable() {
             public void run() {
-
                 try {
-                    String url = base_url+"/api/v1/sign_in";
-                    URL object = null;
-                    object = new URL(url);
-                    HttpURLConnection con = null;
-                    con = (HttpURLConnection) object.openConnection();
+                    String url = base_url+"/api/v2/form_irrs/"+id+"?user_email="+email+"&user_token="+token;
+                    Log.e("teste",url);
+                    URL object = new URL(url);
+                    HttpURLConnection con = (HttpURLConnection) object.openConnection();
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.setRequestProperty("Content-Type", "application/json");
-                    con.setRequestMethod("POST");
+                    con.setRequestMethod("DELETE");
                     con.connect();
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-                        jsonObject.accumulate("user_login", email);
-                        jsonObject.accumulate("password", password);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
 
-                    Log.w("teste", jsonObject.toString());
-
-                    OutputStream os = null;
-                    os = con.getOutputStream();
-                    OutputStreamWriter osw = null;
-                    osw = new OutputStreamWriter(os, "UTF-8");
-                    osw.write(jsonObject.toString());
+                    OutputStream os = con.getOutputStream();
+                    OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
                     osw.flush();
                     osw.close();
-                    int HttpResult = 0;
-                    StringBuilder sb=null;
-                    sb= new StringBuilder();
-                    HttpResult = con.getResponseCode();
-                    if (HttpResult == HttpURLConnection.HTTP_OK) {
+                    StringBuilder sb = new StringBuilder();
+                    int HttpResult = con.getResponseCode();
+
+                    if (HttpResult == 200) {
                         BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
                         String line = null;
                         while ((line = br.readLine()) != null) {
-                            sb.append(line).append("\n");
+                            sb.append(line + "\n");
                         }
 
-                        br.close();
+                        Log.e("register", "resposta da api:" + sb.toString());
+                        viewformirr.apagaou();
 
-                        String authentication_token = "";
-                        String error_txt = "";
-                        Boolean error = false;
 
-                        /*{"id":2,"nome":"Filipe Miranda","access":null,"created_at":"2015-11-11T19:21:13.255Z",
-                        "updated_at":"2015-11-11T19:21:13.255Z","email":"fil.fmiranda@gmail.com",
-                        "authentication_token":"muWniRNBN-NSdF5vJdHy","distrito":null,"concelho":null,
-                        "telef":null,"habilitacoes":null,"profissao":null,"formacao":null}
-                         */
+                        final String[] error_txt = {""};
+                        final Boolean[] error = {false};
 
+                        JSONObject obj = null;
                         try {
-                            JSONObject user_json = new JSONObject(sb.toString());
-                            if(user_json.has("error"))
-                                error_txt = user_json.getString("error");
-
-                            if(!error_txt.equals(""))
-                                error = true;
-
-                            if(!error) {
-                                authentication_token = user_json.getString("authentication_token");
-
-                                User user = User.getInstance();
-                                user.setId(Integer.parseInt(user_json.getString("id")));
-                                user.setName(user_json.getString("nome"));
-                                user.setEmail(user_json.getString("email"));
-                                user.setAuthentication_token(user_json.getString("authentication_token"));
-                                user.setTelef(user_json.getString("telef"));
-
-                                String distrito_id = user_json.getString("distrito_id");
-                                String concelho_id = user_json.getString("concelho_id");
-                                user.setDistrito(distrito_id);
-                                user.setConcelho(concelho_id);
-
-                                user.setProfissao(user_json.getString("profissao"));
-                                user.setHabilitacoes(user_json.getString("habilitacoes"));
-                                user.setFormacao(Boolean.valueOf(user_json.getString("formacao")));
-
-                                user.setPermissoes(Integer.parseInt(user_json.getString("permissoes")));
-
-                                Log.e("profile","a seguir ao set user todo");
-                            }
+                            obj = new JSONObject(sb.toString());
+                            error_txt[0] = obj.getString("error");
+                            error[0] = true;
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Log.e("JSON Exception", "exception getting response on register");
                         }
-                        Log.e("resposta:","a meio error:"+ error_txt +" autenticacao:"+ authentication_token);
-                        login.login_response(error,error_txt);
 
-                        System.out.println("errozinho:" + sb.toString());
-
-                    } else {
-                        Log.e("teste","error: "+con.getResponseMessage());
-                        System.out.println(con.getResponseMessage());
-                    }
-                } catch (IOException e) {
-                    Log.e("teste","stacktrace");
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
-
-    public static void getForms(final String token,final String email, final Form_IRR_mainActivity formIRR) throws IOException, JSONException {
-
-
-        new Thread(new Runnable() {
-            public void run() {
-
-                String url = base_url+"/api/v2/form_irrs?user_email="+email+"&user_token="+token;
-
-                URL obj = null;
-                try {
-                    obj = new URL(url);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                HttpURLConnection con = null;
-                try {
-                    con = (HttpURLConnection) obj.openConnection();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                // optional default is GET
-                try {
-                    con.setRequestMethod("GET");
-                } catch (ProtocolException e) {
-                    e.printStackTrace();
-                }
-
-                //add request header
-                con.setRequestProperty("Content-Type", "application/json");
-
-                int responseCode = 0;
-                try {
-                    responseCode = con.getResponseCode();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("\nSending 'GET' request to URL : " + url);
-                System.out.println("Response Code : " + responseCode);
-
-                BufferedReader in = null;
-                try {
-                    in = new BufferedReader(
-                            new InputStreamReader(con.getInputStream()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-
-                try {
-                    while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                //print result
-                System.out.println(response.toString());
-                Log.e("teste", response.toString());
-
-                formIRR.formsFromUser(response.toString());
-                try {
-                    JSONArray jsonarray  = new JSONArray(response.toString());
-
-                    Log.e("teste","tamanh:"+jsonarray.length());
-                    for(int i=0; i<jsonarray.length(); i++){
-                        JSONObject form_irr_json = jsonarray.getJSONObject(i);
-
-                        String name = form_irr_json.getString("name");
-
-                        System.out.println(name);
-                        System.out.println(url);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }).start();
-    }
-
-    public static void saveGuardaRios(final GuardaRios_form guardaRios_form,final String email, final String token, final String q1, final String q2, final String q3, final String q4, final ArrayList<Integer> q5, final String q6, final Float lat, final Float lon, final String nomeRio) {
-        new Thread(new Runnable() {
-            public void run() {
-
-                try {
-                    String attachmentName = "bitmap";
-                    String attachmentFileName = "bitmap.bmp";
-                    String crlf = "\r\n";
-                    String twoHyphens = "--";
-                    String boundary =  "*****";
-
-                    String[] temp=nomeRio.split(" id:");
-                    String nome=temp[0];
-                    String codigo=temp[1];
-
-
-                    String url = base_url+"/api/v2/guardarios?user_email="+email+"&user_token="+token;
-                    Log.e("teste",url);
-                    URL object = new URL(url);
-                    HttpURLConnection con = (HttpURLConnection) object.openConnection();
-                    con.setDoOutput(true);
-                    con.setDoInput(true);
-                    con.setRequestProperty("Content-Type", "application/json");
-                    con.setRequestMethod("POST");
-                    con.connect();
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.accumulate("rio",codigo);
-                    jsonObject.accumulate("local",q1);
-                    jsonObject.accumulate("voar",q2);
-                    jsonObject.accumulate("cantar",q3);
-                    jsonObject.accumulate("alimentar", q4);
-                    jsonObject.accumulate("parado", q5.get(0));
-                    jsonObject.accumulate("beber", q5.get(1));
-                    jsonObject.accumulate("cacar", q5.get(2));
-                    jsonObject.accumulate("cuidarcrias", q5.get(3));
-                    jsonObject.accumulate("outro",q6);
-                    jsonObject.accumulate("lat", lat);
-                    jsonObject.accumulate("lon",lon);
-                    jsonObject.accumulate("nomeRio",nome);
-                    JSONObject guardarios= new JSONObject();
-                    guardarios.accumulate("guardario", jsonObject);
-
-                    OutputStream os = con.getOutputStream();
-                    OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
-                    osw.write(guardarios.toString());
-                    osw.flush();
-                    osw.close();
-                    StringBuilder sb = new StringBuilder();
-                    int HttpResult = con.getResponseCode();
-                    if (HttpResult == HttpURLConnection.HTTP_OK) {
-                        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
-                        String line = null;
-                        while ((line = br.readLine()) != null) {
-                            sb.append(line).append("\n");
-                        }
 
                         br.close();
 
-                        // Log.e("resposta:","a meio     error:"+ error_txt[0] +" autenticacao:"+ authentication_token[0]);
-                        //login.login_response(error[0],error_txt[0],authentication_token[0],name,email);
-
-                        System.out.println("errozinho:" + sb.toString());
-                        JSONObject object1= new JSONObject(sb.toString());
-                        String id= object1.get("guardario_id").toString();
-                        guardaRios_form.saveGuardaRiosDB(id);
+                        System.out.println(sb.toString());
 
                     } else {
-                        Log.e("teste","error: "+con.getResponseMessage());
+                        Log.e("register","Resposta da api n foi OK");
                         System.out.println(con.getResponseMessage());
                     }
                 } catch (IOException e) {
-                    Log.e("teste","stacktrace");
-                    e.printStackTrace();
-                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
     }
 
-    public static void saveSOSRios(final Sos_rios sos_rios, final String email, final String token, final String q1, final String q2, final String q3, final String nomeRio, final Float lat, final Float lang) {
-
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    String url = base_url+"/api/v2/reports?user_email="+email+"&user_token="+token;
-                    Log.e("teste",url);
-                    URL object = new URL(url);
-                    HttpURLConnection con = (HttpURLConnection) object.openConnection();
-                    con.setDoOutput(true);
-                    con.setDoInput(true);
-                    con.setRequestProperty("Content-Type", "application/json");
-                    con.setRequestMethod("POST");
-                    con.connect();
-                    String[] temp=nomeRio.split(" id:");
-                    String nome=temp[0];
-                    String codigo=temp[1];
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.accumulate("rio", codigo);
-                    jsonObject.accumulate("nome_rio", nome);
-                    jsonObject.accumulate("categoria",q1);
-                    jsonObject.accumulate("motivo",q2);
-                    jsonObject.accumulate("descricao", q3);
-                    jsonObject.accumulate("lat", lat);
-                    jsonObject.accumulate("lon", lang);
 
 
-
-                    JSONObject guardarios= new JSONObject();
-                    guardarios.accumulate("report", jsonObject);
-
-                    Log.w("teste", jsonObject.toString());
-                    Log.e("teste",guardarios.toString());
-
-                    OutputStream os = con.getOutputStream();
-                    OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
-                    osw.write(guardarios.toString());
-                    osw.flush();
-                    osw.close();
-                    StringBuilder sb = new StringBuilder();
-                    int HttpResult = con.getResponseCode();
-                    if (HttpResult == HttpURLConnection.HTTP_OK) {
-                        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
-                        String line = null;
-                        while ((line = br.readLine()) != null) {
-                            sb.append(line).append("\n");
-                        }
-
-                        br.close();
-
-                        System.out.println("errozinho:" + sb.toString());
-                        JSONObject obj = new JSONObject(sb.toString());
-                        String id=  obj.get("report_id").toString();
-                        sos_rios.saveSOSDB(id);
-
-                    } else {
-                        sos_rios.errorSOSDB(con.getResponseMessage());
-                        Log.e("teste","error: "+con.getResponseMessage());
-                        System.out.println(con.getResponseMessage());
-                    }
-                } catch (IOException e) {
-                    Log.e("teste","stacktrace");
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
-
+    //LIMPEZAS  ----------------------------------------------------------------------------------------------------
     public static void saveLimpeza(final Limpeza limpeza, final String token, final String email, final String q1, final String q2, final String q3, final String q4,
                                    final String q5, final String q6,final String q7,final String q8,final String q9,final String q10, final String q11, final String q12, final String q13,
                                    final String q14, final String q15, final Integer q16, final String q17) {
@@ -1719,42 +1793,54 @@ public class DB_functions {
         }).start();
     }
 
-    public static void editUser(final ProfileEditActivity profileEditActivity, final String email, final String token) {
+
+
+    //GUARDARIOS----------------------------------------------------------------------------------------------------
+    public static void saveGuardaRios(final GuardaRios_form guardaRios_form,final String email, final String token, final String q1, final String q2, final String q3, final String q4, final ArrayList<Integer> q5, final String q6, final Float lat, final Float lon, final String nomeRio) {
         new Thread(new Runnable() {
             public void run() {
+
                 try {
-                    String url = base_url+"/api/v2/users?user_email=" + email + "&user_token=" + token;
-                    Log.e("link",url);
+                    String attachmentName = "bitmap";
+                    String attachmentFileName = "bitmap.bmp";
+                    String crlf = "\r\n";
+                    String twoHyphens = "--";
+                    String boundary =  "*****";
+
+                    String[] temp=nomeRio.split(" id:");
+                    String nome=temp[0];
+                    String codigo=temp[1];
+
+
+                    String url = base_url+"/api/v2/guardarios?user_email="+email+"&user_token="+token;
+                    Log.e("teste",url);
                     URL object = new URL(url);
                     HttpURLConnection con = (HttpURLConnection) object.openConnection();
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.setRequestProperty("Content-Type", "application/json");
-                    con.setRequestMethod("PUT");
+                    con.setRequestMethod("POST");
                     con.connect();
                     JSONObject jsonObject = new JSONObject();
-                    JSONObject user = new JSONObject();
-                    try {
-                        jsonObject.accumulate("nome", profileEditActivity.getName().getText());
-                        jsonObject.accumulate("email", profileEditActivity.getEmail().getText());
-                        jsonObject.accumulate("current_password", profileEditActivity.getCurrentPassword());
-                        jsonObject.accumulate("password", profileEditActivity.getPassword().getText());
-                        jsonObject.accumulate("password_confirmation", profileEditActivity.getPasswordConfirmation().getText());
-                        jsonObject.accumulate("telef", profileEditActivity.getTelef().getText());
-                        jsonObject.accumulate("habilitacoes", profileEditActivity.getHabilitacoes().getText());
-                        jsonObject.accumulate("profissao", profileEditActivity.getProfissao().getText());
-                        jsonObject.accumulate("formacao", profileEditActivity.getFormacao().isChecked()?"True":"False");
-
-                        user.accumulate("user", jsonObject);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    Log.e("user todo: ", user.toString());
+                    jsonObject.accumulate("rio",codigo);
+                    jsonObject.accumulate("local",q1);
+                    jsonObject.accumulate("voar",q2);
+                    jsonObject.accumulate("cantar",q3);
+                    jsonObject.accumulate("alimentar", q4);
+                    jsonObject.accumulate("parado", q5.get(0));
+                    jsonObject.accumulate("beber", q5.get(1));
+                    jsonObject.accumulate("cacar", q5.get(2));
+                    jsonObject.accumulate("cuidarcrias", q5.get(3));
+                    jsonObject.accumulate("outro",q6);
+                    jsonObject.accumulate("lat", lat);
+                    jsonObject.accumulate("lon",lon);
+                    jsonObject.accumulate("nomeRio",nome);
+                    JSONObject guardarios= new JSONObject();
+                    guardarios.accumulate("guardario", jsonObject);
 
                     OutputStream os = con.getOutputStream();
                     OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
-                    osw.write(user.toString());
+                    osw.write(guardarios.toString());
                     osw.flush();
                     osw.close();
                     StringBuilder sb = new StringBuilder();
@@ -1763,102 +1849,182 @@ public class DB_functions {
                         BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
                         String line = null;
                         while ((line = br.readLine()) != null) {
-                            sb.append(line + "\n");
+                            sb.append(line).append("\n");
                         }
-
-                        Log.e("register", "resposta da api:" + sb.toString());
-
-                        final String[] error_txt = {""};
-                        final Boolean[] error = {false};
-
-                        JSONObject obj = null;
-                        try {
-                            obj = new JSONObject(sb.toString());
-                            error_txt[0] = obj.getString("error");
-                            error[0] = true;
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.e("JSON Exception", "exception getting response on register");
-                        }
-
-                        profileEditActivity.edit_response(error[0], error_txt[0]);
 
                         br.close();
 
-                        System.out.println(sb.toString());
+                        // Log.e("resposta:","a meio     error:"+ error_txt[0] +" autenticacao:"+ authentication_token[0]);
+                        //login.login_response(error[0],error_txt[0],authentication_token[0],name,email);
+
+                        System.out.println("errozinho:" + sb.toString());
+                        JSONObject object1= new JSONObject(sb.toString());
+                        String id= object1.get("guardario_id").toString();
+                        guardaRios_form.saveGuardaRiosDB(id);
 
                     } else {
-                        Log.e("register", "Resposta da api n foi OK");
+                        Log.e("teste","error: "+con.getResponseMessage());
                         System.out.println(con.getResponseMessage());
                     }
                 } catch (IOException e) {
+                    Log.e("teste","stacktrace");
+                    e.printStackTrace();
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
     }
 
-    public static void deleteForm(final ViewFormIRR viewformirr,final String id, final String email, final String token) {
+    public static void getGuardaRios(final GuardaRios guardaRios) throws IOException, JSONException {
+        new Thread(new Runnable() {
+            public void run() {
+
+                String url = base_url+"/api/v2/guardarios";
+
+                URL obj = null;
+                try {
+                    obj = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                HttpURLConnection con = null;
+                try {
+                    con = (HttpURLConnection) obj.openConnection();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // optional default is GET
+                try {
+                    con.setRequestMethod("GET");
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                }
+
+                //add request header
+                con.setRequestProperty("Content-Type", "application/json");
+
+                int responseCode = 0;
+                try {
+                    responseCode = con.getResponseCode();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("\nSending 'GET' request to URL : " + url);
+                System.out.println("Response Code : " + responseCode);
+
+                BufferedReader in = null;
+                try {
+                    in = new BufferedReader(
+                            new InputStreamReader(con.getInputStream()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                try {
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //print result
+                System.out.println(response.toString());
+                Log.e("teste", response.toString());
+
+                try {
+                    guardaRios.images(response.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }
+
+
+    //SOSRIOS   ----------------------------------------------------------------------------------------------------
+    public static void saveSOSRios(final Sos_rios sos_rios, final String email, final String token, final String q1, final String q2, final String q3, final String nomeRio, final Float lat, final Float lang) {
+
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String url = base_url+"/api/v2/form_irrs/"+id+"?user_email="+email+"&user_token="+token;
+                    String url = base_url+"/api/v2/reports?user_email="+email+"&user_token="+token;
                     Log.e("teste",url);
                     URL object = new URL(url);
                     HttpURLConnection con = (HttpURLConnection) object.openConnection();
                     con.setDoOutput(true);
                     con.setDoInput(true);
                     con.setRequestProperty("Content-Type", "application/json");
-                    con.setRequestMethod("DELETE");
+                    con.setRequestMethod("POST");
                     con.connect();
+                    String[] temp=nomeRio.split(" id:");
+                    String nome=temp[0];
+                    String codigo=temp[1];
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.accumulate("rio", codigo);
+                    jsonObject.accumulate("nome_rio", nome);
+                    jsonObject.accumulate("categoria",q1);
+                    jsonObject.accumulate("motivo",q2);
+                    jsonObject.accumulate("descricao", q3);
+                    jsonObject.accumulate("lat", lat);
+                    jsonObject.accumulate("lon", lang);
+
+
+
+                    JSONObject guardarios= new JSONObject();
+                    guardarios.accumulate("report", jsonObject);
+
+                    Log.w("teste", jsonObject.toString());
+                    Log.e("teste",guardarios.toString());
 
                     OutputStream os = con.getOutputStream();
                     OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+                    osw.write(guardarios.toString());
                     osw.flush();
                     osw.close();
                     StringBuilder sb = new StringBuilder();
                     int HttpResult = con.getResponseCode();
-
-                    if (HttpResult == 200) {
+                    if (HttpResult == HttpURLConnection.HTTP_OK) {
                         BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
                         String line = null;
                         while ((line = br.readLine()) != null) {
-                            sb.append(line + "\n");
+                            sb.append(line).append("\n");
                         }
-
-                        Log.e("register", "resposta da api:" + sb.toString());
-                        viewformirr.apagaou();
-
-
-                        final String[] error_txt = {""};
-                        final Boolean[] error = {false};
-
-                        JSONObject obj = null;
-                        try {
-                            obj = new JSONObject(sb.toString());
-                            error_txt[0] = obj.getString("error");
-                            error[0] = true;
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.e("JSON Exception", "exception getting response on register");
-                        }
-
 
                         br.close();
 
-                        System.out.println(sb.toString());
+                        System.out.println("errozinho:" + sb.toString());
+                        JSONObject obj = new JSONObject(sb.toString());
+                        String id=  obj.get("report_id").toString();
+                        sos_rios.saveSOSDB(id);
 
                     } else {
-                        Log.e("register","Resposta da api n foi OK");
+                        sos_rios.errorSOSDB(con.getResponseMessage());
+                        Log.e("teste","error: "+con.getResponseMessage());
                         System.out.println(con.getResponseMessage());
                     }
                 } catch (IOException e) {
+                    Log.e("teste","stacktrace");
+                    e.printStackTrace();
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
     }
 
+
+    //ROTAS     ----------------------------------------------------------------------------------------------------
     public static void getRotasList(final RotasRios_list rotas) throws IOException, JSONException {
 
 
@@ -2024,81 +2190,8 @@ public class DB_functions {
         }).start();
     }
 
-    public static void getGuardaRios(final GuardaRios guardaRios) throws IOException, JSONException {
-        new Thread(new Runnable() {
-            public void run() {
 
-                String url = base_url+"/api/v2/guardarios";
-
-                URL obj = null;
-                try {
-                    obj = new URL(url);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                HttpURLConnection con = null;
-                try {
-                    con = (HttpURLConnection) obj.openConnection();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                // optional default is GET
-                try {
-                    con.setRequestMethod("GET");
-                } catch (ProtocolException e) {
-                    e.printStackTrace();
-                }
-
-                //add request header
-                con.setRequestProperty("Content-Type", "application/json");
-
-                int responseCode = 0;
-                try {
-                    responseCode = con.getResponseCode();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("\nSending 'GET' request to URL : " + url);
-                System.out.println("Response Code : " + responseCode);
-
-                BufferedReader in = null;
-                try {
-                    in = new BufferedReader(
-                            new InputStreamReader(con.getInputStream()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-
-                try {
-                    while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                //print result
-                System.out.println(response.toString());
-                Log.e("teste", response.toString());
-
-                try {
-                    guardaRios.images(response.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }).start();
-    }
-
+    //IMAGE     ----------------------------------------------------------------------------------------------------
     public  static void saveImage(final Object activity, final String path, final String email, final String token, final String controller, final String id) throws IOException, JSONException {
         if (!controller.contentEquals("form_irr") &&
                 !controller.contentEquals("guardario") &&
@@ -2113,10 +2206,10 @@ public class DB_functions {
                 try {
 
 
-                DefaultHttpClient client = new DefaultHttpClient();
-                String url = base_url+"/api/v2/image?user_email="+email+"&user_token="+token;
+                    DefaultHttpClient client = new DefaultHttpClient();
+                    String url = base_url+"/api/v2/image?user_email="+email+"&user_token="+token;
                     Log.e("url",url);
-                HttpPost post = new HttpPost(url);
+                    HttpPost post = new HttpPost(url);
                     MultipartEntity imageMPentity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
                     try{
@@ -2151,7 +2244,7 @@ public class DB_functions {
                             Log.e("aqui","");
                             try {
                                 Log.e("vai tentar","");
-                                FormIRRSwipe act= (FormIRRSwipe) activity;
+                                FormIRR_Swipe act= (FormIRR_Swipe) activity;
                                 act.saveImageDB(path);
 
                             }catch (Exception e)
@@ -2192,6 +2285,8 @@ public class DB_functions {
         }).start();
     }
 
+
+    //FUNCOES   ----------------------------------------------------------------------------------------------------
     public static String entityToString(HttpEntity entity) throws IOException {
         InputStream is = entity.getContent();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
@@ -2231,80 +2326,6 @@ public class DB_functions {
         return haveConnectedWifi || haveConnectedMobile;
     }
 
-    public static void getForm(final ViewFormIRR viewFormIRR, final String token, final String email, final String id) {
-        new Thread(new Runnable() {
-            public void run() {
 
-                String url = base_url+"/api/v2/form_irrs/" +id+
-                        "?user_email="+email+"&user_token="+token;
 
-                URL obj = null;
-                try {
-                    obj = new URL(url);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                HttpURLConnection con = null;
-                try {
-                    con = (HttpURLConnection) obj.openConnection();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                // optional default is GET
-                try {
-                    con.setRequestMethod("GET");
-                } catch (ProtocolException e) {
-                    e.printStackTrace();
-                }
-
-                //add request header
-                con.setRequestProperty("Content-Type", "application/json");
-
-                int responseCode = 0;
-                try {
-                    responseCode = con.getResponseCode();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("\nSending 'GET' request to URL : " + url);
-                System.out.println("Response Code : " + responseCode);
-
-                BufferedReader in = null;
-                try {
-                    in = new BufferedReader(
-                            new InputStreamReader(con.getInputStream()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-
-                try {
-                    while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                //print result
-                System.out.println(response.toString());
-                Log.e("teste", response.toString());
-
-                try {
-                    viewFormIRR.processImages(response.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }).start();
-
-    }
 }

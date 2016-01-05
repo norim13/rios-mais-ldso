@@ -15,6 +15,16 @@ public class Rota {
 
     ArrayList<PointRota> pontos;
 
+    /**
+     * Cria uma Rota
+     * @param id
+     * @param nome
+     * @param descricao
+     * @param zona
+     * @param created_at
+     * @param updated_at
+     * @param publicada
+     */
     public Rota(Integer id, String nome, String descricao, String zona, String created_at, String updated_at, Boolean publicada) {
         this.id = id;
         this.nome = nome;
@@ -26,42 +36,46 @@ public class Rota {
         this.pontos=new ArrayList<PointRota>();
     }
 
+    /**
+     * Adiciona uma RotaPonto à rota
+     * @param id
+     * @param nome
+     * @param descricao
+     * @param lat
+     * @param lon
+     * @param ordem
+     * @param route_id
+     */
     public void addPontos(Integer id, String nome, String descricao, Float lat, Float lon, Integer ordem, Integer route_id)
     {
         PointRota p= new PointRota(id,nome,descricao,lat,lon,ordem,route_id);
         pontos.add(p);
     }
 
+
     //GETTERS
 
     public Integer getId() {
         return id;
     }
-
     public String getNome() {
         return nome;
     }
-
     public String getDescricao() {
         return descricao;
     }
-
     public String getZona() {
         return zona;
     }
-
     public String getCreated_at() {
         return created_at;
     }
-
     public String getUpdated_at() {
         return updated_at;
     }
-
     public Boolean getPublicada() {
         return publicada;
     }
-
     public ArrayList<PointRota> getPontos() {
         return pontos;
     }

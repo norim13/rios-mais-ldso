@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -19,7 +21,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
+import ldso.rios.DataBases.User;
 import ldso.rios.Form.Form_functions;
 import ldso.rios.Form.LimpezaSolucoes;
 import ldso.rios.R;
@@ -208,6 +212,10 @@ public class Limpeza extends AppCompatActivity {
         question15 = Form_functions.createEditText(texts1,layoutLimpeza, this, perdasMinMax);
     }
 
+    /**
+     * Submete o formulario de limpeza para a base de dados
+     * @param view
+     */
     public void saveLimpeza(View view) {
         String q1 = Form_functions.getRadioButtonOption_string(question1);
         String q2 = Form_functions.getRadioButtonOption_string(question2);
@@ -243,6 +251,10 @@ public class Limpeza extends AppCompatActivity {
         }
     }
 
+    /**
+     * Recebe o Json com a resposta da base de dados com as informacoes de limpeza que o utilizador deve fazer
+     * @param jsonObject
+     */
     public void saveLimpezaDB(final JSONObject jsonObject) {
         new Thread() {
             public void run() {
@@ -260,6 +272,10 @@ public class Limpeza extends AppCompatActivity {
         }.start();
     }
 
+    /**
+     * Funcao chamada quando da errro ao submeter
+     * @param responseMessage
+     */
     public void errorLimpezaDB(final String responseMessage){
         new Thread()
         {
@@ -275,6 +291,28 @@ public class Limpeza extends AppCompatActivity {
             }
         }.start();
 
+    }
+
+    //menu action bar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_homepage, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.navigate_guardarios)
+            startActivity(new Intent(this,GuardaRios.class));
+        if(id==R.id.navigate_account)
+        {
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

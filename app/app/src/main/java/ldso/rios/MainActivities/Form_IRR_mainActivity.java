@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,7 +26,7 @@ import java.util.HashMap;
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
-import ldso.rios.Form.IRR.FormIRRSwipe;
+import ldso.rios.Form.IRR.FormIRR_Swipe;
 import ldso.rios.Form.IRR.Form_IRR;
 import ldso.rios.Form.IRR.ViewFormIRR;
 import ldso.rios.R;
@@ -50,13 +49,13 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         linearLayout = (LinearLayout) findViewById(R.id.linear_irr);
 
-        progressBar= (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         //vai buscar o token e email da sessão
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         SharedPreferences settings = getSharedPreferences(Homepage.PREFS_NAME, 0);
-        String token=settings.getString("token", "-1");
-        String email=settings.getString("email", "-1");
+        String token = settings.getString("token", "-1");
+        String email = settings.getString("email", "-1");
 
         try {
             formsFormUserSaved();
@@ -73,42 +72,40 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
-        else
+        } else
             progressBar.setVisibility(View.INVISIBLE);
     }
 
-    /*
-    se clicar no botão "+"
+    /**
+     * Funcao chamada para abrir a nova activity para criar um FormIRR
+     *
+     * @param view
      */
-    public void new_form(View view){
+    public void new_form(View view) {
 
-        Intent i =new Intent(this, FormIRRSwipe.class);
-        ArrayList<Integer[]> arrayList=new ArrayList<Integer[]>();
+        Intent i = new Intent(this, FormIRR_Swipe.class);
+        ArrayList<Integer[]> arrayList = new ArrayList<Integer[]>();
         Integer[] integers = new Integer[0];
         arrayList.add(integers);
 
         this.startActivity(i);
     }
 
-    /*
-    desenha uma caixa com a informação de um formulário
+    /**
+     * Desenha uma caixa com a informação de um formulário do servidor
+     *
+     * @param s
      */
     public void formsFromUser(final String s) {
 
-        new Thread()
-        {
-            public void run()
-            {
-                Form_IRR_mainActivity.this.runOnUiThread(new Runnable()
-                {
+        new Thread() {
+            public void run() {
+                Form_IRR_mainActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
                         try {
                             progressBar.setVisibility(View.INVISIBLE);
                             JSONArray jsonarray = new JSONArray(s);
-
-                            Log.e("teste", "tamanh:" + jsonarray.length());
-                            TextView title1= new TextView(getApplicationContext());
+                            TextView title1 = new TextView(getApplicationContext());
                             title1.setText("Submetidos:");
                             title1.setTextSize(20);
                             title1.setTextColor(Color.BLACK);
@@ -116,133 +113,109 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
 
                             for (int i = 0; i < jsonarray.length(); i++) {
                                 final JSONObject form_irr_json = jsonarray.getJSONObject(i);
-
                                 String idRio = form_irr_json.getString("nomeRio");
                                 String irr = form_irr_json.getString("irr");
                                 final String id = form_irr_json.getString("id");
                                 String margem = form_irr_json.getString("margem");
-
-
                                 LayoutInflater l = getLayoutInflater();
                                 View v = l.inflate(R.layout.form_irr_cardview, null);
-                                CardView c= (CardView) v.findViewById(R.id.card_view);
-
+                                CardView c = (CardView) v.findViewById(R.id.card_view);
                                 TextView tv = (TextView) v.findViewById(R.id.name_irr_cardview);
-                                tv.setText("Rio: "+idRio);
-                                tv= (TextView) v.findViewById(R.id.id_rota);
-                                tv.setText("IRR: "+irr);
-                                tv= (TextView) v.findViewById(R.id.id_cardview);
-                                tv.setText("ID: "+id);
-                                tv= (TextView) v.findViewById(R.id.margem_cardview);
-                                if(new String("0").equals(margem))
+                                tv.setText("Rio: " + idRio);
+                                tv = (TextView) v.findViewById(R.id.id_rota);
+                                tv.setText("IRR: " + irr);
+                                tv = (TextView) v.findViewById(R.id.id_cardview);
+                                tv.setText("ID: " + id);
+                                tv = (TextView) v.findViewById(R.id.margem_cardview);
+                                if (new String("0").equals(margem))
                                     tv.setText("Margem: Direita");
                                 else tv.setText("Margem: Esquerda");
-                                final int id_int= Integer.parseInt(id);
+                                final int id_int = Integer.parseInt(id);
                                 c.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Log.e("form","clicou");
-                                        Form_IRR form_irr= new Form_IRR();
+                                        Form_IRR form_irr = new Form_IRR();
                                         try {
                                             form_irr.readResponseJson(form_irr_json);
-
                                         } catch (JSONException e) {
                                             e.printStackTrace();
-                                            Log.e("erro",e.toString());
                                         }
                                         Intent i;
                                         i = new Intent(v.getContext(), ViewFormIRR.class);
-                                        i.putExtra("id",id_int);
+                                        i.putExtra("id", id_int);
                                         form_irr.respostas.put(-3, form_irr.getOther_response());
-                                        Log.e("tamanho", form_irr.getOther_response().size() + "");
-                                        i.putExtra("form_irr",form_irr.getRespostas());
-                                        i.putExtra("form_irr_id",id);
+                                        i.putExtra("form_irr", form_irr.getRespostas());
+                                        i.putExtra("form_irr_id", id);
                                         startActivity(i);
-
-
                                     }
                                 });
-
                                 linearLayout.addView(v);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                    });
-                }
-            }.start();
+                });
+            }
+        }.start();
     }
 
+    /**
+     * Desenha uma caixa com a informação de um formulário guardado no dispositivo
+     */
     public void formsFormUserSaved() throws IOException {
-        final ArrayList<HashMap<Integer,Object>> respostas =Form_IRR.loadFromIRR(getApplicationContext());
-        TextView title2= new TextView(getApplicationContext());
+        final ArrayList<HashMap<Integer, Object>> respostas = Form_IRR.loadFromIRR(getApplicationContext());
+        TextView title2 = new TextView(getApplicationContext());
         title2.setText("Guardados:");
         title2.setTextSize(20);
         title2.setTextColor(Color.BLACK);
         linearLayout.addView(title2);
-
         for (int i = 0; i < respostas.size(); i++) {
-
             String idRio = "idrios";
-
-            idRio=((ArrayList<Object>)respostas.get(i).get(-1)).get(0).toString();
-            if (idRio.contentEquals(""))
-            {
-                idRio="Não especificado";
+            idRio = ((ArrayList<Object>) respostas.get(i).get(-1)).get(0).toString();
+            if (idRio.contentEquals("")) {
+                idRio = "Não especificado";
+            } else {
+                String[] temp = idRio.split(" id:");
+                idRio = temp[0];
             }
-            else {
-                String[] temp=idRio.split(" id:");
-                idRio=temp[0];
-            }
-
-            String date= ""+respostas.get(i).get(-4);
-
+            String date = "" + respostas.get(i).get(-4);
             LayoutInflater l = getLayoutInflater();
             View v = l.inflate(R.layout.form_irr_cardview, null);
-            CardView c= (CardView) v.findViewById(R.id.card_view);
-
+            CardView c = (CardView) v.findViewById(R.id.card_view);
             TextView tv = (TextView) v.findViewById(R.id.name_irr_cardview);
-            tv.setText("Rio: "+idRio);
-            tv= (TextView) v.findViewById(R.id.id_rota);
-            tv.setText("Date: "+date);
-
+            tv.setText("Rio: " + idRio);
+            tv = (TextView) v.findViewById(R.id.id_rota);
+            tv.setText("Date: " + date);
             final int finalI = i;
-
-            if(respostas.get(i)==null)
-                Log.e("teste","a resposta é nula");
-
             c.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.e("form", "clicou");
-
                     Intent i;
                     i = new Intent(v.getContext(), ViewFormIRR.class);
-                    i.putExtra("saved",(String) respostas.get(finalI).get(-2));
-                    i.putExtra("form_irr",respostas.get(finalI));
+                    i.putExtra("saved", (String) respostas.get(finalI).get(-2));
+                    i.putExtra("form_irr", respostas.get(finalI));
                     startActivity(i);
                 }
             });
-
             linearLayout.addView(v);
         }
     }
 
-    //menu action bar
+    //--TOOLBAR
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_homepage, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id==R.id.navigate_guardarios)
-            startActivity(new Intent(this,GuardaRios.class));
-        if(id==R.id.navigate_account)
-        {
-            if(User.getInstance().getAuthentication_token().contentEquals(""))
+        if (id == R.id.navigate_guardarios)
+            startActivity(new Intent(this, GuardaRios.class));
+        if (id == R.id.navigate_account) {
+            if (User.getInstance().getAuthentication_token().contentEquals(""))
                 startActivity(new Intent(this, Login.class));
             else {
                 startActivity(new Intent(this, Profile.class));
@@ -250,5 +223,5 @@ public class Form_IRR_mainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+    //--TOOLBAR
 }
