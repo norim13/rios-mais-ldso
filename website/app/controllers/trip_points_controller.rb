@@ -1,6 +1,7 @@
 class TripPointsController < ApplicationController
   before_action :set_trip_point, only: [:show, :edit, :update, :destroy]
 
+  # Retorna JSON com o ponto da trip
   def show
     if @trip_point.nil?
       render :json => {:success => "false"}
@@ -9,6 +10,7 @@ class TripPointsController < ApplicationController
     end
   end
 
+  # Action para adicionar ponto à trip. Usada em chamadas AJAX no site.
   # POST /trip_points
   # POST /trip_points.json
   def create
@@ -19,6 +21,7 @@ class TripPointsController < ApplicationController
         render :json => '{"success" : "false"}'
     end
   end
+
 
   # PATCH/PUT /trip_points/1
   # PATCH/PUT /trip_points/1.json

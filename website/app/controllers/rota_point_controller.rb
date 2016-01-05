@@ -1,5 +1,6 @@
 class RotaPointController < ApplicationController
 
+  # criar um ponto numa rota. Utilizado no create da Rota
   def create
     @rota_point = RotaPoint.new(rota_point_params)
 
