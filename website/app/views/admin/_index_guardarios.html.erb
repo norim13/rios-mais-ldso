@@ -6,7 +6,7 @@
       <thead>
       <tr>
       <tr>
-        <th>Código rio</th>
+        <th>Rio</th>
         <th>Utilizador</th>
         <th>Data de criação</th>
         <th>Mostrar</th>
@@ -16,7 +16,7 @@
       <tbody>
       <% @guardarios.each do |guardario| %>
           <tr>
-            <td><%= link_to guardario.rio, rio_path(guardario.rio) %></td>
+            <td><%= link_to guardario.nomeRio, rio_path(guardario.rio) %></td>
             <% username = User.find(guardario.user_id).nome %>
             <td><%= guardario.user_id %> - <%= username %></td>
             <td><%= guardario.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
