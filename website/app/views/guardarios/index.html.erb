@@ -9,8 +9,8 @@
       <% @guardarios_img.each do |img| %>
         <div class="col-lg-4 col-sm-6 col-xs-12">
           <!-- size: 800x600 -->
-          <div class="container-item-guarda-rios">
-            <%= link_to image_tag(img.image, :class => 'thumbnail img-responsive'), guardario_path(img.guardario_id) %>
+          <div class="container-item-guarda-rios thumbnail">
+            <%= link_to image_tag(img.image, :class => 'img-responsive'), guardario_path(img.guardario_id) %>
           </div>
         </div>
       <% end %>

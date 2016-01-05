@@ -3,5 +3,17 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .container-item-guarda-rios{
+  position: relative;
   height: 300px;
+
+  .img-responsive {
+    position:absolute;
+    top:0;
+    bottom:0;
+    left: 0;
+    right: 0;
+    max-width: 95%;
+    max-height: 95%;
+    margin:auto;
+  }
 }
