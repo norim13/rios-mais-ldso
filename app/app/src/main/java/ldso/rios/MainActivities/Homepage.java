@@ -38,6 +38,9 @@ public class Homepage extends AppCompatActivity{
         setUser();
     }
 
+    /**
+     * Faz set do user. Se tiver guardado, faz set dessas informacoes, se nao poe default
+     */
     private void setUser() {
         User u = User.getInstance();
 
@@ -59,14 +62,28 @@ public class Homepage extends AppCompatActivity{
         u.setPermissoes(Integer.parseInt(settings.getString("permissoes","0")));
     }
 
+    /**
+     * Abre a activity do guardarios
+     * @param view
+     */
     public void rotasRios(View view){
         startActivity(new Intent(this, RotasRios_list.class));
     }
 
+    /**
+     * Abre a activity do SOSRios
+     * @param view
+     */
     public void sosRios(View view){
         startActivity(new Intent(this, Sos_rios.class));
     }
 
+    /**
+     * Abre a lista de FormsIRR com os guardados e os uploaded
+     * @param view
+     * @throws IOException
+     * @throws JSONException
+     */
     public void form_irr(View view) throws IOException, JSONException {
         if(User.getInstance().getPermissoes() > 1)
             startActivity(new Intent(this, Form_IRR_mainActivity.class));
@@ -77,14 +94,23 @@ public class Homepage extends AppCompatActivity{
         }
     }
 
+    /**
+     * Abre a activity de Limpezas
+     * @param view
+     */
     public void limpeza(View view){
         startActivity(new Intent(this, Limpeza.class));
     }
 
+    /**
+     * Abre a activity de informação
+     * @param view
+     */
     public void about(View view)  {
         startActivity(new Intent(this, Information.class));
     }
 
+    //--TOOLBAR
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -108,12 +134,11 @@ public class Homepage extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_homepage, menu);
         return true;
     }
-
+    //--TOOLBAR
 }

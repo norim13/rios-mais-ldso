@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ldso.rios;
+package ldso.rios.Extras;
 
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
 import com.github.ksoichiro.android.observablescrollview.Scrollable;

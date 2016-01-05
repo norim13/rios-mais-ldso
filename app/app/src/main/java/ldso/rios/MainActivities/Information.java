@@ -14,7 +14,6 @@ import android.view.MenuItem;
 
 import ldso.rios.Autenticacao.Login;
 import ldso.rios.DataBases.User;
-import ldso.rios.PlaceHolder_AboutDocs;
 import ldso.rios.R;
 
 public class Information extends AppCompatActivity {
@@ -56,29 +55,6 @@ public class Information extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
     }
 
-    //menu action bar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_homepage, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id==R.id.navigate_guardarios)
-            startActivity(new Intent(this,GuardaRios.class));
-        if(id==R.id.navigate_account)
-        {
-            if(User.getInstance().getAuthentication_token().contentEquals("")||
-                    User.getInstance().getAuthentication_token().contentEquals("-1"))
-                startActivity(new Intent(this, Login.class));
-            else {
-                startActivity(new Intent(this, Profile.class));
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -114,5 +90,28 @@ public class Information extends AppCompatActivity {
         }
     }
 
+    //--TOOLBAR
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_homepage, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.navigate_guardarios)
+            startActivity(new Intent(this,GuardaRios.class));
+        if(id==R.id.navigate_account)
+        {
+            if(User.getInstance().getAuthentication_token().contentEquals("")||
+                    User.getInstance().getAuthentication_token().contentEquals("-1"))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    //--TOOLBAR
 
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ldso.rios;
+package ldso.rios.Extras;
 
 import android.content.res.TypedArray;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +27,8 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+
+import ldso.rios.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private static final int NUM_OF_ITEMS = 100;

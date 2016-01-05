@@ -16,13 +16,13 @@ import ldso.rios.Form.IRR.Pergunta;
 /**
  * Created by filipe on 27/11/2015.
  */
-public class complexPergunta extends Pergunta implements Serializable {
+public class ComplexPergunta extends Pergunta implements Serializable {
 
     private static final long serialVersionUID = 1902853229771784321L;
     ArrayList<Pergunta> perguntas;
 
     /**
-     *
+     *Cria pergunta complexa com varias subperguntas
      * @param options   complex string
      * @param title
      * @param subtitle
@@ -37,7 +37,7 @@ public class complexPergunta extends Pergunta implements Serializable {
      *
      */
 
-    public complexPergunta(String[] options, int[] images, String title, String subtitle, Boolean obly, Boolean other_option) {
+    public ComplexPergunta(String[] options, int[] images, String title, String subtitle, Boolean obly, Boolean other_option) {
         super(new String[]{"ola"},images, title, subtitle, obly, other_option);
         perguntas=new ArrayList<Pergunta>();
         readOptions(options);
@@ -59,14 +59,14 @@ public class complexPergunta extends Pergunta implements Serializable {
                 String[] stringArray= new String[single_options.size()];
                 stringArray=single_options.toArray(stringArray);
                 if (images==null)
-                this.perguntas.add(new checkPergunta(stringArray,null,"",single_subtitle,this.obly,single_other_option));
+                this.perguntas.add(new CheckPergunta(stringArray,null,"",single_subtitle,this.obly,single_other_option));
                 else
                 {
                     imagens_pergunta= new int[imagensArray.size()];
                     for (int x=0;x<imagensArray.size();x++)
                         imagens_pergunta[x]=imagensArray.get(x);
                     imagensArray= new ArrayList<Integer>();
-                    this.perguntas.add(new checkPergunta(stringArray,imagens_pergunta,"",single_subtitle,this.obly,single_other_option));
+                    this.perguntas.add(new CheckPergunta(stringArray,imagens_pergunta,"",single_subtitle,this.obly,single_other_option));
                 }
                 single_options=new ArrayList<String>();
                 i++;
@@ -92,7 +92,7 @@ public class complexPergunta extends Pergunta implements Serializable {
         }
         String[] stringArray= new String[single_options.size()];
         stringArray=single_options.toArray(stringArray);
-        this.perguntas.add(new checkPergunta(stringArray,images, "", single_subtitle, this.obly, single_other_option));
+        this.perguntas.add(new CheckPergunta(stringArray,images, "", single_subtitle, this.obly, single_other_option));
 
 
     }

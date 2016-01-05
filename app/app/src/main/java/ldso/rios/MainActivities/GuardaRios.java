@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +23,7 @@ import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
 import ldso.rios.Form.GuardaRios_form;
 import ldso.rios.R;
-import ldso.rios.Utils;
+import ldso.rios.Utils_Image;
 
 public class GuardaRios extends AppCompatActivity {
 
@@ -56,34 +55,11 @@ public class GuardaRios extends AppCompatActivity {
         gridLayout = (GridLayout) findViewById(R.id.girdLayout);
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_homepage, menu);
-
-        return true;
-    }
-
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id==R.id.navigate_account)
-        {
-            if(User.getInstance().getAuthentication_token().contentEquals(""))
-                startActivity(new Intent(this, Login.class));
-            else {
-                startActivity(new Intent(this, Profile.class));
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
+    /**
+     * Abre activity para criar um avistamento
+     * @param view
+     */
     public void form_guardarios(View view){
-
         if(!User.getInstance().getAuthentication_token().contentEquals("") && !User.getInstance().getAuthentication_token().contentEquals("-1")  ) {
             startActivity(new Intent(this, GuardaRios_form.class));
             this.finish();
@@ -93,7 +69,11 @@ public class GuardaRios extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Vai buscar as imagens à base de dados dos guarda rios
+     * @param *
+     * @throws JSONException
+     */
     public void images(final String s) throws JSONException {
         new Thread()
         {
@@ -104,9 +84,7 @@ public class GuardaRios extends AppCompatActivity {
                     public void run() {
                         try {
                             JSONObject g= new JSONObject(s);
-                            Log.e("entrou aqui","");
                             final JSONArray array= g.getJSONArray("guardarios");
-                            Log.e("entrou aqui","");
                             for(int i =0;i<array.length();i++)
                             {
                                     final int finalI = i;
@@ -115,12 +93,8 @@ public class GuardaRios extends AppCompatActivity {
                                         public void run() {
                                             try {
                                                 JSONObject guardario= array.getJSONObject(finalI);
-
                                                 JSONObject array_imagens= (JSONObject) guardario.get("image");
-
                                                 final String url=DB_functions.base_url+array_imagens.get("url");
-                                                Log.e("url",url);
-
                                                 ImageView imageViewTemp = null;
                                                 switch (finalI)
                                                 {
@@ -136,7 +110,7 @@ public class GuardaRios extends AppCompatActivity {
                                                     default:break;
                                                 }
                                                 final ImageView imageView=imageViewTemp;
-                                                final Bitmap b= Utils.loadImageURL(url);
+                                                final Bitmap b= Utils_Image.loadImageURL(url);
 
                                                 new Thread()
                                                 {
@@ -146,54 +120,45 @@ public class GuardaRios extends AppCompatActivity {
                                                         {
                                                             public void run() {
                                                                 imageView.setImageBitmap(b);
-
-
-
-
                                                             }
                                                         });
                                                     }
                                                 }.start();
-
-
-
-
-
-
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
                                         }
                                     });
-
                                     thread.start();
-
-
-
-
-
-
-
-
-
-
-
                             }
-
-
-
                         } catch (Exception e){
-
                         }
-
-
-
                     }
                 });
             }
         }.start();
-
-
     }
 
+    //--TOOLBAR
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_homepage, menu);
+
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.navigate_account)
+        {
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    //--TOOLBAR
 }

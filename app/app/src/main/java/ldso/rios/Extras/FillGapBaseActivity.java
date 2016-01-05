@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ldso.rios;
+package ldso.rios.Extras;
 
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +29,8 @@ import com.github.ksoichiro.android.observablescrollview.Scrollable;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
+
+import ldso.rios.R;
 
 /**
  * Warning: This example does not work on Android 2.3.

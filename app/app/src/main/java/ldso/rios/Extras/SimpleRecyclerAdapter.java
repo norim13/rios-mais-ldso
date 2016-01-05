@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ldso.rios;
+package ldso.rios.Extras;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

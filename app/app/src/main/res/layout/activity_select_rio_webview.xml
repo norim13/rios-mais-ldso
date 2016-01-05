@@ -5,7 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true"
-    tools:context="ldso.rios.SelectRioWebview"
+    tools:context=".Maps.SelectRioWebview"
     android:background="@null">
 
     <include layout="@layout/content_select_rio_webview" />
