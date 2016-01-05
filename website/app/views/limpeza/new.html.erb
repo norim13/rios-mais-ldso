@@ -1,0 +1,124 @@
+<%= render 'common/header' %>
+
+</head>
+<body>
+<%= render 'common/navbar' %>
+
+
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <h1> Limpeza de Rios+</h1>
+
+  <div class="row">
+    <div class="panel-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <h3> Problemas </h3>
+    </div>
+
+    <div class="panel-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <h3> Soluções </h3>
+    </div>
+  </div>
+
+
+  <div class="panel-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-left: 0; padding-bottom:5%" id="accordion" role="tablist" aria-multiselectable="true">
+
+    <%= form_for LogLimpeza.new, url: {action: "submitProblemas"} do |f| %>
+
+        <% @limpeza.each_with_index do |limpeza, index| %>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="heading-<%= index %>">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-<%= index %>" aria-expanded="false" aria-controls="collapse-<%= index %>">
+                    <%= limpeza.categoria %>
+                  </a>
+                </h4>
+              </div>
+              <div id="collapse-<%= index %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= index %>">
+                <div id=pergunta-<%= index %> class="panel-body">
+                  <% @allOptions[index].each_with_index do |opcao, index2| %>
+                      <div> <%= radio_button_tag("problema#{index+1}", opcao.opcao, false, {"id" => "opcao-#{index}-#{index2}", "data-resposta" => "pergunta-#{opcao.id}"}) %>
+                        <%= label_tag("opcao-#{index}-#{index2}", opcao.opcao) %> </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+        <% end %>
+
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="heading-cheias">
+            <h4 class="panel-title">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-cheias" aria-expanded="false" aria-controls="collapse-cheias">
+                Cheias
+              </a>
+            </h4>
+          </div>
+          <div id="collapse-cheias" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-cheias">
+            <div id=pergunta-cheias class="panel-body">
+
+              <div class="form-group container">
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <%= label_tag(:cheia_origem, "Origem da cheia:") %>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <%= text_field_tag(:cheia_origem) %>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <%= label_tag(:cheia_destruicao, "Destruição:") %>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <%= text_field_tag(:cheia_destruicao) %>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <%= label_tag(:cheia_perdas_monetarias, "Perdas monetárias:") %>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <%= number_field_tag 'cheia_perdas_monetarias', nil %>
+                  </div>
+                </div>
+
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <br/>
+        <%= f.submit "Submeter problemas", {'class' => 'btn btn-primary'} %>
+    <% end %>
+
+  </div>
+
+
+  </form>
+
+  <div class="panel-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+    <div id="solucoes"></div>
+  </div>
+
+  <br/>
+
+</div>
+
+
+<%= render 'common/footer' %>
+<%= javascript_include_tag 'limpeza' %>
+<%= javascript_include_tag 'guardarios' %>

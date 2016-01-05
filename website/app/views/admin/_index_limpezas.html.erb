@@ -1,0 +1,28 @@
+<div>
+  <h2>Limpezas</h2>
+
+  <div class="table-responsive">
+    <table class="table table-hover table-striped">
+      <thead>
+      <tr>
+        <th>Utilizador</th>
+        <th>Data</th>
+        <th>Mostrar</th>
+        <th>Apagar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @limpezas.each do |limpeza| %>
+          <tr>
+            <% username = User.find(limpeza.user_id).nome %>
+            <td><%= limpeza.user_id %> - <%= username %></td>
+            <td><%= limpeza.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
+            <td><%= link_to 'Mostrar', limpeza_path(limpeza) %></td>
+            <td><%= link_to 'Apagar', limpeza_path(limpeza), method: :delete, data: {confirm: 'Tem a certeza que pretende apagar?'} %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%= will_paginate @limpezas, :previous_label => 'Anterior', :next_label => 'Seguinte' %>
+</div>
