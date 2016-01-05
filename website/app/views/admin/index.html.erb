@@ -16,14 +16,16 @@
           <h1>Painel de Administração  <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Menu</a></h1>
         </div>
 
-        <form method="GET" action="" class="form">
-          <div id="user-search-container" class="col-md-3 col-xs-12 input-group pull-right">
-            <input id="search-input" type="text" class="form-control" placeholder="Pesquisar..." name="pesquisa" <% if !@search_query.nil? %> value="<%=@search_query%>" <% end %>>
-            <div class="input-group-btn">
-              <button  class="btn btn-default search-button" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+        <% if @index_page != 'limpezas' %>
+          <form method="GET" action="" class="form">
+            <div id="user-search-container" class="col-md-3 col-xs-12 input-group pull-right">
+              <input id="search-input" type="text" class="form-control" placeholder="Pesquisar..." name="pesquisa" <% if !@search_query.nil? %> value="<%=@search_query%>" <% end %>>
+              <div class="input-group-btn">
+                <button  class="btn btn-default search-button" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        <% end %>
       </div>
 
       <%# INSERT HERE THE PAGE TO SHOW %>
