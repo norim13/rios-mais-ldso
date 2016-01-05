@@ -620,7 +620,7 @@ public class FormIRR_Swipe extends AppCompatActivity {
     //--TOOLBAR
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_homepage, menu);
+        getMenuInflater().inflate(R.menu.menu_form_irr, menu);
         return true;
     }
     @Override
@@ -634,6 +634,29 @@ public class FormIRR_Swipe extends AppCompatActivity {
                 startActivity(new Intent(this, Login.class));
             else {
                 startActivity(new Intent(this, Profile.class));
+            }
+        }
+        if (id == R.id.navigate_save) {
+
+            try {
+                //Form_IRR.loadFromIRR(this.getApplicationContext());
+                form.fillAnswers();
+                try {
+                    if (!form.respostas.get(-2).toString().contentEquals("")) {
+                        Form_IRR.deleteFormIRRFile(this.getApplicationContext(), form.respostas.get(-2).toString());
+                    }
+                }catch (Exception e){
+                    
+                }
+                Form_IRR.saveFormIRR(form, this.getApplicationContext());
+                Toast toast = Toast.makeText(FormIRR_Swipe.this, "Formulário IRR guardado", Toast.LENGTH_LONG);
+                toast.show();
+                Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         return super.onOptionsItemSelected(item);
