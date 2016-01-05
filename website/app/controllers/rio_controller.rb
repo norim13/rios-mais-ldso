@@ -1,5 +1,7 @@
 class RioController < ApplicationController
 
+  # render de página com informação sobre um rio (bacia) com mapa para escolher raio sobre o qual é
+  # apresentada informação IRR
   def show
     @rio_id = params[:id]
     @form_irrs = FormIrr.where(idRio: @rio_id, validated: true)
@@ -50,6 +52,8 @@ class RioController < ApplicationController
           #              :cod_rio => params[:rio]}
   end
 
+  # Calcula IRR geral (pior) dentro do array de forms irr recebido
+  # para cada uma das categorias de IRR
   def mediaIRR(form_irrs)
 
     if form_irrs.count == 0

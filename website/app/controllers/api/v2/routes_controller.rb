@@ -2,7 +2,7 @@ class Api::V2::RoutesController < ApplicationController
   # GET /routes
   # GET /routes.json
   def index
-    render :json => Route.all
+    render :json => Route.where(:publicada => true).all
   end
 
   # GET /routes/1

@@ -16,13 +16,17 @@ class TripsController < ApplicationController
   end
 
 
+  # Mostra o index de trips, apresentando uma lista com os trips efectuados pelo próprio user,
+  # ordenados por ordem decrescente de data de actualização, e divididos por páginas,
+  # com 10 trips cada.
   # GET /trips
-  # GET /trips.json
   def index
     @all = false
     @trips = current_user.trips.paginate(:page => params[:page], :per_page => 10).order('updated_at DESC')
   end
 
+  # Index de trips com todas as trips, para utilizadores com permissoes > 4.
+  # lista com TODAS as trips, divididas por páginas de 10 trips, ordenadas por ordem decrescente.
   def all
     if current_user.permissoes > 4
       @all = true
@@ -33,18 +37,21 @@ class TripsController < ApplicationController
     end
   end
 
+  # Página que mostra uma trip. Mostra mapa com os vários pontos, e informação relativa a cada ponto.
   # GET /trips/1
   # GET /trips/1.json
   def show
     @points = @trip.trip_points
   end
 
+  # Render de página para criar um trip.
   # GET /trips/new
   def new
     @trip = Trip.new
     @edit = false;
   end
 
+  # Render de página para edição de uma trip, com possibilidade de adicionar pontos à mesma.
   # GET /trips/1/edit
   def edit
     if( @trip.user_id != current_user.id)
@@ -55,6 +62,7 @@ class TripsController < ApplicationController
     end
   end
 
+  # Action de criação de trip (só trip, sem pontos)
   # POST /trips
   # POST /trips.json
   def create
@@ -81,6 +89,7 @@ class TripsController < ApplicationController
     end
   end
 
+  # Action para apagar a trip.
   # DELETE /trips/1
   # DELETE /trips/1.json
   def destroy

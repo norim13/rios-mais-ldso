@@ -15,6 +15,7 @@ class RoutesController < ApplicationController
     end
   end
 
+  # render do index com todas as rotas "publicadas" (atributo publicado = true).
   # GET /routes
   # GET /routes.json
   def index
@@ -34,23 +35,27 @@ class RoutesController < ApplicationController
     end
   end
 
+  # render de uma rota, mostrando mapa com pontos, e info + fotos de cada ponto
   # GET /routes/1
   # GET /routes/1.json
   def show
     @points = @route.rota_points
   end
 
+  # render de pagina para criação de nova rota (sem pontos)
   # GET /routes/new
   def new
     @route = Route.new
     @edit = false
   end
 
+  #render de pagina para edição de rota e adição de pontos
   # GET /routes/1/edit
   def edit
     @edit = true
     @points = @route.rota_points
   end
+
 
   # POST /routes
   # POST /routes.json
@@ -79,6 +84,9 @@ class RoutesController < ApplicationController
 
   end
 
+  # Action para edição de rota e pontos.
+  # BUG: ao editar a rota, é necessário adicionar novamente as fotografias, pois são apagadas as fotografias antigas
+  # durante a edição
   # PATCH/PUT /routes/1
   # PATCH/PUT /routes/1.json
   def update
@@ -108,6 +116,7 @@ class RoutesController < ApplicationController
     end
   end
 
+  # Action para apagar rota.
   # DELETE /routes/1
   # DELETE /routes/1.json
   def destroy
