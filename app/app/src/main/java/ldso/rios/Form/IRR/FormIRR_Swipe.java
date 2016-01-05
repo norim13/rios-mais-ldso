@@ -44,6 +44,7 @@ import ldso.rios.DataBases.DB_functions;
 import ldso.rios.DataBases.User;
 import ldso.rios.MainActivities.Form_IRR_mainActivity;
 import ldso.rios.MainActivities.GuardaRios;
+import ldso.rios.MainActivities.Profile;
 import ldso.rios.Maps.Mapa_rios;
 import ldso.rios.R;
 import ldso.rios.Maps.SelectRioWebview;
@@ -148,7 +149,7 @@ public class FormIRR_Swipe extends AppCompatActivity {
                                             }
                                         }
                                         catch (Exception e){
-                                            
+
                                         }
                                         Toast toast = Toast.makeText(FormIRR_Swipe.this, "IRR submetido", Toast.LENGTH_LONG);
                                         toast.show();
@@ -619,38 +620,22 @@ public class FormIRR_Swipe extends AppCompatActivity {
     //--TOOLBAR
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_form_irr, menu);
+        getMenuInflater().inflate(R.menu.menu_homepage, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.navigate_guardarios)
-            startActivity(new Intent(this, GuardaRios.class));
-        if (id == R.id.navigate_account)
-            startActivity(new Intent(this, Login.class));
-        if (id == R.id.navigate_save) {
-
-            try {
-                //Form_IRR.loadFromIRR(this.getApplicationContext());
-                form.fillAnswers();
-                if (!form.respostas.get(-2).toString().contentEquals("")) {
-                    Form_IRR.deleteFormIRRFile(this.getApplicationContext(), form.respostas.get(-2).toString());
-                }
-                Form_IRR.saveFormIRR(form, this.getApplicationContext());
-                Toast toast = Toast.makeText(FormIRR_Swipe.this, "Formulário IRR guardado", Toast.LENGTH_LONG);
-                toast.show();
-                Intent intent = new Intent(getApplicationContext(), Form_IRR_mainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-
-            } catch (IOException e) {
-                e.printStackTrace();
+        if(id==R.id.navigate_guardarios)
+            startActivity(new Intent(this,GuardaRios.class));
+        if(id==R.id.navigate_account)
+        {
+            if(User.getInstance().getAuthentication_token().contentEquals(""))
+                startActivity(new Intent(this, Login.class));
+            else {
+                startActivity(new Intent(this, Profile.class));
             }
         }
-
         return super.onOptionsItemSelected(item);
     }
 
