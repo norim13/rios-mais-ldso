@@ -118,8 +118,7 @@ public class QuestionsList {
                         "Início de uma importante alteração do canal",
                         "Grande alteração do canal",
                         "Canal completamente alterado (canalizado, regularizado)"};
-                value_irr= new Integer[]{5,5,5,5,5};
-                break;
+                     break;
             case 7:
                 main_title= "Hidrogeomorfologia";
                 sub_title= "Erosão";
@@ -130,7 +129,7 @@ public class QuestionsList {
                         "Formação de 1-3 regos",
                         "Queda de muros e árvores",
                         "Rombos com mais de 1 metro com queda de muros ou árvores"};
-                value_irr= new Integer[]{1,2,3,3,4};
+                value_irr= new Integer[]{1,2,3,4,5};
                 break;
 
             case 8:
@@ -146,9 +145,9 @@ public class QuestionsList {
                         "Deposição nas margens (s/vegetação)",
                         "Deposição nas margens (c/vegetação)",
                         "Rochas expostas no leito"};
-                value_irr= new Integer[]{5,5,5,5,5,5,5,5};
+                value_irr= new Integer[]{1,2,4,4,3,4,3,2};
                 break;
-
+////////////////////////////////////////////////////////////////////////////
             case 9:
                 main_title= "Hidrogeomorfologia";
                 sub_title= "Qualidade da água";
@@ -170,8 +169,6 @@ public class QuestionsList {
                 maxmin.add(new Float[]{0f,80f});
                 maxmin.add(new Float[]{0f,4f});
                 maxmin.add(new Float[]{1f,4f});
-
-                value_irr= new Integer[]{5,5,5,5,5,5,5,5};
                 break;
 
             case 10:
@@ -203,7 +200,7 @@ public class QuestionsList {
                         "Cinzenta",
                         "Preta",
                         "Outra cor"};
-                value_irr= new Integer[]{1,4,1,4,5,5,5};
+                value_irr= new Integer[]{1,1,2,4,5,4,1};
                 break;
 
             case 12:
@@ -218,7 +215,7 @@ public class QuestionsList {
                         "Cheiro químico (cloro)",
                         "Cheiro podre (ovos podres)",
                         "Outro odor"};
-                value_irr= new Integer[]{1,1,4,3,5,4};
+                value_irr= new Integer[]{1,1,2,3,5,4};
 
                 break;
 
@@ -244,7 +241,7 @@ public class QuestionsList {
                         "-","Mégalopteres","Mégalopteres",
                 };
 
-                value_irr= new Integer[]{1,4,5,2,5,2,4,3,3,4,3,2,2,3,1,3,1,3,3,2,null,3};
+                value_irr= new Integer[]{1,5,5,2,5,2,4,3,3,4,3,2,2,3,1,3,1,3,3,2,null,3};
                 images= new int[]{
                     R.drawable.planaria,
                     R.drawable.hirudineo,
@@ -271,7 +268,7 @@ public class QuestionsList {
             };
 
                 break;
-
+////////////////////////////////////////////////////////////////////////////
             case 14:
                 main_title= "Alterações Antrópicas";
                 sub_title= "Intervenções presentes";
@@ -288,10 +285,9 @@ public class QuestionsList {
                         "Rio canalizado",
                         "Rio Entubado",
                         "Esporões",
-                        "Pardões",
                         "Paredões",
                         "Técnicas de Engenharia Natural"};
-                value_irr= new Integer[]{2,2,2,1,1,4,5,3,5,5,4,3,1,3};
+                value_irr= new Integer[]{2,2,2,1,1,4,5,3,5,5,4,3,1};
                 other_option=true;
 
 
