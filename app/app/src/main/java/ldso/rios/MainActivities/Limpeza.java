@@ -273,7 +273,7 @@ public class Limpeza extends AppCompatActivity {
     }
 
     /**
-     * Funcao chamada quando dá errro ao submeter
+     * Funcao chamada quando da errro ao submeter
      * @param responseMessage
      */
     public void errorLimpezaDB(final String responseMessage){

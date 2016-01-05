@@ -118,7 +118,7 @@ public class Form_IRR extends Form implements Serializable {
         //Perfil de margens
         this.respostas.put(2, jsonObject.get("perfilDeMargens"));
 
-        //Volume de Água
+        //Volume de Agua
         as.add((String) jsonObject.get("larguraDaSuperficieDaAgua").toString());
         as.add((String) jsonObject.get("profundidadeMedia").toString());
         as.add((String) jsonObject.get("velocidadeMedia").toString());
@@ -148,7 +148,7 @@ public class Form_IRR extends Form implements Serializable {
         ai=new ArrayList<Integer>();
 
 
-        //Estado geral da linha de água
+        //Estado geral da linha de agua
         this.respostas.put(6, jsonObject.getInt("estadoGeraldaLinhadeAgua"));
 
         //Erosão
@@ -160,7 +160,7 @@ public class Form_IRR extends Form implements Serializable {
         this.respostas.put(7, ai);
         ai=new ArrayList<Integer>();
 
-        //Sedimentação
+        //Sedimentacao
         ai.add(jsonObject.getBoolean("sedimentacao_ausente") ? 1 : 0);
         ai.add(jsonObject.getBoolean("sedimentacao_decomposicao")? 1:0);
         ai.add(jsonObject.getBoolean("sedimentacao_mouchoes")? 1:0);
@@ -172,7 +172,7 @@ public class Form_IRR extends Form implements Serializable {
         this.respostas.put(8, ai);
         ai=new ArrayList<Integer>();
 
-        //Qualidade da água
+        //Qualidade da agua
         af.add(Float.parseFloat(jsonObject.get("pH").toString()));
         af.add(Float.parseFloat(jsonObject.get("condutividade").toString()));
         af.add(Float.parseFloat(jsonObject.get("temperatura").toString()));
@@ -185,7 +185,7 @@ public class Form_IRR extends Form implements Serializable {
         af=new ArrayList<Float>();
         Log.e("parse","passou "+9);
 
-        //Indícios na água
+        //Indícios na agua
         ai.add(jsonObject.getBoolean("oleo")? 1:0);
         ai.add(jsonObject.getBoolean("espuma")? 1:0);
         ai.add(jsonObject.getBoolean("esgotos")? 1:0);
@@ -199,10 +199,10 @@ public class Form_IRR extends Form implements Serializable {
         Log.e("parse","passou "+10);
 
 
-        //A cor da água
+        //A cor da agua
         this.respostas.put(11, jsonObject.getInt("corDaAgua"));
 
-        //O odor (cheiro) da água
+        //O odor (cheiro) da agua
         this.respostas.put(12, jsonObject.getInt("odorDaAgua"));
 
         //Corredor Ecologico
@@ -262,7 +262,7 @@ public class Form_IRR extends Form implements Serializable {
 
         this.respostas.put(13, all);
 
-        //Intervenções presentes
+        //Intervencoes presentes
         ai.add(jsonObject.getBoolean("intervencoes_edificios")?1:0);
         ai.add(jsonObject.getBoolean("intervencoes_pontes")?1:0);
         ai.add(jsonObject.getBoolean("intervencoes_limpezasDasMargens")?1:0);
@@ -281,7 +281,7 @@ public class Form_IRR extends Form implements Serializable {
         this.other_response.put(14,jsonObject.getString("intervencoes_outras"));
         ai=new ArrayList<Integer>();
 
-        //Ocupação das margens [<10 m]
+        //Ocupacao das margens [<10 m]
         ai.add(jsonObject.getBoolean("ocupacao_florestaNatural")?1:0);
         ai.add(jsonObject.getBoolean("ocupacao_florestaPlantadas")?1:0);
         ai.add(jsonObject.getBoolean("ocupacao_matoAlto")?1:0);
@@ -297,7 +297,7 @@ public class Form_IRR extends Form implements Serializable {
         this.respostas.put(15, ai);
         ai=new ArrayList<Integer>();
 
-        //Património edificado Leito/margem [estado de conservação: 1 - Bom a 5- Mau]
+        //Patrimonio edificado Leito/margem [estado de conservação: 1 - Bom a 5- Mau]
         ai.add(jsonObject.getInt("patrimonio_moinho"));
         ai.add(jsonObject.getInt("patrimonio_acude"));
         ai.add(jsonObject.getInt("patrimonio_microAcude1"));
@@ -325,7 +325,7 @@ public class Form_IRR extends Form implements Serializable {
         this.respostas.put(16, ai);
         ai=new ArrayList<Integer>();
 
-        //Poluição
+        //Poluicao
         ai.add(jsonObject.getBoolean("poluicao_descargasDomesticas")?1:0);
         ai.add(jsonObject.getBoolean("poluicao_descargasETAR")?1:0);
         ai.add(jsonObject.getBoolean("poluicao_descargasIndustriais")?1:0);
@@ -342,7 +342,7 @@ public class Form_IRR extends Form implements Serializable {
         this.respostas.put(17, ai);
         ai=new ArrayList<Integer>();
 
-        //Fauna - Anfíbios autoctones
+        //Fauna - Anfibios autoctones
         ai.add(jsonObject.getBoolean("salamandraLusitanica")?1:0);
         ai.add(jsonObject.getBoolean("salamandraPintasAmarelas")?1:0);
         ai.add(jsonObject.getBoolean("tritaoVentreLaranja")?1:0);
@@ -352,7 +352,7 @@ public class Form_IRR extends Form implements Serializable {
         this.respostas.put(18, ai);
         ai=new ArrayList<Integer>();
 
-        //Fauna - Répteis Autoctones
+        //Fauna - Repteis Autoctones
         ai.add(jsonObject.getBoolean("lagartoDeAgua")?1:0);
         ai.add(jsonObject.getBoolean("cobraAguaDeColar")?1:0);
         ai.add(jsonObject.getBoolean("cagado")?1:0);

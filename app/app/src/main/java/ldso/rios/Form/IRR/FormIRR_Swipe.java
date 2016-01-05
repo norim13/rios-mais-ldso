@@ -142,8 +142,13 @@ public class FormIRR_Swipe extends AppCompatActivity {
                                 if (form.nomeRioEditText.getText() != null && !form.nomeRioEditText.getText().toString().contentEquals("")) {
                                     DB_functions.saveForm(FormIRR_Swipe.this, User.getInstance().getAuthentication_token(), User.getInstance().getEmail(), form);
                                     if (form.arrayListURI.size() == 0) {
-                                        if (!form.respostas.get(-2).toString().contentEquals("")) {
-                                            Form_IRR.deleteFormIRRFile(getApplicationContext(), form.respostas.get(-2).toString());
+                                        try {
+                                            if (!form.respostas.get(-2).toString().contentEquals("")) {
+                                                Form_IRR.deleteFormIRRFile(getApplicationContext(), form.respostas.get(-2).toString());
+                                            }
+                                        }
+                                        catch (Exception e){
+                                            
                                         }
                                         Toast toast = Toast.makeText(FormIRR_Swipe.this, "IRR submetido", Toast.LENGTH_LONG);
                                         toast.show();
@@ -198,8 +203,13 @@ public class FormIRR_Swipe extends AppCompatActivity {
                 public void run() {
                     FormIRR_Swipe.this.runOnUiThread(new Runnable() {
                         public void run() {
-                            if (!form.respostas.get(-2).toString().contentEquals("")) {
-                                Form_IRR.deleteFormIRRFile(getApplicationContext(), form.respostas.get(-2).toString());
+                            try {
+                                if (!form.respostas.get(-2).toString().contentEquals("")) {
+                                    Form_IRR.deleteFormIRRFile(getApplicationContext(), form.respostas.get(-2).toString());
+                                }
+                            }
+                            catch (Exception e){
+                                e.printStackTrace();
                             }
                             Toast toast = Toast.makeText(FormIRR_Swipe.this, "IRR submetido", Toast.LENGTH_LONG);
                             toast.show();
