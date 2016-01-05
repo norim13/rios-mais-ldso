@@ -4,7 +4,7 @@ class LimpezaController < ApplicationController
 
 
   # Mostrar a página de problemas de limpezas, com opções por cada categoria (vindas da base de dados)
-  def show
+  def new
     @limpeza = Limpeza.select(:categoria,:categoria_id).group(:categoria,:categoria_id).order(:categoria_id)
 
     @allOptions = []
@@ -19,6 +19,25 @@ class LimpezaController < ApplicationController
   # Mostrar uma página geral de informações sobre limpeza de rios
   def info
     render 'info'
+  end
+
+  # GET /limpezas/1
+  # GET /limpezas/1.json
+  def show
+      @limpeza = LogLimpeza.find(params[:id])
+      @user_reporter = User.find_by_id(@limpeza.user_id)
+      @categorias = Limpeza.select(:categoria).group(:categoria,:categoria_id).order(:categoria_id)
+  end
+
+  # DELETE /limpezas/1
+  # DELETE /limpezas/1.json
+  def destroy
+    @limpeza = LogLimpeza.find(params[:id])
+    @limpeza.destroy
+    respond_to do |format|
+      format.html { redirect_to index_limpezas_url, notice: 'Limpeza removida.' }
+      format.json { head :no_content }
+    end
   end
 
   # Vai à base de dados buscar a sugestão/resposta para o problema com o id enviado por parametro. Esta função é utilizada

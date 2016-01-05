@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   get 'documentos' => 'documentos_relacionados#documentos'
   get 'distritos' => 'concelho#getDistritos'
   get 'concelhos' => 'concelho#getConcelhosFromDistrito'
-  get 'limpeza' => 'limpeza#show'
+  get 'limpeza/new' => 'limpeza#new'
+  get 'limpeza/:id' => 'limpeza#show', :as => :limpeza
+  delete 'limpeza/:id' => 'limpeza#destroy'
   get 'respostas' => 'limpeza#getRespostas'
 
   get 'adminpanel' => 'admin#index' #users index
@@ -16,6 +18,7 @@ Rails.application.routes.draw do
   get 'adminpanel/rotas' => 'admin#rotas', :as => :index_rotas
   get 'adminpanel/trips' => 'admin#trips', :as => :index_trips
   get 'adminpanel/guardarios' => 'admin#guardarios', :as => :index_guardarios
+  get "adminpanel/limpezas", :to => 'admin#limpezas', :as => :index_limpezas
 
   post 'submitProblemasAction' => 'limpeza#submitProblemas'
   post 'changePermissions' => 'users#updatepermissions'

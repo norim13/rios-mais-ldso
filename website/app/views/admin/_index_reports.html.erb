@@ -5,7 +5,7 @@
     <table class="table table-hover table-striped">
       <thead>
       <tr>
-        <th>Código rio</th>
+        <th>Rio</th>
         <th>Utilizador</th>
         <th>Data de denúncia</th>
         <th>Categoria</th>
@@ -16,7 +16,7 @@
       <tbody>
       <% @reports.each do |report| %>
           <tr>
-            <td><%= link_to report.rio, rio_path(report.rio) %></td>
+            <td><%= link_to report.nome_rio, rio_path(report.rio) %></td>
             <% username = User.find(report.user_id).nome %>
             <td><%= report.user_id %> - <%= username %></td>
             <td><%= report.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
