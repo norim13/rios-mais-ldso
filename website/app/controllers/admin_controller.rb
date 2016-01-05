@@ -44,6 +44,13 @@ class AdminController < ApplicationController
     render 'index'
   end
 
+  # Mostra a pagina de admin, com todos os guardarios
+  def guardarios
+    @guardarios = Guardario.all.paginate(:page => params[:page], :per_page => 10).order('created_at')
+    @index_page = 'guardarios'
+    render 'index'
+  end
+
   # Verifica se o utilizador tem permissoes de admin
   def authenticate_rights(user_id)
     user = User.find(user_id)

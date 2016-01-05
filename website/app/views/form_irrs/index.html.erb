@@ -12,6 +12,7 @@
         <th>Id</th>
         <th>Rio</th>
         <th>Margem</th>
+        <th>IRR</th>
         <th>Criado em</th>
         <th>Editado em</th>
         <th>Ver</th>
@@ -30,6 +31,7 @@
                   Direita
               <% end %>
             </td>
+            <td><%= form_irr.irr %></td>
             <td><%= form_irr.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
             <td><%= form_irr.updated_at.strftime("%d/%m/%Y - %H:%M") %></td>
             <td><%= link_to 'Ver', form_irr_path(form_irr) %></td>

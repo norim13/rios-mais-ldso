@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'adminpanel/sos_rios' => 'admin#reports', :as => :index_reports
   get 'adminpanel/rotas' => 'admin#rotas', :as => :index_rotas
   get 'adminpanel/trips' => 'admin#trips', :as => :index_trips
+  get 'adminpanel/guardarios' => 'admin#guardarios', :as => :index_guardarios
 
   post 'submitProblemasAction' => 'limpeza#submitProblemas'
   post 'changePermissions' => 'users#updatepermissions'
