@@ -47,6 +47,8 @@ Rails.application.routes.draw do
   get 'rio/irrrange' => 'rio#getIRRrange'
   get 'rio/:id' => 'rio#show', as: :rio, :id => /.*/
 
+  get 'form_irrs/img/:caminho' => 'form_irrs#retrieveImage', :caminho => /.*/
+
   resources :form_irr_image
   resources :reabilitacaos
   resources :guardarios, only: [:index, :show, :new, :create, :destroy]

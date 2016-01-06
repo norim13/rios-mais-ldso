@@ -59,16 +59,27 @@ function calculateCauldal() {
 
 function showImageInModal(){
     var photo_path = $(this).siblings(".photo-path").first().html();
-    photo_path = '/assets/'+photo_path;
 
     var label_for = "form_irr_"+ $(this).attr('name');
     var nome_foto = $("label[for='"+label_for+"']").html();
 
-    $('.modal-body').html('<img src="'+photo_path+'" class="img-responsive" alt="'+nome_foto+'">');
+    $.ajax({
+        type: 'GET',
+        url: '/form_irrs/img/'+photo_path,
+        success: function(data){
+            $('.modal-body').html(data);
+            //$('.modal-body').html('<img src="'+photo_path+'" class="img-responsive" alt="'+nome_foto+'">');
+            $("#modal-photo-title").html(nome_foto);
+            $('#modal-photo').modal('show');
+        },
+        error: function(){
+            $('.modal-body').html("Erro ao obter imagem...");
+            $("#modal-photo-title").html(nome_foto);
+            $('#modal-photo').modal('show');
+        }
+    });
 
-    $("#modal-photo-title").html(nome_foto);
 
-    $('#modal-photo').modal('show');
 }
 
 $('.btnNext').click(function(){

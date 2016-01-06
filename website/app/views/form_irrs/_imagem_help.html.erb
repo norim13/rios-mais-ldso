@@ -1,0 +1,5 @@
+<% if params.has_key?(:caminho) %>
+  <%= image_tag(params[:caminho], alt: "Imagem", class: 'img-responsive') %>
+<% else %>
+  <p>Erro ao obter imagem...</p>
+<% end %>
