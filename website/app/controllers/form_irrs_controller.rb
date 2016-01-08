@@ -151,6 +151,10 @@ class FormIrrsController < ApplicationController
 		redirect_to form_irrs_path
 	end
 
+	def retrieveImage
+		render '_imagem_help'
+	end
+
 	private
 	# Parametros permitidos para o form irr
 	def form_irr_params

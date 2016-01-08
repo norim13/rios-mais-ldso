@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'distritos' => 'concelho#getDistritos'
   get 'concelhos' => 'concelho#getConcelhosFromDistrito'
   get 'limpeza/new' => 'limpeza#new'
+  get 'limpeza/info' => 'limpeza#info'
   get 'limpeza/:id' => 'limpeza#show', :as => :limpeza
   delete 'limpeza/:id' => 'limpeza#destroy'
   get 'respostas' => 'limpeza#getRespostas'
@@ -32,7 +33,6 @@ Rails.application.routes.draw do
   get 'meusguardarios' => 'guardarios#getMine'
 
   #info pages
-  get 'limpeza/info' => 'limpeza#info'
   get 'reabilitacao/info' => 'reabilitacaos#info'
   get 'form_irr/info' => 'form_irrs#info'
   get 'report/info' => 'reports#info'
@@ -46,6 +46,8 @@ Rails.application.routes.draw do
 
   get 'rio/irrrange' => 'rio#getIRRrange'
   get 'rio/:id' => 'rio#show', as: :rio, :id => /.*/
+
+  get 'form_irrs/img/:caminho' => 'form_irrs#retrieveImage', :caminho => /.*/
 
   resources :form_irr_image
   resources :reabilitacaos
