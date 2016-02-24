@@ -73,7 +73,8 @@ gem 'devise'
 gem 'simple_token_authentication', '~> 1.0'
 
 #imagens
-gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+#gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'carrierwave'
 #gem "rmagick", :require => 'RMagick'
 gem "mini_magick"
 

@@ -2,8 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 `
-    //var base_url = 'http://***REMOVED***:10500/geoserver/rios';
-    var base_url = '***REMOVED***/geoserver/rios';
+    //var base_url = '***REMOVED***/geoserver/rios';
+    var base_url = 'http://***REMOVED***:10600/geoserver/rios';
 $(document).ready(function(){
     $('#searchform').on('submit', function(e){
         e.preventDefault();

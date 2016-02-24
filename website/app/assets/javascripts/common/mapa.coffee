@@ -9,8 +9,8 @@ var myLon = null;
 var geographic = new OpenLayers.Projection("EPSG:4326");
 var mercator = new OpenLayers.Projection("EPSG:900913");
 var geographic2 = new OpenLayers.Projection("EPSG:3763");
-var base_url = '***REMOVED***/geoserver/rios';
-//var base_url = 'http://***REMOVED***:10500/geoserver/rios';
+var base_url = 'http://***REMOVED***:10600/geoserver/rios';
+//var base_url = '***REMOVED***/geoserver/rios';
 
 (function () {
 window.onload = function () {
