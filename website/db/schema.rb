@@ -250,6 +250,7 @@ ActiveRecord::Schema.define(version: 20151228015608) do
     t.string   "flora_outro"
     t.string   "vegetacaoInvasora_outro"
     t.integer  "margem"
+    t.json     "images"
     t.string   "idRio"
     t.integer  "irr_hidrogeomorfologia"
     t.integer  "irr_qualidadedaagua"

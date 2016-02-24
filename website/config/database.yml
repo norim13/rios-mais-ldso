@@ -13,7 +13,7 @@ default:
   password: ***REMOVED***
   host: ***REMOVED***
   port: 5432
-  database: ***REMOVED***
+  database: riosmais
 
 development:
   adapter: postgresql
@@ -23,7 +23,7 @@ development:
   password: ***REMOVED***
   host: ***REMOVED***
   port: 5432
-  database: ***REMOVED***
+  database: riosmais
 
 production:
   adapter: postgresql
@@ -33,4 +33,4 @@ production:
   password: ***REMOVED***
   host: ***REMOVED***
   port: 5432
-  database: ***REMOVED***
+  database: riosmais
